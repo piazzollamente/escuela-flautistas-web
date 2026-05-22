@@ -545,46 +545,51 @@ h2{
   .footer{display:block}
 }
 
-/* Ajustes móviles: evita superposición visual entre galería y testimonios */
-section[id]{
-  scroll-margin-top:110px;
+/* Corrección definitiva: evitar cualquier superposición antes de testimonios */
+.about-text-section{
+  background:#FFFFFF;
+  padding-bottom:40px;
 }
 
-.gallery-section{
-  padding-bottom:48px;
+.about-text-section .section-head{
+  margin-bottom:0;
 }
 
 .testimonials-section{
-  padding-top:72px;
+  position:relative;
+  z-index:2;
+  clear:both;
+  padding-top:88px;
+  background:
+    radial-gradient(circle at 12% 10%, rgba(174,230,223,.34), transparent 26%),
+    linear-gradient(180deg,#FFFFFF 0%,#F7FFFE 100%);
+}
+
+.testimonials-section .section-head{
+  position:relative;
+  z-index:3;
+}
+
+.testimonial-card{
+  position:relative;
+  z-index:3;
+}
+
+section[id]{
+  scroll-margin-top:120px;
 }
 
 @media(max-width:640px){
-  section{
-    padding-left:24px;
-    padding-right:24px;
+  .about-text-section{
+    padding-bottom:28px;
   }
 
-  .gallery-section{
-    padding-bottom:36px;
-  }
-
-  .gallery-reduced{
-    grid-template-columns:1fr;
-    gap:18px;
-    margin-top:24px;
-    margin-bottom:36px;
-  }
-
-  .gallery-reduced .g{
-    aspect-ratio:4/5;
-  }
-
-  .gallery-reduced .g:last-child{
-    display:none;
+  .about-text-section .section-head{
+    margin-bottom:0;
   }
 
   .testimonials-section{
-    padding-top:56px;
+    padding-top:70px;
   }
 
   .testimonials-section .section-head{
@@ -593,10 +598,6 @@ section[id]{
 
   .testimonial-card{
     min-height:auto;
-  }
-
-  section[id]{
-    scroll-margin-top:110px;
   }
 }
 
@@ -680,7 +681,15 @@ section[id]{
   </div>
 </section>
 
-<section class="gallery-section"><div class="section-head"><div class="eyebrow">Sobre Valentina</div><h2>Una profesora que une técnica, sensibilidad y experiencia real.</h2><p>Valentina Galaz es flautista, docente y directora de Escuela de Flautistas. Acompaña a estudiantes adultos a construir una relación más libre, consciente y expresiva con la flauta.</p></div><div class="gallery gallery-reduced"><div class="g"><img src="assets/valentina-1.png" alt="Retrato de Valentina Galaz"></div><div class="g"><img src="assets/valentina-4.png" alt="Valentina Galaz tocando flauta"></div></div></section>
+
+<section class="gallery-section about-text-section">
+  <div class="section-head">
+    <div class="eyebrow">Sobre Valentina</div>
+    <h2>Una profesora que une técnica, sensibilidad y experiencia real.</h2>
+    <p>Valentina Galaz es flautista, docente y directora de Escuela de Flautistas. Acompaña a estudiantes adultos a construir una relación más libre, consciente y expresiva con la flauta.</p>
+    <p>Su trabajo une experiencia escénica, observación pedagógica y una mirada concreta del sonido: aire, resonancia, continuidad, dirección y estudio con sentido.</p>
+  </div>
+</section>
 
 <section id="testimonios" class="testimonials-section">
   <div class="section-head">
