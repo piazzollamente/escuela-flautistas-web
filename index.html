@@ -141,6 +141,7 @@ h1 em{
   flex-wrap:wrap;
   margin-top:34px;
 }
+.hero-card-single{display:block;max-width:520px;margin-left:auto}
 .hero-card{
   position:relative;
   z-index:2;
@@ -282,6 +283,7 @@ h2{
 .g4{grid-column:span 4;grid-row:span 2}
 .g5{grid-column:span 4;grid-row:span 2}
 .g img{object-position:center 18%}
+.gallery-reduced{grid-template-columns:repeat(2,1fr);grid-auto-rows:auto;max-width:900px}.gallery-reduced .g{grid-column:auto;grid-row:auto;aspect-ratio:4/5}.gallery-reduced .g img{width:100%;height:100%;object-fit:cover}
 
 
 .class-system-section{
@@ -536,7 +538,7 @@ h2{
   .hero-card{grid-template-columns:1fr}
   .hero-photo-stack{grid-template-columns:1fr 1fr}
   .gallery{grid-auto-rows:120px}
-  .g1,.g2,.g3,.g4,.g5{grid-column:span 12;grid-row:span 2}
+  .g1,.g2,.g3,.g4,.g5{grid-column:span 12;grid-row:span 2}.gallery-reduced{grid-template-columns:1fr}
   .form-frame{min-height:1180px}
   .form-frame iframe{height:1180px}
   .class-system-grid{grid-template-columns:1fr}
@@ -546,7 +548,7 @@ h2{
 </head>
 <body>
 <nav class="nav"><a class="logo" href="#">Escuela de Flautistas</a><div class="nav-links"><a href="#para-quien">Para quién es</a><a href="#metodo">Qué trabajamos</a><a href="#clases">Clases</a><a href="#ensamble">Ensamble</a><a href="#testimonios">Testimonios</a><a href="#instagram">Instagram</a><a href="#formulario" class="btn">Postular</a></div></nav>
-<header class="hero"><div><div class="eyebrow">Clases online de flauta traversa</div><h1>Construye un sonido más claro, libre y <em>tuyo.</em></h1><p class="hero-copy">Un espacio de acompañamiento para flautistas adultos que quieren avanzar con guía, sensibilidad y un sistema claro. Técnica, sonido y expresión trabajando juntos.</p><div class="hero-actions"><a class="btn" href="#formulario">Quiero postular a clases</a><a class="btn light" href="#para-quien">Ver si es para mí</a></div></div><div class="hero-card"><div class="hero-photo-main"><img src="assets/valentina-2.png" alt="Valentina Galaz con flauta traversa"></div><div class="hero-photo-stack"><div class="mini-photo"><img src="assets/valentina-1.png" alt="Retrato de Valentina Galaz"></div><div class="mini-photo"><img src="assets/valentina-4.png" alt="Valentina tocando flauta"></div></div></div></header>
+<header class="hero"><div><div class="eyebrow">Clases online de flauta traversa</div><h1>Construye un sonido más claro, libre y <em>tuyo.</em></h1><p class="hero-copy">Un espacio de acompañamiento para flautistas adultos que quieren avanzar con guía, sensibilidad y un sistema claro. Técnica, sonido y expresión trabajando juntos.</p><div class="hero-actions"><a class="btn" href="#formulario">Quiero postular a clases</a><a class="btn light" href="#para-quien">Ver si es para mí</a></div></div><div class="hero-card hero-card-single"><div class="hero-photo-main"><img src="assets/valentina-2.png" alt="Valentina Galaz con flauta traversa"></div></div></header>
 <section id="para-quien" class="for-who"><div class="section-head"><div class="eyebrow">Para quién es</div><h2>Para quienes quieren tocar por disfrute, pero no de cualquier manera.</h2><p>Este espacio está pensado para personas adultas que aman la flauta, tienen poco tiempo y necesitan una guía concreta para dejar de estudiar a ciegas.</p></div><div class="cards"><article class="card"><div class="card-num">01</div><h3>Si tu sonido se aprieta</h3><p>Trabajamos aire, embocadura, resonancia y dirección para que el sonido tenga más cuerpo, continuidad y calma.</p></article><article class="card"><div class="card-num">02</div><h3>Si te cuesta avanzar sola</h3><p>No necesitas más ejercicios al azar. Necesitas saber qué observar, cómo corregir y en qué orden estudiar.</p></article><article class="card"><div class="card-num">03</div><h3>Si quieres tocar con más expresión</h3><p>La técnica no está separada de la música. Afinación, articulación, fraseo y repertorio se trabajan desde una misma idea sonora.</p></article></div></section>
 <section id="metodo" class="method"><div class="method-grid"><div class="method-photo"><img src="assets/valentina-6.png" alt="Valentina Galaz trabajando con una hoja y flauta"></div><div><div class="eyebrow">La forma de trabajo</div><h2>Una guía sensible, seria y ordenada.</h2><p>En Escuela de Flautistas no trabajamos desde la exigencia vacía ni desde la corrección que paraliza. Trabajamos con escucha, precisión y profundidad.</p><div class="pill-list"><div class="pill"><strong>Sonido:</strong> aire, resonancia, embocadura, flexibilidad y cambios de registro.</div><div class="pill"><strong>Técnica:</strong> articulación, afinación, postura, digitación y continuidad.</div><div class="pill"><strong>Música:</strong> repertorio, fraseo, intención, confianza y expresión personal.</div><div class="pill"><strong>Sistema:</strong> objetivos claros para estudiar mejor incluso con poco tiempo.</div></div></div></div></section>
 
@@ -610,7 +612,7 @@ h2{
     </div>
 
     <div class="video-card">
-      <video controls preload="metadata" playsinline>
+      <video controls preload="metadata" playsinline poster="assets/ensamble-poster.jpg">
         <source src="assets/carnavalito-ensamble.mp4" type="video/mp4">
         Tu navegador no puede reproducir este video.
       </video>
@@ -622,7 +624,7 @@ h2{
   </div>
 </section>
 
-<section class="gallery-section"><div class="section-head"><div class="eyebrow">Sobre Valentina</div><h2>Una profesora que une técnica, sensibilidad y experiencia real.</h2><p>Valentina Galaz es flautista, docente y directora de Escuela de Flautistas. Acompaña a estudiantes adultos a construir una relación más libre, consciente y expresiva con la flauta.</p></div><div class="gallery"><div class="g g1"><img src="assets/valentina-3.png" alt=""></div><div class="g g2"><img src="assets/valentina-5.png" alt=""></div><div class="g g3"><img src="assets/valentina-4.png" alt=""></div><div class="g g4"><img src="assets/valentina-1.png" alt=""></div><div class="g g5"><img src="assets/valentina-6.png" alt=""></div></div></section>
+<section class="gallery-section"><div class="section-head"><div class="eyebrow">Sobre Valentina</div><h2>Una profesora que une técnica, sensibilidad y experiencia real.</h2><p>Valentina Galaz es flautista, docente y directora de Escuela de Flautistas. Acompaña a estudiantes adultos a construir una relación más libre, consciente y expresiva con la flauta.</p></div><div class="gallery gallery-reduced"><div class="g"><img src="assets/valentina-1.png" alt="Retrato de Valentina Galaz"></div><div class="g"><img src="assets/valentina-4.png" alt="Valentina Galaz tocando flauta"></div></div></section>
 
 <section id="testimonios" class="testimonials-section">
   <div class="section-head">
