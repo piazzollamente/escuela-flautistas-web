@@ -544,6 +544,62 @@ h2{
   .class-system-grid{grid-template-columns:1fr}
   .footer{display:block}
 }
+
+/* Ajustes móviles: evita superposición visual entre galería y testimonios */
+section[id]{
+  scroll-margin-top:110px;
+}
+
+.gallery-section{
+  padding-bottom:48px;
+}
+
+.testimonials-section{
+  padding-top:72px;
+}
+
+@media(max-width:640px){
+  section{
+    padding-left:24px;
+    padding-right:24px;
+  }
+
+  .gallery-section{
+    padding-bottom:36px;
+  }
+
+  .gallery-reduced{
+    grid-template-columns:1fr;
+    gap:18px;
+    margin-top:24px;
+    margin-bottom:36px;
+  }
+
+  .gallery-reduced .g{
+    aspect-ratio:4/5;
+  }
+
+  .gallery-reduced .g:last-child{
+    display:none;
+  }
+
+  .testimonials-section{
+    padding-top:56px;
+  }
+
+  .testimonials-section .section-head{
+    margin-bottom:30px;
+  }
+
+  .testimonial-card{
+    min-height:auto;
+  }
+
+  section[id]{
+    scroll-margin-top:110px;
+  }
+}
+
 </style>
 </head>
 <body>
