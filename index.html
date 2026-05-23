@@ -411,19 +411,13 @@ p+p{margin-top:12px}
   right:22px;
   bottom:22px;
   z-index:999;
-  display:inline-flex;
+  width:62px;
+  height:62px;
+  display:flex;
   align-items:center;
   justify-content:center;
-  padding:13px 18px;
   border-radius:999px;
   background:#25D366;
-  color:#FFFFFF;
-  font-family:'Montserrat', Arial, sans-serif;
-  font-size:13px;
-  font-weight:700;
-  letter-spacing:.04em;
-  text-transform:uppercase;
-  text-decoration:none;
   box-shadow:0 14px 36px rgba(37,211,102,.32);
   transition:.2s ease;
 }
@@ -433,12 +427,23 @@ p+p{margin-top:12px}
   box-shadow:0 18px 42px rgba(37,211,102,.38);
 }
 
+.whatsapp-float img{
+  width:62px;
+  height:62px;
+  display:block;
+}
+
 @media(max-width:640px){
   .whatsapp-float{
     right:16px;
     bottom:16px;
-    padding:12px 15px;
-    font-size:12px;
+    width:56px;
+    height:56px;
+  }
+
+  .whatsapp-float img{
+    width:56px;
+    height:56px;
   }
 }
 
@@ -626,7 +631,7 @@ p+p{margin-top:12px}
   target="_blank"
   rel="noopener"
   aria-label="Escribir por WhatsApp">
-  WhatsApp
+  <img src="assets/WhatsApp_icon.png" alt="WhatsApp">
 </a>
 
 
