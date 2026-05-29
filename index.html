@@ -1176,6 +1176,59 @@ p+p{margin-top:12px}
 /* quitar silueta lateral que se veía como sombra */
 .laptop-side{display:none !important;}
 
+
+
+/* --- Ajustes de conversión y legibilidad mobile --- */
+.btn-primary{
+  box-shadow:0 12px 28px rgba(196,32,48,.16);
+}
+.btn-nav{
+  background:rgba(174,230,223,.42);
+  color:var(--dark);
+  border:1px solid rgba(174,230,223,.95);
+  box-shadow:none;
+}
+.btn-nav:hover{background:rgba(174,230,223,.62);opacity:1}
+.btn-mint{
+  background:var(--mint);
+  color:var(--dark);
+  border:1px solid rgba(174,230,223,.95);
+  box-shadow:0 12px 26px rgba(174,230,223,.28);
+}
+.btn-mint:hover{transform:translateY(-2px);opacity:1}
+.btn-dark{
+  background:var(--dark);
+  color:var(--white);
+  border:1px solid rgba(57,50,50,.95);
+  box-shadow:0 14px 28px rgba(57,50,50,.18);
+}
+.btn-dark:hover{transform:translateY(-2px);opacity:1}
+.video-intro-card video{
+  object-position:center bottom;
+}
+.laptop-screen{
+  border-width:8px 8px 6px 8px;
+}
+.laptop-base{
+  height:22px;
+}
+.mobile-sticky-cta{
+  background:linear-gradient(135deg,var(--dark),#504747);
+  box-shadow:0 18px 42px rgba(57,50,50,.22);
+}
+.mobile-sticky-cta::after{
+  opacity:.34;
+}
+.hero-actions .btn-secondary{
+  border-color:rgba(196,32,48,.18);
+}
+@media(max-width:640px){
+  .nav-links .btn{display:none}
+  .video-intro-card{margin-top:4px}
+  .laptop-screen{border-width:6px 6px 5px 6px}
+  .laptop-base{height:18px}
+}
+
 </style>
 </head>
 
@@ -1191,7 +1244,7 @@ p+p{margin-top:12px}
       <a href="#mentoria">Mentoría</a>
       <a href="#testimonios">Testimonios</a>
       <a href="#valentina">Sobre mí</a>
-      <a class="btn btn-primary" href="#formulario">Quiero esto para mí</a>
+      <a class="btn btn-nav" href="#mentoria">Conocer la mentoría</a>
     </div>
   </div>
 </nav>
@@ -1278,7 +1331,7 @@ p+p{margin-top:12px}
       <p>Muchas veces el sonido se aprieta, el aire se corta o los agudos se vuelven una pelea porque estás intentando resolver demasiadas cosas sin una ruta clara.</p>
       <p>Trabajamos sonido, respiración, embocadura, cambios de registro, lectura, musicalidad y criterio de estudio para que sepas exactamente dónde poner tu atención.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary btn-cta" href="#formulario" onclick="gtag('event','cta_intermedio_quiero_esto_para_mi');"><span>Quiero esto para mí</span></a>
+        <a class="btn btn-mint btn-cta" href="#formulario" onclick="gtag('event','cta_intermedio_quiero_una_guia');"><span>Quiero una guía</span></a>
       </div>
     </div>
   </div>
@@ -1394,8 +1447,8 @@ p+p{margin-top:12px}
   </svg>
 </a>
 
-<a class="mobile-sticky-cta" href="#formulario" onclick="gtag('event','cta_mobile_sticky_quiero_esto_para_mi');">
-  <span>Quiero esto para mí</span>
+<a class="mobile-sticky-cta" href="#formulario" onclick="gtag('event','cta_mobile_sticky_empezar');">
+  <span>Empezar</span>
 </a>
 
 
