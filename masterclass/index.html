@@ -3,117 +3,530 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Masterclass gratuita · Tu voz en la flauta</title>
-  <meta name="description" content="Masterclass gratuita para flautistas adultas/os: aire, foco, afinación y vibrato para construir un sonido más claro, estable y expresivo.">
+  <title>Tu voz en la flauta · Masterclass gratuita</title>
+  <meta name="description" content="Masterclass gratuita para flautistas adultas/os que quieren construir un sonido más claro, estable y expresivo sin estudiar al azar ni tocar desde la fuerza.">
   <style>
     :root{
-      --dark:#201713; --coal:#2a2218; --cream:#f5f3f0; --paper:#fff8ee;
-      --mint:#a8d8d8; --mint2:#d7f3f0; --red:#c8201a; --red2:#8f1710;
-      --muted:#6e5b51; --shadow:0 26px 90px rgba(0,0,0,.24); --radius:30px; --max:1160px;
+      --coal:#2a2218;
+      --dark:#17120f;
+      --cream:#f5f3f0;
+      --paper:#fff8ef;
+      --turq:#a8d8d8;
+      --turq-soft:#d8f2f0;
+      --red:#c8201a;
+      --muted:#6d5b50;
+      --line:rgba(168,216,216,.38);
+      --shadow:0 24px 80px rgba(0,0,0,.22);
+      --radius:28px;
+      --max:1120px;
     }
+
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
-      margin:0;font-family:Inter,Montserrat,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      color:var(--cream);line-height:1.6;overflow-x:hidden;
+      margin:0;
+      font-family:Inter,Montserrat,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--cream);
       background:
-        radial-gradient(circle at 78% 8%,rgba(168,216,216,.24),transparent 28rem),
-        radial-gradient(circle at 5% 30%,rgba(200,32,26,.14),transparent 22rem),
-        linear-gradient(135deg,#15100d 0%,#261a14 42%,#7b563b 100%);
+        radial-gradient(circle at 80% 8%,rgba(168,216,216,.24),transparent 28rem),
+        radial-gradient(circle at 8% 32%,rgba(200,32,26,.13),transparent 24rem),
+        linear-gradient(135deg,#120d0b 0%,#271b15 48%,#73513a 100%);
+      line-height:1.58;
     }
+
     img{max-width:100%;display:block}
     a{color:inherit;text-decoration:none}
-    .topbar{position:sticky;top:0;z-index:20;background:rgba(19,14,12,.82);backdrop-filter:blur(18px);border-bottom:1px solid rgba(168,216,216,.18)}
-    .topbar-inner{width:min(var(--max),calc(100% - 36px));min-height:72px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:22px}
-    .brand{display:grid;line-height:1.08;text-transform:uppercase;letter-spacing:.18em;font-size:.78rem;font-weight:900}
-    .brand span{color:var(--mint);font-size:.66rem;margin-top:5px;letter-spacing:.24em}
-    .nav{display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
-    .nav a{color:rgba(245,243,240,.78);font-size:.9rem;font-weight:750}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;border-radius:999px;padding:15px 22px;background:var(--mint);color:#13100d;font-weight:950;cursor:pointer;box-shadow:0 16px 38px rgba(0,0,0,.28);transition:.18s ease}
-    .btn:hover{transform:translateY(-2px);background:var(--mint2);box-shadow:0 22px 48px rgba(0,0,0,.32)}
-    .btn.dark{background:rgba(245,243,240,.08);color:var(--cream);border:1px solid rgba(168,216,216,.36)}
-    .hero{width:min(var(--max),calc(100% - 36px));margin:auto;padding:clamp(56px,9vw,118px) 0 58px;display:grid;grid-template-columns:1.04fr .96fr;gap:clamp(34px,5vw,76px);align-items:center}
-    .eyebrow{display:inline-flex;align-items:center;gap:12px;color:var(--mint);text-transform:uppercase;letter-spacing:.22em;font-size:.76rem;font-weight:950}
-    .eyebrow:before{content:"✦";font-size:1.1rem;letter-spacing:0}
-    h1,h2,h3{margin:0;letter-spacing:-.065em;line-height:.94}
-    h1{margin-top:22px;font-size:clamp(4rem,10vw,8.8rem);max-width:820px}
-    h1 em{display:block;font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:.48em;letter-spacing:-.04em;color:var(--mint);transform:translateY(-.08em)}
-    .hero-sub{max-width:720px;margin:26px 0 30px;font-size:clamp(1.08rem,1.65vw,1.28rem);color:rgba(245,243,240,.80)}
-    .hero-sub strong{color:white;background:linear-gradient(transparent 20%,var(--red) 20%,var(--red) 82%,transparent 82%);padding:0 .08em;font-weight:950}
-    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-    .hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
-    .pill{border:1px solid rgba(168,216,216,.38);color:rgba(245,243,240,.85);background:rgba(245,243,240,.07);border-radius:999px;padding:9px 13px;font-weight:800;font-size:.88rem}
-    .hero-photo{
-      min-height:620px;border-radius:40px;position:relative;overflow:hidden;box-shadow:var(--shadow);
-      background:
-      linear-gradient(90deg,rgba(20,14,12,.82) 0%, rgba(20,14,12,.3) 38%, rgba(20,14,12,.04) 100%),
-      url('../assets/valentina-2.png') center/cover no-repeat,
-      linear-gradient(135deg,#3b271d,#d5ae8b);
+    .wrap{width:min(var(--max),calc(100% - 36px));margin:auto}
+
+    .topbar{
+      position:sticky;top:0;z-index:20;
+      background:rgba(18,13,11,.82);
+      backdrop-filter:blur(16px);
+      border-bottom:1px solid rgba(168,216,216,.18);
+    }
+    .topbar-inner{
+      min-height:70px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+    .brand{
+      display:grid;
+      line-height:1.08;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      font-size:.76rem;
+      font-weight:900;
+    }
+    .brand span{
+      color:var(--turq);
+      font-size:.64rem;
+      letter-spacing:.24em;
+      margin-top:5px;
+    }
+    .nav{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      justify-content:flex-end;
+      flex-wrap:wrap;
+    }
+    .nav a{
+      color:rgba(245,243,240,.78);
+      font-size:.9rem;
+      font-weight:750;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      border:0;
+      border-radius:999px;
+      padding:15px 22px;
+      background:var(--turq);
+      color:#15100d;
+      font-weight:950;
+      cursor:pointer;
+      box-shadow:0 16px 38px rgba(0,0,0,.28);
+      transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .btn:hover{
+      transform:translateY(-2px);
+      background:var(--turq-soft);
+      box-shadow:0 22px 48px rgba(0,0,0,.34);
+    }
+    .btn.ghost{
+      background:rgba(245,243,240,.08);
+      color:var(--cream);
+      border:1px solid rgba(168,216,216,.36);
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:11px;
+      color:var(--turq);
+      text-transform:uppercase;
+      letter-spacing:.22em;
+      font-size:.74rem;
+      font-weight:950;
+    }
+    .eyebrow:before{
+      content:"✦";
+      font-size:1.1rem;
+      letter-spacing:0;
+    }
+
+    h1,h2,h3{
+      margin:0;
+      letter-spacing:-.065em;
+      line-height:.94;
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns:1.03fr .97fr;
+      gap:clamp(32px,5vw,70px);
+      align-items:center;
+      padding:clamp(58px,9vw,112px) 0 48px;
+    }
+    h1{
+      margin-top:22px;
+      font-size:clamp(4.3rem,10.2vw,8.9rem);
+      max-width:830px;
+    }
+    h1 em{
+      display:block;
+      font-family:Georgia,"Times New Roman",serif;
+      color:var(--turq);
+      font-weight:400;
+      font-size:.48em;
+      letter-spacing:-.04em;
+      transform:translateY(-.08em);
+    }
+    .hero-sub{
+      max-width:680px;
+      margin:24px 0 28px;
+      font-size:clamp(1.05rem,1.65vw,1.25rem);
+      color:rgba(245,243,240,.82);
+    }
+    .mark{
+      color:white;
+      background:linear-gradient(transparent 20%,var(--red) 20%,var(--red) 84%,transparent 84%);
+      padding:0 .08em;
+      font-weight:950;
+    }
+    .hero-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .badges{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:26px;
+    }
+    .badge{
+      padding:9px 13px;
+      border-radius:999px;
+      border:1px solid rgba(168,216,216,.35);
+      background:rgba(245,243,240,.07);
+      color:rgba(245,243,240,.84);
+      font-size:.88rem;
+      font-weight:800;
+    }
+
+    .hero-image{
+      min-height:620px;
+      border-radius:42px;
+      overflow:hidden;
+      position:relative;
+      box-shadow:var(--shadow);
       border:1px solid rgba(245,243,240,.18);
-    }
-    .hero-photo .note{
-      position:absolute;left:24px;right:24px;bottom:24px;padding:22px 24px;border-radius:26px;
-      background:rgba(32,23,19,.74);backdrop-filter:blur(10px);border:1px solid rgba(168,216,216,.3)
-    }
-    .hero-photo .note strong{display:block;font-size:clamp(2rem,3.6vw,3.7rem);line-height:.9;letter-spacing:-.06em;margin-bottom:12px}
-    .hero-photo .note span{color:var(--mint);font-weight:900}
-    .section{width:min(var(--max),calc(100% - 36px));margin:auto;padding:34px 0}
-    .panel{border-radius:var(--radius);background:rgba(245,243,240,.96);color:var(--coal);padding:clamp(28px,4.8vw,58px);box-shadow:0 22px 80px rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.42)}
-    .panel.dark{color:var(--cream);background:rgba(32,23,19,.86);border-color:rgba(168,216,216,.24)}
-    .panel h2{font-size:clamp(2.4rem,5.2vw,5.1rem);margin:12px 0 20px;max-width:940px}
-    .lead{font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--muted);max-width:820px}.dark .lead{color:rgba(245,243,240,.75)}
-    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:30px}
-    .card{border-radius:24px;padding:24px;background:rgba(168,216,216,.12);border:1px solid rgba(168,216,216,.32);min-height:170px}
-    .card strong{display:block;font-size:1.18rem;line-height:1.14;margin-bottom:12px;letter-spacing:-.03em}.card p{margin:0;color:rgba(42,34,24,.75)}.dark .card p{color:rgba(245,243,240,.72)}
-    .video-placeholder{position:relative;margin-top:34px;border-radius:34px;overflow:hidden;min-height:440px;background:linear-gradient(135deg,rgba(0,0,0,.80),rgba(0,0,0,.12)),radial-gradient(circle at 65% 35%,rgba(168,216,216,.26),transparent 18rem),linear-gradient(135deg,#2a1d17,#b98563);border:1px solid rgba(168,216,216,.22);display:grid;place-items:center;box-shadow:var(--shadow)}
-    .play{width:92px;height:92px;border-radius:999px;display:grid;place-items:center;background:var(--mint);color:var(--dark);font-size:2.2rem;box-shadow:0 20px 60px rgba(0,0,0,.28)}
-    .video-caption{position:absolute;left:24px;right:24px;bottom:24px;border-radius:24px;padding:22px;background:rgba(32,23,19,.72);backdrop-filter:blur(12px);border:1px solid rgba(168,216,216,.28)}
-    .split{display:grid;grid-template-columns:.9fr 1.1fr;gap:26px;align-items:center}
-    .mockup{border-radius:34px;min-height:520px;padding:32px;background:linear-gradient(145deg,rgba(168,216,216,.92),rgba(245,243,240,.92));color:var(--coal);position:relative;overflow:hidden;box-shadow:var(--shadow)}
-    .mockup-sheet{position:relative;z-index:2;width:min(360px,100%);margin:0 auto;min-height:456px;border-radius:20px;background:var(--paper);padding:28px;box-shadow:0 30px 80px rgba(0,0,0,.18);transform:rotate(-2deg);display:flex;flex-direction:column;justify-content:space-between}
-    .mockup-sheet .big{font-size:3.2rem;line-height:.88;letter-spacing:-.07em;font-weight:950}.mockup-sheet em{font-family:Georgia,serif;color:var(--red);font-size:2.2rem;line-height:.9}
-    .mockup-lines{display:grid;gap:8px;margin-top:28px}.mockup-lines span{height:9px;border-radius:999px;background:rgba(42,34,24,.14)}
-    .form-box{margin-top:30px;border-radius:30px;padding:clamp(24px,4vw,42px);background:linear-gradient(135deg,rgba(168,216,216,.20),rgba(200,32,26,.09)),rgba(255,255,255,.06);border:1px solid rgba(168,216,216,.35)}
-    .brevo-placeholder{border:2px dashed rgba(168,216,216,.60);border-radius:24px;padding:26px;background:rgba(245,243,240,.08)}
-    .fake-form{display:grid;gap:12px;margin-top:20px}.fake-form input{width:100%;border:1px solid rgba(168,216,216,.36);border-radius:999px;padding:15px 18px;background:rgba(245,243,240,.96);color:var(--coal);font:inherit}
-    .about{display:grid;grid-template-columns:330px 1fr;gap:30px;align-items:center}
-    .portrait{
-      min-height:430px;border-radius:34px;overflow:hidden;box-shadow:var(--shadow);position:relative;
       background:
-      linear-gradient(160deg,rgba(0,0,0,.2),rgba(0,0,0,.05)),
-      url('../assets/valentina-4.png') center/cover no-repeat,
-      linear-gradient(135deg,#34231b,#d0a883);
+        linear-gradient(90deg,rgba(23,18,15,.85) 0%,rgba(23,18,15,.22) 48%,rgba(23,18,15,.02) 100%),
+        url('/assets/valentina-2.png') center/cover no-repeat,
+        linear-gradient(135deg,#3a261d,#cba07c);
     }
-    .portrait:after{content:"Valentina Galaz";position:absolute;left:22px;bottom:22px;color:var(--mint);font-family:Georgia,serif;font-style:italic;font-size:1.8rem;text-shadow:0 8px 24px rgba(0,0,0,.4)}
-    .evidence-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:28px;align-items:start}
-    .evidence-card{border-radius:28px;overflow:hidden;background:rgba(255,255,255,.58);border:1px solid rgba(42,34,24,.08);box-shadow:0 14px 42px rgba(0,0,0,.08)}
-    .evidence-card img{width:100%;height:auto}
-    .evidence-copy{padding:18px 20px 20px}
-    .mini-quotes{display:grid;gap:14px}
-    .mini-quote{border-radius:22px;padding:18px;background:rgba(168,216,216,.16);border:1px solid rgba(168,216,216,.36)}
-    .mini-quote p{margin:0;color:rgba(42,34,24,.82);font-size:1.01rem;line-height:1.45}
-    .mini-quote strong{display:block;margin-top:10px;color:var(--red2);font-size:.92rem}
-    .faq{display:grid;gap:12px;margin-top:28px}details{border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(168,216,216,.22);padding:18px 20px}summary{cursor:pointer;font-weight:900}details p{margin:12px 0 0;color:rgba(245,243,240,.74)}
-    .final{text-align:center;padding-bottom:90px}.final h2{margin-inline:auto}.footer{border-top:1px solid rgba(168,216,216,.20);color:rgba(245,243,240,.64);width:min(var(--max),calc(100% - 36px));margin:auto;padding:34px 0 60px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-    .floating-wa{position:fixed;right:20px;bottom:20px;width:54px;height:54px;display:grid;place-items:center;border-radius:999px;background:#25D366;color:#07130c;z-index:60;font-weight:950;font-size:1.4rem;box-shadow:0 18px 48px rgba(0,0,0,.28)}
-    .small-note{font-size:.92rem;color:rgba(245,243,240,.64);margin-top:12px}
-    @media(max-width:980px){.hero,.split,.about,.evidence-grid{grid-template-columns:1fr}.hero-photo{min-height:520px}.grid{grid-template-columns:1fr 1fr}}
-    @media(max-width:720px){.nav{display:none}.topbar-inner{min-height:66px}.brand{font-size:.72rem}h1{font-size:clamp(4.2rem,18vw,6.2rem)}.hero{padding-top:44px}.hero-photo,.video-placeholder{min-height:420px}.grid{grid-template-columns:1fr}.panel{border-radius:24px}.panel h2{font-size:clamp(2.4rem,12vw,4rem)}.btn{width:100%}.hero-actions{align-items:stretch}}
+    .hero-card{
+      position:absolute;
+      left:24px;
+      right:24px;
+      bottom:24px;
+      padding:24px;
+      border-radius:26px;
+      background:rgba(23,18,15,.76);
+      border:1px solid var(--line);
+      backdrop-filter:blur(12px);
+    }
+    .hero-card strong{
+      display:block;
+      font-size:clamp(1.9rem,3.2vw,3.4rem);
+      line-height:.93;
+      letter-spacing:-.06em;
+      margin-bottom:10px;
+    }
+    .hero-card span{
+      color:var(--turq);
+      font-weight:900;
+    }
+
+    section{padding:28px 0}
+    .panel{
+      border-radius:var(--radius);
+      background:rgba(245,243,240,.96);
+      color:var(--coal);
+      padding:clamp(28px,4.8vw,56px);
+      box-shadow:0 20px 76px rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.42);
+    }
+    .panel.dark{
+      background:rgba(23,18,15,.86);
+      color:var(--cream);
+      border-color:rgba(168,216,216,.24);
+    }
+    .panel h2{
+      font-size:clamp(2.3rem,5vw,5rem);
+      margin:12px 0 18px;
+      max-width:930px;
+    }
+    .lead{
+      color:var(--muted);
+      font-size:clamp(1.03rem,1.55vw,1.22rem);
+      max-width:800px;
+      margin:0;
+    }
+    .dark .lead{
+      color:rgba(245,243,240,.76);
+    }
+
+    .problem-layout{
+      display:grid;
+      grid-template-columns:.9fr 1.1fr;
+      gap:28px;
+      align-items:start;
+      margin-top:28px;
+    }
+    .pain-list{
+      display:grid;
+      gap:10px;
+      list-style:none;
+      padding:0;
+      margin:0;
+    }
+    .pain-list li{
+      padding:14px 16px;
+      border-radius:18px;
+      background:rgba(168,216,216,.12);
+      border:1px solid rgba(168,216,216,.28);
+      font-weight:780;
+    }
+
+    .pillars{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+      margin-top:28px;
+    }
+    .pillar{
+      border-radius:22px;
+      padding:22px;
+      min-height:180px;
+      background:rgba(168,216,216,.12);
+      border:1px solid rgba(168,216,216,.30);
+    }
+    .pillar strong{
+      display:block;
+      font-size:1.13rem;
+      line-height:1.12;
+      margin-bottom:10px;
+      letter-spacing:-.03em;
+    }
+    .pillar p{
+      margin:0;
+      color:rgba(245,243,240,.74);
+    }
+
+    .bonus{
+      display:grid;
+      grid-template-columns:.82fr 1.18fr;
+      gap:28px;
+      align-items:center;
+    }
+    .mockup{
+      min-height:430px;
+      border-radius:30px;
+      padding:30px;
+      background:linear-gradient(145deg,rgba(168,216,216,.92),rgba(255,248,239,.92));
+      color:var(--coal);
+      box-shadow:var(--shadow);
+    }
+    .sheet{
+      width:min(330px,100%);
+      min-height:365px;
+      margin:auto;
+      border-radius:20px;
+      background:var(--paper);
+      box-shadow:0 28px 70px rgba(0,0,0,.18);
+      transform:rotate(-2deg);
+      padding:26px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+    .sheet-title{
+      font-size:3.1rem;
+      line-height:.88;
+      letter-spacing:-.07em;
+      font-weight:950;
+    }
+    .sheet em{
+      display:block;
+      color:var(--red);
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:2rem;
+      line-height:.95;
+      margin-top:6px;
+    }
+    .sheet-lines{
+      display:grid;
+      gap:8px;
+      margin-top:28px;
+    }
+    .sheet-lines span{
+      height:9px;
+      border-radius:999px;
+      background:rgba(42,34,24,.14);
+    }
+
+    .form-panel{
+      display:grid;
+      grid-template-columns:.88fr 1.12fr;
+      gap:28px;
+      align-items:center;
+    }
+    .brevo-box{
+      border-radius:26px;
+      padding:28px;
+      background:rgba(245,243,240,.08);
+      border:1px solid rgba(168,216,216,.45);
+      min-height:270px;
+      display:grid;
+      place-items:center;
+      text-align:center;
+    }
+    .brevo-box h3{
+      font-size:clamp(2rem,4vw,3.6rem);
+      color:var(--turq);
+      margin-bottom:10px;
+    }
+    .brevo-box p{
+      margin:0;
+      color:rgba(245,243,240,.70);
+    }
+
+    .about{
+      display:grid;
+      grid-template-columns:320px 1fr;
+      gap:30px;
+      align-items:center;
+    }
+    .portrait{
+      min-height:410px;
+      border-radius:32px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      background:
+        linear-gradient(160deg,rgba(0,0,0,.2),rgba(0,0,0,.04)),
+        url('/assets/valentina-4.png') center/cover no-repeat,
+        linear-gradient(135deg,#3a261d,#cba07c);
+    }
+    .credentials{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:22px;
+    }
+    .credential{
+      border-radius:999px;
+      background:rgba(168,216,216,.25);
+      color:var(--coal);
+      padding:9px 13px;
+      font-weight:850;
+      font-size:.88rem;
+      border:1px solid rgba(42,34,24,.12);
+    }
+
+    .evidence{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:18px;
+      align-items:start;
+      margin-top:28px;
+    }
+    .evidence-card{
+      border-radius:26px;
+      overflow:hidden;
+      background:rgba(255,255,255,.54);
+      border:1px solid rgba(42,34,24,.10);
+      box-shadow:0 16px 45px rgba(0,0,0,.10);
+    }
+    .evidence-card img{
+      width:100%;
+    }
+    .evidence-card figcaption{
+      padding:16px 18px 18px;
+      color:rgba(42,34,24,.76);
+      font-weight:740;
+    }
+
+    .faq{
+      display:grid;
+      gap:12px;
+      margin-top:28px;
+    }
+    details{
+      border-radius:18px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(168,216,216,.23);
+      padding:18px 20px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight:900;
+    }
+    details p{
+      margin:12px 0 0;
+      color:rgba(245,243,240,.74);
+    }
+
+    .final{
+      text-align:center;
+      padding-bottom:80px;
+    }
+    .final .lead{
+      margin-inline:auto;
+    }
+    .final .hero-actions{
+      justify-content:center;
+      margin-top:26px;
+    }
+
+    footer{
+      width:min(var(--max),calc(100% - 36px));
+      margin:auto;
+      padding:34px 0 58px;
+      border-top:1px solid rgba(168,216,216,.20);
+      color:rgba(245,243,240,.64);
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .wa{
+      position:fixed;
+      right:20px;
+      bottom:20px;
+      z-index:30;
+      width:52px;
+      height:52px;
+      display:grid;
+      place-items:center;
+      border-radius:999px;
+      background:#25D366;
+      color:#07130c;
+      font-weight:950;
+      font-size:1.35rem;
+      box-shadow:0 16px 42px rgba(0,0,0,.28);
+    }
+
+    @media(max-width:980px){
+      .hero,
+      .problem-layout,
+      .bonus,
+      .form-panel,
+      .about,
+      .evidence{
+        grid-template-columns:1fr;
+      }
+      .hero-image{min-height:540px}
+      .pillars{grid-template-columns:1fr 1fr}
+    }
+
+    @media(max-width:720px){
+      .nav{display:none}
+      .topbar-inner{min-height:66px}
+      .brand{font-size:.72rem}
+      h1{font-size:clamp(4.1rem,17vw,6.3rem)}
+      .hero{padding-top:42px}
+      .hero-image{min-height:430px;border-radius:30px}
+      .hero-card{left:18px;right:18px;bottom:18px;padding:20px}
+      .panel{border-radius:24px}
+      .panel h2{font-size:clamp(2.35rem,11vw,4rem)}
+      .pillars{grid-template-columns:1fr}
+      .btn{width:100%}
+      .hero-actions{align-items:stretch}
+      .brevo-box{min-height:230px}
+      .wa{width:48px;height:48px;right:16px;bottom:16px}
+    }
   </style>
 </head>
+
 <body>
-  <!--
-    ASSETS USADOS:
-    - ../assets/valentina-2.png para hero
-    - ../assets/valentina-4.png para sección Sobre Valentina
-    - ../assets/masterclass-zoom.png para captura de clase grupal
-    - ../assets/masterclass-whatsapp.png para captura de mensajes
-  -->
   <nav class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="#">Escuela de Flautistas<span>Masterclass gratuita</span></a>
+    <div class="topbar-inner wrap">
+      <a class="brand" href="#">
+        Escuela de Flautistas
+        <span>Masterclass gratuita</span>
+      </a>
       <div class="nav">
-        <a href="#problemas">Problemas</a>
+        <a href="#problema">Problema</a>
         <a href="#aprenderas">Qué aprenderás</a>
         <a href="#inscripcion">Inscripción</a>
         <a href="#valentina">Sobre mí</a>
@@ -122,230 +535,225 @@
     </div>
   </nav>
 
-  <header class="hero">
+  <header class="hero wrap">
     <div>
-      <div class="eyebrow">Masterclass gratuita · Tu voz en la flauta</div>
+      <div class="eyebrow">Masterclass gratuita</div>
       <h1>Tu voz <em>en la flauta</em></h1>
-      <p class="hero-sub">Una clase para flautistas adultas/os que quieren construir un sonido más <strong>claro, estable y expresivo</strong> sin estudiar al azar ni tocar desde la fuerza.</p>
+      <p class="hero-sub">
+        Una clase para flautistas adultas/os que quieren construir un sonido más <span class="mark">claro, estable y expresivo</span> sin estudiar al azar ni tocar desde la fuerza.
+      </p>
       <div class="hero-actions">
         <a class="btn" href="#inscripcion">Reservar mi cupo gratis</a>
-        <a class="btn dark" href="#video">Ver invitación</a>
+        <a class="btn ghost" href="#aprenderas">Ver qué aprenderé</a>
       </div>
-      <div class="hero-meta">
-        <span class="pill">Online y gratuita</span>
-        <span class="pill">Para flautistas adultas/os</span>
-        <span class="pill">Aire · Foco · Afinación · Vibrato</span>
+      <div class="badges">
+        <span class="badge">Online</span>
+        <span class="badge">Gratuita</span>
+        <span class="badge">Para flautistas adultas/os</span>
       </div>
     </div>
-    <div class="hero-photo">
-      <div class="note">
+
+    <div class="hero-image">
+      <div class="hero-card">
         <strong>No necesitas más fuerza.</strong>
         <span>Necesitas más escucha, dirección y criterio.</span>
       </div>
     </div>
   </header>
 
-  <section class="section">
-    <div class="panel dark">
-      <div class="eyebrow">La idea central</div>
-      <h2>Tu sonido no mejora cuando haces más fuerza.</h2>
-      <p class="lead">Mejora cuando aprendes a escuchar, ajustar y organizar los pequeños cambios entre una nota y otra. El primer paso no es cambiar la embocadura ni soplar más: el primer paso es escucharte.</p>
-    </div>
-  </section>
-
-  <section class="section" id="video">
-    <div class="panel">
-      <div class="eyebrow">Video de invitación</div>
-      <h2>Un mensaje breve antes de inscribirte.</h2>
-      <p class="lead">Aquí puedes insertar un video corto tuyo, de 45 a 75 segundos, invitando a la masterclass.</p>
-      <div class="video-placeholder">
-        <div class="play">▶</div>
-        <div class="video-caption"><strong>Espacio para video</strong> Reemplaza este bloque por un embed de YouTube, Vimeo o video alojado en tu web.</div>
+  <main>
+    <section class="wrap" id="problema">
+      <div class="panel">
+        <div class="eyebrow">El problema</div>
+        <h2>Quizás no te falta talento. Quizás te falta un sistema claro.</h2>
+        <div class="problem-layout">
+          <p class="lead">
+            Muchas veces estudias ejercicios de sonido, pero no sabes exactamente qué estás escuchando, qué estás corrigiendo o cómo avanzar con criterio.
+          </p>
+          <ul class="pain-list">
+            <li>tu sonido sale con aire</li>
+            <li>la nota se corta o se vacía</li>
+            <li>te cansas rápido al tocar</li>
+            <li>la afinación se mueve</li>
+            <li>el vibrato se siente forzado</li>
+            <li>estudias, pero no sabes qué estás corrigiendo</li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section" id="problemas">
-    <div class="panel">
-      <div class="eyebrow">Esto puede estar pasándote</div>
-      <h2>Quizás no te falta talento. Quizás te falta un sistema claro.</h2>
-      <p class="lead">Muchas flautistas estudian ejercicios, pero no saben exactamente qué están escuchando, qué están corrigiendo o cómo avanzar con criterio.</p>
-      <div class="grid">
-        <div class="card"><strong>El aire se corta</strong><p>La nota empieza firme, pero pierde estabilidad, se vacía o deja de sostenerse.</p></div>
-        <div class="card"><strong>Sonido con aire por fuera</strong><p>Como si nunca terminara de centrarse y siempre hubiera aire desperdiciado.</p></div>
-        <div class="card"><strong>Sonido poco flexible</strong><p>El cuerpo entra en modo control: suena, pero no necesariamente libre ni homogéneo.</p></div>
-        <div class="card"><strong>Te cansas rápido</strong><p>Empujas, aprietas, sostienes de más y terminas usando tensión donde debería haber coordinación.</p></div>
-        <div class="card"><strong>Afinación inestable</strong><p>Corriges todo con los labios y tu sonido pierde continuidad, estabilidad y libertad.</p></div>
-        <div class="card"><strong>Vibrato forzado</strong><p>El vibrato aparece como adorno externo y no como parte natural del sonido.</p></div>
+    <section class="wrap">
+      <div class="panel dark">
+        <div class="eyebrow">El giro</div>
+        <h2>Tu sonido no mejora cuando haces más fuerza.</h2>
+        <p class="lead">
+          Mejora cuando aprendes a escuchar, ajustar y organizar los pequeños cambios entre una nota y otra.
+        </p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section" id="aprenderas">
-    <div class="panel dark">
-      <div class="eyebrow">Qué vamos a trabajar</div>
-      <h2>Un mapa práctico para dejar de estudiar sonido al azar.</h2>
-      <div class="grid">
-        <div class="card"><strong>1. Aire y continuidad</strong><p>Para sostener el sonido sin empujar de más y sin que la nota se vacíe.</p></div>
-        <div class="card"><strong>2. Foco y dirección</strong><p>Para optimizar el aire, revisar el punto de contacto, el ángulo y la dirección del chorro.</p></div>
-        <div class="card"><strong>3. Afinación consciente</strong><p>Para dejar de depender solo del afinador y empezar a construir referencias auditivas.</p></div>
-        <div class="card"><strong>4. Vibrato interior</strong><p>Para que el vibrato esté dentro del sonido, no para tapar problemas de foco o afinación.</p></div>
-        <div class="card"><strong>5. Ajustes pequeños</strong><p>Para entender que no todas las notas responden igual, sin hacer movimientos gigantes.</p></div>
-        <div class="card"><strong>6. Consigna clara</strong><p>Porque la repetición solo transforma cuando sabes qué estás buscando.</p></div>
+    <section class="wrap" id="aprenderas">
+      <div class="panel dark">
+        <div class="eyebrow">Qué vas a aprender</div>
+        <h2>Cuatro pilares para estudiar sonido con más dirección.</h2>
+        <div class="pillars">
+          <article class="pillar">
+            <strong>Aire y continuidad</strong>
+            <p>Para que la nota no se corte, no tiemble ni se vacíe antes de tiempo.</p>
+          </article>
+          <article class="pillar">
+            <strong>Foco y dirección</strong>
+            <p>Para dejar de desperdiciar aire y empezar a centrar el sonido.</p>
+          </article>
+          <article class="pillar">
+            <strong>Afinación consciente</strong>
+            <p>Para no depender solo del afinador y construir referencias auditivas.</p>
+          </article>
+          <article class="pillar">
+            <strong>Vibrato interior</strong>
+            <p>Para que el vibrato sea parte del sonido, no un adorno forzado.</p>
+          </article>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section">
-    <div class="panel">
-      <div class="split">
-        <div class="mockup">
-          <div class="mockup-sheet">
-            <div>
-              <div class="eyebrow" style="color:var(--red)">Material gratuito</div>
-              <div class="big">Mapa del sonido</div>
-              <em>tu voz en la flauta</em>
-              <div class="mockup-lines">
-                <span style="width:90%"></span>
-                <span style="width:72%"></span>
-                <span style="width:84%"></span>
-                <span style="width:62%"></span>
+    <section class="wrap">
+      <div class="panel">
+        <div class="bonus">
+          <div class="mockup">
+            <div class="sheet">
+              <div>
+                <div class="eyebrow" style="color:var(--red)">Material de apoyo</div>
+                <div class="sheet-title">Mapa del sonido</div>
+                <em>tu voz en la flauta</em>
+                <div class="sheet-lines">
+                  <span style="width:92%"></span>
+                  <span style="width:70%"></span>
+                  <span style="width:84%"></span>
+                  <span style="width:58%"></span>
+                </div>
               </div>
+              <strong>Aire · foco · afinación · vibrato</strong>
             </div>
+          </div>
+          <div>
+            <div class="eyebrow">Material de apoyo</div>
+            <h2>Una guía para escuchar mejor tu sonido y estudiar con más dirección.</h2>
+            <p class="lead">
+              Un recurso simple para ordenar lo que trabajaremos en la masterclass y seguir practicando con más claridad.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap" id="inscripcion">
+      <div class="panel dark">
+        <div class="form-panel">
+          <div>
+            <div class="eyebrow">Inscripción gratuita</div>
+            <h2>Reserva tu lugar en la masterclass.</h2>
+            <p class="lead">
+              Completa el formulario para recibir el acceso y los recordatorios de la clase.
+            </p>
+          </div>
+          <div class="brevo-box">
             <div>
-              <strong>Aire · Foco · Afinación · Vibrato</strong>
-              <p style="margin:8px 0 0;color:var(--muted)">Workbook / guía de apoyo para la masterclass.</p>
+              <h3>Formulario de inscripción</h3>
+              <p>Nombre · email · WhatsApp</p>
             </div>
           </div>
         </div>
-        <div>
-          <div class="eyebrow">Bonus de inscripción</div>
-          <h2>Recibe el material de apoyo de la masterclass.</h2>
-          <p class="lead">Puedes entregar una guía breve o workbook para que la inscripción tenga más valor percibido: ejercicios, preguntas de escucha y un mapa de los pilares del sonido.</p>
-          <div class="grid" style="grid-template-columns:1fr;margin-top:20px">
-            <div class="card"><strong>Checklist para estudiar sonido</strong><p>Qué escuchar antes de corregir: aire, foco, continuidad, afinación y vibrato.</p></div>
-            <div class="card"><strong>Ejercicios sugeridos</strong><p>Respiración, glissandos, notas pedales, whispertones, armónicos y cantar/tocar.</p></div>
+      </div>
+    </section>
+
+    <section class="wrap" id="valentina">
+      <div class="panel">
+        <div class="about">
+          <div class="portrait"></div>
+          <div>
+            <div class="eyebrow">Sobre Valentina</div>
+            <h2>Soy Valentina Galaz.</h2>
+            <p class="lead">
+              Flautista, directora artística de Piazzollamente y fundadora de Escuela de Flautistas. He acompañado a flautistas de distintos países a transformar su sonido desde una mirada técnica, sensible y consciente.
+            </p>
+            <div class="credentials">
+              <span class="credential">Licenciada en Flauta Traversa</span>
+              <span class="credential">Maestranda en Música Latinoamericana</span>
+              <span class="credential">Fundadora de Escuela de Flautistas</span>
+            </div>
           </div>
         </div>
       </div>
+    </section>
+
+    <section class="wrap">
+      <div class="panel">
+        <div class="eyebrow">Experiencia real</div>
+        <h2>Así se vive la experiencia.</h2>
+        <div class="evidence">
+          <figure class="evidence-card">
+            <img src="/assets/masterclass-zoom.png" alt="Clase online grupal de Escuela de Flautistas">
+            <figcaption>Clase en vivo con flautistas de distintos lugares.</figcaption>
+          </figure>
+          <figure class="evidence-card">
+            <img src="/assets/masterclass-whatsapp.png" alt="Mensajes de agradecimiento después de una clase de Escuela de Flautistas">
+            <figcaption>Mensajes compartidos después de la clase.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="panel dark">
+        <div class="eyebrow">Preguntas frecuentes</div>
+        <h2>Antes de inscribirte.</h2>
+        <div class="faq">
+          <details>
+            <summary>¿La masterclass es gratuita?</summary>
+            <p>Sí. Solo debes completar el formulario para recibir el acceso.</p>
+          </details>
+          <details>
+            <summary>¿Necesito nivel avanzado?</summary>
+            <p>No. Está pensada para flautistas adultas/os que quieren entender mejor su sonido.</p>
+          </details>
+          <details>
+            <summary>¿Queda grabada?</summary>
+            <p>La información de acceso y disponibilidad se enviará a quienes se inscriban.</p>
+          </details>
+          <details>
+            <summary>¿Dónde recibo el enlace?</summary>
+            <p>Lo recibirás por email después de completar el formulario.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap final">
+      <div class="panel">
+        <div class="eyebrow">Último llamado</div>
+        <h2>Deja de estudiar sonido al azar.</h2>
+        <p class="lead">
+          Aprende a escuchar, ajustar y construir tu voz en la flauta con más dirección, menos fuerza y más criterio.
+        </p>
+        <div class="hero-actions">
+          <a class="btn" href="#inscripcion">Reservar mi cupo gratis</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <strong>Escuela de Flautistas</strong><br>
+      Formación musical online
     </div>
-  </section>
-
-  <section class="section" id="inscripcion">
-    <div class="panel dark">
-      <div class="eyebrow">Inscripción gratuita</div>
-      <h2>Reserva tu lugar en la masterclass.</h2>
-      <p class="lead">La acción principal de esta página debe ser el formulario de Brevo. Aquí va el embed real del formulario para capturar nombre, email y WhatsApp.</p>
-      <div class="form-box">
-        <div class="brevo-placeholder">
-          <strong>Formulario Brevo aquí</strong>
-          <p style="margin:8px 0 0;color:rgba(245,243,240,.72)">Reemplaza este bloque por el código embed de Brevo.</p>
-          <div class="fake-form">
-            <input placeholder="Nombre" disabled>
-            <input placeholder="Email" disabled>
-            <input placeholder="WhatsApp opcional" disabled>
-            <button class="btn" type="button">Reservar mi cupo gratis</button>
-          </div>
-        </div>
-      </div>
-      <p class="small-note">Sugerencia: deja este formulario alto en la página y repite el CTA al final.</p>
+    <div>
+      @escueladeflautistas<br>
+      escueladeflautistas.cl
     </div>
-  </section>
-
-  <section class="section" id="valentina">
-    <div class="panel">
-      <div class="about">
-        <div class="portrait"></div>
-        <div>
-          <div class="eyebrow">Sobre Valentina</div>
-          <h2>Soy Valentina Galaz.</h2>
-          <p class="lead">Flautista, directora artística de Piazzollamente y fundadora de Escuela de Flautistas. He acompañado a flautistas de distintos países en la transformación profunda de su sonido, integrando formación académica, experiencia escénica y pedagogía aplicada a la flauta.</p>
-          <div class="hero-meta">
-            <span class="pill" style="color:var(--coal);background:rgba(168,216,216,.25)">Lic. en Flauta Traversa</span>
-            <span class="pill" style="color:var(--coal);background:rgba(168,216,216,.25)">Maestranda en Música Latinoamericana</span>
-            <span class="pill" style="color:var(--coal);background:rgba(168,216,216,.25)">Fundadora de Escuela de Flautistas</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="panel">
-      <div class="eyebrow">Así se vive la experiencia</div>
-      <h2>Comunidad real, clase en vivo y devolución inmediata.</h2>
-      <p class="lead">Quité la sección de testimonios tradicional y la reemplacé por evidencia más viva: capturas de una clase real y mensajes breves de alumnas/os.</p>
-
-      <div class="evidence-grid">
-        <div class="evidence-card">
-          <img src="../assets/masterclass-zoom.png" alt="Captura de una clase grupal por Zoom de Escuela de Flautistas">
-          <div class="evidence-copy">
-            <strong>Clase en vivo</strong>
-            <p>Vista de una clase online con alumnas y alumnos conectados desde distintos lugares.</p>
-          </div>
-        </div>
-        <div class="mini-quotes">
-          <div class="mini-quote">
-            <p>“Muchas gracias por la clase, fue de mucha ayuda.”</p>
-            <strong>Atzin Anaid Izquierdo Estevez</strong>
-          </div>
-          <div class="mini-quote">
-            <p>“Gracias Profesora por permitirnos nutrirnos de su sabiduría y experiencia profesional.”</p>
-            <strong>Rodolfo Gomez</strong>
-          </div>
-          <div class="mini-quote">
-            <p>“Muchas gracias profe!!! Muy interesante y sobretodo muy útil todo lo que compartiste. Gracias por tu generosidad ❤️”</p>
-            <strong>Claudia</strong>
-          </div>
-        </div>
-      </div>
-
-      <div class="evidence-grid" style="margin-top:18px">
-        <div class="evidence-card">
-          <img src="../assets/masterclass-whatsapp.png" alt="Mensajes de WhatsApp de alumnos agradeciendo la masterclass">
-          <div class="evidence-copy">
-            <strong>Después de la clase</strong>
-            <p>Comentarios espontáneos compartidos por alumnas y alumnos luego de la experiencia.</p>
-          </div>
-        </div>
-        <div class="card" style="min-height:auto">
-          <strong>Cómo usar esta sección luego</strong>
-          <p>Si quieres dejarlo listo para tu web final, puedes reemplazar estas capturas por versiones optimizadas dentro de tu carpeta <code>assets</code> y mantener exactamente esta estructura.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="panel dark">
-      <div class="eyebrow">Preguntas frecuentes</div>
-      <h2>Antes de inscribirte.</h2>
-      <div class="faq">
-        <details><summary>¿La masterclass es gratuita?</summary><p>Sí. Solo debes registrarte en el formulario para recibir el acceso.</p></details>
-        <details><summary>¿Necesito nivel avanzado?</summary><p>No. Está pensada para flautistas adultas/os que quieran entender mejor su sonido.</p></details>
-        <details><summary>¿Queda grabada?</summary><p>Recomendación: enviar grabación por tiempo limitado a quienes se registren.</p></details>
-        <details><summary>¿Qué necesito preparar?</summary><p>Tu flauta, cuaderno, lápiz y ganas de observar tu sonido con más claridad.</p></details>
-        <details><summary>¿Dónde recibiré el enlace?</summary><p>Al completar el formulario de Brevo, recibirás el enlace y los recordatorios por email.</p></details>
-      </div>
-    </div>
-  </section>
-
-  <section class="section final">
-    <div class="panel">
-      <div class="eyebrow">Último llamado</div>
-      <h2>Deja de estudiar sonido al azar.</h2>
-      <p class="lead" style="margin-inline:auto">Aprende a escuchar, ajustar y construir tu voz en la flauta con más dirección, menos fuerza y más criterio.</p>
-      <div class="hero-actions" style="justify-content:center;margin-top:28px">
-        <a class="btn" href="#inscripcion">Reservar mi cupo gratis</a>
-      </div>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div><strong>Escuela de Flautistas</strong><br>Formación musical online</div>
-    <div>@escueladeflautistas<br>escueladeflautistas.cl</div>
   </footer>
 
-  <a class="floating-wa" href="https://wa.me/56981527088" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">☏</a>
+  <a class="wa" href="https://wa.me/56981527088" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">☏</a>
 </body>
 </html>
