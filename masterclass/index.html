@@ -486,7 +486,70 @@
       box-shadow:0 16px 42px rgba(0,0,0,.28);
     }
 
+
+    .countdown-bar{
+      border-top:1px solid rgba(168,216,216,.18);
+      background:rgba(10,7,6,.42);
+    }
+    .countdown-inner{
+      width:min(var(--max),calc(100% - 36px));
+      margin:auto;
+      min-height:74px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:18px;
+      align-items:center;
+    }
+    .countdown-copy{
+      color:rgba(245,243,240,.82);
+      font-weight:780;
+    }
+    .countdown-copy strong{
+      color:var(--turq);
+    }
+    .countdown-local{
+      display:block;
+      margin-top:2px;
+      color:rgba(245,243,240,.58);
+      font-size:.88rem;
+      font-weight:650;
+    }
+    .countdown{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    .timebox{
+      min-width:70px;
+      border-radius:16px;
+      padding:9px 10px;
+      text-align:center;
+      background:rgba(245,243,240,.08);
+      border:1px solid rgba(168,216,216,.30);
+    }
+    .timebox span{
+      display:block;
+      font-size:1.32rem;
+      line-height:1;
+      font-weight:950;
+      color:var(--cream);
+      letter-spacing:-.04em;
+    }
+    .timebox small{
+      display:block;
+      margin-top:5px;
+      color:var(--turq);
+      font-size:.66rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-weight:900;
+    }
+
     @media(max-width:980px){
+      .countdown-inner{grid-template-columns:1fr;gap:12px;padding:14px 0;text-align:center}
+      .countdown{justify-content:center;flex-wrap:wrap}
+      .timebox{min-width:64px}
       .hero,
       .problem-layout,
       .bonus,
@@ -513,6 +576,10 @@
       .btn{width:100%}
       .hero-actions{align-items:stretch}
       .brevo-box{min-height:230px}
+      .countdown-copy{font-size:.92rem}
+      .countdown-local{font-size:.8rem}
+      .timebox span{font-size:1.18rem}
+      .timebox small{font-size:.6rem}
       .wa{width:48px;height:48px;right:16px;bottom:16px}
     }
   </style>
@@ -523,7 +590,7 @@
     <div class="topbar-inner wrap">
       <a class="brand" href="#">
         Escuela de Flautistas
-        <span>Masterclass gratuita</span>
+        <span>Masterclass gratuita · 26 de junio</span>
       </a>
       <div class="nav">
         <a href="#problema">Problema</a>
@@ -534,6 +601,21 @@
       </div>
     </div>
   </nav>
+
+  <div class="countdown-bar" aria-label="Cuenta regresiva para la masterclass">
+    <div class="countdown-inner">
+      <div class="countdown-copy">
+        La masterclass será el <strong>26 de junio · 19:30 hrs Chile</strong>
+        <span class="countdown-local" id="localTimeLabel">Calculando tu hora local…</span>
+      </div>
+      <div class="countdown" id="countdown">
+        <div class="timebox"><span id="days">00</span><small>días</small></div>
+        <div class="timebox"><span id="hours">00</span><small>horas</small></div>
+        <div class="timebox"><span id="minutes">00</span><small>min</small></div>
+        <div class="timebox"><span id="seconds">00</span><small>seg</small></div>
+      </div>
+    </div>
+  </div>
 
   <header class="hero wrap">
     <div>
@@ -548,6 +630,7 @@
       </div>
       <div class="badges">
         <span class="badge">Online</span>
+        <span class="badge">26 de junio</span>
         <span class="badge">Gratuita</span>
         <span class="badge">Para flautistas adultas/os</span>
       </div>
@@ -654,7 +737,7 @@
             <div class="eyebrow">Inscripción gratuita</div>
             <h2>Reserva tu lugar en la masterclass.</h2>
             <p class="lead">
-              Completa el formulario para recibir el acceso y los recordatorios de la clase.
+              Completa el formulario para recibir el acceso y los recordatorios de la clase del 26 de junio.
             </p>
           </div>
           <div class="brevo-box">
@@ -755,5 +838,64 @@
   </footer>
 
   <a class="wa" href="https://wa.me/56981527088" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">☏</a>
+
+  <script>
+    (function(){
+      // Masterclass: 26 de junio de 2026, 19:30 hora de Chile continental.
+      // En esa fecha Chile continental usa UTC-04:00.
+      const target = new Date("2026-06-26T19:30:00-04:00");
+
+      const localLabel = document.getElementById("localTimeLabel");
+      const daysEl = document.getElementById("days");
+      const hoursEl = document.getElementById("hours");
+      const minutesEl = document.getElementById("minutes");
+      const secondsEl = document.getElementById("seconds");
+
+      const localFormatter = new Intl.DateTimeFormat(undefined, {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        timeZoneName: "short"
+      });
+
+      localLabel.textContent = "En tu hora local: " + localFormatter.format(target);
+
+      function pad(number){
+        return String(number).padStart(2, "0");
+      }
+
+      function updateCountdown(){
+        const now = new Date();
+        let diff = target.getTime() - now.getTime();
+
+        if (diff <= 0) {
+          daysEl.textContent = "00";
+          hoursEl.textContent = "00";
+          minutesEl.textContent = "00";
+          secondsEl.textContent = "00";
+          localLabel.textContent = "La masterclass ya comenzó o finalizó.";
+          return;
+        }
+
+        const totalSeconds = Math.floor(diff / 1000);
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        daysEl.textContent = pad(days);
+        hoursEl.textContent = pad(hours);
+        minutesEl.textContent = pad(minutes);
+        secondsEl.textContent = pad(seconds);
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    })();
+  </script>
+
 </body>
 </html>
