@@ -1,1 +1,873 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet" />
+  <title>Instructivo de clases online | Escuela de Flautistas</title>
 
+  <style>
+    :root {
+      --bg: #17120f;
+      --bg2: #2a1f18;
+      --cream: #f5f0e8;
+      --cream2: #eadfce;
+      --text: #2a2218;
+      --white: #fffaf2;
+      --muted: #6f5c50;
+      --aqua: #9fd7d4;
+      --aqua2: #d8f2f0;
+      --red: #c8201a;
+      --red2: #8f1710;
+      --shadow: 0 22px 70px rgba(0,0,0,.22);
+      --radius: 28px;
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Montserrat, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(159,215,212,.28), transparent 32rem),
+        linear-gradient(135deg, #100c0a 0%, #2a1f18 45%, #6b4d38 100%);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
+    .access-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at top right, rgba(159,215,212,.22), transparent 32rem),
+        linear-gradient(135deg, #100c0a 0%, #2a1f18 55%, #654530 100%);
+    }
+
+    .gate-card {
+      width: min(560px, 100%);
+      padding: clamp(30px, 6vw, 56px);
+      border-radius: 34px;
+      border: 1px solid rgba(159,215,212,.35);
+      background: rgba(23,18,15,.86);
+      color: var(--white);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .gate-card h1 {
+      font-size: clamp(2.4rem, 8vw, 5rem);
+      line-height: .9;
+      letter-spacing: -.07em;
+      margin: 22px 0 18px;
+    }
+
+    .gate-card p {
+      color: rgba(255,250,242,.75);
+      margin: 0 0 24px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--aqua);
+      text-transform: uppercase;
+      letter-spacing: .22em;
+      font-size: .74rem;
+      font-weight: 900;
+    }
+
+    .eyebrow::before {
+      content: "✦";
+      letter-spacing: 0;
+      font-size: 1rem;
+    }
+
+    .gate-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    input {
+      width: 100%;
+      border: 1px solid rgba(159,215,212,.38);
+      border-radius: 999px;
+      padding: 16px 18px;
+      background: rgba(255,255,255,.08);
+      color: var(--white);
+      outline: none;
+      font-size: 1rem;
+    }
+
+    input:focus {
+      border-color: var(--aqua);
+      box-shadow: 0 0 0 4px rgba(159,215,212,.12);
+    }
+
+    button, .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 15px 22px;
+      background: var(--aqua);
+      color: #17120f;
+      font-weight: 900;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      box-shadow: 0 14px 32px rgba(0,0,0,.22);
+    }
+
+    button:hover, .btn:hover {
+      transform: translateY(-2px);
+      background: var(--aqua2);
+      box-shadow: 0 18px 44px rgba(0,0,0,.28);
+    }
+
+    .btn.dark {
+      background: rgba(23,18,15,.9);
+      color: var(--white);
+      border: 1px solid rgba(159,215,212,.35);
+    }
+
+    .error {
+      display: none;
+      color: #ffd1ca;
+      font-size: .92rem;
+    }
+
+    .page {
+      min-height: 100vh;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(17,12,10,.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(159,215,212,.18);
+    }
+
+    .topbar-inner {
+      width: min(var(--max), calc(100% - 36px));
+      margin: auto;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      color: var(--white);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: .78rem;
+      line-height: 1.2;
+    }
+
+    .brand span {
+      display: block;
+      color: var(--aqua);
+      font-size: .66rem;
+      margin-top: 4px;
+      letter-spacing: .24em;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 14px;
+    }
+
+    .nav a {
+      color: rgba(255,250,242,.76);
+      text-decoration: none;
+      font-size: .88rem;
+      font-weight: 750;
+    }
+
+    .hero {
+      width: min(var(--max), calc(100% - 36px));
+      margin: auto;
+      padding: clamp(64px, 11vw, 128px) 0 50px;
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: clamp(28px, 5vw, 70px);
+      align-items: end;
+      color: var(--white);
+    }
+
+    .hero h1 {
+      margin: 22px 0 22px;
+      font-size: clamp(3.2rem, 9vw, 8rem);
+      line-height: .86;
+      letter-spacing: -.08em;
+    }
+
+    .mark {
+      display: inline;
+      background: linear-gradient(transparent 20%, var(--red) 20%, var(--red) 84%, transparent 84%);
+      padding: 0 .08em;
+      color: white;
+    }
+
+    .hero p {
+      max-width: 720px;
+      color: rgba(255,250,242,.78);
+      font-size: clamp(1.05rem, 1.8vw, 1.28rem);
+      margin: 0 0 30px;
+    }
+
+    .hero-card {
+      padding: 28px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(159,215,212,.28);
+      background: rgba(255,250,242,.08);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-card h2 {
+      margin: 0 0 16px;
+      color: var(--aqua);
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: .8rem;
+    }
+
+    .hero-card ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .hero-card li {
+      color: rgba(255,250,242,.88);
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 8px;
+    }
+
+    .hero-card li::before {
+      content: "✦";
+      color: var(--aqua);
+    }
+
+    .quick-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .notice {
+      width: min(var(--max), calc(100% - 36px));
+      margin: 0 auto 32px;
+      background: linear-gradient(135deg, rgba(200,32,26,.16), rgba(159,215,212,.10));
+      color: var(--white);
+      border: 1px solid rgba(200,32,26,.35);
+      border-radius: 22px;
+      padding: 22px 24px;
+    }
+
+    .main {
+      width: min(var(--max), calc(100% - 36px));
+      margin: auto;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 34px;
+      align-items: start;
+      padding-bottom: 90px;
+    }
+
+    .toc {
+      position: sticky;
+      top: 96px;
+      padding: 20px;
+      border-radius: 24px;
+      border: 1px solid rgba(159,215,212,.22);
+      background: rgba(23,18,15,.72);
+      box-shadow: var(--shadow);
+    }
+
+    .toc h2 {
+      color: var(--aqua);
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: .8rem;
+      margin: 0 0 12px;
+    }
+
+    .toc a {
+      display: block;
+      padding: 9px 0;
+      color: rgba(255,250,242,.76);
+      text-decoration: none;
+      border-top: 1px solid rgba(255,255,255,.08);
+      font-weight: 650;
+      font-size: .92rem;
+    }
+
+    .content {
+      display: grid;
+      gap: 22px;
+    }
+
+    section {
+      background: rgba(245,240,232,.96);
+      border-radius: var(--radius);
+      padding: clamp(28px, 4vw, 48px);
+      box-shadow: 0 18px 60px rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.42);
+    }
+
+    section.dark {
+      background: rgba(23,18,15,.84);
+      color: var(--white);
+      border: 1px solid rgba(159,215,212,.26);
+    }
+
+    section h2 {
+      margin: 12px 0 18px;
+      font-size: clamp(2rem, 4.2vw, 3.8rem);
+      line-height: .95;
+      letter-spacing: -.06em;
+    }
+
+    section h3 {
+      font-size: 1.08rem;
+      margin: 26px 0 8px;
+      color: var(--red2);
+    }
+
+    section.dark h3 {
+      color: var(--aqua);
+    }
+
+    p { margin: 0 0 16px; }
+
+    .split {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .card {
+      padding: 22px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.48);
+      border: 1px solid rgba(42,34,24,.12);
+    }
+
+    .dark .card {
+      background: rgba(255,255,255,.07);
+      border-color: rgba(159,215,212,.24);
+    }
+
+    .card h3 { margin-top: 0; color: inherit; }
+
+    .clean {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .clean li {
+      position: relative;
+      padding-left: 28px;
+    }
+
+    .clean li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--aqua);
+      font-weight: 900;
+    }
+
+    .steps {
+      list-style: none;
+      counter-reset: step;
+      padding: 0;
+      margin: 20px 0 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .steps li {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 50px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(159,215,212,.12);
+      border: 1px solid rgba(159,215,212,.28);
+    }
+
+    .steps li::before {
+      content: counter(step, decimal-leading-zero);
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--bg);
+      color: var(--aqua);
+      font-weight: 950;
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+
+    .tag {
+      background: var(--aqua);
+      color: var(--bg);
+      border-radius: 999px;
+      padding: 9px 14px;
+      font-size: .86rem;
+      font-weight: 850;
+    }
+
+    details {
+      border-top: 1px solid rgba(42,34,24,.15);
+      padding: 16px 0;
+    }
+
+    .dark details {
+      border-color: rgba(255,255,255,.12);
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 900;
+      font-size: 1.05rem;
+    }
+
+    .footer {
+      width: min(var(--max), calc(100% - 36px));
+      margin: auto;
+      padding: 34px 0 70px;
+      color: rgba(255,250,242,.68);
+      border-top: 1px solid rgba(159,215,212,.22);
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .floating-wa {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 30;
+      background: #25D366;
+      color: #07130c;
+      text-decoration: none;
+      padding: 14px 18px;
+      border-radius: 999px;
+      font-weight: 950;
+      box-shadow: 0 16px 42px rgba(0,0,0,.28);
+    }
+
+    @media (max-width: 920px) {
+      .hero, .main, .split {
+        grid-template-columns: 1fr;
+      }
+
+      .toc {
+        position: relative;
+        top: auto;
+      }
+
+      .nav {
+        display: none;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .hero h1 {
+        font-size: clamp(3rem, 16vw, 5.3rem);
+      }
+
+      section { border-radius: 22px; }
+
+      .steps li {
+        grid-template-columns: 1fr;
+      }
+
+      .floating-wa {
+        left: 18px;
+        text-align: center;
+      }
+    }
+
+    @media print {
+      .access-gate, .topbar, .toc, .floating-wa, .quick-actions { display: none !important; }
+      body { background: white; color: black; }
+      .hero, .main, .footer { width: 100%; display: block; color: black; }
+      section, .hero-card {
+        background: white !important;
+        color: black !important;
+        box-shadow: none;
+        border: 1px solid #ddd;
+        margin-bottom: 16px;
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!--
+    Página interna para Classroom.
+    Cambia la clave de acceso aquí:
+  -->
+  <div class="page" id="page">
+    <nav class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          Escuela de Flautistas
+          <span>Valentina Galaz</span>
+        </div>
+        <div class="nav">
+          <a href="#responsabilidades">Responsabilidades</a>
+          <a href="#horarios">Horarios</a>
+          <a href="#pagos">Pagos</a>
+          <a href="#comunicacion">Comunicación</a>
+          <a href="#aceptacion">Aceptación</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div>
+        <div class="eyebrow">Para estudiantes</div>
+        <h1>Te acompaño a realizar tu <span class="mark">sueño</span>.</h1>
+        <p>
+          Este instructivo está diseñado para que tus clases online funcionen de forma clara, respetuosa y ordenada. Aquí encontrarás las condiciones de pago, asistencia, reprogramación, comunicación, materiales y participación.
+        </p>
+        <div class="quick-actions">
+          <a class="btn" href="#aceptacion">Leer condiciones</a>
+          <button onclick="window.print()">Guardar como PDF</button>
+          <a class="btn dark" href="https://wa.me/56981527088" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <h2>Lo esencial</h2>
+        <ul>
+          <li>Agenda el horario de tus clases y respétalo.</li>
+          <li>El pago se realiza de forma anticipada.</li>
+          <li>Solo se reprograma 1 clase por trimestre con 48 horas de aviso.</li>
+          <li>Prepara Zoom, conexión, audífonos y materiales antes de cada clase.</li>
+        </ul>
+      </aside>
+    </header>
+
+    <div class="notice">
+      <strong>Uso interno:</strong> esta página está pensada para compartirse solo con estudiantes activos. Incluye etiquetas noindex para evitar indexación en buscadores.
+    </div>
+
+    <main class="main">
+      <aside class="toc">
+        <h2>Índice</h2>
+        <a href="#bienvenida">Bienvenida</a>
+        <a href="#responsabilidades">Responsabilidades</a>
+        <a href="#horarios">Horarios</a>
+        <a href="#pagos">Pagos</a>
+        <a href="#reprogramaciones">Reprogramaciones</a>
+        <a href="#tecnica">Preparación técnica</a>
+        <a href="#materiales">Materiales</a>
+        <a href="#comunicacion">Comunicación</a>
+        <a href="#grupo">Clases grupales</a>
+        <a href="#aceptacion">Aceptación</a>
+      </aside>
+
+      <div class="content">
+        <section id="bienvenida">
+          <div class="eyebrow">Bienvenida</div>
+          <h2>Primero, gracias.</h2>
+          <p>
+            Para mí es una alegría enorme acompañarte en tu proceso musical. Este instructivo reúne los puntos más importantes para que podamos trabajar con continuidad, confianza y profundidad.
+          </p>
+          <p>
+            La idea no es poner distancia, sino crear un marco claro para que cada clase tenga una buena organización y puedas aprovechar mejor tu proceso.
+          </p>
+        </section>
+
+        <section id="responsabilidades" class="dark">
+          <div class="eyebrow">Responsabilidades</div>
+          <h2>Cada parte sostiene una parte del proceso.</h2>
+          <div class="split">
+            <div class="card">
+              <h3>Mi responsabilidad como profesora</h3>
+              <ul class="clean">
+                <li>Realizar las clases en el horario acordado.</li>
+                <li>Preparar el contenido según tu nivel y proceso.</li>
+                <li>Entregar indicaciones claras para estudiar.</li>
+                <li>Orientarte técnica y musicalmente.</li>
+                <li>Responder dudas relacionadas con tu proceso dentro de tiempos razonables.</li>
+                <li>Avisar con anticipación si necesito realizar algún cambio.</li>
+                <li>Mantener un trato respetuoso, profesional y cuidadoso.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Tu responsabilidad como estudiante</h3>
+              <ul class="clean">
+                <li>Asistir puntualmente.</li>
+                <li>Agendar correctamente el horario acordado.</li>
+                <li>Preparar tus materiales antes de cada clase.</li>
+                <li>Participar activamente.</li>
+                <li>Realizar las tareas o indicaciones entregadas.</li>
+                <li>Hacer preguntas cuando algo no esté claro.</li>
+                <li>Cumplir con los pagos en las fechas acordadas.</li>
+                <li>Avisar con anticipación si no puedes continuar.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="horarios">
+          <div class="eyebrow">Día y horario</div>
+          <h2>El horario acordado se respeta.</h2>
+          <p>
+            El día y la hora acordados deben ser cumplidos. Te enviaré el enlace o invitación correspondiente a Google Calendar, pero es responsabilidad del estudiante agendar correctamente sus clases y revisar su calendario.
+          </p>
+          <p>
+            La puntualidad es importante para aprovechar el tiempo completo. Si llegas tarde, la clase finalizará igualmente en el horario establecido.
+          </p>
+        </section>
+
+        <section id="pagos">
+          <div class="eyebrow">Pagos</div>
+          <h2>El pago de las clases se realiza de forma anticipada.</h2>
+          <p>
+            Para mantener una buena organización, el pago debe realizarse con una semana de anticipación o dentro del plazo acordado para cada modalidad.
+          </p>
+          <ul class="clean">
+            <li>Tener los pagos al día permite sostener la continuidad del proceso.</li>
+            <li>En caso de atraso, Escuela de Flautistas podrá suspender temporalmente el acceso a clases, materiales o plataforma hasta regularizar la situación.</li>
+            <li>Si por algún motivo no puedes continuar, debes avisar con un mes de anticipación.</li>
+          </ul>
+        </section>
+
+        <section id="reprogramaciones" class="dark">
+          <div class="eyebrow">Reprogramaciones</div>
+          <h2>Reprogramar no siempre es posible.</h2>
+          <p>
+            Solo se podrá reprogramar <span class="mark">1 clase por trimestre</span>, siempre que el aviso se realice con al menos 48 horas de anticipación.
+          </p>
+          <p>
+            La reprogramación no es automática. Depende de la disponibilidad real de la profesora y deberá coordinarse dentro de la misma semana. No se acumulan clases para el mes siguiente.
+          </p>
+          <details>
+            <summary>¿Cuándo puede recuperarse una clase?</summary>
+            <ul class="clean">
+              <li>Cuando el estudiante avisa con al menos 48 horas de anticipación.</li>
+              <li>En caso de urgencia médica o accidente.</li>
+              <li>Cuando se presenta certificado médico si es necesario.</li>
+              <li>Cuando existe disponibilidad real dentro de la misma semana.</li>
+            </ul>
+          </details>
+          <details>
+            <summary>¿Qué pasa si hay corte de luz o internet?</summary>
+            <p>
+              Las clases no se reponen automáticamente por cortes de electricidad, problemas de internet o fallas técnicas del estudiante. Solo se recuperará la clase si el problema técnico ocurre por parte de la profesora.
+            </p>
+          </details>
+        </section>
+
+        <section id="tecnica">
+          <div class="eyebrow">Antes de entrar a Zoom</div>
+          <h2>Prueba todo antes de la clase.</h2>
+          <p>
+            Usaremos Zoom u otra plataforma informada previamente. Puedes descargar Zoom en <a href="https://zoom.us" target="_blank" rel="noopener">zoom.us</a>.
+          </p>
+          <ol class="steps">
+            <li>Revisa tu conexión a internet.</li>
+            <li>Comprueba cámara, micrófono y audífonos.</li>
+            <li>Ten cargador o batería disponible.</li>
+            <li>Ubica bien el dispositivo para que pueda verte y escucharte.</li>
+            <li>Revisa el enlace de ingreso con anticipación.</li>
+          </ol>
+          <p style="margin-top:18px;">
+            Idealmente, prueba todo un par de horas antes, especialmente si es tu primera vez usando la plataforma.
+          </p>
+        </section>
+
+        <section id="espacio">
+          <div class="eyebrow">Espacio de estudio</div>
+          <h2>Busca un lugar sin distracciones.</h2>
+          <p>
+            Ubica un espacio donde puedas concentrarte y, en lo posible, que esté disponible para todas tus clases. Esto ayuda a sostener la constancia y a entrar más rápido en modo estudio.
+          </p>
+          <p>
+            Se recomienda usar audífonos para escuchar mejor y evitar distracciones externas.
+          </p>
+        </section>
+
+        <section id="materiales">
+          <div class="eyebrow">Material listo</div>
+          <h2>Si no usas tablet, imprime tus partituras.</h2>
+          <p>
+            Llegar con tus materiales preparados cuida el tiempo de clase y mejora la calidad del trabajo.
+          </p>
+          <div class="tag-row">
+            <span class="tag">flauta</span>
+            <span class="tag">partituras</span>
+            <span class="tag">lápiz</span>
+            <span class="tag">cuaderno</span>
+            <span class="tag">metrónomo</span>
+            <span class="tag">afinador</span>
+            <span class="tag">audífonos</span>
+          </div>
+          <p>
+            Si no usas tablet, imprime y pega tus partituras antes de la clase. Llegar con hojas sueltas, partituras desordenadas o materiales sin revisar puede afectar el aprovechamiento del tiempo.
+          </p>
+        </section>
+
+        <section id="preguntas" class="dark">
+          <div class="eyebrow">Clase activa</div>
+          <h2>Llegar con preguntas cambia la clase.</h2>
+          <p>
+            Una clase se aprovecha mejor cuando llegas con dudas concretas. No es solo un espacio donde tocas y recibes correcciones: también es un espacio para aprender a observar tu propio proceso.
+          </p>
+          <ul class="clean">
+            <li>Qué te cuesta de un pasaje.</li>
+            <li>Qué no entiendes de una indicación.</li>
+            <li>Qué sientes incómodo al tocar.</li>
+            <li>Qué problema aparece al estudiar.</li>
+            <li>Qué necesitas ordenar en tu práctica.</li>
+          </ul>
+        </section>
+
+        <section id="comunicacion">
+          <div class="eyebrow">Comunicación</div>
+          <h2>Escribir mensajes también requiere criterio.</h2>
+          <p>
+            Puedes escribirme por dudas o requerimientos relacionados con tus clases. La comunicación fuera de clase debe ser clara, respetuosa y en horarios apropiados.
+          </p>
+          <p>
+            WhatsApp: <strong>+56 9 8152 7088</strong><br />
+            Link directo: <a href="https://wa.me/56981527088" target="_blank" rel="noopener">https://wa.me/56981527088</a>
+          </p>
+
+          <div class="split">
+            <div class="card">
+              <h3>Sí corresponde escribir para:</h3>
+              <ul class="clean">
+                <li>Avisar una dificultad importante.</li>
+                <li>Consultar una duda breve.</li>
+                <li>Confirmar horarios.</li>
+                <li>Enviar material solicitado.</li>
+                <li>Informar un problema de acceso o pago.</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3>Evita:</h3>
+              <ul class="clean">
+                <li>Escribir muy tarde o muy temprano.</li>
+                <li>Enviar audios extensos sin contexto.</li>
+                <li>Pedir respuestas urgentes fuera del horario laboral.</li>
+                <li>Enviar información importante en muchos mensajes dispersos.</li>
+              </ul>
+            </div>
+          </div>
+          <p style="margin-top:18px;">
+            Responderé dentro de tiempos razonables, pero no estoy disponible de forma inmediata o permanente fuera del horario de clases.
+          </p>
+        </section>
+
+        <section id="grupo">
+          <div class="eyebrow">Clases grupales</div>
+          <h2>El espacio grupal requiere cuidado colectivo.</h2>
+          <ul class="clean">
+            <li>Respetar los turnos de participación.</li>
+            <li>Escuchar a los demás participantes.</li>
+            <li>Participar de forma respetuosa.</li>
+            <li>No interrumpir innecesariamente.</li>
+            <li>Cuidar la confidencialidad de lo compartido por otros.</li>
+            <li>Mantener una actitud colaborativa.</li>
+          </ul>
+        </section>
+
+        <section id="material-interno" class="dark">
+          <div class="eyebrow">Material interno</div>
+          <h2>Los recursos son para uso personal.</h2>
+          <p>
+            Los materiales, grabaciones, enlaces, contraseñas y recursos compartidos por Escuela de Flautistas son de uso personal del estudiante.
+          </p>
+          <p>
+            No está permitido compartir, reenviar, vender, copiar o distribuir estos materiales sin autorización.
+          </p>
+        </section>
+
+        <section id="confidencialidad">
+          <div class="eyebrow">Confidencialidad</div>
+          <h2>Lo compartido en clase se cuida.</h2>
+          <p>
+            Tanto la profesora como el estudiante se comprometen a cuidar la información compartida durante las clases, incluyendo procesos personales, dificultades técnicas, comentarios, grabaciones, conversaciones internas y experiencias del grupo.
+          </p>
+        </section>
+
+        <section id="aceptacion" class="dark">
+          <div class="eyebrow">Aceptación</div>
+          <h2>Estudiar música también implica sostener un acuerdo.</h2>
+          <p>
+            Al participar en las clases, cursos o mentorías de Escuela de Flautistas, el estudiante declara conocer y aceptar estas condiciones de funcionamiento.
+          </p>
+          <p>
+            Estudiar música no es solo asistir a una clase. También implica preparar el material, cuidar la comunicación, respetar los horarios, sostener el compromiso y asumir un rol activo en el propio aprendizaje.
+          </p>
+          <div class="quick-actions">
+            <button onclick="window.print()">Guardar como PDF</button>
+            <a class="btn" href="#bienvenida">Volver arriba</a>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div>
+        <strong>Escuela de Flautistas</strong><br />
+        Formación musical online
+      </div>
+      <div>
+        escueladeflautistas.cl<br />
+        @escueladeflautistas
+      </div>
+    </footer>
+
+    <a class="floating-wa" href="https://wa.me/56981527088" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+</body>
+</html>
