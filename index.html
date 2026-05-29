@@ -892,6 +892,497 @@ p+p{margin-top:12px}
   .ambient-orbs span,.hero,.title-line,.motion-ribbon .ribbon-track,.video-sound-note,.mobile-sticky-cta::after{animation:none!important}
 }
 
+
+/* --- Sección inversión clara --- */
+.investment-head{max-width:820px}
+.premium-card{display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(24px,4vw,46px);align-items:center;padding:clamp(28px,5vw,48px);margin-top:34px;border-radius:34px;background:radial-gradient(circle at 12% 0%, rgba(174,230,223,.32), transparent 34%),linear-gradient(180deg,#FFFFFF 0%,#F7FFFE 100%);border:1px solid rgba(174,230,223,.9);box-shadow:0 22px 70px rgba(57,50,50,.08)}
+.plan-label{display:inline-flex;width:max-content;padding:8px 13px;margin-bottom:18px;border-radius:999px;background:rgba(196,32,48,.08);color:var(--red);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.plan-small-label{display:block;margin-bottom:14px;color:var(--red);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.premium-card h3,.investment-card h3{font-size:clamp(24px,3vw,34px);margin-bottom:6px}
+.plan-subtitle{color:var(--dark);font-size:14px;font-weight:700;margin-bottom:16px}
+.plan-description{max-width:680px}
+.plan-list{display:grid;gap:8px;margin-top:22px;list-style:none}
+.plan-list li{position:relative;padding-left:22px;color:var(--soft);font-size:15px}
+.plan-list li::before{content:"";position:absolute;left:0;top:.72em;width:8px;height:8px;border-radius:999px;background:var(--mint);box-shadow:0 0 0 4px rgba(174,230,223,.25)}
+.premium-price-box{display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:26px;border-radius:26px;background:rgba(255,255,255,.76);border:1px solid rgba(174,230,223,.72);box-shadow:0 18px 45px rgba(57,50,50,.06)}
+.price-label{color:var(--soft);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.clp-price{display:block;color:var(--dark);font-size:clamp(28px,3.4vw,42px);line-height:1.05;letter-spacing:-.04em}
+.converted-price{display:block;color:var(--soft);font-size:14px;line-height:1.45}
+.investment-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}
+.investment-card{display:flex;flex-direction:column;min-height:100%;padding:26px;border-radius:26px;background:var(--white);border:1px solid rgba(174,230,223,.72);box-shadow:0 16px 44px rgba(57,50,50,.055);transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease}
+.investment-card:hover{transform:translateY(-4px);box-shadow:0 22px 54px rgba(57,50,50,.09);border-color:rgba(174,230,223,.95)}
+.investment-card p{font-size:15px}
+.price-block{margin-top:auto;padding-top:24px}
+.investment-card .clp-price{font-size:28px;margin-bottom:4px}
+.plan-link{display:inline-flex;align-items:center;width:max-content;margin-top:20px;color:var(--red);font-size:12px;letter-spacing:.10em;text-transform:uppercase;font-weight:800}
+.plan-link::after{content:"→";margin-left:8px;transition:transform .2s ease}
+.plan-link:hover::after{transform:translateX(4px)}
+.currency-note{max-width:760px;margin:28px auto 0;text-align:center}
+.currency-note p{font-size:13px;color:var(--soft)}
+@media(max-width:980px){.premium-card{grid-template-columns:1fr}.investment-grid{grid-template-columns:1fr}.premium-price-box{width:100%}}
+@media(max-width:640px){.premium-card{padding:26px 20px;border-radius:28px}.premium-price-box{padding:22px}.investment-card{padding:24px 20px}.clp-price{font-size:32px}.investment-card .clp-price{font-size:26px}}
+
+
+/* --- Refinamiento delicado para inversión clara --- */
+.investment-section{
+  background:
+    radial-gradient(circle at 8% 8%, rgba(174,230,223,.18), transparent 28%),
+    linear-gradient(180deg,#FFFFFF 0%,#F9FFFE 100%);
+}
+.investment-head{
+  max-width:760px;
+}
+.investment-head h2{
+  max-width:720px;
+  font-weight:500;
+}
+.premium-card{
+  background:rgba(255,255,255,.86);
+  border:1px solid rgba(174,230,223,.58);
+  box-shadow:0 18px 52px rgba(57,50,50,.045);
+}
+.plan-label{
+  background:rgba(174,230,223,.28);
+  color:var(--dark);
+  border:1px solid rgba(174,230,223,.52);
+}
+.plan-small-label{
+  color:rgba(196,32,48,.82);
+}
+.premium-card h3,
+.investment-card h3{
+  font-weight:500;
+  letter-spacing:-.035em;
+}
+.plan-description,
+.investment-card p,
+.plan-list li{
+  color:rgba(111,102,102,.88);
+}
+.plan-list li::before{
+  width:7px;
+  height:7px;
+  background:rgba(174,230,223,.95);
+  box-shadow:0 0 0 3px rgba(174,230,223,.18);
+}
+.premium-price-box{
+  background:rgba(247,255,254,.74);
+  border:1px solid rgba(174,230,223,.48);
+  box-shadow:none;
+}
+.clp-price{
+  font-weight:600;
+  letter-spacing:-.05em;
+}
+.converted-price{
+  color:rgba(111,102,102,.72);
+}
+.investment-card{
+  background:rgba(255,255,255,.82);
+  border:1px solid rgba(174,230,223,.48);
+  box-shadow:0 12px 36px rgba(57,50,50,.035);
+}
+.investment-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 18px 44px rgba(57,50,50,.06);
+}
+.plan-link{
+  color:rgba(196,32,48,.86);
+  letter-spacing:.08em;
+}
+.premium-price-box .btn-primary{
+  background:rgba(196,32,48,.92);
+  box-shadow:0 14px 28px rgba(196,32,48,.16);
+}
+.currency-note p{
+  color:rgba(111,102,102,.72);
+}
+
+
+/* --- Carrito de selección de acompañamiento --- */
+.plan-cart{
+  position:fixed;
+  left:50%;
+  bottom:22px;
+  transform:translateX(-50%) translateY(140%);
+  z-index:997;
+  width:min(720px,calc(100% - 34px));
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:16px 18px;
+  border-radius:26px;
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(174,230,223,.7);
+  box-shadow:0 20px 58px rgba(57,50,50,.13);
+  backdrop-filter:blur(16px);
+  transition:transform .35s cubic-bezier(.2,.82,.2,1), opacity .28s ease;
+  opacity:0;
+}
+.plan-cart.is-visible{
+  transform:translateX(-50%) translateY(0);
+  opacity:1;
+}
+.plan-cart-copy{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+.plan-cart-label{
+  color:var(--red);
+  font-size:10px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  font-weight:800;
+}
+.plan-cart-title{
+  color:var(--dark);
+  font-size:15px;
+  font-weight:700;
+  line-height:1.25;
+}
+.plan-cart-meta{
+  color:var(--soft);
+  font-size:13px;
+  line-height:1.35;
+}
+.plan-cart-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-shrink:0;
+}
+.plan-cart-actions .btn{
+  min-height:46px;
+  padding:12px 18px;
+}
+.plan-cart-clear{
+  border:0;
+  background:transparent;
+  color:var(--soft);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+.plan-cart-clear:hover{color:var(--red)}
+.selected-plan-note{
+  display:none;
+  margin:0 0 22px;
+  padding:16px 18px;
+  border-radius:20px;
+  background:rgba(174,230,223,.13);
+  border:1px solid rgba(174,230,223,.42);
+}
+.selected-plan-note.is-visible{
+  display:block;
+}
+.selected-plan-note strong{
+  display:block;
+  color:var(--dark);
+  font-size:15px;
+  margin-bottom:4px;
+}
+.selected-plan-note span{
+  display:block;
+  color:var(--soft);
+  font-size:14px;
+}
+[data-plan-select].is-selected{
+  outline:2px solid rgba(196,32,48,.18);
+  outline-offset:4px;
+}
+@media(max-width:640px){
+  .plan-cart{
+    bottom:86px;
+    align-items:flex-start;
+    flex-direction:column;
+    gap:12px;
+    border-radius:22px;
+  }
+  .plan-cart-actions{
+    width:100%;
+  }
+  .plan-cart-actions .btn{
+    width:100%;
+  }
+  .plan-cart-clear{
+    padding:0 4px;
+  }
+}
+
+
+/* --- inversión con imágenes + icono de carrito --- */
+.investment-head{max-width:760px}
+.premium-card{
+  grid-template-columns:320px 1fr 300px;
+  gap:24px;
+  align-items:stretch;
+}
+.premium-visual{
+  position:relative;
+  overflow:hidden;
+  border-radius:28px;
+  min-height:100%;
+  background:linear-gradient(180deg, rgba(174,230,223,.18), rgba(255,255,255,.4));
+}
+.premium-visual img,
+.plan-thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.premium-visual::after,
+.plan-thumb::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, rgba(255,255,255,.02) 0%, rgba(57,50,50,.16) 100%);
+  pointer-events:none;
+}
+.premium-visual-note{
+  position:absolute;
+  left:18px;
+  bottom:18px;
+  z-index:2;
+  padding:10px 12px;
+  border-radius:16px;
+  background:rgba(255,255,255,.78);
+  backdrop-filter:blur(8px);
+  color:var(--dark);
+  font-size:12px;
+  line-height:1.35;
+  max-width:78%;
+}
+.investment-card{
+  overflow:hidden;
+}
+.plan-thumb{
+  position:relative;
+  overflow:hidden;
+  border-radius:18px;
+  aspect-ratio:4/3;
+  margin-bottom:18px;
+  background:#f7fffe;
+}
+.plan-content{
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+.btn-icon,
+.plan-link-icon,
+.plan-cart-icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+.btn-has-icon{
+  gap:10px;
+}
+.btn-has-icon .btn-icon{
+  width:20px;
+  height:20px;
+}
+.plan-link{
+  gap:8px;
+}
+.plan-link::after{content:none}
+.plan-link-icon svg,
+.btn-icon svg,
+.plan-cart-icon svg{
+  width:18px;
+  height:18px;
+}
+.plan-cart{
+  width:min(640px,calc(100% - 34px));
+}
+.plan-cart-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.plan-cart-icon{
+  position:relative;
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  background:rgba(174,230,223,.18);
+  color:var(--dark);
+  flex-shrink:0;
+}
+.plan-cart-badge{
+  position:absolute;
+  top:-5px;
+  right:-5px;
+  min-width:18px;
+  height:18px;
+  padding:0 5px;
+  border-radius:999px;
+  background:var(--red);
+  color:#fff;
+  font-size:10px;
+  line-height:18px;
+  text-align:center;
+  font-weight:800;
+}
+.plan-cart-label{display:none}
+.plan-cart-copy{gap:6px}
+.plan-cart-title{font-size:14px}
+.plan-cart-meta{font-size:13px}
+.plan-cart-actions .btn{min-height:44px}
+@media(max-width:980px){
+  .premium-card{grid-template-columns:1fr}
+  .premium-visual{aspect-ratio:4/5;min-height:auto}
+}
+@media(max-width:640px){
+  .plan-thumb{aspect-ratio:16/10}
+  .premium-visual{aspect-ratio:4/5}
+}
+
+
+/* --- Mockups finales por nivel --- */
+.premium-card{
+  grid-template-columns:340px 1fr 300px;
+  gap:28px;
+  align-items:stretch;
+}
+.premium-visual,
+.plan-thumb{
+  position:relative;
+  overflow:hidden;
+  background:#F9FFFE;
+  border:1px solid rgba(174,230,223,.48);
+}
+.premium-visual{
+  border-radius:30px;
+  min-height:100%;
+}
+.premium-visual img,
+.plan-thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.premium-visual::after,
+.plan-thumb::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(57,50,50,.04));
+  pointer-events:none;
+}
+.premium-visual-note{
+  position:absolute;
+  left:18px;
+  bottom:18px;
+  z-index:2;
+  max-width:82%;
+  padding:10px 13px;
+  border-radius:16px;
+  background:rgba(255,255,255,.82);
+  backdrop-filter:blur(10px);
+  color:var(--dark);
+  font-size:12px;
+  line-height:1.35;
+  box-shadow:0 10px 26px rgba(57,50,50,.08);
+}
+.plan-thumb{
+  aspect-ratio:4/5;
+  border-radius:20px;
+  margin-bottom:20px;
+}
+.investment-card{
+  overflow:hidden;
+}
+.plan-content{
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+.plan-link{
+  gap:8px;
+}
+.plan-link::after{
+  content:none;
+}
+.plan-link-icon,
+.btn-icon,
+.plan-cart-icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+.plan-link-icon svg,
+.btn-icon svg,
+.plan-cart-icon svg{
+  width:18px;
+  height:18px;
+}
+.btn-has-icon{
+  gap:10px;
+}
+.btn-has-icon .btn-icon{
+  width:20px;
+  height:20px;
+}
+.plan-cart-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.plan-cart-icon{
+  position:relative;
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  background:rgba(174,230,223,.18);
+  color:var(--dark);
+  flex-shrink:0;
+}
+.plan-cart-badge{
+  position:absolute;
+  top:-5px;
+  right:-5px;
+  min-width:18px;
+  height:18px;
+  padding:0 5px;
+  border-radius:999px;
+  background:var(--red);
+  color:#fff;
+  font-size:10px;
+  line-height:18px;
+  text-align:center;
+  font-weight:800;
+}
+.plan-cart-label{
+  display:none;
+}
+@media(max-width:980px){
+  .premium-card{
+    grid-template-columns:1fr;
+  }
+  .premium-visual{
+    aspect-ratio:4/5;
+    min-height:auto;
+  }
+}
+@media(max-width:640px){
+  .premium-visual,
+  .plan-thumb{
+    aspect-ratio:4/5;
+  }
+  .premium-visual-note{
+    font-size:11px;
+    left:14px;
+    bottom:14px;
+  }
+}
+
 </style>
 </head>
 
@@ -991,6 +1482,86 @@ p+p{margin-top:12px}
   </div>
 </section>
 
+
+<!-- SECCIÓN INVERSIÓN CLARA -->
+<section id="inversion" class="section section-soft investment-section">
+  <div class="container">
+    <div class="section-head reveal investment-head">
+      <div class="eyebrow">Inversión clara</div>
+      <h2>Elige tu nivel de acompañamiento.</h2>
+      <p>Quiero que tengas claridad desde el principio. Estos formatos están pensados para acompañarte según el momento en que estés: desde una sesión puntual para ordenar una duda, hasta un proceso profundo para transformar tu sonido con continuidad.</p>
+    </div>
+
+    <article class="premium-card reveal" data-clp="400000">
+      <div class="premium-visual">
+        <img src="mockup-diamante.png" alt="Mockup del nivel Flautista Diamante">
+        <div class="premium-visual-note">Sistema completo de transformación con recursos, grabaciones y seguimiento.</div>
+      </div>
+      <div class="premium-content">
+        <div class="plan-label">Nivel superior</div>
+        <h3>Flautista Diamante</h3>
+        <p class="plan-subtitle">12 sesiones individuales online</p>
+        <p class="plan-description">El proceso más completo para trabajar tu sonido, tu técnica y tu musicalidad con continuidad real. Ideal si quieres una transformación profunda y una guía sostenida durante todo el camino.</p>
+        <ul class="plan-list">
+          <li>12 sesiones individuales online</li>
+          <li>Grabación de cada clase</li>
+          <li>Material personalizado</li>
+          <li>Orientación de estudio</li>
+          <li>Seguimiento de tu proceso</li>
+        </ul>
+      </div>
+      <div class="premium-price-box">
+        <span class="price-label">Inversión</span>
+        <strong class="clp-price">$400.000 CLP</strong>
+        <span class="converted-price">Calculando USD · MXN…</span>
+        <a class="btn btn-primary btn-cta btn-has-icon" href="#formulario" data-plan-select data-plan-name="Flautista Diamante" data-plan-detail="12 sesiones individuales online" data-plan-price="$400.000 CLP" onclick="gtag('event','carrito_premium');"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"></circle><circle cx="18" cy="20" r="1.5"></circle><path d="M3 4h2l2.2 9.2a1 1 0 0 0 1 .8h8.7a1 1 0 0 0 1-.8L20 7H7"></path></svg></span><span>Agregar</span></a>
+      </div>
+    </article>
+
+    <div class="investment-grid">
+      <article class="investment-card reveal" data-clp="45000">
+        <div class="plan-thumb"><img src="plan_claridad.jpg" alt="Flautista de bronce"></div>
+        <div class="plan-content">
+          <span class="plan-small-label">1 sesión</span>
+          <h3>Flautista de bronce</h3>
+          <p class="plan-subtitle">1 sesión individual online</p>
+          <p>Una instancia para observar qué está pasando con tu sonido, tu aire o tu técnica, y salir con una orientación concreta para estudiar mejor.</p>
+          <div class="price-block"><strong class="clp-price">$45.000 CLP</strong><span class="converted-price">Calculando USD · MXN…</span></div>
+          <a class="plan-link" href="#formulario" data-plan-select data-plan-name="Flautista de bronce" data-plan-detail="1 sesión individual online" data-plan-price="$45.000 CLP" onclick="gtag('event','carrito_sesion_claridad');"><span class="plan-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"></circle><circle cx="18" cy="20" r="1.5"></circle><path d="M3 4h2l2.2 9.2a1 1 0 0 0 1 .8h8.7a1 1 0 0 0 1-.8L20 7H7"></path></svg></span>Agregar</a>
+        </div>
+      </article>
+
+      <article class="investment-card reveal" data-clp="90000">
+        <div class="plan-thumb"><img src="plan_inicial.jpg" alt="Flautista de plata"></div>
+        <div class="plan-content">
+          <span class="plan-small-label">2 sesiones</span>
+          <h3>Flautista de plata</h3>
+          <p class="plan-subtitle">2 sesiones individuales online</p>
+          <p>Dos encuentros para diagnosticar tu punto de partida, trabajar una dificultad específica y empezar a construir una ruta de estudio más clara.</p>
+          <div class="price-block"><strong class="clp-price">$90.000 CLP</strong><span class="converted-price">Calculando USD · MXN…</span></div>
+          <a class="plan-link" href="#formulario" data-plan-select data-plan-name="Flautista de plata" data-plan-detail="2 sesiones individuales online" data-plan-price="$90.000 CLP" onclick="gtag('event','carrito_proceso_inicial');"><span class="plan-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"></circle><circle cx="18" cy="20" r="1.5"></circle><path d="M3 4h2l2.2 9.2a1 1 0 0 0 1 .8h8.7a1 1 0 0 0 1-.8L20 7H7"></path></svg></span>Agregar</a>
+        </div>
+      </article>
+
+      <article class="investment-card reveal" data-clp="150000">
+        <div class="plan-thumb"><img src="plan_mensual.jpg" alt="Flautista de oro"></div>
+        <div class="plan-content">
+          <span class="plan-small-label">4 sesiones</span>
+          <h3>Flautista de oro</h3>
+          <p class="plan-subtitle">4 sesiones individuales online</p>
+          <p>Un mes de acompañamiento para trabajar con seguimiento tu sonido, tu técnica y tu musicalidad. Es una opción sólida si quieres avanzar con continuidad.</p>
+          <div class="price-block"><strong class="clp-price">$150.000 CLP</strong><span class="converted-price">Calculando USD · MXN…</span></div>
+          <a class="plan-link" href="#formulario" data-plan-select data-plan-name="Flautista de oro" data-plan-detail="4 sesiones individuales online" data-plan-price="$150.000 CLP" onclick="gtag('event','carrito_mentoria_mensual');"><span class="plan-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"></circle><circle cx="18" cy="20" r="1.5"></circle><path d="M3 4h2l2.2 9.2a1 1 0 0 0 1 .8h8.7a1 1 0 0 0 1-.8L20 7H7"></path></svg></span>Agregar</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="currency-note reveal">
+      <p>El valor oficial está expresado en pesos chilenos. Las equivalencias en dólares y pesos mexicanos son referenciales y se actualizan automáticamente según el tipo de cambio diario.</p>
+    </div>
+  </div>
+</section>
+
 <section id="ensamble" class="section">
   <div class="container two-col">
     <div class="reveal">
@@ -1062,6 +1633,10 @@ p+p{margin-top:12px}
 <section id="formulario" class="section form-section">
   <div class="container form-grid">
     <div class="reveal">
+      <div class="selected-plan-note" id="selectedPlanNote" aria-live="polite">
+        <strong>Formato seleccionado</strong>
+        <span id="selectedPlanText">Aún no has elegido un acompañamiento.</span>
+      </div>
       <div class="eyebrow">Empezar</div>
       <h2>Cuéntame qué está pasando con tu sonido.</h2>
       <p>Si sientes que estudias, pero sigues sin saber qué corregir, deja tus datos y cuéntame brevemente tu caso.</p>
@@ -1100,6 +1675,30 @@ p+p{margin-top:12px}
     <path d="M16.04 3.2A12.72 12.72 0 0 0 5.1 22.39L3.8 28.8l6.56-1.22A12.74 12.74 0 1 0 16.04 3.2Zm0 22.98a10.22 10.22 0 0 1-5.2-1.42l-.37-.22-3.89.72.75-3.78-.25-.39a10.2 10.2 0 1 1 8.96 5.09Zm5.86-7.63c-.32-.16-1.89-.93-2.18-1.04-.29-.11-.5-.16-.72.16-.21.32-.82 1.04-1 1.25-.19.21-.37.24-.69.08-.32-.16-1.35-.5-2.58-1.59-.95-.85-1.6-1.9-1.78-2.22-.19-.32-.02-.49.14-.65.14-.14.32-.37.48-.56.16-.19.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.72-1.73-.98-2.37-.26-.62-.52-.54-.72-.55l-.61-.01c-.21 0-.56.08-.85.4-.29.32-1.12 1.09-1.12 2.66 0 1.57 1.15 3.09 1.31 3.3.16.21 2.26 3.45 5.47 4.84.76.33 1.36.53 1.82.68.77.24 1.47.21 2.02.13.62-.09 1.89-.77 2.16-1.52.27-.75.27-1.39.19-1.52-.08-.13-.29-.21-.61-.37Z"/>
   </svg>
 </a>
+
+
+<div class="plan-cart" id="planCart" aria-live="polite">
+  <div class="plan-cart-header">
+    <div class="plan-cart-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"></circle><circle cx="18" cy="20" r="1.5"></circle><path d="M3 4h2l2.2 9.2a1 1 0 0 0 1 .8h8.7a1 1 0 0 0 1-.8L20 7H7"></path></svg>
+      <span class="plan-cart-badge">1</span>
+    </div>
+    <div class="plan-cart-copy">
+      <strong class="plan-cart-title" id="cartPlanName">Formato seleccionado</strong>
+      <span class="plan-cart-meta" id="cartPlanMeta">Completa tus datos para recibir la información.</span>
+    </div>
+  </div>
+  <div class="plan-cart-actions">
+    <button class="plan-cart-clear" type="button" id="cartClear">Cambiar</button>
+    <a class="btn btn-primary" href="#formulario" id="cartGoForm">Completar datos</a>
+  </div>
+</div>
+  <div class="plan-cart-actions">
+    <button class="plan-cart-clear" type="button" id="cartClear">Cambiar</button>
+    <a class="btn btn-primary" href="#formulario" id="cartGoForm">Completar datos</a>
+  </div>
+</div>
+
 
 <a class="mobile-sticky-cta" href="#formulario" onclick="gtag('event','cta_mobile_sticky_quiero_esto_para_mi');">
   <span>Quiero esto para mí</span>
@@ -1158,6 +1757,96 @@ p+p{margin-top:12px}
         el.style.setProperty('--my', ((e.clientY - rect.top) / rect.height) * 100 + '%');
       });
     });
+  });
+</script>
+
+
+<script>
+async function updateCurrencyReferences(){
+  const cards=document.querySelectorAll('[data-clp]');
+  if(!cards.length)return;
+  const fallback=()=>cards.forEach(card=>{const el=card.querySelector('.converted-price');if(el)el.textContent='Equivalencia internacional disponible al consultar.';});
+  try{
+    const [clpResponse,mxnResponse]=await Promise.all([fetch('https://mindicador.cl/api/dolar'),fetch('https://open.er-api.com/v6/latest/USD')]);
+    const clpData=await clpResponse.json();
+    const mxnData=await mxnResponse.json();
+    const clpPerUsd=clpData.serie&&clpData.serie[0]?clpData.serie[0].valor:null;
+    const mxnPerUsd=mxnData.rates?mxnData.rates.MXN:null;
+    if(!clpPerUsd||!mxnPerUsd){fallback();return;}
+    cards.forEach(card=>{
+      const clp=Number(card.dataset.clp);
+      const usd=clp/clpPerUsd;
+      const mxn=usd*mxnPerUsd;
+      const el=card.querySelector('.converted-price');
+      if(el)el.textContent=`≈ USD ${Math.round(usd).toLocaleString('en-US')} · MXN ${Math.round(mxn).toLocaleString('es-MX')}`;
+    });
+  }catch(e){fallback();}
+}
+document.addEventListener('DOMContentLoaded', updateCurrencyReferences);
+</script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    const planButtons = Array.from(document.querySelectorAll('[data-plan-select]'));
+    const cart = document.getElementById('planCart');
+    const cartName = document.getElementById('cartPlanName');
+    const cartMeta = document.getElementById('cartPlanMeta');
+    const cartClear = document.getElementById('cartClear');
+    const selectedNote = document.getElementById('selectedPlanNote');
+    const selectedText = document.getElementById('selectedPlanText');
+
+    function setSelectedPlan(button){
+      const name = button.dataset.planName;
+      const detail = button.dataset.planDetail;
+      const price = button.dataset.planPrice;
+
+      planButtons.forEach(btn => btn.classList.remove('is-selected'));
+      button.classList.add('is-selected');
+
+      if(cart && cartName && cartMeta){
+        cartName.textContent = name;
+        cartMeta.textContent = detail + ' · ' + price;
+        cart.classList.add('is-visible');
+      }
+
+      if(selectedNote && selectedText){
+        selectedNote.classList.add('is-visible');
+        selectedText.textContent = name + ' · ' + detail + ' · ' + price;
+      }
+
+      sessionStorage.setItem('edf_selected_plan', JSON.stringify({name, detail, price}));
+    }
+
+    planButtons.forEach(button => {
+      button.addEventListener('click', function(){
+        setSelectedPlan(button);
+      });
+    });
+
+    if(cartClear){
+      cartClear.addEventListener('click', function(){
+        planButtons.forEach(btn => btn.classList.remove('is-selected'));
+        if(cart) cart.classList.remove('is-visible');
+        if(selectedNote) selectedNote.classList.remove('is-visible');
+        sessionStorage.removeItem('edf_selected_plan');
+        const inversion = document.getElementById('inversion');
+        if(inversion) inversion.scrollIntoView({behavior:'smooth'});
+      });
+    }
+
+    try{
+      const saved = JSON.parse(sessionStorage.getItem('edf_selected_plan') || 'null');
+      if(saved && cart && cartName && cartMeta){
+        cartName.textContent = saved.name;
+        cartMeta.textContent = saved.detail + ' · ' + saved.price;
+        cart.classList.add('is-visible');
+        if(selectedNote && selectedText){
+          selectedNote.classList.add('is-visible');
+          selectedText.textContent = saved.name + ' · ' + saved.detail + ' · ' + saved.price;
+        }
+      }
+    }catch(e){}
   });
 </script>
 
