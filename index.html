@@ -1383,6 +1383,208 @@ p+p{margin-top:12px}
   }
 }
 
+
+/* --- Ajuste sin nivel bronce --- */
+.investment-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  max-width:860px;
+  margin-left:auto;
+  margin-right:auto;
+}
+@media(max-width:760px){
+  .investment-grid{
+    grid-template-columns:1fr;
+    max-width:none;
+  }
+}
+
+
+/* --- Refinamiento de botones: menos rojo, más jerarquía visual --- */
+.btn{
+  transition:transform .22s ease, box-shadow .22s ease, background .22s ease, border-color .22s ease, color .22s ease;
+}
+
+.btn-primary{
+  background:var(--red);
+  color:var(--white);
+  box-shadow:0 12px 26px rgba(196,32,48,.14);
+}
+
+.btn-primary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 34px rgba(196,32,48,.20);
+  opacity:1;
+}
+
+.btn-soft{
+  background:rgba(174,230,223,.30);
+  color:var(--dark);
+  border:1px solid rgba(174,230,223,.88);
+  box-shadow:none;
+}
+
+.btn-soft:hover{
+  background:rgba(174,230,223,.48);
+  transform:translateY(-1px);
+}
+
+.btn-mint{
+  background:var(--mint);
+  color:var(--dark);
+  border:1px solid rgba(174,230,223,.95);
+  box-shadow:0 12px 28px rgba(174,230,223,.26);
+}
+
+.btn-mint:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 34px rgba(174,230,223,.32);
+}
+
+.btn-dark{
+  background:var(--dark);
+  color:var(--white);
+  border:1px solid rgba(57,50,50,.95);
+  box-shadow:0 14px 30px rgba(57,50,50,.18);
+}
+
+.btn-dark:hover{
+  transform:translateY(-2px);
+  box-shadow:0 18px 38px rgba(57,50,50,.22);
+}
+
+.btn-secondary{
+  background:rgba(255,255,255,.74);
+  border:1px solid rgba(174,230,223,.78);
+  box-shadow:none;
+}
+
+.btn-secondary:hover{
+  background:#fff;
+  border-color:rgba(196,32,48,.20);
+}
+
+/* El botón principal del hero sigue visible, pero no tan insistente */
+.hero .btn-primary:not(.btn-premium){
+  box-shadow:0 14px 32px rgba(196,32,48,.16);
+}
+
+/* Botón premium: rojo reservado para la oferta de mayor valor */
+.btn-premium{
+  background:linear-gradient(135deg,var(--red),#a91a28);
+  box-shadow:0 16px 34px rgba(196,32,48,.18);
+}
+
+/* Cards de inversión: usar links con ícono, no bloques rojos */
+.plan-link{
+  color:var(--dark);
+  background:rgba(174,230,223,.18);
+  border:1px solid rgba(174,230,223,.62);
+  border-radius:999px;
+  padding:11px 15px;
+  width:max-content;
+  letter-spacing:.08em;
+}
+
+.plan-link:hover{
+  color:var(--red);
+  background:rgba(174,230,223,.28);
+  transform:translateY(-1px);
+}
+
+.plan-link-icon svg{
+  width:17px;
+  height:17px;
+}
+
+/* Carrito flotante más editorial */
+.plan-cart{
+  background:rgba(255,255,255,.94);
+  border:1px solid rgba(174,230,223,.62);
+  box-shadow:0 18px 48px rgba(57,50,50,.11);
+}
+
+.plan-cart-icon{
+  background:rgba(174,230,223,.22);
+}
+
+.plan-cart-badge{
+  background:var(--dark);
+}
+
+/* Sticky mobile no rojo */
+.mobile-sticky-cta-dark{
+  background:linear-gradient(135deg,var(--dark),#514747);
+  box-shadow:0 18px 42px rgba(57,50,50,.20);
+}
+
+.mobile-sticky-cta-dark::after{
+  opacity:.26;
+}
+
+/* Menos rojo en etiquetas */
+.plan-small-label,
+.eyebrow{
+  color:rgba(196,32,48,.86);
+}
+
+/* En mobile, evitamos exceso de CTAs visibles */
+@media(max-width:640px){
+  .nav-links .btn{
+    display:none;
+  }
+}
+
+
+/* --- Pago rápido Mercado Pago + WhatsApp --- */
+.plan-cart{
+  width:min(760px,calc(100% - 34px));
+}
+.plan-cart-note{
+  display:block;
+  color:rgba(111,102,102,.72);
+  font-size:12px;
+  line-height:1.3;
+}
+.plan-cart-actions{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  flex-shrink:0;
+}
+.plan-cart-actions .btn{
+  min-height:44px;
+  padding:11px 16px;
+  white-space:nowrap;
+}
+.btn-pay-now{
+  background:linear-gradient(135deg,var(--red),#a91a28);
+  color:#fff;
+}
+.btn-whatsapp-cart{
+  background:rgba(174,230,223,.28);
+  color:var(--dark);
+  border:1px solid rgba(174,230,223,.8);
+}
+@media(max-width:760px){
+  .plan-cart{
+    align-items:stretch;
+  }
+  .plan-cart-actions{
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+  .plan-cart-actions .btn{
+    width:100%;
+  }
+  .plan-cart-clear{
+    grid-column:1 / -1;
+    justify-self:center;
+    margin-top:2px;
+  }
+}
+
 </style>
 </head>
 
@@ -1398,7 +1600,7 @@ p+p{margin-top:12px}
       <a href="#mentoria">Mentoría</a>
       <a href="#testimonios">Testimonios</a>
       <a href="#valentina">Sobre mí</a>
-      <a class="btn btn-primary" href="#formulario">Quiero esto para mí</a>
+      <a class="btn btn-soft" href="#formulario">Quiero esto para mí</a>
     </div>
   </div>
 </nav>
@@ -1476,7 +1678,7 @@ p+p{margin-top:12px}
       <p>Muchas veces el sonido se aprieta, el aire se corta o los agudos se vuelven una pelea porque estás intentando resolver demasiadas cosas sin una ruta clara.</p>
       <p>Trabajamos sonido, respiración, embocadura, cambios de registro, lectura, musicalidad y criterio de estudio para que sepas exactamente dónde poner tu atención.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary btn-cta" href="#formulario" onclick="gtag('event','cta_intermedio_quiero_esto_para_mi');"><span>Quiero esto para mí</span></a>
+        <a class="btn btn-mint btn-cta" href="#formulario" onclick="gtag('event','cta_intermedio_quiero_esto_para_mi');"><span>Quiero avanzar</span></a>
       </div>
     </div>
   </div>
@@ -1494,7 +1696,7 @@ p+p{margin-top:12px}
 
     <article class="premium-card reveal" data-clp="400000">
       <div class="premium-visual">
-        <img src="mockup-diamante.png" alt="Mockup del nivel Flautista Diamante">
+        <img src="assets/mockups/mockup-diamante.png" alt="Mockup del nivel Flautista Diamante">
         <div class="premium-visual-note">Sistema completo de transformación con recursos, grabaciones y seguimiento.</div>
       </div>
       <div class="premium-content">
@@ -1514,44 +1716,33 @@ p+p{margin-top:12px}
         <span class="price-label">Inversión</span>
         <strong class="clp-price">$400.000 CLP</strong>
         <span class="converted-price">Calculando USD · MXN…</span>
-        <a class="btn btn-primary btn-cta btn-has-icon" href="#formulario" data-plan-select data-plan-name="Flautista Diamante" data-plan-detail="12 sesiones individuales online" data-plan-price="$400.000 CLP" onclick="gtag('event','carrito_premium');"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"></circle><circle cx="18" cy="20" r="1.5"></circle><path d="M3 4h2l2.2 9.2a1 1 0 0 0 1 .8h8.7a1 1 0 0 0 1-.8L20 7H7"></path></svg></span><span>Agregar</span></a>
+        <a class="btn btn-primary btn-cta btn-premium btn-has-icon" href="#formulario" data-plan-select data-plan-name="Flautista Diamante" data-payment-url="https://mpago.la/2cXSjw5" data-plan-detail="12 sesiones individuales online" data-plan-price="$400.000 CLP" onclick="gtag('event','carrito_premium');"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"></circle><circle cx="18" cy="20" r="1.5"></circle><path d="M3 4h2l2.2 9.2a1 1 0 0 0 1 .8h8.7a1 1 0 0 0 1-.8L20 7H7"></path></svg></span><span>Agregar</span></a>
       </div>
     </article>
 
     <div class="investment-grid">
-      <article class="investment-card reveal" data-clp="45000">
-        <div class="plan-thumb"><img src="mockup-bronce.png" alt="Flautista de bronce"></div>
-        <div class="plan-content">
-          <span class="plan-small-label">1 sesión</span>
-          <h3>Flautista de bronce</h3>
-          <p class="plan-subtitle">1 sesión individual online</p>
-          <p>Una instancia para observar qué está pasando con tu sonido, tu aire o tu técnica, y salir con una orientación concreta para estudiar mejor.</p>
-          <div class="price-block"><strong class="clp-price">$45.000 CLP</strong><span class="converted-price">Calculando USD · MXN…</span></div>
-          <a class="plan-link" href="#formulario" data-plan-select data-plan-name="Flautista de bronce" data-plan-detail="1 sesión individual online" data-plan-price="$45.000 CLP" onclick="gtag('event','carrito_sesion_claridad');"><span class="plan-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"></circle><circle cx="18" cy="20" r="1.5"></circle><path d="M3 4h2l2.2 9.2a1 1 0 0 0 1 .8h8.7a1 1 0 0 0 1-.8L20 7H7"></path></svg></span>Agregar</a>
-        </div>
-      </article>
 
       <article class="investment-card reveal" data-clp="90000">
-        <div class="plan-thumb"><img src="mockup-plata.png" alt="Flautista de plata"></div>
+        <div class="plan-thumb"><img src="assets/mockups/mockup-plata.png" alt="Flautista de plata"></div>
         <div class="plan-content">
           <span class="plan-small-label">2 sesiones</span>
           <h3>Flautista de plata</h3>
           <p class="plan-subtitle">2 sesiones individuales online</p>
           <p>Dos encuentros para diagnosticar tu punto de partida, trabajar una dificultad específica y empezar a construir una ruta de estudio más clara.</p>
           <div class="price-block"><strong class="clp-price">$90.000 CLP</strong><span class="converted-price">Calculando USD · MXN…</span></div>
-          <a class="plan-link" href="#formulario" data-plan-select data-plan-name="Flautista de plata" data-plan-detail="2 sesiones individuales online" data-plan-price="$90.000 CLP" onclick="gtag('event','carrito_proceso_inicial');"><span class="plan-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"></circle><circle cx="18" cy="20" r="1.5"></circle><path d="M3 4h2l2.2 9.2a1 1 0 0 0 1 .8h8.7a1 1 0 0 0 1-.8L20 7H7"></path></svg></span>Agregar</a>
+          <a class="plan-link" href="#formulario" data-plan-select data-plan-name="Flautista de plata" data-payment-url="https://mpago.la/2jUK4nA" data-plan-detail="2 sesiones individuales online" data-plan-price="$90.000 CLP" onclick="gtag('event','carrito_proceso_inicial');"><span class="plan-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"></circle><circle cx="18" cy="20" r="1.5"></circle><path d="M3 4h2l2.2 9.2a1 1 0 0 0 1 .8h8.7a1 1 0 0 0 1-.8L20 7H7"></path></svg></span>Agregar</a>
         </div>
       </article>
 
       <article class="investment-card reveal" data-clp="150000">
-        <div class="plan-thumb"><img src="mockup-oro.png" alt="Flautista de oro"></div>
+        <div class="plan-thumb"><img src="assets/mockups/mockup-oro.png" alt="Flautista de oro"></div>
         <div class="plan-content">
           <span class="plan-small-label">4 sesiones</span>
           <h3>Flautista de oro</h3>
           <p class="plan-subtitle">4 sesiones individuales online</p>
           <p>Un mes de acompañamiento para trabajar con seguimiento tu sonido, tu técnica y tu musicalidad. Es una opción sólida si quieres avanzar con continuidad.</p>
           <div class="price-block"><strong class="clp-price">$150.000 CLP</strong><span class="converted-price">Calculando USD · MXN…</span></div>
-          <a class="plan-link" href="#formulario" data-plan-select data-plan-name="Flautista de oro" data-plan-detail="4 sesiones individuales online" data-plan-price="$150.000 CLP" onclick="gtag('event','carrito_mentoria_mensual');"><span class="plan-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"></circle><circle cx="18" cy="20" r="1.5"></circle><path d="M3 4h2l2.2 9.2a1 1 0 0 0 1 .8h8.7a1 1 0 0 0 1-.8L20 7H7"></path></svg></span>Agregar</a>
+          <a class="plan-link" href="#formulario" data-plan-select data-plan-name="Flautista de oro" data-payment-url="https://mpago.la/2M4Vi6W" data-plan-detail="4 sesiones individuales online" data-plan-price="$150.000 CLP" onclick="gtag('event','carrito_mentoria_mensual');"><span class="plan-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"></circle><circle cx="18" cy="20" r="1.5"></circle><path d="M3 4h2l2.2 9.2a1 1 0 0 0 1 .8h8.7a1 1 0 0 0 1-.8L20 7H7"></path></svg></span>Agregar</a>
         </div>
       </article>
     </div>
@@ -1685,22 +1876,24 @@ p+p{margin-top:12px}
     </div>
     <div class="plan-cart-copy">
       <strong class="plan-cart-title" id="cartPlanName">Formato seleccionado</strong>
-      <span class="plan-cart-meta" id="cartPlanMeta">Completa tus datos para recibir la información.</span>
+      <span class="plan-cart-meta" id="cartPlanMeta">Completa tus datos para recibir la información.</span><span class="plan-cart-note">Después del pago, te escribiré para coordinar tu primera sesión.</span>
     </div>
   </div>
   <div class="plan-cart-actions">
+    <a class="btn btn-primary btn-pay-now" href="#" target="_blank" rel="noopener" id="cartPayNow" onclick="gtag(\'event\',\'cta_pago_mercadopago_carrito\');">Pagar ahora</a>
+    <a class="btn btn-soft btn-whatsapp-cart" href="#" target="_blank" rel="noopener" id="cartWhatsApp" onclick="gtag(\'event\',\'cta_whatsapp_carrito_pack\');">WhatsApp</a>
     <button class="plan-cart-clear" type="button" id="cartClear">Cambiar</button>
-    <a class="btn btn-primary" href="#formulario" id="cartGoForm">Completar datos</a>
   </div>
 </div>
   <div class="plan-cart-actions">
+    <a class="btn btn-primary btn-pay-now" href="#" target="_blank" rel="noopener" id="cartPayNow" onclick="gtag(\'event\',\'cta_pago_mercadopago_carrito\');">Pagar ahora</a>
+    <a class="btn btn-soft btn-whatsapp-cart" href="#" target="_blank" rel="noopener" id="cartWhatsApp" onclick="gtag(\'event\',\'cta_whatsapp_carrito_pack\');">WhatsApp</a>
     <button class="plan-cart-clear" type="button" id="cartClear">Cambiar</button>
-    <a class="btn btn-primary" href="#formulario" id="cartGoForm">Completar datos</a>
   </div>
 </div>
 
 
-<a class="mobile-sticky-cta" href="#formulario" onclick="gtag('event','cta_mobile_sticky_quiero_esto_para_mi');">
+<a class="mobile-sticky-cta mobile-sticky-cta-dark" href="#formulario" onclick="gtag('event','cta_mobile_sticky_quiero_esto_para_mi');">
   <span>Quiero esto para mí</span>
 </a>
 
@@ -1796,10 +1989,38 @@ document.addEventListener('DOMContentLoaded', updateCurrencyReferences);
     const selectedNote = document.getElementById('selectedPlanNote');
     const selectedText = document.getElementById('selectedPlanText');
 
+    function buildWhatsAppUrl(plan){
+      const phone = '56981527088';
+      const message =
+        'Hola Valentina, quiero reservar ' + plan.name + '.\n\n' +
+        'Pack: ' + plan.name + '\n' +
+        'Formato: ' + plan.detail + '\n' +
+        'Valor: ' + plan.price + '\n\n' +
+        'Ya vi la información en la web. ¿Me confirmas cómo seguimos?';
+      return 'https://wa.me/' + phone + '?text=' + encodeURIComponent(message);
+    }
+
+    function updateCartLinks(plan){
+      const payNow = document.getElementById('cartPayNow');
+      const whatsApp = document.getElementById('cartWhatsApp');
+
+      if(payNow){
+        payNow.href = plan.paymentUrl || '#';
+        payNow.setAttribute('aria-label', 'Pagar ahora ' + plan.name);
+      }
+
+      if(whatsApp){
+        whatsApp.href = buildWhatsAppUrl(plan);
+        whatsApp.setAttribute('aria-label', 'Enviar WhatsApp sobre ' + plan.name);
+      }
+    }
+
     function setSelectedPlan(button){
       const name = button.dataset.planName;
       const detail = button.dataset.planDetail;
       const price = button.dataset.planPrice;
+      const paymentUrl = button.dataset.paymentUrl || '#';
+      const plan = {name, detail, price, paymentUrl};
 
       planButtons.forEach(btn => btn.classList.remove('is-selected'));
       button.classList.add('is-selected');
@@ -1815,7 +2036,8 @@ document.addEventListener('DOMContentLoaded', updateCurrencyReferences);
         selectedText.textContent = name + ' · ' + detail + ' · ' + price;
       }
 
-      sessionStorage.setItem('edf_selected_plan', JSON.stringify({name, detail, price}));
+      updateCartLinks(plan);
+      sessionStorage.setItem('edf_selected_plan', JSON.stringify(plan));
     }
 
     planButtons.forEach(button => {
@@ -1841,6 +2063,7 @@ document.addEventListener('DOMContentLoaded', updateCurrencyReferences);
         cartName.textContent = saved.name;
         cartMeta.textContent = saved.detail + ' · ' + saved.price;
         cart.classList.add('is-visible');
+        updateCartLinks(saved);
         if(selectedNote && selectedText){
           selectedNote.classList.add('is-visible');
           selectedText.textContent = saved.name + ' · ' + saved.detail + ' · ' + saved.price;
