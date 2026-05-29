@@ -96,41 +96,6 @@ section[id]{scroll-margin-top:92px}
   box-shadow:0 12px 28px rgba(196,32,48,.18);
 }
 .btn-primary:hover{transform:translateY(-1px);opacity:.94}
-
-.btn-cta{
-  min-width:235px;
-  padding:15px 30px;
-  position:relative;
-  overflow:hidden;
-  isolation:isolate;
-  animation:ctaPulse 2.8s ease-in-out infinite;
-}
-.btn-cta::after{
-  content:"";
-  position:absolute;
-  inset:-40% auto -40% -65%;
-  width:45%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.38),transparent);
-  transform:rotate(18deg);
-  animation:ctaShine 3.4s ease-in-out infinite;
-  z-index:-1;
-}
-.btn-cta:hover{
-  transform:translateY(-2px) scale(1.015);
-  box-shadow:0 18px 38px rgba(196,32,48,.26);
-}
-@keyframes ctaPulse{
-  0%,100%{box-shadow:0 12px 28px rgba(196,32,48,.18)}
-  50%{box-shadow:0 18px 42px rgba(196,32,48,.34)}
-}
-@keyframes ctaShine{
-  0%{left:-65%}
-  42%,100%{left:125%}
-}
-@media (prefers-reduced-motion: reduce){
-  .btn-cta,.btn-cta::after{animation:none}
-}
-
 .btn-secondary{
   border:1px solid var(--mint);
   background:var(--white);
@@ -422,43 +387,6 @@ p+p{margin-top:12px}
 }
 .footer a{color:var(--mint);font-weight:700}
 
-
-.whatsapp-float{
-  position:fixed;
-  right:22px;
-  bottom:22px;
-  width:62px;
-  height:62px;
-  border-radius:999px;
-  background:#25D366;
-  color:#FFFFFF;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:80;
-  box-shadow:0 18px 40px rgba(37,211,102,.34);
-  transition:transform .22s ease, box-shadow .22s ease;
-  animation:wspFloat 2.6s ease-in-out infinite;
-}
-.whatsapp-float:hover{
-  transform:translateY(-3px) scale(1.04);
-  box-shadow:0 22px 48px rgba(37,211,102,.44);
-}
-.whatsapp-float svg{
-  width:32px;
-  height:32px;
-  display:block;
-  fill:currentColor;
-}
-@keyframes wspFloat{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-4px)}
-}
-@media (prefers-reduced-motion: reduce){
-  .whatsapp-float{animation:none}
-}
-
-
 @media(max-width:980px){
   .hero-grid,.two-col,.form-grid{grid-template-columns:1fr}
   .grid-3,.testimonial-grid{grid-template-columns:1fr}
@@ -477,6 +405,221 @@ p+p{margin-top:12px}
   .form-frame{min-height:1180px}
   .form-frame iframe{height:1180px}
 }
+
+.whatsapp-float{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  z-index:999;
+  width:62px;
+  height:62px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:999px;
+  background:#25D366;
+  box-shadow:0 14px 36px rgba(37,211,102,.32);
+  transition:.2s ease;
+}
+
+.whatsapp-float:hover{
+  transform:translateY(-2px);
+  box-shadow:0 18px 42px rgba(37,211,102,.38);
+}
+
+.whatsapp-float img{
+  width:62px;
+  height:62px;
+  display:block;
+}
+
+@media(max-width:640px){
+  .whatsapp-float{
+    right:16px;
+    bottom:16px;
+    width:56px;
+    height:56px;
+  }
+
+  .whatsapp-float img{
+    width:56px;
+    height:56px;
+  }
+}
+
+
+.video-sound-note{
+  margin-top:12px;
+  padding:11px 14px;
+  border-radius:999px;
+  background:rgba(196,32,48,.10);
+  border:1px solid rgba(196,32,48,.22);
+  color:var(--red);
+  font-size:13px;
+  line-height:1.35;
+  font-weight:700;
+  text-align:center;
+  box-shadow:0 10px 26px rgba(196,32,48,.08);
+}
+
+@media(max-width:640px){
+  .video-sound-note{
+    margin-top:10px;
+    padding:10px 12px;
+    font-size:12px;
+  }
+}
+
+
+/* --- Interacción y dinamismo sutil --- */
+@keyframes ctaPulse{
+  0%,100%{transform:translateY(0) scale(1);box-shadow:0 16px 34px rgba(196,32,48,.22)}
+  50%{transform:translateY(-1px) scale(1.025);box-shadow:0 20px 48px rgba(196,32,48,.32)}
+}
+@keyframes ctaShine{
+  0%{transform:translateX(-140%) skewX(-18deg)}
+  55%,100%{transform:translateX(180%) skewX(-18deg)}
+}
+@keyframes softFloat{
+  0%,100%{transform:translate3d(0,0,0) rotate(0deg)}
+  50%{transform:translate3d(10px,-14px,0) rotate(1deg)}
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(18px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes haloDrift{
+  0%,100%{transform:translate3d(0,0,0) scale(1)}
+  50%{transform:translate3d(18px,-18px,0) scale(1.04)}
+}
+.hero{
+  position:relative;
+  overflow:hidden;
+}
+.hero::before,
+.hero::after{
+  content:"";
+  position:absolute;
+  border-radius:999px;
+  pointer-events:none;
+  filter:blur(.2px);
+}
+.hero::before{
+  width:360px;
+  height:360px;
+  right:-120px;
+  top:88px;
+  background:radial-gradient(circle, rgba(174,230,223,.38), transparent 66%);
+  animation:haloDrift 8s ease-in-out infinite;
+}
+.hero::after{
+  width:230px;
+  height:230px;
+  left:42%;
+  bottom:-90px;
+  background:radial-gradient(circle, rgba(196,32,48,.10), transparent 68%);
+  animation:haloDrift 9s ease-in-out infinite reverse;
+}
+.hero-grid{
+  position:relative;
+  z-index:2;
+}
+.hero h1,
+.hero .eyebrow,
+.hero-copy,
+.hero-actions,
+.micro-note{
+  animation:fadeUp .72s ease both;
+}
+.hero .eyebrow{animation-delay:.04s}
+.hero h1{animation-delay:.12s}
+.hero-copy{animation-delay:.22s}
+.hero-actions{animation-delay:.32s}
+.micro-note{animation-delay:.42s}
+.video-intro-card{
+  animation:softFloat 7s ease-in-out infinite;
+}
+.btn-cta{
+  min-width:230px;
+  min-height:54px;
+  padding:15px 28px;
+  position:relative;
+  overflow:hidden;
+  animation:ctaPulse 2.8s ease-in-out infinite;
+}
+.btn-cta::after{
+  content:"";
+  position:absolute;
+  inset:-40% auto -40% -45%;
+  width:42%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent);
+  animation:ctaShine 3.4s ease-in-out infinite;
+}
+.btn-cta span{
+  position:relative;
+  z-index:2;
+}
+.btn-secondary:hover,
+.card:hover,
+.testimonial:hover,
+.quote-box:hover{
+  transform:translateY(-3px);
+}
+.card,
+.testimonial,
+.quote-box,
+.photo-card,
+.video-ensemble{
+  transition:transform .24s ease, box-shadow .24s ease, border-color .24s ease;
+}
+.card:hover,
+.testimonial:hover,
+.quote-box:hover{
+  box-shadow:0 18px 50px rgba(57,50,50,.10);
+  border-color:rgba(174,230,223,.95);
+}
+.reveal{
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity .7s ease, transform .7s ease;
+}
+.reveal.in-view{
+  opacity:1;
+  transform:translateY(0);
+}
+.whatsapp-float{
+  animation:softFloat 4.8s ease-in-out infinite;
+}
+.whatsapp-icon{
+  width:34px;
+  height:34px;
+  display:block;
+  fill:#fff;
+}
+@media(max-width:640px){
+  .btn-cta{
+    width:100%;
+    min-width:0;
+  }
+  .hero::before{
+    width:270px;
+    height:270px;
+    right:-130px;
+    top:120px;
+  }
+  .hero::after{
+    left:10%;
+    bottom:-120px;
+  }
+}
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{
+    animation:none!important;
+    transition:none!important;
+    scroll-behavior:auto!important;
+  }
+}
+
 </style>
 </head>
 
@@ -486,20 +629,21 @@ p+p{margin-top:12px}
     <a class="logo" href="#">Escuela de Flautistas</a>
     <div class="nav-links">
       <a href="#mentoria">Mentoría</a>
-      <a href="#metodo">Proceso</a>
       <a href="#testimonios">Testimonios</a>
-      <a class="btn btn-primary btn-cta" href="#formulario" data-event="cta_nav_guia">Quiero esto para mí</a>
+      <a href="#valentina">Sobre mí</a>
+      <a class="btn btn-primary" href="#formulario">Quiero esto para mí</a>
     </div>
   </div>
 </nav>
 
 <header class="hero">
   <div class="container hero-grid">
-    <div class="video-intro-card">
-      <video controls preload="metadata" playsinline poster="assets/valentina-2.png">
+    <div class="video-intro-card reveal">
+      <video controls autoplay muted loop preload="metadata" playsinline poster="assets/valentina-2.png">
         <source src="assets/video-presentacion-valentina.mp4" type="video/mp4">
         Tu navegador no puede reproducir este video.
       </video>
+      <div class="video-sound-note">🔈 Activa el sonido para escuchar la presentación</div>
     </div>
 
     <div>
@@ -507,8 +651,8 @@ p+p{margin-top:12px}
       <h1>No necesitas más ejercicios sueltos. Necesitas una <em>guía.</em></h1>
       <p class="hero-copy">Una mentoría online para flautistas adultas que estudian, se esfuerzan y aun así sienten que su sonido no responde como quisieran. Aquí vas a ordenar tu técnica, entender qué hacer con tu aire y construir una forma de tocar más clara, libre y expresiva.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary btn-cta" href="#formulario" data-event="cta_hero_guia">Quiero esto para mí</a>
-        <a class="btn btn-secondary" href="#mentoria" data-event="cta_hero_ver_metodo">Ver cómo funciona</a>
+        <a class="btn btn-primary btn-cta" href="#formulario" onclick="gtag('event','cta_hero_quiero_esto_para_mi');"><span>Quiero esto para mí</span></a>
+        <a class="btn btn-secondary" href="#mentoria">Ver cómo funciona</a>
       </div>
       <div class="micro-note">Más de 10 años enseñando · Más de 500 alumnos · Clases grabadas y material de apoyo</div>
     </div>
@@ -517,44 +661,44 @@ p+p{margin-top:12px}
 
 <section id="mentoria" class="section">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">La mentoría</div>
-      <h2>Para dejar de estudiar a ciegas y empezar a entender tu sonido.</h2>
-      <p>Esta mentoría es para flautistas adultas que quieren avanzar con una ruta concreta: menos confusión, menos tensión acumulada y más claridad sobre qué corregir cada vez que toman la flauta.</p>
+      <h2>Deja de practicar sin saber qué corregir.</h2>
+      <p>Esta mentoría es para flautistas adultas que quieren avanzar con dirección: entender su sonido, ordenar su técnica y estudiar con un sistema posible para su vida real.</p>
     </div>
 
     <div class="grid-3">
-      <article class="card">
+      <article class="card reveal">
         <span>01</span>
         <h3>Diagnóstico real</h3>
-        <p>Miramos qué está pasando con tu aire, tu embocadura, tu sonido y tu forma de estudiar para dejar de corregir al azar.</p>
+        <p>Miramos qué está pasando con tu aire, tu embocadura, tu postura y tu forma de estudiar para dejar de corregir al azar.</p>
       </article>
-      <article class="card">
+      <article class="card reveal">
         <span>02</span>
         <h3>Ruta de estudio</h3>
-        <p>Te llevas indicaciones concretas para practicar mejor, aunque tengas poco tiempo y no puedas estudiar durante horas.</p>
+        <p>Recibes una dirección concreta para practicar: qué hacer, por qué hacerlo y cómo notar si realmente estás avanzando.</p>
       </article>
-      <article class="card">
+      <article class="card reveal">
         <span>03</span>
         <h3>Seguimiento claro</h3>
-        <p>Cada clase queda grabada y acompañada de material útil para que puedas volver a las correcciones sin perderte.</p>
+        <p>Clases grabadas, material de apoyo y correcciones pensadas para que no dependas de la inspiración ni de ejercicios sueltos.</p>
       </article>
     </div>
   </div>
 </section>
 
-<section id="metodo" class="section section-soft">
+<section class="section section-soft">
   <div class="container two-col">
-    <div class="photo-card">
+    <div class="photo-card reveal">
       <img src="assets/valentina-6.png" alt="Valentina Galaz trabajando con una hoja y flauta">
     </div>
-    <div>
+    <div class="reveal">
       <div class="eyebrow">Cómo trabajamos</div>
-      <h2>No se trata de acumular ejercicios.</h2>
-      <p>Se trata de entender qué ejercicio necesitas, para qué sirve y cómo aplicarlo en tu cuerpo, tu aire y tu sonido.</p>
-      <p>Trabajamos dirección del aire, embocadura, resonancia, cambios de registro, articulación, afinación y musicalidad con una lógica progresiva. La meta no es estudiar más por ansiedad: es estudiar con dirección.</p>
+      <h2>El problema no siempre es falta de talento.</h2>
+      <p>Muchas veces el sonido se aprieta, el aire se corta o los agudos se vuelven una pelea porque estás intentando resolver demasiadas cosas sin una ruta clara.</p>
+      <p>Trabajamos sonido, respiración, embocadura, cambios de registro, lectura, musicalidad y criterio de estudio para que sepas exactamente dónde poner tu atención.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary btn-cta" href="#formulario" data-event="cta_metodo_guia">Quiero esto para mí</a>
+        <a class="btn btn-primary btn-cta" href="#formulario" onclick="gtag('event','cta_intermedio_quiero_esto_para_mi');"><span>Quiero esto para mí</span></a>
       </div>
     </div>
   </div>
@@ -562,10 +706,10 @@ p+p{margin-top:12px}
 
 <section id="ensamble" class="section">
   <div class="container two-col">
-    <div>
-      <div class="eyebrow">La experiencia</div>
-      <h2>La técnica tiene sentido cuando vuelve a la música.</h2>
-      <p>La mentoría no busca que acumules correcciones aisladas. Buscamos que puedas tocar con más claridad, confianza y presencia, incluso si haces música por disfrute y no como profesión.</p>
+    <div class="reveal">
+      <div class="eyebrow">Experiencia musical real</div>
+      <h2>La técnica tiene que terminar en música.</h2>
+      <p>El objetivo no es llenar una carpeta de ejercicios, sino tocar con más seguridad, preparar repertorio y vivir la música con más claridad, criterio y disfrute.</p>
 
       <div class="quote-box">
         <p>“Hacer música en compañía de personas tan maravillosas hace que este proceso sea mágico. Estoy eternamente agradecida de Escuela de Flautistas, de mi maestra Valentina y de mis compañeras de ensamble.”</p>
@@ -574,7 +718,7 @@ p+p{margin-top:12px}
       </div>
     </div>
 
-    <div class="video-ensemble">
+    <div class="video-ensemble reveal">
       <video controls preload="metadata" playsinline poster="assets/ensamble-poster.jpg">
         <source src="assets/carnavalito-ensamble.mp4" type="video/mp4">
         Tu navegador no puede reproducir este video.
@@ -589,23 +733,23 @@ p+p{margin-top:12px}
 
 <section id="testimonios" class="section section-soft">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">Testimonios</div>
-      <h2>Lo que cambia cuando dejas de estudiar sin dirección.</h2>
+      <h2>Lo que cambia cuando dejas de estudiar sola.</h2>
     </div>
 
     <div class="testimonial-grid">
-      <article class="testimonial">
+      <article class="testimonial reveal">
         <p>“Valentina es consciente de los procesos auditivos, corporales y cognitivos que requiere aprender flauta traversa.”</p>
         <strong>Victoria Miranda</strong>
         <span>Ingeniera, educadora · Clases online</span>
       </article>
-      <article class="testimonial">
+      <article class="testimonial reveal">
         <p>“En la clase se generó una confianza muy genuina. Estoy muy feliz con todo lo que me ayudó a corregir.”</p>
         <strong>Ignacio Cabrera</strong>
         <span>Flautista · Clases online</span>
       </article>
-      <article class="testimonial">
+      <article class="testimonial reveal">
         <p>“Jamás imaginé cómo sería tomar clases online y verdaderamente me encantó. Recomiendo muchísimo sus clases.”</p>
         <strong>Ana Claudia Catini</strong>
         <span>Docente de música · Clases online</span>
@@ -614,15 +758,15 @@ p+p{margin-top:12px}
   </div>
 </section>
 
-<section class="section">
+<section id="valentina" class="section">
   <div class="container two-col">
-    <div>
+    <div class="reveal">
       <div class="eyebrow">Sobre Valentina</div>
-      <h2>Flautista, mentora y Licenciada en Flauta Traversa.</h2>
-      <p>Desde hace más de 10 años acompaño procesos de aprendizaje en flautistas de distintos niveles, y en ese camino he trabajado con más de 500 alumnos.</p>
-      <p>Mi recorrido reúne formación académica, experiencia escénica y una trayectoria musical desarrollada en Chile, Argentina, Paraguay, Brasil y Estados Unidos.</p>
+      <h2>Una guía exigente, sensible y concreta.</h2>
+      <p>Soy Valentina Galaz, flautista, mentora y Licenciada en Flauta Traversa. Desde hace más de 10 años acompaño procesos de aprendizaje en flautistas de distintos niveles, con más de 500 alumnos en mi recorrido.</p>
+      <p>Mi trabajo une formación académica, experiencia escénica y una mirada pedagógica centrada en algo muy simple: que entiendas tu sonido y puedas tocar con más libertad.</p>
     </div>
-    <div class="photo-card">
+    <div class="photo-card reveal">
       <img src="assets/valentina-4.png" alt="Valentina Galaz tocando flauta">
     </div>
   </div>
@@ -630,17 +774,17 @@ p+p{margin-top:12px}
 
 <section id="formulario" class="section form-section">
   <div class="container form-grid">
-    <div>
-      <div class="eyebrow">Quiero esto para mí</div>
+    <div class="reveal">
+      <div class="eyebrow">Empezar</div>
       <h2>Cuéntame qué está pasando con tu sonido.</h2>
-      <p>Si sientes que estudias pero no sabes exactamente qué corregir, deja tus datos y cuéntame tu caso.</p>
-      <p>Te enviaré la información de la mentoría para que veas si este proceso tiene sentido para tu momento actual con la flauta.</p>
-      <div class="form-note">Si el formulario no carga correctamente, puedes abrirlo directamente aquí:<br><a href="https://f318c7a6.sibforms.com/serve/MUIFAFwBMvNPO_JjnPbzJ9uk6NbGc5YbyTub-F_ywtZ6MoSabZX_3RX4wAg0yXUBIvYT-qDxSSNgIyrvtZ5-C5IlxauwyAdyf4kBjLIEb3-3OlC9gpBOqZOjMtoZ3EnQhLv0Lp69_voFXm_wYLG9b1pr-hheLUCXyNFfgG1M_MvAChCpBOCTrKXWPJin_8KR-v_C2M_QygHITKDFdA==" target="_blank" rel="noopener">Formulario de información de mentorías</a></div>
+      <p>Si sientes que estudias, pero sigues sin saber qué corregir, deja tus datos y cuéntame brevemente tu caso.</p>
+      <p>Te enviaré la información de la mentoría y veremos si este proceso tiene sentido para lo que necesitas ahora.</p>
+      <div class="form-note">Si el formulario no carga correctamente, puedes abrirlo directamente aquí:<br><a href="https://f318c7a6.sibforms.com/serve/MUIFAFwBMvNPO_JjnPbzJ9uk6NbGc5YbyTub-F_ywtZ6MoSabZX_3RX4wAg0yXUBIvYT-qDxSSNgIyrvtZ5-C5IlxauwyAdyf4kBjLIEb3-3OlC9gpBOqZOjMtoZ3EnQhLv0Lp69_voFXm_wYLG9b1pr-hheLUCXyNFfgG1M_MvAChCpBOCTrKXWPJin_8KR-v_C2M_QygHITKDFdA==" target="_blank" rel="noopener" onclick="gtag('event','cta_formulario_externo');">Abrir formulario</a></div>
     </div>
     <div class="form-frame">
       <iframe
         src="https://f318c7a6.sibforms.com/serve/MUIFAFwBMvNPO_JjnPbzJ9uk6NbGc5YbyTub-F_ywtZ6MoSabZX_3RX4wAg0yXUBIvYT-qDxSSNgIyrvtZ5-C5IlxauwyAdyf4kBjLIEb3-3OlC9gpBOqZOjMtoZ3EnQhLv0Lp69_voFXm_wYLG9b1pr-hheLUCXyNFfgG1M_MvAChCpBOCTrKXWPJin_8KR-v_C2M_QygHITKDFdA=="
-        title="Formulario de información de mentorías online"
+        title="Formulario de postulación a mentorías online"
         width="100%"
         height="1100"
         frameborder="0"
@@ -652,17 +796,24 @@ p+p{margin-top:12px}
   </div>
 </section>
 
-
-<a class="whatsapp-float" href="https://wa.me/56981527088?text=Hola%20Valentina%2C%20quiero%20informaci%C3%B3n%20sobre%20las%20mentor%C3%ADas%20online%20de%20flauta." target="_blank" rel="noopener" aria-label="Escribir por WhatsApp" data-event="cta_whatsapp_flotante">
-  <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-    <path d="M16.04 3.2C9.02 3.2 3.3 8.91 3.3 15.93c0 2.24.59 4.43 1.72 6.36L3.2 28.8l6.67-1.75a12.65 12.65 0 0 0 6.17 1.57h.01c7.02 0 12.74-5.71 12.74-12.73S23.07 3.2 16.04 3.2Zm0 23.27h-.01c-1.96 0-3.88-.53-5.56-1.52l-.4-.24-3.96 1.04 1.06-3.86-.26-.4a10.5 10.5 0 0 1-1.61-5.56c0-5.92 4.82-10.73 10.75-10.73 2.87 0 5.57 1.12 7.6 3.15a10.66 10.66 0 0 1 3.15 7.58c0 5.92-4.82 10.74-10.76 10.74Zm5.89-8.04c-.32-.16-1.9-.94-2.2-1.05-.3-.11-.52-.16-.74.16-.22.32-.85 1.05-1.04 1.27-.19.21-.38.24-.7.08-.32-.16-1.36-.5-2.59-1.6-.96-.85-1.61-1.9-1.8-2.22-.19-.32-.02-.5.14-.66.15-.15.32-.38.48-.57.16-.19.22-.32.32-.54.11-.21.05-.4-.03-.56-.08-.16-.74-1.78-1.01-2.44-.27-.64-.54-.55-.74-.56h-.63c-.21 0-.56.08-.85.4-.3.32-1.12 1.1-1.12 2.68s1.15 3.1 1.31 3.32c.16.21 2.27 3.46 5.49 4.85.77.33 1.37.53 1.84.68.77.24 1.47.21 2.02.13.62-.09 1.9-.78 2.17-1.53.27-.75.27-1.39.19-1.53-.08-.13-.3-.21-.62-.37Z"/>
-  </svg>
-</a>
-
 <footer class="footer">
   <div>Escuela de Flautistas · Valentina Galaz</div>
   <div><a href="https://www.instagram.com/escueladeflautistas/" target="_blank" rel="noopener">@escueladeflautistas</a></div>
 </footer>
+
+
+<a
+  href="https://wa.me/56981527088?text=Hola%20Valentina%2C%20quiero%20saber%20m%C3%A1s%20sobre%20la%20mentor%C3%ADa%20online%20de%20flauta."
+  class="whatsapp-float"
+  target="_blank"
+  rel="noopener"
+  aria-label="Escribir por WhatsApp"
+  onclick="gtag('event','cta_whatsapp_flotante');">
+  <svg class="whatsapp-icon" viewBox="0 0 32 32" aria-hidden="true">
+    <path d="M16.04 3.2A12.72 12.72 0 0 0 5.1 22.39L3.8 28.8l6.56-1.22A12.74 12.74 0 1 0 16.04 3.2Zm0 22.98a10.22 10.22 0 0 1-5.2-1.42l-.37-.22-3.89.72.75-3.78-.25-.39a10.2 10.2 0 1 1 8.96 5.09Zm5.86-7.63c-.32-.16-1.89-.93-2.18-1.04-.29-.11-.5-.16-.72.16-.21.32-.82 1.04-1 1.25-.19.21-.37.24-.69.08-.32-.16-1.35-.5-2.58-1.59-.95-.85-1.6-1.9-1.78-2.22-.19-.32-.02-.49.14-.65.14-.14.32-.37.48-.56.16-.19.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.72-1.73-.98-2.37-.26-.62-.52-.54-.72-.55l-.61-.01c-.21 0-.56.08-.85.4-.29.32-1.12 1.09-1.12 2.66 0 1.57 1.15 3.09 1.31 3.3.16.21 2.26 3.45 5.47 4.84.76.33 1.36.53 1.82.68.77.24 1.47.21 2.02.13.62-.09 1.89-.77 2.16-1.52.27-.75.27-1.39.19-1.52-.08-.13-.29-.21-.61-.37Z"/>
+  </svg>
+</a>
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -678,15 +829,19 @@ p+p{margin-top:12px}
       });
     });
 
-    document.querySelectorAll('[data-event]').forEach(function (el) {
-      el.addEventListener('click', function () {
-        if (typeof gtag === 'function') {
-          gtag('event', el.dataset.event, {
-            event_category: 'cta',
-            event_label: el.textContent.trim()
-          });
+    const revealItems = Array.from(document.querySelectorAll('.reveal'));
+    const observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
         }
       });
+    }, {threshold: 0.14});
+
+    revealItems.forEach(function(item, index){
+      item.style.transitionDelay = Math.min(index * 35, 180) + 'ms';
+      observer.observe(item);
     });
   });
 </script>
