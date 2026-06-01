@@ -690,6 +690,35 @@
       line-height:1.42 !important;
     }
 
+
+
+    /* Fix: Brevo WhatsApp selector text must stay readable */
+    .brevo-box #sib-container .sib-sms-input-wrapper,
+    .brevo-box #sib-container .sib-sms-input-wrapper *,
+    .brevo-box #sib-container .sib-sms-input,
+    .brevo-box #sib-container .sib-sms-input *,
+    .brevo-box #sib-container .sib-sms-input select,
+    .brevo-box #sib-container .sib-sms-input select option,
+    .brevo-box #sib-container .sib-sms-input input,
+    .brevo-box #sib-container .sib-sms-input .input{
+      color:#2a2218 !important;
+      -webkit-text-fill-color:#2a2218 !important;
+    }
+    .brevo-box #sib-container .sib-sms-input input::placeholder,
+    .brevo-box #sib-container .sib-sms-input .input::placeholder{
+      color:rgba(42,34,24,.42) !important;
+      -webkit-text-fill-color:rgba(42,34,24,.42) !important;
+      opacity:1 !important;
+    }
+    .brevo-box #sib-container .sib-sms-input-wrapper ul,
+    .brevo-box #sib-container .sib-sms-input-wrapper li,
+    .brevo-box #sib-container .sib-sms-input-wrapper [class*="country"],
+    .brevo-box #sib-container .sib-sms-input-wrapper [class*="dropdown"]{
+      color:#2a2218 !important;
+      -webkit-text-fill-color:#2a2218 !important;
+      background:#fff !important;
+    }
+
     .brevo-box .sib-form-message-panel{
       max-width:100% !important;
       margin:0 0 12px !important;
