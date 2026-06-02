@@ -89,6 +89,8 @@
       background:var(--turq);
       color:#15100d;
       font-weight:950;
+      text-align:center;
+      line-height:1.2;
       cursor:pointer;
       box-shadow:0 16px 38px rgba(0,0,0,.28);
       transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
@@ -214,6 +216,44 @@
     .hero-card span{
       color:var(--turq);
       font-weight:900;
+    }
+
+    /* Hero con formulario integrado */
+    .hero--form{
+      grid-template-columns:.82fr 1.18fr;
+      align-items:start;
+      scroll-margin-top:96px;
+    }
+    .hero--form .hero-intro{
+      padding-top:6px;
+    }
+    .hero-form{
+      width:100%;
+    }
+    .hero-form .brevo-box{
+      margin-top:0;
+    }
+
+    /* Sección foto + texto "No necesitas más fuerza" */
+    .visual-block{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:clamp(28px,5vw,64px);
+      align-items:center;
+    }
+    .visual-block .hero-image{
+      min-height:480px;
+    }
+    .visual-block-text h2{
+      font-size:clamp(2rem,4vw,3.4rem);
+      margin:12px 0 16px;
+      letter-spacing:-.05em;
+      line-height:.98;
+    }
+    @media(max-width:980px){
+      .hero--form{grid-template-columns:1fr;}
+      .visual-block{grid-template-columns:1fr;}
+      .visual-block .hero-image{min-height:420px;order:-1}
     }
 
     section{padding:28px 0}
@@ -419,42 +459,33 @@
     }
     .brevo-box{
       position:relative;
-      padding:12px;
+      padding:0;
       min-height:auto;
-      border-radius:34px;
-      background:
-        linear-gradient(145deg,rgba(255,248,239,.16),rgba(168,216,216,.08)),
-        rgba(245,243,240,.06);
-      border:1px solid rgba(168,216,216,.30);
-      box-shadow:0 24px 70px rgba(0,0,0,.22);
+      border-radius:28px;
+      background:transparent;
+      border:0;
+      box-shadow:none;
       overflow:visible;
     }
     .brevo-box:before{
       content:"✦";
       position:absolute;
-      top:-18px;
-      right:26px;
-      width:42px;
-      height:42px;
+      top:-16px;
+      right:24px;
+      width:40px;
+      height:40px;
       display:grid;
       place-items:center;
       border-radius:999px;
       background:var(--turq);
       color:#17120f;
-      font-size:1.1rem;
+      font-size:1.05rem;
       font-weight:950;
       box-shadow:0 16px 36px rgba(0,0,0,.26);
       z-index:2;
     }
     .brevo-box:after{
-      content:"";
-      position:absolute;
-      inset:-1px;
-      border-radius:34px;
-      background:linear-gradient(135deg,rgba(168,216,216,.34),transparent 38%,rgba(200,32,26,.18));
-      opacity:.55;
-      pointer-events:none;
-      z-index:0;
+      display:none;
     }
     .brevo-box iframe,
     .brevo-box .sib-form{
@@ -474,11 +505,10 @@
     .brevo-box #sib-container{
       max-width:100% !important;
       border-radius:28px !important;
-      border:1px solid rgba(255,255,255,.56) !important;
-      background:
-        linear-gradient(180deg,rgba(255,248,239,.98),rgba(245,243,240,.94)) !important;
-      padding:28px !important;
-      box-shadow:0 22px 60px rgba(0,0,0,.18);
+      border:1px solid rgba(42,34,24,.10) !important;
+      background:#fffdf9 !important;
+      padding:30px !important;
+      box-shadow:0 26px 70px rgba(0,0,0,.28) !important;
     }
     .brevo-box #sib-container .sib-form-block,
     .brevo-box #sib-container label,
@@ -693,12 +723,22 @@
 
 
     /* Fix: Brevo WhatsApp selector text must stay readable */
+    .brevo-box #sib-container select,
+    .brevo-box #sib-container .sib-sms-input select{
+      background-color:#fffdf9 !important;
+    }
+    .brevo-box #sib-container select option,
+    .brevo-box #sib-container .sib-sms-input select option{
+      color:#2a2218 !important;
+      background-color:#ffffff !important;
+      -webkit-text-fill-color:#2a2218 !important;
+      font-weight:600 !important;
+    }
     .brevo-box #sib-container .sib-sms-input-wrapper,
     .brevo-box #sib-container .sib-sms-input-wrapper *,
     .brevo-box #sib-container .sib-sms-input,
     .brevo-box #sib-container .sib-sms-input *,
     .brevo-box #sib-container .sib-sms-input select,
-    .brevo-box #sib-container .sib-sms-input select option,
     .brevo-box #sib-container .sib-sms-input input,
     .brevo-box #sib-container .sib-sms-input .input{
       color:#2a2218 !important;
@@ -734,9 +774,8 @@
       .form-panel > div:first-child{position:relative;top:auto}
     }
     @media(max-width:720px){
-      .brevo-box{padding:8px;border-radius:26px}
-      .brevo-box:after{border-radius:26px}
-      .brevo-box #sib-container{padding:20px !important;border-radius:22px !important}
+      .brevo-box{padding:0;border-radius:26px}
+      .brevo-box #sib-container{padding:22px !important;border-radius:24px !important}
       .brevo-box #sib-container .sib-sms-input{display:grid !important;grid-template-columns:1fr !important}
       .brevo-box #sib-container .sib-sms-input .entry__field:first-child{width:100% !important;min-width:100% !important}
     }
@@ -1180,45 +1219,25 @@
     </div>
   </div>
 
-  <header class="hero wrap">
-    <div>
+  <header class="hero wrap hero--form" id="inscripcion">
+    <div class="hero-intro">
       <div class="eyebrow">Masterclass gratuita</div>
       <h1>Tu voz <em>en la flauta</em></h1>
       <p class="hero-sub">
         Una clase para flautistas adultas/os que quieren construir un sonido más <span class="mark">claro, estable y expresivo</span> sin estudiar al azar ni tocar desde la fuerza.
       </p>
-      <div class="hero-actions">
-        <a class="btn" href="#inscripcion">Reservar mi cupo gratis</a>
-        <a class="btn ghost" href="#aprenderas">Ver qué aprenderé</a>
-      </div>
       <div class="badges">
         <span class="badge">Online</span>
         <span class="badge">26 de junio</span>
         <span class="badge">Gratuita</span>
         <span class="badge">Para flautistas adultas/os</span>
       </div>
-    </div>
-
-    <div class="hero-image">
-      <div class="hero-card">
-        <strong>No necesitas más fuerza.</strong>
-        <span>Necesitas más escucha, dirección y criterio.</span>
+      <div class="hero-actions">
+        <a class="btn ghost" href="#aprenderas">Ver qué aprenderé</a>
       </div>
     </div>
-  </header>
 
-  <main>
-
-    <section class="wrap" id="inscripcion">
-      <div class="panel dark">
-        <div class="form-panel">
-          <div>
-            <div class="eyebrow">Inscripción gratuita</div>
-            <h2>Reserva tu lugar en la masterclass.</h2>
-            <p class="lead">
-              Completa el formulario para recibir el acceso y los recordatorios de la clase del 26 de junio.
-            </p>
-          </div>
+    <div class="hero-form">
           <div class="brevo-box">
             <!-- START - We recommend to place the below code where you want the form in your website html  -->
             <div class="sib-form" style="text-align: center;
@@ -2541,7 +2560,24 @@
             </div>
             <!-- END - We recommend to place the above code where you want the form in your website html  -->
           </div>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="wrap visual-block">
+      <div class="hero-image">
+        <div class="hero-card">
+          <strong>No necesitas más fuerza.</strong>
+          <span>Necesitas más escucha, dirección y criterio.</span>
         </div>
+      </div>
+      <div class="visual-block-text">
+        <div class="eyebrow">El enfoque</div>
+        <h2>Tocar mejor empieza por escuchar distinto.</h2>
+        <p class="lead">
+          Antes de sumar horas de estudio, ordenamos qué escuchar y qué ajustar. Esa es la base de todo lo que veremos juntas/os en la masterclass.
+        </p>
       </div>
     </section>
 
