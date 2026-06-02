@@ -3,8 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Escuela de Flautistas · Mentorías Online</title>
+<title>Escuela de Flautistas · Mentorías Online de Flauta Traversa</title>
+<meta name="description" content="Mentoría online de flauta traversa con Valentina Galaz. Ordena tu técnica, entiende tu sonido y toca con más libertad. Más de 10 años enseñando y 500+ alumnos.">
 <link rel="icon" type="image/png" href="assets/favicon.png">
+
+<!-- Open Graph / vista previa al compartir (WhatsApp, Instagram, Facebook) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Escuela de Flautistas · Mentorías Online de Flauta">
+<meta property="og:description" content="Una mentoría online para flautistas que estudian pero sienten que su sonido no responde. Ordena tu técnica y toca con más libertad.">
+<meta property="og:image" content="assets/valentina-2.png">
+<meta property="og:locale" content="es_CL">
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Escuela de Flautistas · Mentorías Online de Flauta">
+<meta name="twitter:description" content="Mentoría online de flauta traversa con Valentina Galaz. Ordena tu técnica y toca con más libertad.">
+<meta name="twitter:image" content="assets/valentina-2.png">
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCXF3B1KV9"></script>
 <script>
@@ -78,6 +92,44 @@ section[id]{scroll-margin-top:92px}
   font-weight:600;
 }
 .nav-links a:hover{color:var(--red)}
+.nav-links a.is-active:not(.btn){color:var(--red);position:relative}
+.nav-links a.is-active:not(.btn)::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-6px;
+  height:2px;
+  border-radius:2px;
+  background:var(--red);
+}
+
+/* Botón hamburguesa (solo móvil) */
+.nav-toggle{
+  display:none;
+  flex-direction:column;
+  justify-content:center;
+  gap:5px;
+  width:42px;
+  height:42px;
+  padding:0;
+  border:1px solid var(--mint-line);
+  border-radius:12px;
+  background:rgba(255,255,255,.6);
+  cursor:pointer;
+}
+.nav-toggle span{
+  display:block;
+  width:20px;
+  height:2px;
+  margin:0 auto;
+  border-radius:2px;
+  background:var(--dark);
+  transition:transform .26s ease, opacity .2s ease;
+}
+.nav-toggle.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-toggle.is-open span:nth-child(2){opacity:0}
+.nav-toggle.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
 .btn{
   display:inline-flex;
@@ -610,8 +662,38 @@ select.input:focus{
 @media(max-width:980px){
   .hero-grid,.two-col,.form-grid{grid-template-columns:1fr}
   .grid-3,.testimonial-grid{grid-template-columns:1fr}
-  .nav-links a:not(.btn){display:none}
   .video-intro-card{max-width:520px}
+  .nav-toggle{display:flex}
+  .nav-links{
+    position:absolute;
+    top:72px;
+    left:0;
+    right:0;
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    padding:8px 18px 18px;
+    background:rgba(255,255,255,.98);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--mint-line);
+    box-shadow:0 20px 40px rgba(57,50,50,.10);
+    font-size:13px;
+    transform:translateY(-12px);
+    opacity:0;
+    pointer-events:none;
+    transition:transform .26s ease, opacity .24s ease;
+  }
+  .nav-links.is-open{
+    transform:translateY(0);
+    opacity:1;
+    pointer-events:auto;
+  }
+  .nav-links a:not(.btn){
+    padding:14px 6px;
+    border-bottom:1px solid var(--line);
+  }
+  .nav-links a.is-active:not(.btn)::after{display:none}
+  .nav-links .btn{margin-top:14px}
 }
 
 @media(max-width:640px){
@@ -1843,19 +1925,22 @@ select.input:focus{
 <nav class="nav">
   <div class="container nav-inner">
     <a class="logo" href="#">Escuela de Flautistas</a>
-    <div class="nav-links">
+    <div class="nav-links" id="navLinks">
       <a href="#mentoria">Mentoría</a>
       <a href="#testimonios">Testimonios</a>
       <a href="#valentina">Sobre mí</a>
       <a class="btn btn-soft" href="#formulario">Quiero esto para mí</a>
     </div>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
 <header class="hero">
   <div class="container hero-grid">
     <div class="video-intro-card reveal">
-      <video controls autoplay muted loop preload="metadata" playsinline poster="assets/valentina-2.png">
+      <video controls muted loop preload="metadata" playsinline poster="assets/valentina-2.png">
         <source src="assets/video-presentacion-valentina.mp4" type="video/mp4">
         Tu navegador no puede reproducir este video.
       </video>
@@ -2316,6 +2401,49 @@ select.input:focus{
         el.style.setProperty('--my', ((e.clientY - rect.top) / rect.height) * 100 + '%');
       });
     });
+
+    // Menú hamburguesa móvil
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    if(navToggle && navLinks){
+      navToggle.addEventListener('click', function(){
+        const open = navLinks.classList.toggle('is-open');
+        navToggle.classList.toggle('is-open', open);
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        navToggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+      });
+      // Cerrar al tocar un enlace
+      navLinks.querySelectorAll('a').forEach(function(link){
+        link.addEventListener('click', function(){
+          navLinks.classList.remove('is-open');
+          navToggle.classList.remove('is-open');
+          navToggle.setAttribute('aria-expanded','false');
+          navToggle.setAttribute('aria-label','Abrir menú');
+        });
+      });
+    }
+
+    // Resaltar sección activa en el nav durante el scroll
+    const navAnchors = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
+    const sectionMap = navAnchors
+      .map(function(a){
+        const id = a.getAttribute('href').slice(1);
+        const sec = id ? document.getElementById(id) : null;
+        return sec ? {anchor:a, section:sec} : null;
+      })
+      .filter(Boolean);
+    if(sectionMap.length){
+      const spy = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            sectionMap.forEach(function(m){ m.anchor.classList.remove('is-active'); });
+            const match = sectionMap.find(function(m){ return m.section === entry.target; });
+            if(match) match.anchor.classList.add('is-active');
+          }
+        });
+      }, {rootMargin:'-45% 0px -50% 0px', threshold:0});
+      sectionMap.forEach(function(m){ spy.observe(m.section); });
+    }
   });
 </script>
 
