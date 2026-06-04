@@ -7,13 +7,88 @@
   <style>
     :root{--crema:#F5F1EA;--papel:#FFF9F1;--tinta:#2A2218;--gris:#6F665F;--rojo:#C8201A;--violeta:#6B4A74;--linea:#DED4C8;--sombra:0 18px 60px rgba(42,34,24,.10)}
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--crema);color:var(--tinta);font-family:Montserrat,Arial,sans-serif}.deck{width:100%}.slide{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:48px 20px;border-bottom:1px solid var(--linea);position:relative;overflow:hidden}.slide:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at top right,rgba(200,32,26,.08),transparent 35%),radial-gradient(circle at bottom left,rgba(107,74,116,.08),transparent 38%);pointer-events:none}.card{position:relative;width:min(980px,100%);min-height:min(760px,calc(100svh - 96px));background:rgba(255,249,241,.86);border:1px solid var(--linea);border-radius:34px;padding:clamp(30px,5vw,62px);box-shadow:var(--sombra);display:flex;flex-direction:column;justify-content:center}.card.dark{background:var(--tinta);color:var(--crema)}.brand{position:absolute;top:28px;left:clamp(30px,5vw,62px);color:var(--rojo);text-transform:uppercase;letter-spacing:.18em;font-weight:800;font-size:.76rem}.number{position:absolute;right:clamp(30px,5vw,62px);top:28px;color:rgba(42,34,24,.25);font-weight:800;font-size:.9rem}.dark .number{color:rgba(245,241,234,.35)}h1,h2,h3,p{margin:0}h1{font-size:clamp(3.2rem,9vw,7.2rem);line-height:.88;letter-spacing:-.07em;max-width:820px}h2{font-size:clamp(2.35rem,6vw,4.8rem);line-height:.94;letter-spacing:-.055em;max-width:860px}h3{font-size:clamp(1.25rem,2vw,1.65rem);color:var(--violeta);margin-bottom:18px;line-height:1.18}.dark h3{color:#E8C8C3}.eyebrow{color:var(--rojo);text-transform:uppercase;letter-spacing:.14em;font-weight:800;font-size:.78rem;margin-bottom:22px}.lead{margin-top:28px;max-width:720px;font-size:clamp(1.15rem,2.3vw,1.55rem);line-height:1.42;color:var(--gris)}.dark .lead,.dark p,.dark li{color:rgba(245,241,234,.82)}.body{margin-top:28px;max-width:800px;font-size:clamp(1.05rem,2vw,1.34rem);line-height:1.52;color:var(--gris)}.body p+p{margin-top:18px}.big-phrase{font-size:clamp(2.3rem,6vw,5rem);line-height:.95;letter-spacing:-.055em;font-weight:800;max-width:850px}.quote{margin-top:32px;padding:22px 0 0 24px;border-left:4px solid var(--rojo);font-size:clamp(1.35rem,3vw,2rem);line-height:1.18;font-weight:800;max-width:760px}.grid{display:grid;gap:16px;margin-top:30px}@media(min-width:760px){.grid.two{grid-template-columns:1fr 1fr}.grid.three{grid-template-columns:repeat(3,1fr)}}.mini{background:white;border:1px solid var(--linea);border-radius:20px;padding:20px;min-height:112px;font-size:1rem;line-height:1.4;color:var(--gris)}.mini strong{display:block;color:var(--rojo);margin-bottom:8px;font-size:1.03rem}.dark .mini{background:rgba(255,255,255,.08);border-color:rgba(245,241,234,.18);color:rgba(245,241,234,.8)}ul.clean{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:12px;max-width:760px}ul.clean li{padding-left:28px;position:relative;color:var(--gris);font-size:clamp(1.04rem,2vw,1.3rem);line-height:1.38}ul.clean li:before{content:"";position:absolute;left:0;top:.55em;width:9px;height:9px;border-radius:50%;background:var(--rojo)}.takeaway{margin-top:32px;padding:20px 22px;border-radius:20px;background:rgba(200,32,26,.08);color:var(--tinta);font-weight:700;font-size:clamp(1.05rem,2vw,1.25rem);line-height:1.35;max-width:780px}.dark .takeaway{background:rgba(200,32,26,.28);color:var(--crema)}.nav{position:fixed;z-index:5;right:18px;bottom:18px;display:flex;gap:10px}.nav a{width:42px;height:42px;border-radius:50%;background:rgba(42,34,24,.88);color:var(--crema);text-decoration:none;display:flex;align-items:center;justify-content:center;font-weight:800;box-shadow:0 8px 25px rgba(0,0,0,.20)}.footer-note{position:absolute;bottom:26px;left:clamp(30px,5vw,62px);color:rgba(42,34,24,.42);font-size:.82rem;font-weight:700}.dark .footer-note{color:rgba(245,241,234,.45)}.image-slot{margin-top:30px;border:1px dashed var(--rojo);border-radius:24px;min-height:170px;display:flex;align-items:center;justify-content:center;color:var(--gris);text-align:center;padding:22px;background:rgba(255,255,255,.45);font-size:.96rem}@media(max-width:640px){.slide{padding:22px 14px}.card{min-height:calc(100svh - 44px);border-radius:26px;padding:84px 24px 64px}.brand,.number{top:24px}.footer-note{bottom:18px}}
+  
+    /* FIX FOTO QUIÉN SOY YO */
+    #s3 .card{
+      justify-content:flex-start !important;
+      padding-top:84px !important;
+      padding-bottom:42px !important;
+    }
+
+    #s3 .photo-layout{
+      display:grid !important;
+      grid-template-columns:280px minmax(0, 1fr) !important;
+      gap:28px !important;
+      align-items:start !important;
+      margin-top:22px !important;
+      max-height:none !important;
+    }
+
+    #s3 .portrait{
+      width:280px !important;
+      height:360px !important;
+      max-width:280px !important;
+      max-height:360px !important;
+      min-height:0 !important;
+      border-radius:24px !important;
+      overflow:hidden !important;
+      border:1px solid var(--linea) !important;
+      box-shadow:0 14px 45px rgba(42,34,24,.12) !important;
+      background:#ddd !important;
+      flex:none !important;
+    }
+
+    #s3 .portrait img{
+      width:100% !important;
+      height:100% !important;
+      min-height:0 !important;
+      object-fit:cover !important;
+      object-position:center 22% !important;
+      display:block !important;
+    }
+
+    #s3 .body{
+      margin-top:0 !important;
+      font-size:clamp(.96rem, 1.55vw, 1.15rem) !important;
+      line-height:1.43 !important;
+    }
+
+    #s3 .body p + p{
+      margin-top:14px !important;
+    }
+
+    @media(max-width:819px){
+      #s3 .card{
+        padding-top:84px !important;
+      }
+
+      #s3 .photo-layout{
+        grid-template-columns:1fr !important;
+        gap:18px !important;
+      }
+
+      #s3 .portrait{
+        width:100% !important;
+        max-width:100% !important;
+        height:260px !important;
+        max-height:260px !important;
+      }
+    }
+
   </style>
 </head>
 <body>
   <div class="deck">
     <section class="slide" id="s1"><div class="card"><div class="brand">Escuela de Flautistas</div><div class="number">01</div><div class="eyebrow">Masterclass gratuita</div><h1>Tu voz en la flauta</h1><p class="lead">Un mapa inicial para construir un sonido más claro, más libre y más tuyo.</p><div class="takeaway">Aire · cuerpo · embocadura · escucha · estudio</div><div class="footer-note">Valentina Galaz</div></div></section>
     <section class="slide" id="s2"><div class="card"><div class="brand">Escuela de Flautistas</div><div class="number">02</div><div class="eyebrow">Bienvenida</div><h2>No venimos a buscar perfección. Venimos a escuchar mejor.</h2><div class="body"><p>Esta masterclass es una invitación a mirar tu sonido con más precisión: dónde se corta, dónde se estrecha, dónde pierde centro y qué puedes empezar a observar para estudiarlo con más dirección.</p></div></div></section>
-    <section class="slide" id="s3"><div class="card"><div class="brand">Escuela de Flautistas</div><div class="number">03</div><div class="eyebrow">Quién soy yo</div><h2>Soy Valentina Galaz.</h2><div class="body"><p>Flautista, profesora y fundadora de Escuela de Flautistas.</p><p>Acompaño a flautistas adultos que quieren reencontrarse con la música desde un lugar serio, sensible y posible.</p><p>Mi trabajo no se trata solo de corregir notas. Se trata de ayudarte a comprender tu sonido, tu cuerpo, tu aire y tu forma de estudiar, para que tocar la flauta deje de sentirse como una pelea y empiece a sentirse como un camino más claro.</p></div>        <div class="photo-layout">
+    <section class="slide" id="s3">
+      <div class="card">
+        <div class="brand">Escuela de Flautistas</div>
+        <div class="number">03</div>
+        <div class="eyebrow">Quién soy yo</div>
+        <h2>Soy Valentina Galaz.</h2>
+
+        <div class="photo-layout">
           <div class="portrait">
             <img src="valentina_flauta_urbana.png" alt="Valentina Galaz con flauta en contexto urbano">
           </div>
@@ -23,7 +98,9 @@
             <p>Acompaño a flautistas adultos que quieren reencontrarse con la música desde un lugar serio, sensible y posible.</p>
             <p>Mi trabajo no se trata solo de corregir notas: se trata de ayudarte a comprender tu sonido, tu cuerpo, tu aire y tu forma de estudiar.</p>
           </div>
-        </div></div></section>
+        </div>
+      </div>
+    </section>
     <section class="slide" id="s4"><div class="card"><div class="brand">Escuela de Flautistas</div><div class="number">04</div><div class="eyebrow">Por qué esta clase existe</div><h2>Estas fueron las inquietudes que aparecieron en el formulario.</h2><ul class="clean"><li>Sonido con ruido.</li><li>Agudos forzados.</li><li>Graves débiles.</li><li>Sonido que se corta o no se sostiene.</li><li>Tensión corporal y garganta cerrada.</li><li>Afinación inestable y dificultad en la digitación.</li></ul><div class="takeaway">Parecen problemas separados, pero muchas veces están conectados.</div></div></section>
     <section class="slide" id="s5"><div class="card"><div class="brand">Escuela de Flautistas</div><div class="number">05</div><div class="eyebrow">Idea central</div><h2>Lo que parece un problema de sonido, casi nunca es solo sonido.</h2><div class="body"><p>El sonido no vive separado de la respiración, la embocadura, el cuerpo, los dedos ni la intención musical.</p><p>Por eso repetir más no siempre mejora. Primero necesitamos entender qué se está desorganizando.</p></div></div></section>
     <section class="slide" id="s6"><div class="card"><div class="brand">Escuela de Flautistas</div><div class="number">06</div><div class="eyebrow">El error más común</div><h2>Pensar que todo se arregla soplando más.</h2><div class="body"><p>A veces el problema no es falta de aire.</p><p>A veces hay demasiado aire, pero poca dirección. Hay presión, pero no centro. Hay labios trabajando de más, pero poca estabilidad. Hay esfuerzo, pero poca escucha.</p></div></div></section>
