@@ -26,7 +26,6 @@
     }
 
     * { box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -93,10 +92,7 @@
       font-size: 1rem;
     }
 
-    .gate-form {
-      display: grid;
-      gap: 12px;
-    }
+    .gate-form { display: grid; gap: 12px; }
 
     input {
       width: 100%;
@@ -143,15 +139,8 @@
       border: 1px solid rgba(159,215,212,.35);
     }
 
-    .error {
-      display: none;
-      color: #ffd1ca;
-      font-size: .92rem;
-    }
-
-    .page {
-      min-height: 100vh;
-    }
+    .error { display: none; color: #ffd1ca; font-size: .92rem; }
+    .page { min-height: 100vh; }
 
     .topbar {
       position: sticky;
@@ -267,16 +256,9 @@
       gap: 8px;
     }
 
-    .hero-card li::before {
-      content: "✦";
-      color: var(--aqua);
-    }
+    .hero-card li::before { content: "✦"; color: var(--aqua); }
 
-    .quick-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
+    .quick-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 
     .notice {
       width: min(var(--max), calc(100% - 36px));
@@ -326,10 +308,7 @@
       font-size: .92rem;
     }
 
-    .content {
-      display: grid;
-      gap: 22px;
-    }
+    .content { display: grid; gap: 22px; }
 
     section {
       background: rgba(245,240,232,.96);
@@ -352,16 +331,8 @@
       letter-spacing: -.06em;
     }
 
-    section h3 {
-      font-size: 1.08rem;
-      margin: 26px 0 8px;
-      color: var(--red2);
-    }
-
-    section.dark h3 {
-      color: var(--aqua);
-    }
-
+    section h3 { font-size: 1.08rem; margin: 26px 0 8px; color: var(--red2); }
+    section.dark h3 { color: var(--aqua); }
     p { margin: 0 0 16px; }
 
     .split {
@@ -378,11 +349,7 @@
       border: 1px solid rgba(42,34,24,.12);
     }
 
-    .dark .card {
-      background: rgba(255,255,255,.07);
-      border-color: rgba(159,215,212,.24);
-    }
-
+    .dark .card { background: rgba(255,255,255,.07); border-color: rgba(159,215,212,.24); }
     .card h3 { margin-top: 0; color: inherit; }
 
     .clean {
@@ -393,11 +360,7 @@
       gap: 10px;
     }
 
-    .clean li {
-      position: relative;
-      padding-left: 28px;
-    }
-
+    .clean li { position: relative; padding-left: 28px; }
     .clean li::before {
       content: "✦";
       position: absolute;
@@ -440,13 +403,7 @@
       font-weight: 950;
     }
 
-    .tag-row {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin: 20px 0;
-    }
-
+    .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 20px 0; }
     .tag {
       background: var(--aqua);
       color: var(--bg);
@@ -456,20 +413,9 @@
       font-weight: 850;
     }
 
-    details {
-      border-top: 1px solid rgba(42,34,24,.15);
-      padding: 16px 0;
-    }
-
-    .dark details {
-      border-color: rgba(255,255,255,.12);
-    }
-
-    summary {
-      cursor: pointer;
-      font-weight: 900;
-      font-size: 1.05rem;
-    }
+    details { border-top: 1px solid rgba(42,34,24,.15); padding: 16px 0; }
+    .dark details { border-color: rgba(255,255,255,.12); }
+    summary { cursor: pointer; font-weight: 900; font-size: 1.05rem; }
 
     .footer {
       width: min(var(--max), calc(100% - 36px));
@@ -483,22 +429,9 @@
       flex-wrap: wrap;
     }
 
-    .wa-icon {
-      width: 1.25em;
-      height: 1.25em;
-      display: block;
-      flex: 0 0 auto;
-    }
-
-    .btn .wa-icon {
-      width: 1.15em;
-      height: 1.15em;
-    }
-
-    .floating-wa .wa-icon {
-      width: 27px;
-      height: 27px;
-    }
+    .wa-icon { width: 1.25em; height: 1.25em; display: block; flex: 0 0 auto; }
+    .btn .wa-icon { width: 1.15em; height: 1.15em; }
+    .floating-wa .wa-icon { width: 27px; height: 27px; }
 
     .warm-callout {
       margin-top: 24px;
@@ -508,16 +441,8 @@
       border: 1px solid rgba(168,216,216,.32);
     }
 
-    .warm-callout strong {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 1.05rem;
-    }
-
-    .warm-callout span {
-      display: block;
-      color: inherit;
-    }
+    .warm-callout strong { display: block; margin-bottom: 8px; font-size: 1.05rem; }
+    .warm-callout span { display: block; color: inherit; }
 
     .floating-wa {
       position: fixed;
@@ -542,13 +467,7 @@
       transition: transform .18s ease, box-shadow .18s ease;
     }
 
-
-    .modality-tabs {
-      margin-top: 26px;
-      display: grid;
-      gap: 18px;
-    }
-
+    .modality-tabs { margin-top: 26px; display: grid; gap: 18px; }
     .tab-buttons {
       display: flex;
       flex-wrap: wrap;
@@ -586,15 +505,8 @@
       border: 1px solid rgba(42,34,24,.10);
     }
 
-    .dark .tab-panel {
-      background: rgba(255,255,255,.07);
-      border-color: rgba(168,216,216,.24);
-    }
-
-    .tab-panel.active {
-      display: block;
-      animation: softIn .22s ease both;
-    }
+    .dark .tab-panel { background: rgba(255,255,255,.07); border-color: rgba(168,216,216,.24); }
+    .tab-panel.active { display: block; animation: softIn .22s ease both; }
 
     .cat-note {
       margin-top: 18px;
@@ -604,10 +516,7 @@
       border: 1px solid rgba(168,216,216,.32);
     }
 
-    .cat-note strong {
-      display: block;
-      margin-bottom: 6px;
-    }
+    .cat-note strong { display: block; margin-bottom: 6px; }
 
     .signature-block {
       margin-top: 34px;
@@ -639,68 +548,16 @@
     }
 
     @media (max-width: 920px) {
-      .hero, .main, .split {
-        grid-template-columns: 1fr;
-      }
-
-      .toc {
-        position: relative;
-        top: auto;
-      }
-
-      .nav {
-        display: none;
-      }
+      .hero, .main, .split { grid-template-columns: 1fr; }
+      .toc { position: relative; top: auto; }
+      .nav { display: none; }
     }
 
     @media (max-width: 620px) {
-      .hero h1 {
-        font-size: clamp(3rem, 16vw, 5.3rem);
-      }
-
+      .hero h1 { font-size: clamp(3rem, 16vw, 5.3rem); }
       section { border-radius: 22px; }
-
-      .steps li {
-        grid-template-columns: 1fr;
-      }
-
-      .wa-icon {
-      width: 1.25em;
-      height: 1.25em;
-      display: block;
-      flex: 0 0 auto;
-    }
-
-    .btn .wa-icon {
-      width: 1.15em;
-      height: 1.15em;
-    }
-
-    .floating-wa .wa-icon {
-      width: 27px;
-      height: 27px;
-    }
-
-    .warm-callout {
-      margin-top: 24px;
-      padding: 22px 24px;
-      border-radius: 22px;
-      background: linear-gradient(135deg, rgba(168,216,216,.18), rgba(200,32,26,.08));
-      border: 1px solid rgba(168,216,216,.32);
-    }
-
-    .warm-callout strong {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 1.05rem;
-    }
-
-    .warm-callout span {
-      display: block;
-      color: inherit;
-    }
-
-    .floating-wa {
+      .steps li { grid-template-columns: 1fr; }
+      .floating-wa {
         right: 18px;
         left: auto;
         bottom: 18px;
@@ -730,10 +587,6 @@
 </head>
 
 <body>
-  <!--
-    Página interna para Classroom.
-    Cambia la clave de acceso aquí:
-  -->
   <div class="page" id="page">
     <nav class="topbar">
       <div class="topbar-inner">
@@ -757,7 +610,7 @@
         <div class="eyebrow">Para estudiantes</div>
         <h1>Te acompaño a realizar tu <span class="mark">sueño</span>.</h1>
         <p>
-          Este instructivo está diseñado para que tus clases online funcionen de forma clara, respetuosa y ordenada. Aquí encontrarás las condiciones de pago, asistencia, reprogramación, comunicación, materiales y participación.
+          Este instructivo reúne los acuerdos básicos para que tus clases se vivan con claridad, respeto y tranquilidad: pagos, asistencia, horarios, materiales, comunicación y reprogramaciones.
         </p>
         <div class="quick-actions">
           <a class="btn" href="#aceptacion">Leer condiciones</a>
@@ -769,10 +622,10 @@
       <aside class="hero-card">
         <h2>Lo esencial</h2>
         <ul>
-          <li>Agenda el horario de tus clases y respétalo.</li>
+          <li>Agenda tu horario y cuídalo.</li>
           <li>El pago se realiza de forma anticipada.</li>
-          <li>Solo se reprograma 1 clase por trimestre con 48 horas de aviso.</li>
-          <li>Prepara Zoom, conexión, audífonos y materiales antes de cada clase.</li>
+          <li>Se puede reprogramar 1 clase por trimestre con 48 horas de aviso.</li>
+          <li>Prepara conexión, Zoom, audífonos y materiales antes de comenzar.</li>
         </ul>
       </aside>
     </header>
@@ -787,7 +640,7 @@
         <a href="#bienvenida">Bienvenida</a>
         <a href="#responsabilidades">Responsabilidades</a>
         <a href="#modalidad">Modalidad</a>
-          <a href="#horarios">Horarios</a>
+        <a href="#horarios">Horarios</a>
         <a href="#pagos">Pagos</a>
         <a href="#reprogramaciones">Reprogramaciones</a>
         <a href="#tecnica">Preparación técnica</a>
@@ -803,26 +656,17 @@
           <h2>Este espacio también se cuida.</h2>
           <p>Hola, querida/o flautista.</p>
           <p>
-            Para mí es una alegría enorme acompañarte en tu proceso musical. Me gusta conocer tu historia con la flauta, entender qué te cuesta, escuchar tus avances y pensar continuamente en nuevas formas de ayudarte a estudiar mejor, sonar con más libertad y disfrutar más de tu camino.
+            Me alegra acompañarte en tu proceso musical. Cada clase se prepara con atención para ayudarte a estudiar mejor, comprender tu sonido y avanzar con más libertad.
           </p>
           <p>
-            Este espacio no es solo una clase para mí. Es un proceso que preparo, observo y cuido con mucha dedicación.
+            Este instructivo existe para que tengamos acuerdos simples sobre horarios, pagos, comunicación, asistencia, materiales y reprogramaciones.
           </p>
           <p>
-            Al mismo tiempo, también es mi trabajo.
-          </p>
-          <p>
-            Por eso, para que las clases puedan sostenerse de forma clara, respetuosa y profesional, es importante que tengamos acuerdos comunes sobre horarios, pagos, comunicación, asistencia, materiales y reprogramaciones.
-          </p>
-          <p>
-            La idea de este instructivo no es poner distancia ni volver rígido el proceso. Al contrario: busca cuidar el espacio para que podamos trabajar con más tranquilidad, continuidad y profundidad.
-          </p>
-          <p>
-            Cuando hay claridad, la clase fluye mejor. Cuando los acuerdos se respetan, el proceso se vuelve más liviano para ambas partes. Y cuando cada una/o asume su responsabilidad, el aprendizaje puede avanzar con más confianza.
+            No busca poner distancia ni volver rígido el proceso. Al contrario: cuando las reglas están claras, la clase se vuelve más liviana, ordenada y profunda para ambas partes.
           </p>
           <div class="warm-callout">
-            <strong>Te invito a leer este instructivo con calma.</strong>
-            <span>Aquí encontrarás lo que puedes esperar de mí como profesora y también lo que necesito de ti como estudiante para que este proceso funcione bien.</span>
+            <strong>Te invito a leerlo con calma.</strong>
+            <span>Aquí encontrarás lo que puedes esperar de mí como profesora y lo que necesito de ti como estudiante para cuidar este espacio de aprendizaje.</span>
           </div>
         </section>
 
@@ -830,10 +674,10 @@
           <div class="eyebrow">Responsabilidades compartidas</div>
           <h2>El aprendizaje musical es un proceso compartido.</h2>
           <p>
-            Mi responsabilidad como profesora es acompañarte con atención, preparar tus clases, observar tu proceso, entregarte herramientas claras y ayudarte a comprender qué está pasando con tu sonido, tu técnica y tu forma de estudiar.
+            De mi parte, puedes esperar clases preparadas, escucha atenta, orientación técnica y herramientas claras para comprender mejor tu sonido y tu forma de estudiar.
           </p>
           <p>
-            Tu responsabilidad como estudiante es llegar con disposición, preparar tus materiales, respetar los horarios acordados, sostener tu práctica entre clases y comunicarte de forma clara cuando algo importante ocurra.
+            De tu parte, necesito disposición, puntualidad, materiales preparados, práctica entre clases según tus posibilidades y comunicación clara cuando algo importante ocurra.
           </p>
 
           <div class="split">
@@ -841,11 +685,11 @@
               <h3>De mi parte puedes esperar</h3>
               <ul class="clean">
                 <li>Clases realizadas en el horario acordado.</li>
-                <li>Preparación de contenidos según tu nivel y proceso.</li>
+                <li>Contenidos preparados según tu nivel y proceso.</li>
                 <li>Indicaciones claras para estudiar entre clases.</li>
                 <li>Orientación técnica, musical y expresiva.</li>
-                <li>Respuesta a dudas relacionadas con tu proceso dentro de tiempos razonables.</li>
-                <li>Aviso anticipado si necesito realizar algún cambio.</li>
+                <li>Respuesta a dudas dentro de tiempos razonables.</li>
+                <li>Aviso anticipado si necesito hacer algún cambio.</li>
                 <li>Un trato respetuoso, profesional y cuidadoso.</li>
               </ul>
             </div>
@@ -854,9 +698,9 @@
               <ul class="clean">
                 <li>Asistencia puntual.</li>
                 <li>Horario correctamente agendado.</li>
-                <li>Materiales preparados antes de cada clase.</li>
+                <li>Materiales listos antes de cada clase.</li>
                 <li>Participación activa y preguntas cuando algo no esté claro.</li>
-                <li>Práctica entre clases según tus posibilidades reales.</li>
+                <li>Práctica entre clases, dentro de tus posibilidades reales.</li>
                 <li>Pagos realizados en las fechas acordadas.</li>
                 <li>Aviso anticipado si necesitas modificar o cerrar el proceso.</li>
               </ul>
@@ -864,10 +708,10 @@
           </div>
 
           <p style="margin-top: 24px;">
-            Yo puedo guiarte, corregirte y ayudarte a mirar con más profundidad. Pero no puedo estudiar por ti, organizar tu agenda ni sostener tu proceso si no hay compromiso de tu parte.
+            Yo puedo guiarte, corregirte y ayudarte a mirar con más profundidad. El avance, sin embargo, también necesita tu compromiso y continuidad.
           </p>
           <p>
-            Este espacio funciona mejor cuando ambas partes lo cuidan: con respeto, puntualidad, comunicación clara y responsabilidad.
+            Este espacio funciona mejor cuando ambas partes lo cuidan con respeto, puntualidad y comunicación clara.
           </p>
         </section>
 
@@ -875,7 +719,7 @@
           <div class="eyebrow">Modalidad de clases</div>
           <h2>Elige la modalidad que corresponde a tu proceso.</h2>
           <p>
-            Algunas indicaciones son comunes para todas las clases, pero hay detalles que cambian si trabajamos online o de forma presencial. Lee la pestaña que corresponda a tu modalidad.
+            Algunas indicaciones son comunes para todas las clases. Otras cambian según trabajemos online o de forma presencial. Revisa la pestaña que corresponda a tu modalidad.
           </p>
 
           <div class="modality-tabs">
@@ -887,41 +731,41 @@
             <div class="tab-panel active" id="tab-online" role="tabpanel">
               <h3>Indicaciones para clases online</h3>
               <p>
-                Las clases online necesitan preparación técnica y un espacio de concentración. Mientras mejor esté organizado tu entorno, más podremos aprovechar la clase.
+                Para aprovechar mejor la clase online, prepara con tiempo tu espacio, conexión y materiales.
               </p>
               <ul class="clean">
                 <li>Revisa tu conexión a internet antes de comenzar.</li>
                 <li>Ten Zoom instalado y prueba el enlace con anticipación.</li>
-                <li>Usa audífonos si te ayudan a escuchar mejor y evitar distracciones.</li>
-                <li>Ubica tu dispositivo de manera que pueda verte, escucharte y observar tu postura con la flauta.</li>
+                <li>Usa audífonos si te ayudan a escuchar mejor.</li>
+                <li>Ubica tu dispositivo para que pueda verte, escucharte y observar tu postura con la flauta.</li>
                 <li>Ten a mano flauta, partituras, lápiz, cuaderno, metrónomo, afinador y material solicitado.</li>
-                <li>Busca un espacio tranquilo y, en lo posible, disponible siempre para tus clases.</li>
+                <li>Busca un espacio tranquilo y, en lo posible, estable para tus clases.</li>
               </ul>
               <p>
-                Las clases no se reponen automáticamente por cortes de electricidad, problemas de internet o fallas técnicas del estudiante. Si el problema técnico ocurre de mi parte, coordinaremos una recuperación.
+                Las clases no se reponen automáticamente por cortes de electricidad, internet o fallas técnicas del estudiante. Si el problema técnico ocurre de mi parte, coordinaremos una recuperación.
               </p>
             </div>
 
             <div class="tab-panel" id="tab-presencial" role="tabpanel">
               <h3>Indicaciones para clases presenciales</h3>
               <p>
-                Las clases presenciales se realizan en un espacio de trabajo dentro de mi casa. Es un espacio hogareño, tranquilo y preparado para que podamos trabajar con concentración, confianza y cuidado.
+                Las clases presenciales se realizan en un espacio de trabajo dentro de mi casa: un lugar tranquilo y preparado para estudiar con concentración y confianza.
               </p>
               <ul class="clean">
                 <li>Llega puntualmente al horario acordado.</li>
                 <li>Avisa con anticipación si vienes con retraso.</li>
-                <li>Evita llegar demasiado antes, para respetar los tiempos de preparación entre una clase y otra.</li>
-                <li>Trae tu flauta, partituras, lápiz, cuaderno y cualquier material que estemos trabajando.</li>
+                <li>Evita llegar demasiado antes, para respetar la preparación entre clases.</li>
+                <li>Trae tu flauta, partituras, lápiz, cuaderno y el material que estemos trabajando.</li>
                 <li>Puedes usar los atriles disponibles en el espacio de clase.</li>
-                <li>Si necesitas imprimir pocas partituras o algunas páginas puntuales, puedo ayudarte con eso. No contempla la impresión de libros completos, métodos extensos o grandes volúmenes de material.</li>
-                <li>Cuida el espacio con el mismo respeto con que preparo cada clase para ti.</li>
+                <li>Si necesitas imprimir pocas páginas, puedo ayudarte. No incluye libros completos ni grandes volúmenes de material.</li>
+                <li>Cuida el espacio con respeto.</li>
                 <li>Ven con disposición para trabajar, escuchar, preguntar y observar tu proceso.</li>
               </ul>
 
               <div class="cat-note">
                 <strong>Importante: hay un gato en casa.</strong>
                 <span>
-                  En el espacio donde realizo las clases presenciales vive un gato. Si eres alérgica/o, sensible al pelo de gato o tienes alguna condición respiratoria importante, te pido avisarme antes de la clase para tenerlo en cuenta y evaluar si la modalidad presencial es adecuada para ti.
+                  En el espacio de clases presenciales vive un gato. Si eres alérgica/o, sensible al pelo de gato o tienes alguna condición respiratoria importante, avísame antes de la clase para tenerlo en cuenta.
                 </span>
               </div>
             </div>
@@ -932,10 +776,13 @@
           <div class="eyebrow">Día y horario</div>
           <h2>El horario acordado se respeta.</h2>
           <p>
-            Para poder acompañarte bien, necesito cuidar mi tiempo de trabajo. Cada clase implica preparación, seguimiento, organización de agenda y energía disponible para escucharte con atención. El día y la hora acordados deben respetarse. Te enviaré el enlace o invitación correspondiente a Google Calendar, pero es responsabilidad del estudiante agendar correctamente sus clases y revisar su calendario.
+            Cada clase implica preparación, seguimiento y tiempo reservado especialmente para ti. Por eso, el día y la hora acordados deben cuidarse.
           </p>
           <p>
-            La puntualidad es importante para aprovechar el tiempo completo. Si llegas tarde, la clase finalizará igualmente en el horario establecido.
+            Te enviaré el enlace o invitación de Google Calendar cuando corresponda, pero es responsabilidad del estudiante agendar sus clases y revisar su calendario.
+          </p>
+          <p>
+            Si llegas tarde, la clase finalizará igualmente en el horario establecido.
           </p>
         </section>
 
@@ -943,23 +790,23 @@
           <div class="eyebrow">Pagos</div>
           <h2>El pago de las clases se realiza de forma anticipada.</h2>
           <p>
-            El pago de las clases es parte del acuerdo profesional que permite sostener este espacio con orden, continuidad y dedicación. Para mantener una buena organización, el pago debe realizarse con una semana de anticipación o dentro del plazo acordado para cada modalidad.
+            El pago sostiene la continuidad del proceso y permite organizar la agenda con claridad. Debe realizarse con una semana de anticipación o dentro del plazo acordado para tu modalidad.
           </p>
           <ul class="clean">
-            <li>Tener los pagos al día permite sostener la continuidad del proceso.</li>
-            <li>En caso de atraso, Escuela de Flautistas podrá suspender temporalmente el acceso a clases, materiales o plataforma hasta regularizar la situación.</li>
-            <li>Si por algún motivo no puedes continuar, debes avisar con un mes de anticipación.</li>
+            <li>Tener los pagos al día ayuda a mantener la continuidad de las clases.</li>
+            <li>En caso de atraso, Escuela de Flautistas podrá pausar temporalmente el acceso a clases, materiales o plataforma hasta regularizar la situación.</li>
+            <li>Si necesitas cerrar el proceso, avisa con un mes de anticipación.</li>
           </ul>
         </section>
 
         <section id="reprogramaciones" class="dark">
           <div class="eyebrow">Reprogramaciones</div>
-          <h2>Reprogramar no siempre es posible.</h2>
+          <h2>Reprogramar requiere coordinación.</h2>
           <p>
-            Solo se podrá reprogramar <span class="mark">1 clase por trimestre</span>, siempre que el aviso se realice con al menos 48 horas de anticipación.
+            Se puede reprogramar <span class="mark">1 clase por trimestre</span>, siempre que el aviso se realice con al menos 48 horas de anticipación.
           </p>
           <p>
-            La reprogramación no es automática. Depende de la disponibilidad real de la profesora y deberá coordinarse dentro de la misma semana. No se acumulan clases para el mes siguiente.
+            La reprogramación depende de la disponibilidad real de la profesora y debe coordinarse dentro de la misma semana. Las clases no se acumulan para el mes siguiente.
           </p>
           <details>
             <summary>¿Cuándo puede recuperarse una clase?</summary>
@@ -967,13 +814,13 @@
               <li>Cuando el estudiante avisa con al menos 48 horas de anticipación.</li>
               <li>En caso de urgencia médica o accidente.</li>
               <li>Cuando se presenta certificado médico si es necesario.</li>
-              <li>Cuando existe disponibilidad real dentro de la misma semana.</li>
+              <li>Cuando existe disponibilidad dentro de la misma semana.</li>
             </ul>
           </details>
           <details>
             <summary>¿Qué pasa si hay corte de luz o internet?</summary>
             <p>
-              Las clases no se reponen automáticamente por cortes de electricidad, problemas de internet o fallas técnicas del estudiante. Solo se recuperará la clase si el problema técnico ocurre por parte de la profesora.
+              Las clases no se reponen automáticamente por cortes de electricidad, problemas de internet o fallas técnicas del estudiante. Si el problema técnico ocurre de mi parte, coordinaremos una recuperación.
             </p>
           </details>
         </section>
@@ -992,7 +839,7 @@
             <li>Revisa el enlace de ingreso con anticipación.</li>
           </ol>
           <p style="margin-top:18px;">
-            Idealmente, prueba todo un par de horas antes, especialmente si es tu primera vez usando la plataforma.
+            Si es tu primera vez usando la plataforma, prueba todo unas horas antes.
           </p>
         </section>
 
@@ -1000,10 +847,10 @@
           <div class="eyebrow">Espacio de estudio</div>
           <h2>Busca un lugar sin distracciones.</h2>
           <p>
-            Ubica un espacio donde puedas concentrarte y, en lo posible, que esté disponible para todas tus clases. Esto ayuda a sostener la constancia y a entrar más rápido en modo estudio.
+            Elige un espacio donde puedas concentrarte y, en lo posible, usarlo de forma habitual para tus clases. Eso ayuda a entrar más rápido en modo estudio.
           </p>
           <p>
-            Se recomienda usar audífonos para escuchar mejor y evitar distracciones externas.
+            Puedes usar audífonos para escuchar mejor y reducir distracciones externas.
           </p>
         </section>
 
@@ -1011,7 +858,7 @@
           <div class="eyebrow">Material listo</div>
           <h2>Si no usas tablet, imprime tus partituras.</h2>
           <p>
-            Llegar con tus materiales preparados cuida el tiempo de clase y mejora la calidad del trabajo.
+            Llegar con tus materiales listos cuida el tiempo de clase y mejora la calidad del trabajo.
           </p>
           <div class="tag-row">
             <span class="tag">flauta</span>
@@ -1023,7 +870,7 @@
             <span class="tag">audífonos</span>
           </div>
           <p>
-            Si no usas tablet, imprime y pega tus partituras antes de la clase. Llegar con hojas sueltas, partituras desordenadas o materiales sin revisar puede afectar el aprovechamiento del tiempo.
+            Si no usas tablet, imprime y ordena tus partituras antes de la clase. Las hojas sueltas o materiales sin revisar pueden hacer que perdamos tiempo valioso.
           </p>
         </section>
 
@@ -1031,12 +878,12 @@
           <div class="eyebrow">Clase activa</div>
           <h2>Llegar con preguntas cambia la clase.</h2>
           <p>
-            Una clase se aprovecha mejor cuando llegas con dudas concretas. No es solo un espacio donde tocas y recibes correcciones: también es un espacio para aprender a observar tu propio proceso.
+            Una clase se aprovecha mejor cuando llegas con dudas concretas. También es un espacio para aprender a observar tu propio proceso.
           </p>
           <ul class="clean">
             <li>Qué te cuesta de un pasaje.</li>
-            <li>Qué no entiendes de una indicación.</li>
-            <li>Qué sientes incómodo al tocar.</li>
+            <li>Qué indicación no terminaste de entender.</li>
+            <li>Qué se siente incómodo al tocar.</li>
             <li>Qué problema aparece al estudiar.</li>
             <li>Qué necesitas ordenar en tu práctica.</li>
           </ul>
@@ -1044,9 +891,9 @@
 
         <section id="comunicacion">
           <div class="eyebrow">Comunicación</div>
-          <h2>Escribir mensajes también requiere criterio.</h2>
+          <h2>Comuniquémonos con claridad.</h2>
           <p>
-            Puedes escribirme por dudas o requerimientos relacionados con tus clases. La comunicación fuera de clase debe ser clara, respetuosa y en horarios apropiados.
+            Puedes escribirme por dudas o temas relacionados con tus clases. Para que pueda responderte bien, intenta enviar mensajes claros, ordenados y en horarios apropiados.
           </p>
           <p>
             WhatsApp: <strong>+56 9 8152 7088</strong>
@@ -1080,7 +927,7 @@
             </div>
           </div>
           <p style="margin-top:18px;">
-            Responderé dentro de tiempos razonables, pero no estoy disponible de forma inmediata o permanente fuera del horario de clases.
+            Responderé dentro de tiempos razonables. Fuera del horario de clases, mi disponibilidad no es inmediata ni permanente.
           </p>
         </section>
 
@@ -1091,7 +938,7 @@
             <li>Respetar los turnos de participación.</li>
             <li>Escuchar a los demás participantes.</li>
             <li>Participar de forma respetuosa.</li>
-            <li>No interrumpir innecesariamente.</li>
+            <li>Evitar interrupciones innecesarias.</li>
             <li>Cuidar la confidencialidad de lo compartido por otros.</li>
             <li>Mantener una actitud colaborativa.</li>
           </ul>
@@ -1112,7 +959,7 @@
           <div class="eyebrow">Confidencialidad</div>
           <h2>Lo compartido en clase se cuida.</h2>
           <p>
-            Tanto la profesora como el estudiante se comprometen a cuidar la información compartida durante las clases, incluyendo procesos personales, dificultades técnicas, comentarios, grabaciones, conversaciones internas y experiencias del grupo.
+            Profesora y estudiante se comprometen a cuidar la información compartida durante las clases: procesos personales, dificultades técnicas, comentarios, grabaciones, conversaciones internas y experiencias del grupo.
           </p>
         </section>
 
@@ -1123,7 +970,7 @@
             Al participar en las clases, cursos o mentorías de Escuela de Flautistas, el estudiante declara conocer y aceptar estas condiciones de funcionamiento.
           </p>
           <p>
-            Estudiar música no es solo asistir a una clase. También implica preparar el material, cuidar la comunicación, respetar los horarios, sostener el compromiso y asumir un rol activo en el propio aprendizaje.
+            Estudiar música también implica preparar el material, cuidar la comunicación, respetar los horarios y asumir un rol activo en el propio aprendizaje.
           </p>
           <div class="signature-block">
             <p class="hand-signature">Con cariño,<br>Valentina Galaz</p>
