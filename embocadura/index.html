@@ -223,6 +223,7 @@
     }
 
     .modal {
+      position:relative;
       width:min(500px, 100%);
       border:1px solid rgba(111,155,134,.28);
       border-radius:24px;
@@ -286,6 +287,29 @@
       color:var(--red);
     }
 
+    .modal-x {
+      position:absolute;
+      top:16px;
+      right:16px;
+      width:36px;
+      height:36px;
+      border:1px solid rgba(57,50,50,.10);
+      border-radius:999px;
+      background:rgba(255,255,255,.62);
+      color:rgba(57,50,50,.72);
+      cursor:pointer;
+      font-family:var(--sans);
+      font-size:1.25rem;
+      font-weight:800;
+      line-height:1;
+    }
+
+    .modal-x:hover {
+      color:var(--red);
+      border-color:rgba(196,32,48,.22);
+      background:rgba(196,32,48,.06);
+    }
+
     footer {
       width:min(var(--max), 100%);
       margin:20px auto 0;
@@ -340,7 +364,7 @@
     <h1>Material gratuito: Técnica de la embocadura</h1>
     <p class="lead">3 ejercicios para observar tu emisión, encontrar un ángulo más claro y organizar mejor tu sonido.</p>
     <div class="actions">
-      <a id="download-material" class="button button-primary" href="https://piazzollamente.github.io/escuela-flautistas-web/embocadura/Material%20gratuito%20EDF.pdf" target="_blank" rel="noopener noreferrer">DESCARGAR MATERIAL</a>
+      <a id="download-material" class="button button-primary" href="./Material%20gratuito%20EDF.pdf" download="tecnica-de-la-embocadura.pdf">DESCARGAR MATERIAL</a>
       <p class="note">Luego únete a la masterclass gratuita para trabajarlo con guía.</p>
       <a class="button button-secondary" href="/masterclass/">INSCRIBIRME A LA MASTERCLASS</a>
     </div>
@@ -353,10 +377,11 @@
 
   <div class="modal-backdrop" id="download-modal" hidden>
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="download-modal-title" aria-describedby="download-modal-description">
-      <h2 id="download-modal-title">Tu material ya está listo.</h2>
-      <p id="download-modal-description">Ahora únete al grupo de WhatsApp para recibir el link, recordatorios y recursos de la masterclass.</p>
+      <button class="modal-x" type="button" id="download-modal-x" aria-label="Cerrar modal">&times;</button>
+      <h2 id="download-modal-title">¿Quieres recibir los recordatorios de la masterclass?</h2>
+      <p id="download-modal-description">Únete al grupo de WhatsApp para recibir el link de Zoom, avisos importantes y recursos previos.</p>
       <div class="modal-actions">
-        <a class="button button-primary" href="https://chat.whatsapp.com/EHWKSTV9IMzFVOusTEkr5G" target="_blank" rel="noopener noreferrer">UNIRME AL GRUPO DE WHATSAPP</a>
+        <a class="button button-primary" href="https://chat.whatsapp.com/REEMPLAZAR" target="_blank" rel="noopener noreferrer">UNIRME AL GRUPO DE WHATSAPP</a>
         <button class="modal-close" type="button" id="download-modal-close">Seguir leyendo</button>
       </div>
     </div>
@@ -366,6 +391,7 @@
     const downloadButton = document.querySelector('#download-material');
     const downloadModal = document.querySelector('#download-modal');
     const closeModal = document.querySelector('#download-modal-close');
+    const closeModalX = document.querySelector('#download-modal-x');
     let modalTimer;
 
     function showDownloadModal() {
@@ -387,6 +413,7 @@
     });
 
     closeModal.addEventListener('click', hideDownloadModal);
+    closeModalX.addEventListener('click', hideDownloadModal);
 
     downloadModal.addEventListener('click', (event) => {
       if (event.target === downloadModal) {
