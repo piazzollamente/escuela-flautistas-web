@@ -1,0 +1,166 @@
+name: Cleanup Popup Behavior
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/cleanup-popup-behavior.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Remove old WhatsApp modal and tune global popup behavior
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          import re
+
+          emb = Path('embocadura/index.html')
+          text = emb.read_text(encoding='utf-8')
+          original = text
+
+          text = re.sub(r'\n\s*<div class="modal-backdrop" id="download-modal" hidden>[\s\S]*?</div>\s*\n\s*<script>\s*const downloadButton =[\s\S]*?</script>\s*', '\n', text)
+          text = text.replace('<p class="note">Luego únete a la masterclass gratuita para trabajarlo con guía.</p>\n      <a class="button button-secondary" href="/masterclass/">INSCRIBIRME A LA MASTERCLASS</a>', '<p class="note">Material de apoyo para observar tu embocadura con más claridad.</p>\n      <a class="button button-secondary" href="/embocadura-organizada/">VER DESAFÍO 21 DÍAS</a>')
+
+          if text != original:
+              emb.write_text(text, encoding='utf-8')
+
+          js = Path('assets/desafio-popup.js')
+          js.write_text(r"""(function(){
+  const rawPath=window.location.pathname;
+  const path=rawPath.endsWith('/')?rawPath:rawPath+'/';
+  const destination='https://escueladeflautistas.cl/embocadura-organizada/?utm_source=web&utm_medium=popup&utm_campaign=desafio_21_dias&utm_content=desafio_abierto_global';
+  const image='/assets/embocadura-organizada/portada.png';
+  const nudgeKey='edfChallengeNudgeClosedV1';
+
+  if(document.getElementById('edfChallengePopup'))return;
+  if(path==='/embocadura-organizada/'||path==='/cuenta-regresiva/')return;
+
+  const isHome=path==='/'||path==='/index.html/';
+  const isMasterclass=path==='/masterclass/';
+  const isOldPage=['/embocadura/','/sonido/','/workbook/','/instructivo/'].includes(path);
+
+  function addCss(){
+    if(document.getElementById('edfChallengePopupCss'))return;
+    const link=document.createElement('link');
+    link.id='edfChallengePopupCss';
+    link.rel='stylesheet';
+    link.href='/assets/desafio-popup-card.css';
+    document.head.appendChild(link);
+  }
+
+  function canShow(key){try{return !(window.localStorage&&localStorage.getItem(key)==='1')}catch(e){return true}}
+  function markClosed(key){try{if(window.localStorage)localStorage.setItem(key,'1')}catch(e){}}
+
+  function findWorkSection(){
+    const sections=[...document.querySelectorAll('section,[id],main>div')];
+    return sections.find(el=>/c[oó]mo trabajamos/i.test(el.textContent||''));
+  }
+
+  function init(){
+    addCss();
+
+    const backdrop=document.createElement('div');
+    backdrop.className='edf-popup-backdrop';
+    backdrop.id='edfChallengePopupBackdrop';
+
+    const popup=document.createElement('aside');
+    popup.className='edf-popup';
+    popup.id='edfChallengePopup';
+    popup.setAttribute('aria-label','Desafío 21 días');
+    popup.innerHTML=`
+      <button class="edf-popup__close" type="button" aria-label="Cerrar aviso" id="edfChallengePopupClose">×</button>
+      <div class="edf-popup__media">
+        <img class="edf-popup__image" src="${image}" alt="Portada del Desafío 21 días: Embocadura Organizada" loading="lazy">
+      </div>
+      <div class="edf-popup__body">
+        <span class="edf-popup__badge">Acceso promocional</span>
+        <h3>¡Desafío 21 días abierto!</h3>
+        <p>¡Ordena tu embocadura con clases de 3 a 7 min!</p>
+        <div class="edf-popup__meta"><span>21<small>días</small></span><span>3-7<small>min</small></span><span>29<small>USD</small></span></div>
+        <a class="edf-popup__button" href="${destination}">Entrar al desafío →</a>
+      </div>`;
+
+    const float=document.createElement('button');
+    float.className='edf-float';
+    float.type='button';
+    float.setAttribute('aria-label','Entrar al Desafío 21 días');
+    float.innerHTML='<span class="edf-float__dot"></span><span>Desafío 21 días</span>';
+
+    const nudge=document.createElement('div');
+    nudge.className='edf-nudge';
+    nudge.id='edfChallengeNudge';
+    nudge.innerHTML='<button type="button" aria-label="Cerrar recordatorio" id="edfChallengeNudgeClose">×</button><strong>¿Lo quieres llevar a la práctica?</strong><p>El Desafío 21 días sigue abierto. Puedes entrar cuando quieras desde este botón.</p>';
+
+    document.body.appendChild(backdrop);
+    document.body.appendChild(popup);
+    document.body.appendChild(float);
+    document.body.appendChild(nudge);
+
+    function showFloat(){float.classList.add('is-visible')}
+    function hideFloat(){float.classList.remove('is-visible')}
+    function showPopup(){hideFloat();nudge.classList.remove('is-visible');popup.classList.add('is-visible');backdrop.classList.add('is-visible')}
+    function hidePopup(){popup.classList.remove('is-visible');backdrop.classList.remove('is-visible');showFloat()}
+    function showNudge(){if(!popup.classList.contains('is-visible')&&canShow(nudgeKey))nudge.classList.add('is-visible')}
+    function hideNudge(save){nudge.classList.remove('is-visible');if(save)markClosed(nudgeKey)}
+
+    document.getElementById('edfChallengePopupClose').addEventListener('click',hidePopup);
+    backdrop.addEventListener('click',hidePopup);
+    document.getElementById('edfChallengeNudgeClose').addEventListener('click',()=>hideNudge(true));
+    float.addEventListener('click',()=>{hideNudge(false);showPopup()});
+
+    if(isHome){
+      showFloat();
+      const target=findWorkSection();
+      if(target&&'IntersectionObserver'in window){
+        let shown=false;
+        const observer=new IntersectionObserver(entries=>{
+          if(shown)return;
+          entries.forEach(entry=>{if(entry.isIntersecting){shown=true;showPopup();observer.disconnect()}})
+        },{threshold:.18,rootMargin:'0px 0px -18% 0px'});
+        observer.observe(target);
+      }else{
+        window.addEventListener('scroll',function onScroll(){if(window.scrollY>window.innerHeight*.45){window.removeEventListener('scroll',onScroll);showPopup()}},{passive:true});
+      }
+      window.setTimeout(showNudge,120000);
+      return;
+    }
+
+    if(isMasterclass){
+      window.setTimeout(showPopup,8000);
+      window.setTimeout(showNudge,120000);
+      return;
+    }
+
+    if(isOldPage){
+      showFloat();
+      window.setTimeout(showPopup,25000);
+      return;
+    }
+
+    showFloat();
+  }
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+""", encoding='utf-8')
+          PY
+
+      - name: Commit changes
+        run: |
+          if git diff --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add embocadura/index.html assets/desafio-popup.js
+          git commit -m "Clean up popup behavior and remove WhatsApp modal"
+          git push
