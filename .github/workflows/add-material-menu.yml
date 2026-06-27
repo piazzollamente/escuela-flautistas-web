@@ -1,0 +1,38 @@
+name: Add Free Material Menu Item
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/add-material-menu.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update-menu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add material link to hamburger menu
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          path = Path('index.html')
+          text = path.read_text(encoding='utf-8')
+          if 'href="/embocadura/">Material gratuito</a>' not in text:
+              text = text.replace('<a href="#testimonios">Testimonios</a><a href="#valentina">Sobre mí</a>', '<a href="#testimonios">Testimonios</a><a href="/embocadura/">Material gratuito</a><a href="#valentina">Sobre mí</a>')
+          path.write_text(text, encoding='utf-8')
+          PY
+      - name: Commit changes
+        run: |
+          if git diff --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Add free material link to menu"
+          git push
