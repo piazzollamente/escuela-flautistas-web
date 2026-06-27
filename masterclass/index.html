@@ -4,474 +4,104 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Replay de la masterclass · Escuela de Flautistas</title>
-  <meta name="description" content="Por pocos días accede al replay de la masterclass y al material de apoyo.">
+  <meta name="description" content="Accede al replay de la masterclass, revisa el material de apoyo y continúa con el Desafío 21 días: Embocadura Organizada.">
   <link rel="icon" type="image/png" href="/assets/favicon.png">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Replay de la masterclass">
-  <meta property="og:description" content="Por pocos días accede al replay y al material de apoyo.">
+  <meta property="og:title" content="Replay de la masterclass · Tu voz en la flauta">
+  <meta property="og:description" content="Mira el replay, revisa el material de apoyo y sigue practicando con el Desafío 21 días.">
   <meta property="og:image" content="/assets/valentina-2.png">
   <meta property="og:locale" content="es_CL">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Replay de la masterclass">
-  <meta name="twitter:description" content="Por pocos días accede al replay y al material de apoyo.">
+  <meta name="twitter:description" content="Replay, material de apoyo y siguiente paso de práctica.">
   <meta name="twitter:image" content="/assets/valentina-2.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --dark: #393232;
-      --ink: #211d1d;
-      --white: #fff;
-      --off: #f8f6f3;
-      --mint: #AEE6DF;
-      --red: #C42030;
-      --red-deep: #8f1721;
-      --line: rgba(57, 50, 50, .12);
-      --shadow: 0 24px 80px rgba(33, 29, 29, .16);
-      --max: 1040px;
-      --sans: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      min-height: 100vh;
-      color: var(--dark);
-      font-family: var(--sans);
-      background:
-        radial-gradient(circle at 16% 8%, rgba(174, 230, 223, .34), transparent 25rem),
-        radial-gradient(circle at 90% 18%, rgba(196, 32, 48, .12), transparent 26rem),
-        linear-gradient(180deg, #fff 0%, var(--off) 52%, #fff 100%);
-      line-height: 1.55;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      background:
-        linear-gradient(90deg, rgba(57, 50, 50, .035) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(57, 50, 50, .025) 1px, transparent 1px);
-      background-size: 72px 72px;
-      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), transparent 78%);
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .wrap {
-      width: min(var(--max), calc(100% - 36px));
-      margin-inline: auto;
-    }
-
-    .topbar {
-      border-bottom: 1px solid rgba(174, 230, 223, .72);
-      background: rgba(255, 255, 255, .88);
-      backdrop-filter: blur(18px);
-    }
-
-    .topbar-inner {
-      min-height: 74px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 22px;
-    }
-
-    .brand {
-      display: grid;
-      gap: 5px;
-      text-transform: uppercase;
-      letter-spacing: .18em;
-      line-height: 1.05;
-      font-size: .76rem;
-      font-weight: 900;
-      color: var(--dark);
-    }
-
-    .brand span {
-      color: var(--red);
-      font-size: .62rem;
-      letter-spacing: .23em;
-      font-weight: 800;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 14px 22px;
-      border-radius: 999px;
-      background: var(--red);
-      color: #fff;
-      font-size: .92rem;
-      font-weight: 900;
-      line-height: 1.15;
-      text-align: center;
-      box-shadow: 0 16px 34px rgba(196, 32, 48, .24);
-      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      background: var(--red-deep);
-      box-shadow: 0 22px 44px rgba(196, 32, 48, .30);
-    }
-
-    main {
-      padding: clamp(38px, 7vw, 80px) 0 clamp(54px, 8vw, 92px);
-    }
-
-    .intro {
-      max-width: 760px;
-      margin-bottom: 28px;
-    }
-
-    h1,
-    h2 {
-      color: var(--dark);
-      letter-spacing: 0;
-      line-height: 1.02;
-    }
-
-    h1 {
-      font-size: clamp(2.8rem, 8vw, 5.8rem);
-      font-weight: 900;
-      margin-bottom: 16px;
-    }
-
-    .subtitle {
-      max-width: 620px;
-      color: rgba(57, 50, 50, .76);
-      font-size: clamp(1.02rem, 2vw, 1.22rem);
-      font-weight: 600;
-      margin-bottom: 24px;
-    }
-
-    .content {
-      display: grid;
-      gap: 34px;
-    }
-
-    .block {
-      display: grid;
-      gap: 16px;
-    }
-
-    h2 {
-      font-size: clamp(1.55rem, 3vw, 2.25rem);
-      font-weight: 900;
-    }
-
-    .embed-frame {
-      position: relative;
-      aspect-ratio: 16 / 9;
-      overflow: hidden;
-      border-radius: 24px;
-      background: var(--ink);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-    }
-
-    .embed-frame iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    .external-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: fit-content;
-      min-height: 44px;
-      padding: 11px 18px;
-      border-radius: 999px;
-      border: 1px solid rgba(196, 32, 48, .24);
-      color: var(--red);
-      background: rgba(255, 255, 255, .72);
-      font-size: .9rem;
-      font-weight: 850;
-    }
-
-    .external-link:hover {
-      color: var(--red-deep);
-      background: rgba(174, 230, 223, .18);
-    }
-
-    .challenge-popup-backdrop {
-      position: fixed;
-      inset: 0;
-      z-index: 78;
-      background:
-        radial-gradient(circle at 50% 45%, rgba(196, 32, 48, .20), transparent 24rem),
-        rgba(33, 29, 29, .68);
-      backdrop-filter: blur(7px);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .32s ease;
-    }
-
-    .challenge-popup-backdrop.is-visible {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .challenge-popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      z-index: 80;
-      width: min(520px, calc(100vw - 34px));
-      border-radius: 34px;
-      background:
-        linear-gradient(145deg, rgba(255, 255, 255, .94), rgba(255, 250, 243, .98)),
-        #fffaf3;
-      border: 1px solid rgba(174, 230, 223, .72);
-      box-shadow: 0 34px 100px rgba(0, 0, 0, .42);
-      overflow: hidden;
-      transform: translate(-50%, -46%) scale(.94);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .32s ease, transform .32s cubic-bezier(.2, .82, .2, 1);
-    }
-
-    .challenge-popup::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(circle at 12% 12%, rgba(174, 230, 223, .46), transparent 12rem),
-        radial-gradient(circle at 88% 20%, rgba(196, 32, 48, .12), transparent 12rem);
-    }
-
-    .challenge-popup.is-visible {
-      transform: translate(-50%, -50%) scale(1);
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .challenge-popup__top {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 17px 22px;
-      background: linear-gradient(135deg, var(--dark), var(--ink));
-      color: var(--mint);
-      font-size: .74rem;
-      font-weight: 900;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      border-bottom: 1px solid rgba(174, 230, 223, .20);
-    }
-
-    .challenge-popup__close {
-      width: 38px;
-      height: 38px;
-      border: 1px solid rgba(255, 255, 255, .14);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, .10);
-      color: #fff;
-      cursor: pointer;
-      font-size: 1.28rem;
-      line-height: 1;
-    }
-
-    .challenge-popup__body {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      gap: 16px;
-      padding: 30px;
-      text-align: left;
-    }
-
-    .challenge-popup__badge {
-      width: fit-content;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(196, 32, 48, .10);
-      color: var(--red);
-      font-size: .74rem;
-      font-weight: 900;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      border: 1px solid rgba(196, 32, 48, .18);
-    }
-
-    .challenge-popup h3 {
-      margin: 0;
-      color: var(--dark);
-      font-size: clamp(2rem, 5vw, 3rem);
-      line-height: .96;
-      letter-spacing: -.055em;
-      font-weight: 900;
-      max-width: 10ch;
-    }
-
-    .challenge-popup p {
-      margin: 0;
-      color: rgba(57, 50, 50, .80);
-      font-size: 1.05rem;
-      line-height: 1.55;
-      font-weight: 650;
-      max-width: 33ch;
-    }
-
-    .challenge-popup__meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 2px;
-    }
-
-    .challenge-popup__meta span {
-      display: inline-flex;
-      align-items: center;
-      min-height: 31px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      background: rgba(174, 230, 223, .28);
-      color: var(--dark);
-      font-size: .78rem;
-      font-weight: 850;
-      border: 1px solid rgba(57, 50, 50, .08);
-    }
-
-    .challenge-popup .btn {
-      width: 100%;
-      min-height: 56px;
-      margin-top: 6px;
-      font-size: 1rem;
-      box-shadow: 0 18px 38px rgba(196, 32, 48, .30);
-    }
-
-    footer {
-      width: min(var(--max), calc(100% - 36px));
-      margin: auto;
-      padding: 28px 0 42px;
-      border-top: 1px solid rgba(57, 50, 50, .10);
-      color: rgba(57, 50, 50, .62);
-      font-size: .9rem;
-      font-weight: 600;
-    }
-
-    @media (max-width: 720px) {
-      .topbar-inner {
-        min-height: 66px;
-      }
-
-      .brand {
-        font-size: .7rem;
-      }
-
-      .brand span {
-        font-size: .58rem;
-      }
-
-      .topbar .btn {
-        display: none;
-      }
-
-      .btn,
-      .external-link {
-        width: 100%;
-      }
-
-      .embed-frame {
-        border-radius: 18px;
-      }
-
-      .challenge-popup {
-        width: calc(100vw - 28px);
-        border-radius: 26px;
-      }
-
-      .challenge-popup__body {
-        padding: 24px;
-      }
-
-      .challenge-popup h3 {
-        max-width: 11ch;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        scroll-behavior: auto !important;
-        transition: none !important;
-      }
-    }
+    :root{--dark:#393232;--ink:#211d1d;--white:#fff;--off:#f8f6f3;--mint:#AEE6DF;--red:#C42030;--red-deep:#8f1721;--line:rgba(57,50,50,.12);--soft:#6f6666;--shadow:0 24px 80px rgba(33,29,29,.16);--max:1040px;--sans:'Montserrat',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{min-height:100vh;color:var(--dark);font-family:var(--sans);background:radial-gradient(circle at 16% 8%,rgba(174,230,223,.34),transparent 25rem),radial-gradient(circle at 90% 18%,rgba(196,32,48,.12),transparent 26rem),linear-gradient(180deg,#fff 0%,var(--off) 52%,#fff 100%);line-height:1.58;overflow-x:hidden}
+    body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(57,50,50,.035) 1px,transparent 1px),linear-gradient(180deg,rgba(57,50,50,.025) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.75),transparent 78%)}
+    a{color:inherit;text-decoration:none}.wrap{width:min(var(--max),calc(100% - 36px));margin-inline:auto}.topbar{position:sticky;top:0;z-index:30;border-bottom:1px solid rgba(174,230,223,.72);background:rgba(255,255,255,.88);backdrop-filter:blur(18px)}.topbar-inner{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:22px}.brand{display:grid;gap:5px;text-transform:uppercase;letter-spacing:.18em;line-height:1.05;font-size:.76rem;font-weight:900;color:var(--dark)}.brand span{color:var(--red);font-size:.62rem;letter-spacing:.23em;font-weight:800}.top-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:14px 22px;border-radius:999px;background:var(--red);color:#fff;font-size:.92rem;font-weight:900;line-height:1.15;text-align:center;box-shadow:0 16px 34px rgba(196,32,48,.24);transition:transform .18s ease,box-shadow .18s ease,background .18s ease,border-color .18s ease}.btn:hover{transform:translateY(-2px);background:var(--red-deep);box-shadow:0 22px 44px rgba(196,32,48,.30)}.btn-secondary{background:rgba(255,255,255,.72);color:var(--dark);border:1px solid rgba(174,230,223,.72);box-shadow:none}.btn-secondary:hover{background:rgba(174,230,223,.20);border-color:rgba(174,230,223,.95);color:var(--dark)}
+    main{padding:clamp(38px,7vw,80px) 0 clamp(54px,8vw,92px)}.intro{max-width:780px;margin-bottom:30px}.eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:14px;color:var(--red);font-size:.74rem;font-weight:900;letter-spacing:.2em;text-transform:uppercase}.eyebrow::before{content:"";width:32px;height:1px;background:currentColor}h1,h2,h3{color:var(--dark);letter-spacing:-.035em;line-height:1.02}h1{font-size:clamp(2.9rem,8vw,5.8rem);font-weight:900;margin-bottom:16px}h2{font-size:clamp(1.65rem,3vw,2.35rem);font-weight:900}h3{font-size:clamp(1.35rem,2.6vw,2rem);font-weight:900}.subtitle{max-width:680px;color:rgba(57,50,50,.76);font-size:clamp(1.02rem,2vw,1.22rem);font-weight:600;margin-bottom:24px}.content{display:grid;gap:36px}.block{display:grid;gap:16px}.embed-frame{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:24px;background:var(--ink);border:1px solid var(--line);box-shadow:var(--shadow)}.embed-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.external-link{display:inline-flex;align-items:center;justify-content:center;width:fit-content;min-height:44px;padding:11px 18px;border-radius:999px;border:1px solid rgba(196,32,48,.24);color:var(--red);background:rgba(255,255,255,.72);font-size:.9rem;font-weight:850}.external-link:hover{color:var(--red-deep);background:rgba(174,230,223,.18)}
+    .next-step{position:relative;overflow:hidden;margin-top:4px;border-radius:32px;border:1px solid rgba(174,230,223,.64);background:linear-gradient(135deg,rgba(33,29,29,.97),rgba(57,50,50,.96));color:#fff;box-shadow:var(--shadow)}.next-step::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 12% 12%,rgba(174,230,223,.22),transparent 18rem),radial-gradient(circle at 88% 18%,rgba(196,32,48,.20),transparent 18rem);pointer-events:none}.next-step-inner{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(22px,4vw,44px);align-items:center;padding:clamp(28px,5vw,48px)}.next-step .eyebrow{color:var(--mint)}.next-step h2{color:#fff;max-width:680px}.next-step p{max-width:650px;margin-top:14px;color:rgba(255,255,255,.78);font-weight:600}.step-list{display:grid;gap:10px;margin-top:20px;list-style:none}.step-list li{display:flex;gap:10px;color:rgba(255,255,255,.86);font-weight:750}.step-list li::before{content:"✓";display:grid;place-items:center;flex:0 0 24px;width:24px;height:24px;border-radius:999px;background:var(--mint);color:var(--ink);font-size:.75rem;font-weight:900}.price-card{padding:24px;border-radius:24px;background:rgba(255,255,255,.08);border:1px solid rgba(174,230,223,.24)}.price-card small{display:block;color:var(--mint);font-size:.74rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.price-card strong{display:block;margin:8px 0 12px;color:#fff;font-size:clamp(2.6rem,6vw,4.2rem);line-height:.9;font-weight:900;letter-spacing:-.06em}.price-card p{margin:0 0 18px;color:rgba(255,255,255,.72);font-size:.94rem}.price-card .btn{width:100%;min-height:56px}.trust{margin-top:12px;color:rgba(255,255,255,.62);font-size:.86rem;font-weight:700;text-align:center}
+    footer{width:min(var(--max),calc(100% - 36px));margin:auto;padding:28px 0 42px;border-top:1px solid rgba(57,50,50,.10);color:rgba(57,50,50,.62);font-size:.9rem;font-weight:600}
+    @media(max-width:720px){.topbar-inner{min-height:66px}.brand{font-size:.7rem}.brand span{font-size:.58rem}.topbar .btn-secondary{display:none}.btn,.external-link{width:100%}.embed-frame{border-radius:18px}.next-step-inner{grid-template-columns:1fr}.price-card{padding:20px}.top-actions{justify-content:flex-end}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
   </style>
-<script src="https://cdn.brevo.com/js/sdk-loader.js" async></script>
-<script>
-    // Version: 2.0
+  <script src="https://cdn.brevo.com/js/sdk-loader.js" async></script>
+  <script>
     window.Brevo = window.Brevo || [];
-    Brevo.push([
-        "init",
-        {
-        client_key: "gu4ikku1gux285thidd4251y"
-        }
-    ]);
-</script>
+    Brevo.push(["init",{client_key:"gu4ikku1gux285thidd4251y"}]);
+  </script>
 </head>
 <body>
   <nav class="topbar">
     <div class="topbar-inner wrap">
       <a class="brand" href="/">Escuela de Flautistas<span>Replay disponible</span></a>
-      <a class="btn" href="#replay">Ver replay</a>
+      <div class="top-actions">
+        <a class="btn btn-secondary" href="/embocadura/">Material gratuito</a>
+        <a class="btn" href="/embocadura-organizada/?utm_source=replay&utm_medium=topbar&utm_campaign=desafio_21_dias">Desafío 21 días</a>
+      </div>
     </div>
   </nav>
 
   <main class="wrap">
     <header class="intro">
+      <div class="eyebrow">Masterclass gratuita</div>
       <h1>Replay de la masterclass</h1>
-      <p class="subtitle">Por pocos días accede al replay y al material de apoyo.</p>
+      <p class="subtitle">Mira la clase, revisa el material de apoyo y luego continúa con una práctica guiada para ordenar tu embocadura durante 21 días.</p>
       <a class="btn" href="#replay">Ver replay</a>
     </header>
 
     <div class="content">
       <section class="block" id="replay" aria-label="Replay de la masterclass">
+        <h2>1. Mira el replay</h2>
         <div class="embed-frame">
           <iframe src="https://www.youtube.com/embed/Yoxhr-eF_NA?si=Z2VEWrgAbEx1M9J2" title="Replay de la masterclass" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
       </section>
 
       <section class="block" aria-label="Material de apoyo">
-        <h2>Material de apoyo</h2>
+        <h2>2. Revisa el material de apoyo</h2>
         <div class="embed-frame">
           <iframe src="https://www.canva.com/design/DAHNtioOa3M/IRCkpMiDsxE5vRayD6zsXw/view?embed" title="Material de apoyo" allowfullscreen></iframe>
         </div>
         <a class="external-link" href="https://www.canva.com/design/DAHNtioOa3M/IRCkpMiDsxE5vRayD6zsXw/view?utm_content=DAHNtioOa3M&utm_campaign=designshare&utm_medium=embeds&utm_source=link" target="_blank" rel="noopener">Abrir material en Canva</a>
       </section>
+
+      <section class="next-step" aria-label="Siguiente paso: Desafío 21 días">
+        <div class="next-step-inner">
+          <div>
+            <div class="eyebrow">Siguiente paso</div>
+            <h2>El replay te muestra la idea. El Desafío 21 días te ayuda a aplicarla.</h2>
+            <p>Si quieres dejar de probar ejercicios sueltos, entra al desafío y trabaja tu embocadura con videos breves, agenda imprimible y tracker del sonido.</p>
+            <ul class="step-list">
+              <li>21 días de práctica guiada.</li>
+              <li>Clases breves de 3 a 7 minutos.</li>
+              <li>Ejercicios concretos para observar y ordenar tu sonido.</li>
+              <li>Material descargable, agenda y registro diario.</li>
+            </ul>
+          </div>
+          <aside class="price-card">
+            <small>Acceso promocional</small>
+            <strong>USD $29</strong>
+            <p>Acceso completo al Desafío 21 días: Embocadura Organizada.</p>
+            <a class="btn" href="/embocadura-organizada/?utm_source=replay&utm_medium=cta&utm_campaign=desafio_21_dias">Entrar al Desafío 21 días</a>
+            <div class="trust">Pago seguro por Hotmart · Acceso inmediato</div>
+          </aside>
+        </div>
+      </section>
     </div>
   </main>
-<footer>
+
+  <footer>
     <strong>Escuela de Flautistas</strong>
   </footer>
-  
-<script src="/assets/desafio-popup.js" defer></script></body>
+
+  <script src="/assets/desafio-popup.js" defer></script>
+</body>
 </html>
