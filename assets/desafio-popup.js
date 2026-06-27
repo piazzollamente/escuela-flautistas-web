@@ -85,11 +85,14 @@
         <a class="edf-popup__button" href="${destination}">Entrar al desafío →</a>
       </div>`;
 
-    const float=document.createElement('button');
-    float.className='edf-float';
-    float.type='button';
-    float.setAttribute('aria-label','Entrar al Desafío 21 días');
-    float.innerHTML='<span class="edf-float__dot"></span><span>Desafío 21 días</span>';
+    let float=null;
+    if(!isHome){
+      float=document.createElement('button');
+      float.className='edf-float';
+      float.type='button';
+      float.setAttribute('aria-label','Entrar al Desafío 21 días');
+      float.innerHTML='<span class="edf-float__dot"></span><span>Desafío 21 días</span>';
+    }
 
     const nudge=document.createElement('div');
     nudge.className='edf-nudge';
@@ -98,11 +101,11 @@
 
     document.body.appendChild(backdrop);
     document.body.appendChild(popup);
-    document.body.appendChild(float);
+    if(float)document.body.appendChild(float);
     document.body.appendChild(nudge);
 
-    function showFloat(){float.classList.add('is-visible')}
-    function hideFloat(){float.classList.remove('is-visible')}
+    function showFloat(){if(float)float.classList.add('is-visible')}
+    function hideFloat(){if(float)float.classList.remove('is-visible')}
     function showPopup(){hideFloat();nudge.classList.remove('is-visible');popup.classList.add('is-visible');backdrop.classList.add('is-visible')}
     function hidePopup(){popup.classList.remove('is-visible');backdrop.classList.remove('is-visible');showFloat()}
     function showNudge(){if(!popup.classList.contains('is-visible')&&canShow(nudgeKey))nudge.classList.add('is-visible')}
@@ -111,10 +114,9 @@
     document.getElementById('edfChallengePopupClose').addEventListener('click',hidePopup);
     backdrop.addEventListener('click',hidePopup);
     document.getElementById('edfChallengeNudgeClose').addEventListener('click',()=>hideNudge(true));
-    float.addEventListener('click',()=>{hideNudge(false);showPopup()});
+    if(float)float.addEventListener('click',()=>{hideNudge(false);showPopup()});
 
     if(isHome){
-      showFloat();
       const target=findWorkSection();
       if(target&&'IntersectionObserver'in window){
         let shown=false;
@@ -126,7 +128,6 @@
       }else{
         window.addEventListener('scroll',function onScroll(){if(window.scrollY>window.innerHeight*.45){window.removeEventListener('scroll',onScroll);showPopup()}},{passive:true});
       }
-      window.setTimeout(showNudge,120000);
       return;
     }
 
