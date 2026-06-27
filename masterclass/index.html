@@ -215,93 +215,156 @@
       background: rgba(174, 230, 223, .18);
     }
 
-    .challenge-popup {
+    .challenge-popup-backdrop {
       position: fixed;
-      right: 20px;
-      bottom: 20px;
-      z-index: 80;
-      width: min(390px, calc(100vw - 40px));
-      border-radius: 26px;
-      background: #fffaf3;
-      border: 1px solid rgba(57, 50, 50, .12);
-      box-shadow: 0 26px 86px rgba(33, 29, 29, .26);
-      overflow: hidden;
-      transform: translateY(24px);
+      inset: 0;
+      z-index: 78;
+      background:
+        radial-gradient(circle at 50% 45%, rgba(196, 32, 48, .20), transparent 24rem),
+        rgba(33, 29, 29, .68);
+      backdrop-filter: blur(7px);
       opacity: 0;
       pointer-events: none;
-      transition: opacity .28s ease, transform .28s ease;
+      transition: opacity .32s ease;
+    }
+
+    .challenge-popup-backdrop.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .challenge-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      z-index: 80;
+      width: min(520px, calc(100vw - 34px));
+      border-radius: 34px;
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, .94), rgba(255, 250, 243, .98)),
+        #fffaf3;
+      border: 1px solid rgba(174, 230, 223, .72);
+      box-shadow: 0 34px 100px rgba(0, 0, 0, .42);
+      overflow: hidden;
+      transform: translate(-50%, -46%) scale(.94);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .32s ease, transform .32s cubic-bezier(.2, .82, .2, 1);
+    }
+
+    .challenge-popup::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 12% 12%, rgba(174, 230, 223, .46), transparent 12rem),
+        radial-gradient(circle at 88% 20%, rgba(196, 32, 48, .12), transparent 12rem);
     }
 
     .challenge-popup.is-visible {
-      transform: translateY(0);
+      transform: translate(-50%, -50%) scale(1);
       opacity: 1;
       pointer-events: auto;
     }
 
     .challenge-popup__top {
+      position: relative;
+      z-index: 1;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      padding: 14px 18px;
-      background: var(--dark);
+      padding: 17px 22px;
+      background: linear-gradient(135deg, var(--dark), var(--ink));
       color: var(--mint);
-      font-size: .72rem;
+      font-size: .74rem;
       font-weight: 900;
-      letter-spacing: .12em;
+      letter-spacing: .14em;
       text-transform: uppercase;
+      border-bottom: 1px solid rgba(174, 230, 223, .20);
     }
 
     .challenge-popup__close {
-      width: 32px;
-      height: 32px;
-      border: 0;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255, 255, 255, .14);
       border-radius: 999px;
-      background: rgba(255, 255, 255, .1);
+      background: rgba(255, 255, 255, .10);
       color: #fff;
       cursor: pointer;
-      font-size: 1.2rem;
+      font-size: 1.28rem;
       line-height: 1;
     }
 
     .challenge-popup__body {
+      position: relative;
+      z-index: 1;
       display: grid;
-      gap: 12px;
-      padding: 22px;
+      gap: 16px;
+      padding: 30px;
+      text-align: left;
     }
 
     .challenge-popup__badge {
       width: fit-content;
-      padding: 7px 10px;
+      padding: 8px 12px;
       border-radius: 999px;
-      background: rgba(174, 230, 223, .35);
+      background: rgba(196, 32, 48, .10);
       color: var(--red);
-      font-size: .72rem;
+      font-size: .74rem;
       font-weight: 900;
       letter-spacing: .1em;
       text-transform: uppercase;
+      border: 1px solid rgba(196, 32, 48, .18);
     }
 
     .challenge-popup h3 {
       margin: 0;
       color: var(--dark);
-      font-size: clamp(1.45rem, 4vw, 2rem);
-      line-height: 1.04;
-      letter-spacing: -.04em;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: .96;
+      letter-spacing: -.055em;
       font-weight: 900;
+      max-width: 10ch;
     }
 
     .challenge-popup p {
       margin: 0;
-      color: rgba(57, 50, 50, .78);
-      font-size: .96rem;
-      line-height: 1.5;
+      color: rgba(57, 50, 50, .80);
+      font-size: 1.05rem;
+      line-height: 1.55;
       font-weight: 650;
+      max-width: 33ch;
+    }
+
+    .challenge-popup__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .challenge-popup__meta span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 31px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(174, 230, 223, .28);
+      color: var(--dark);
+      font-size: .78rem;
+      font-weight: 850;
+      border: 1px solid rgba(57, 50, 50, .08);
     }
 
     .challenge-popup .btn {
       width: 100%;
-      margin-top: 4px;
+      min-height: 56px;
+      margin-top: 6px;
+      font-size: 1rem;
+      box-shadow: 0 18px 38px rgba(196, 32, 48, .30);
     }
 
     footer {
@@ -341,11 +404,16 @@
       }
 
       .challenge-popup {
-        left: 14px;
-        right: 14px;
-        bottom: 14px;
-        width: auto;
-        border-radius: 22px;
+        width: calc(100vw - 28px);
+        border-radius: 26px;
+      }
+
+      .challenge-popup__body {
+        padding: 24px;
+      }
+
+      .challenge-popup h3 {
+        max-width: 11ch;
       }
     }
 
@@ -402,6 +470,7 @@
     </div>
   </main>
 
+  <div class="challenge-popup-backdrop" id="challengePopupBackdrop"></div>
   <aside class="challenge-popup" id="challengePopup" aria-label="Desafío 21 días">
     <div class="challenge-popup__top">
       <span>Escuela de Flautistas</span>
@@ -411,6 +480,7 @@
       <span class="challenge-popup__badge">Acceso promocional</span>
       <h3>¡Desafío 21 días abierto!</h3>
       <p>¡Ordena tu embocadura con clases de 3 a 7 min!</p>
+      <div class="challenge-popup__meta"><span>21 días</span><span>3 a 7 min</span><span>29 USD</span></div>
       <a class="btn" href="https://escueladeflautistas.cl/embocadura-organizada/?utm_source=web&utm_medium=popup&utm_campaign=desafio_21_dias&utm_content=desafio_abierto">Entrar al desafío</a>
     </div>
   </aside>
@@ -423,6 +493,7 @@
     (function () {
       const popup = document.getElementById('challengePopup');
       const close = document.getElementById('challengePopupClose');
+      const backdrop = document.getElementById('challengePopupBackdrop');
       const storageKey = 'edfChallengePopupClosed';
 
       if (!popup) return;
@@ -431,17 +502,32 @@
         if (window.localStorage && localStorage.getItem(storageKey) === '1') return;
       } catch (error) {}
 
-      const showTimer = window.setTimeout(function () {
+      function showPopup() {
         popup.classList.add('is-visible');
-      }, 5000);
+        if (backdrop) backdrop.classList.add('is-visible');
+      }
+
+      function hidePopup() {
+        popup.classList.remove('is-visible');
+        if (backdrop) backdrop.classList.remove('is-visible');
+        try {
+          if (window.localStorage) localStorage.setItem(storageKey, '1');
+        } catch (error) {}
+      }
+
+      const showTimer = window.setTimeout(showPopup, 5000);
 
       if (close) {
         close.addEventListener('click', function () {
           window.clearTimeout(showTimer);
-          popup.classList.remove('is-visible');
-          try {
-            if (window.localStorage) localStorage.setItem(storageKey, '1');
-          } catch (error) {}
+          hidePopup();
+        });
+      }
+
+      if (backdrop) {
+        backdrop.addEventListener('click', function () {
+          window.clearTimeout(showTimer);
+          hidePopup();
         });
       }
     })();
