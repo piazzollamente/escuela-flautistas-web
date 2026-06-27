@@ -67,3 +67,5 @@ jobs:
           git add .
           git commit -m "Inject global challenge popup across site"
           git push
+
+# trigger: 2026-06-27-global-popup
