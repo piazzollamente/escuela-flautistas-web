@@ -1,7 +1,39 @@
 (function(){
   const rawPath=window.location.pathname;
   const path=rawPath.endsWith('/')?rawPath:rawPath+'/';
-  if(path==='/embocadura-organizada/'||path==='/cuenta-regresiva/') return;
+
+  function fixSalesMobileCta(){
+    function apply(){
+      const cta=document.querySelector('.mobile-cta');
+      if(!cta)return;
+      const link=cta.querySelector('a');
+      if(link){
+        link.className='mobile-cta-button';
+        link.textContent='Entrar al desafío';
+      }
+      cta.removeAttribute('aria-hidden');
+      if(document.getElementById('edfSalesCtaFix'))return;
+      const style=document.createElement('style');
+      style.id='edfSalesCtaFix';
+      style.textContent=`
+        .mobile-cta{left:14px!important;right:14px!important;bottom:14px!important;z-index:90!important;display:none!important;grid-template-columns:1fr!important;gap:10px!important;padding:14px!important;border-radius:22px!important;background:rgba(255,255,255,.96)!important;backdrop-filter:blur(16px)!important;box-shadow:0 20px 55px rgba(33,29,29,.18)!important;border:1px solid rgba(174,230,223,.58)!important;overflow:hidden!important}
+        .mobile-cta-copy{display:grid!important;gap:2px!important;text-align:left!important;line-height:1.18!important;min-width:0!important}
+        .mobile-cta-copy strong{font-size:.96rem!important;color:#393232!important;font-weight:900!important;letter-spacing:0!important}
+        .mobile-cta-copy span{font-size:.82rem!important;color:#6f6666!important;font-weight:850!important;line-height:1.25!important}
+        .mobile-cta-button{display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;min-height:52px!important;border-radius:14px!important;background:#c42030!important;color:#fff!important;text-decoration:none!important;text-transform:uppercase!important;font-family:Montserrat,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;font-size:.95rem!important;font-weight:900!important;letter-spacing:.04em!important;box-shadow:0 14px 30px rgba(196,32,48,.22)!important;border:0!important;padding:14px 18px!important;line-height:1.1!important;white-space:normal!important}
+        .mobile-cta-button:before,.mobile-cta-button:after,.mobile-cta *:before,.mobile-cta *:after{box-shadow:none!important}
+        @media(max-width:900px){body{padding-bottom:150px!important}.mobile-cta{display:grid!important}}
+      `;
+      document.head.appendChild(style);
+    }
+    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply);else apply();
+  }
+
+  if(path==='/embocadura-organizada/'){
+    fixSalesMobileCta();
+    return;
+  }
+  if(path==='/cuenta-regresiva/') return;
 
   const destination='https://escueladeflautistas.cl/embocadura-organizada/?utm_source=web&utm_medium=popup&utm_campaign=desafio_21_dias&utm_content=desafio_abierto_global';
   const image='/assets/embocadura-organizada/portada.png';
