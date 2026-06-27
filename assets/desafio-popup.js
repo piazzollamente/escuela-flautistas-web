@@ -61,6 +61,10 @@
     return sections.find(el=>/c[oó]mo trabajamos/i.test(el.textContent||''));
   }
 
+  function findReplayNextStep(){
+    return document.querySelector('.next-step')||[...document.querySelectorAll('section,[id],main>div')].find(el=>/siguiente paso|desaf[ií]o 21/i.test(el.textContent||''));
+  }
+
   function init(){
     addCss();
 
@@ -132,7 +136,25 @@
     }
 
     if(isMasterclass){
-      window.setTimeout(showPopup,8000);
+      const target=findReplayNextStep();
+      if(target&&'IntersectionObserver'in window){
+        let shown=false;
+        let timer=null;
+        const observer=new IntersectionObserver(entries=>{
+          if(shown)return;
+          entries.forEach(entry=>{
+            if(entry.isIntersecting){
+              window.clearTimeout(timer);
+              timer=window.setTimeout(()=>{if(shown)return;shown=true;showPopup();observer.disconnect()},3000);
+            }else{
+              window.clearTimeout(timer);
+            }
+          })
+        },{threshold:.28,rootMargin:'0px 0px -12% 0px'});
+        observer.observe(target);
+      }else{
+        window.addEventListener('scroll',function onScroll(){if(window.scrollY>window.innerHeight*1.35){window.removeEventListener('scroll',onScroll);window.setTimeout(showPopup,3000)}},{passive:true});
+      }
       window.setTimeout(showNudge,120000);
       return;
     }
