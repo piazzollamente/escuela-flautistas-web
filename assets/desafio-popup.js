@@ -1,7 +1,6 @@
 (function(){
   const destination='https://escueladeflautistas.cl/embocadura-organizada/?utm_source=web&utm_medium=popup&utm_campaign=desafio_21_dias&utm_content=desafio_abierto_global';
   const image='/assets/embocadura-organizada/portada.png';
-  const modalKey='edfChallengeModalClosedV3';
   const nudgeKey='edfChallengeNudgeClosedV1';
 
   if(document.getElementById('edfChallengePopup')) return;
@@ -59,15 +58,15 @@
     document.body.appendChild(float);
 
     function showPopup(){popup.classList.add('is-visible');backdrop.classList.add('is-visible')}
-    function hidePopup(save){popup.classList.remove('is-visible');backdrop.classList.remove('is-visible');if(save)markClosed(modalKey)}
+    function hidePopup(){popup.classList.remove('is-visible');backdrop.classList.remove('is-visible')}
     function showNudge(){if(canShow(nudgeKey))nudge.classList.add('is-visible')}
     function hideNudge(save){nudge.classList.remove('is-visible');if(save)markClosed(nudgeKey)}
 
-    const modalTimer=window.setTimeout(function(){if(canShow(modalKey))showPopup()},5000);
+    const modalTimer=window.setTimeout(showPopup,5000);
     const nudgeTimer=window.setTimeout(showNudge,120000);
 
-    document.getElementById('edfChallengePopupClose').addEventListener('click',function(){window.clearTimeout(modalTimer);hidePopup(true)});
-    backdrop.addEventListener('click',function(){window.clearTimeout(modalTimer);hidePopup(true)});
+    document.getElementById('edfChallengePopupClose').addEventListener('click',function(){window.clearTimeout(modalTimer);hidePopup()});
+    backdrop.addEventListener('click',function(){window.clearTimeout(modalTimer);hidePopup()});
     document.getElementById('edfChallengeNudgeClose').addEventListener('click',function(){window.clearTimeout(nudgeTimer);hideNudge(true)});
     float.addEventListener('click',function(){hideNudge(false);showPopup()});
   }
