@@ -164,3 +164,5 @@ jobs:
           git add embocadura/index.html assets/desafio-popup.js
           git commit -m "Clean up popup behavior and remove WhatsApp modal"
           git push
+
+# trigger: remove-wsp-modal-and-home-scroll
