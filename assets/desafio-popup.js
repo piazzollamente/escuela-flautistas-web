@@ -1,10 +1,10 @@
 (function(){
   const destination='https://escueladeflautistas.cl/embocadura-organizada/?utm_source=web&utm_medium=popup&utm_campaign=desafio_21_dias&utm_content=desafio_abierto_global';
   const image='/assets/embocadura-organizada/portada.png';
-  const storageKey='edfChallengePopupClosedV2';
+  const modalKey='edfChallengeModalClosedV3';
+  const nudgeKey='edfChallengeNudgeClosedV1';
 
   if(document.getElementById('edfChallengePopup')) return;
-  try{ if(window.localStorage && localStorage.getItem(storageKey)==='1') return; }catch(error){}
 
   function addCss(){
     if(document.getElementById('edfChallengePopupCss')) return;
@@ -14,6 +14,9 @@
     link.href='/assets/desafio-popup-card.css';
     document.head.appendChild(link);
   }
+
+  function canShow(key){try{return !(window.localStorage&&localStorage.getItem(key)==='1')}catch(error){return true}}
+  function markClosed(key){try{if(window.localStorage)localStorage.setItem(key,'1')}catch(error){}}
 
   function init(){
     addCss();
@@ -39,21 +42,35 @@
         <a class="edf-popup__button" href="${destination}">Entrar al desafío →</a>
       </div>`;
 
+    const float=document.createElement('button');
+    float.className='edf-float';
+    float.type='button';
+    float.setAttribute('aria-label','Entrar al Desafío 21 días');
+    float.innerHTML='<span class="edf-float__dot"></span><span>Desafío 21 días</span>';
+
+    const nudge=document.createElement('div');
+    nudge.className='edf-nudge';
+    nudge.id='edfChallengeNudge';
+    nudge.innerHTML='<button type="button" aria-label="Cerrar recordatorio" id="edfChallengeNudgeClose">×</button><strong>¿Lo quieres llevar a la práctica?</strong><p>El Desafío 21 días sigue abierto. Puedes entrar cuando quieras desde este botón.</p>';
+
     document.body.appendChild(backdrop);
     document.body.appendChild(popup);
+    document.body.appendChild(nudge);
+    document.body.appendChild(float);
 
-    function show(){ popup.classList.add('is-visible'); backdrop.classList.add('is-visible'); }
-    function hide(){
-      popup.classList.remove('is-visible');
-      backdrop.classList.remove('is-visible');
-      try{ if(window.localStorage) localStorage.setItem(storageKey,'1'); }catch(error){}
-    }
+    function showPopup(){popup.classList.add('is-visible');backdrop.classList.add('is-visible')}
+    function hidePopup(save){popup.classList.remove('is-visible');backdrop.classList.remove('is-visible');if(save)markClosed(modalKey)}
+    function showNudge(){if(canShow(nudgeKey))nudge.classList.add('is-visible')}
+    function hideNudge(save){nudge.classList.remove('is-visible');if(save)markClosed(nudgeKey)}
 
-    const timer=window.setTimeout(show,5000);
-    const close=document.getElementById('edfChallengePopupClose');
-    if(close) close.addEventListener('click',function(){ window.clearTimeout(timer); hide(); });
-    backdrop.addEventListener('click',function(){ window.clearTimeout(timer); hide(); });
+    const modalTimer=window.setTimeout(function(){if(canShow(modalKey))showPopup()},5000);
+    const nudgeTimer=window.setTimeout(showNudge,120000);
+
+    document.getElementById('edfChallengePopupClose').addEventListener('click',function(){window.clearTimeout(modalTimer);hidePopup(true)});
+    backdrop.addEventListener('click',function(){window.clearTimeout(modalTimer);hidePopup(true)});
+    document.getElementById('edfChallengeNudgeClose').addEventListener('click',function(){window.clearTimeout(nudgeTimer);hideNudge(true)});
+    float.addEventListener('click',function(){hideNudge(false);showPopup()});
   }
 
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
