@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'assets/desafio-popup.js'
+      - 'assets/desafio-popup-card.css'
       - '.github/workflows/inject-desafio-popup.yml'
   workflow_dispatch:
 
@@ -24,28 +25,32 @@ jobs:
           from pathlib import Path
           import re
 
-          popup_script = '  <script src="/assets/desafio-popup.js" defer></script>'
+          popup_script = '<script src="/assets/desafio-popup.js" defer></script>'
           changed = []
 
           for path in sorted(Path('.').glob('**/*.html')):
-              if '.git' in path.parts:
-                  continue
-              if path.name == 'brevo-frame.html':
+              if '.git' in path.parts or path.name == 'brevo-frame.html':
                   continue
 
               text = path.read_text(encoding='utf-8')
               original = text
 
-              # Remove previous inline popup markup from masterclass page to avoid duplicates.
-              text = re.sub(r'\n\s*<div class="challenge-popup-backdrop" id="challengePopupBackdrop"></div>\s*\n\s*<aside class="challenge-popup" id="challengePopup"[\s\S]*?</aside>\s*', '\n', text)
-              text = re.sub(r'\n\s*<aside class="challenge-popup" id="challengePopup"[\s\S]*?</aside>\s*', '\n', text)
-              text = re.sub(r'\n\s*<script>\s*\(function \(\) \{\s*const popup = document\.getElementById\(\'challengePopup\'\);[\s\S]*?\}\)\(\);\s*</script>\s*', '\n', text)
+              # Remove any old duplicate script tags.
+              text = text.replace('<script src="/assets/desafio-popup.js" defer></script>', '')
+              text = text.replace('  <script src="/assets/desafio-popup.js" defer></script>', '')
 
-              if '/assets/desafio-popup.js' not in text:
-                  if '</body>' in text:
-                      text = text.replace('</body>', popup_script + '\n</body>', 1)
-                  elif '</html>' in text:
-                      text = text.replace('</html>', popup_script + '\n</html>', 1)
+              # Remove previous inline popup markup from masterclass page to avoid duplicates.
+              text = re.sub(r'\n?\s*<div class="challenge-popup-backdrop" id="challengePopupBackdrop"></div>\s*\n?\s*<aside class="challenge-popup" id="challengePopup"[\s\S]*?</aside>\s*', '\n', text)
+              text = re.sub(r'\n?\s*<aside class="challenge-popup" id="challengePopup"[\s\S]*?</aside>\s*', '\n', text)
+              text = re.sub(r'\n?\s*<script>\s*\(function \(\) \{\s*const popup = document\.getElementById\(\'challengePopup\'\);[\s\S]*?\}\)\(\);\s*</script>\s*', '\n', text)
+
+              # Inject before </body> even when the HTML is minified onto one long line.
+              if '</body>' in text:
+                  text = text.replace('</body>', popup_script + '</body>', 1)
+              elif '</html>' in text:
+                  text = text.replace('</html>', popup_script + '</html>', 1)
+              else:
+                  text = text + popup_script
 
               if text != original:
                   path.write_text(text, encoding='utf-8')
@@ -65,7 +70,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .
-          git commit -m "Inject global challenge popup across site"
+          git commit -m "Force inject global challenge popup"
           git push
 
-# trigger: 2026-06-27-global-popup
+# trigger: force-all-pages-2026-06-27
