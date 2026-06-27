@@ -1,7 +1,14 @@
 (function(){
+  const rawPath=window.location.pathname;
+  const path=rawPath.endsWith('/')?rawPath:rawPath+'/';
+  if(path==='/embocadura-organizada/'||path==='/cuenta-regresiva/') return;
+
   const destination='https://escueladeflautistas.cl/embocadura-organizada/?utm_source=web&utm_medium=popup&utm_campaign=desafio_21_dias&utm_content=desafio_abierto_global';
   const image='/assets/embocadura-organizada/portada.png';
   const nudgeKey='edfChallengeNudgeClosedV1';
+  const isHome=path==='/'||path==='/index.html/';
+  const isMasterclass=path==='/masterclass/';
+  const isOldPage=['/embocadura/','/sonido/','/workbook/','/instructivo/'].includes(path);
 
   if(document.getElementById('edfChallengePopup')) return;
 
@@ -16,6 +23,11 @@
 
   function canShow(key){try{return !(window.localStorage&&localStorage.getItem(key)==='1')}catch(error){return true}}
   function markClosed(key){try{if(window.localStorage)localStorage.setItem(key,'1')}catch(error){}}
+
+  function findWorkSection(){
+    const sections=[...document.querySelectorAll('section,[id],main>div')];
+    return sections.find(el=>/c[oó]mo trabajamos/i.test(el.textContent||''));
+  }
 
   function init(){
     addCss();
@@ -54,21 +66,51 @@
 
     document.body.appendChild(backdrop);
     document.body.appendChild(popup);
-    document.body.appendChild(nudge);
     document.body.appendChild(float);
+    document.body.appendChild(nudge);
 
-    function showPopup(){popup.classList.add('is-visible');backdrop.classList.add('is-visible')}
-    function hidePopup(){popup.classList.remove('is-visible');backdrop.classList.remove('is-visible')}
-    function showNudge(){if(canShow(nudgeKey))nudge.classList.add('is-visible')}
+    function showFloat(){float.classList.add('is-visible')}
+    function hideFloat(){float.classList.remove('is-visible')}
+    function showPopup(){hideFloat();nudge.classList.remove('is-visible');popup.classList.add('is-visible');backdrop.classList.add('is-visible')}
+    function hidePopup(){popup.classList.remove('is-visible');backdrop.classList.remove('is-visible');showFloat()}
+    function showNudge(){if(!popup.classList.contains('is-visible')&&canShow(nudgeKey))nudge.classList.add('is-visible')}
     function hideNudge(save){nudge.classList.remove('is-visible');if(save)markClosed(nudgeKey)}
 
-    const modalTimer=window.setTimeout(showPopup,5000);
-    const nudgeTimer=window.setTimeout(showNudge,120000);
+    document.getElementById('edfChallengePopupClose').addEventListener('click',hidePopup);
+    backdrop.addEventListener('click',hidePopup);
+    document.getElementById('edfChallengeNudgeClose').addEventListener('click',()=>hideNudge(true));
+    float.addEventListener('click',()=>{hideNudge(false);showPopup()});
 
-    document.getElementById('edfChallengePopupClose').addEventListener('click',function(){window.clearTimeout(modalTimer);hidePopup()});
-    backdrop.addEventListener('click',function(){window.clearTimeout(modalTimer);hidePopup()});
-    document.getElementById('edfChallengeNudgeClose').addEventListener('click',function(){window.clearTimeout(nudgeTimer);hideNudge(true)});
-    float.addEventListener('click',function(){hideNudge(false);showPopup()});
+    if(isHome){
+      showFloat();
+      const target=findWorkSection();
+      if(target&&'IntersectionObserver'in window){
+        let shown=false;
+        const observer=new IntersectionObserver(entries=>{
+          if(shown)return;
+          entries.forEach(entry=>{if(entry.isIntersecting){shown=true;showPopup();observer.disconnect()}})
+        },{threshold:.18,rootMargin:'0px 0px -18% 0px'});
+        observer.observe(target);
+      }else{
+        window.addEventListener('scroll',function onScroll(){if(window.scrollY>window.innerHeight*.45){window.removeEventListener('scroll',onScroll);showPopup()}},{passive:true});
+      }
+      window.setTimeout(showNudge,120000);
+      return;
+    }
+
+    if(isMasterclass){
+      window.setTimeout(showPopup,8000);
+      window.setTimeout(showNudge,120000);
+      return;
+    }
+
+    if(isOldPage){
+      showFloat();
+      window.setTimeout(showPopup,25000);
+      return;
+    }
+
+    showFloat();
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
