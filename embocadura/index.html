@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Material gratuito: Técnica de la embocadura · Escuela de Flautistas</title>
-  <meta name="description" content="3 ejercicios para observar tu emisión, encontrar un ángulo más claro y organizar mejor tu sonido.">
+  <meta name="description" content="Lee directamente el material gratuito de técnica de la embocadura y descarga el PDF si quieres guardarlo.">
   <link rel="icon" type="image/png" href="/assets/favicon.png">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Material gratuito: Técnica de la embocadura">
@@ -15,370 +15,72 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --dark:#393232;
-      --ink:#211d1d;
-      --white:#fff;
-      --off:#f8f6f3;
-      --muted:#776e6e;
-      --paper:#fffaf3;
-      --paper-soft:#fffaf3;
-      --mint:#AEE6DF;
-      --mint-soft:#DDF8F4;
-      --red:#C42030;
-      --red-deep:#8f1721;
-      --line:rgba(174,230,223,.42);
-      --line-dark:rgba(57,50,50,.12);
-      --shadow:0 24px 80px rgba(33,29,29,.18);
-      --radius:30px;
-      --max:760px;
-      --serif:'Cormorant Garamond', Georgia, serif;
-      --sans:'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    }
-
-    * { box-sizing:border-box; }
-
-    html,
-    body {
-      min-height:100%;
-      margin:0;
-    }
-
-    body {
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      min-height:100dvh;
-      padding:clamp(28px, 6vw, 72px) 20px;
-      background:
-        radial-gradient(circle at 16% 8%, rgba(174,230,223,.34), transparent 25rem),
-        radial-gradient(circle at 90% 18%, rgba(196,32,48,.13), transparent 26rem),
-        linear-gradient(180deg, #fff 0%, var(--off) 48%, #fff 100%);
-      color:var(--dark);
-      font-family:var(--sans);
-      text-align:center;
-      line-height:1.68;
-      overflow-x:hidden;
-    }
-
-    body::before {
-      content:"";
-      position:fixed;
-      inset:0;
-      z-index:-2;
-      pointer-events:none;
-      background:
-        linear-gradient(90deg, rgba(57,50,50,.035) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(57,50,50,.025) 1px, transparent 1px);
-      background-size:72px 72px;
-      mask-image:linear-gradient(to bottom, rgba(0,0,0,.75), transparent 78%);
-    }
-
-    main {
-      position:relative;
-      width:min(var(--max), 100%);
-      margin:auto;
-      padding:clamp(28px, 5vw, 58px) 0 24px;
-    }
-
-    main::before {
-      content:"";
-      display:block;
-      width:46px;
-      height:2px;
-      margin:0 auto 20px;
-      border-radius:999px;
-      background:var(--red);
-      box-shadow:22px 0 0 var(--mint);
-    }
-
-    main::after {
-      content:"";
-      position:absolute;
-      top:10px;
-      right:min(3vw, 18px);
-      width:78px;
-      height:78px;
-      border-radius:999px;
-      border:1px solid rgba(174,230,223,.72);
-      background:rgba(174,230,223,.13);
-      z-index:-1;
-    }
-
-    .eyebrow {
-      margin:0 0 18px;
-      color:var(--red);
-      font-size:.72rem;
-      font-weight:900;
-      letter-spacing:.24em;
-      text-transform:uppercase;
-    }
-
-    h1 {
-      margin:0;
-      font-family:var(--serif);
-      font-size:clamp(3.65rem, 9vw, 7.2rem);
-      font-weight:700;
-      line-height:.95;
-      letter-spacing:-.045em;
-    }
-
-    .lead {
-      width:min(590px, 100%);
-      margin:24px auto 0;
-      color:rgba(57,50,50,.82);
-      font-size:clamp(1.06rem, 1.55vw, 1.24rem);
-      font-weight:500;
-      line-height:1.65;
-    }
-
-    .actions {
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:16px;
-      margin-top:34px;
-    }
-
-    .button {
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:52px;
-      border-radius:999px;
-      padding:15px 24px;
-      border:0;
-      color:inherit;
-      font-family:var(--sans);
-      font-size:.92rem;
-      font-weight:900;
-      letter-spacing:0;
-      line-height:1.15;
-      text-align:center;
-      text-decoration:none;
-      cursor:pointer;
-      transition:background .18s ease, color .18s ease, transform .18s ease, border-color .18s ease, box-shadow .18s ease;
-    }
-
-    .button:hover {
-      transform:translateY(-2px);
-    }
-
-    .button-primary {
-      min-width:min(340px, 100%);
-      background:var(--red);
-      color:#fff;
-      box-shadow:0 16px 34px rgba(196,32,48,.24);
-    }
-
-    .button-primary:hover {
-      background:var(--red-deep);
-      box-shadow:0 22px 44px rgba(196,32,48,.30);
-    }
-
-    .note {
-      width:min(440px, 100%);
-      margin:10px auto 0;
-      color:rgba(33,29,29,.64);
-      font-size:.9rem;
-      font-weight:600;
-      line-height:1.55;
-    }
-
-    .button-secondary {
-      min-height:48px;
-      padding:14px 22px;
-      border-radius:999px;
-      color:var(--dark);
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.48);
-      font-size:.88rem;
-      box-shadow:none;
-    }
-
-    .button-secondary:hover {
-      color:var(--dark);
-      border-color:rgba(174,230,223,.78);
-      background:rgba(174,230,223,.18);
-    }
-
-    .modal-backdrop {
-      position:fixed;
-      inset:0;
-      z-index:20;
-      display:grid;
-      place-items:center;
-      padding:22px;
-      background:rgba(33,29,29,.48);
-      backdrop-filter:blur(10px);
-      opacity:0;
-      pointer-events:none;
-      transition:opacity .22s ease;
-    }
-
-    .modal-backdrop.is-visible {
-      opacity:1;
-      pointer-events:auto;
-    }
-
-    .modal {
-      position:relative;
-      width:min(500px, 100%);
-      border:1px solid rgba(111,155,134,.28);
-      border-radius:24px;
-      background:var(--paper-soft);
-      box-shadow:0 30px 90px rgba(33,29,29,.28);
-      padding:clamp(26px,4vw,40px);
-      transform:translateY(10px) scale(.98);
-      transition:transform .22s ease;
-    }
-
-    .modal::before {
-      content:"";
-      display:block;
-      width:42px;
-      height:2px;
-      margin:0 auto 18px;
-      border-radius:999px;
-      background:var(--mint);
-      box-shadow:20px 0 0 var(--red);
-    }
-
-    .modal-backdrop.is-visible .modal {
-      transform:translateY(0) scale(1);
-    }
-
-    .modal h2 {
-      margin:0 0 12px;
-      font-family:var(--serif);
-      font-size:clamp(2.2rem, 5vw, 3.4rem);
-      font-weight:600;
-      line-height:.95;
-    }
-
-    .modal p {
-      margin:0 auto 22px;
-      max-width:420px;
-      color:var(--muted);
-      font-size:1rem;
-      font-weight:500;
-      line-height:1.55;
-    }
-
-    .modal-actions {
-      display:grid;
-      gap:12px;
-    }
-
-    .modal-close {
-      border:0;
-      background:transparent;
-      color:rgba(33,29,29,.62);
-      cursor:pointer;
-      font-family:var(--sans);
-      font-size:.82rem;
-      font-weight:800;
-      text-decoration:underline;
-      text-underline-offset:4px;
-    }
-
-    .modal-close:hover {
-      color:var(--red);
-    }
-
-    .modal-x {
-      position:absolute;
-      top:16px;
-      right:16px;
-      width:36px;
-      height:36px;
-      border:1px solid rgba(57,50,50,.10);
-      border-radius:999px;
-      background:rgba(255,255,255,.62);
-      color:rgba(57,50,50,.72);
-      cursor:pointer;
-      font-family:var(--sans);
-      font-size:1.25rem;
-      font-weight:800;
-      line-height:1;
-    }
-
-    .modal-x:hover {
-      color:var(--red);
-      border-color:rgba(196,32,48,.22);
-      background:rgba(196,32,48,.06);
-    }
-
-    footer {
-      width:min(var(--max), 100%);
-      margin:20px auto 0;
-      padding:28px 0 0;
-      border-top:1px solid rgba(57,50,50,.10);
-      color:rgba(57,50,50,.62);
-      display:flex;
-      justify-content:space-between;
-      gap:20px;
-      flex-wrap:wrap;
-      font-size:.9rem;
-      text-align:left;
-    }
-
-    footer strong {
-      color:var(--dark);
-      font-weight:900;
-    }
-
-    @media (max-width:560px) {
-      body {
-        justify-content:flex-start;
-        padding-top:54px;
-      }
-
-      h1 {
-        font-size:clamp(3rem, 14vw, 4.7rem);
-      }
-
-      main::after {
-        right:-10px;
-        width:58px;
-        height:58px;
-      }
-
-      .button {
-        width:100%;
-      }
-
-      footer {
-        text-align:center;
-        justify-content:center;
-        flex-direction:column;
-        gap:8px;
-      }
-    }
+    :root{--dark:#393232;--ink:#211d1d;--white:#fff;--off:#f8f6f3;--muted:#776e6e;--paper:#fffaf3;--mint:#AEE6DF;--red:#C42030;--red-deep:#8f1721;--line:rgba(174,230,223,.42);--shadow:0 24px 80px rgba(33,29,29,.14);--serif:'Cormorant Garamond',Georgia,serif;--sans:'Montserrat',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--max:1040px}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{min-height:100vh;background:radial-gradient(circle at 16% 8%,rgba(174,230,223,.34),transparent 25rem),radial-gradient(circle at 90% 18%,rgba(196,32,48,.13),transparent 26rem),linear-gradient(180deg,#fff 0%,var(--off) 48%,#fff 100%);color:var(--dark);font-family:var(--sans);line-height:1.68;overflow-x:hidden}
+    body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:linear-gradient(90deg,rgba(57,50,50,.035) 1px,transparent 1px),linear-gradient(180deg,rgba(57,50,50,.025) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.75),transparent 78%)}
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(var(--max),calc(100% - 36px));margin:auto}
+    .topbar{border-bottom:1px solid rgba(174,230,223,.62);background:rgba(255,255,255,.88);backdrop-filter:blur(18px)}
+    .topbar-inner{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .logo{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;font-weight:900;line-height:1.1}.logo span{display:block;color:var(--red);font-size:.58rem;letter-spacing:.2em;margin-top:4px}
+    main{padding:clamp(42px,7vw,76px) 0 42px}
+    .hero{max-width:860px;margin:0 auto 30px;text-align:center}.hero::before{content:"";display:block;width:46px;height:2px;margin:0 auto 20px;border-radius:999px;background:var(--red);box-shadow:22px 0 0 var(--mint)}
+    .eyebrow{margin:0 0 18px;color:var(--red);font-size:.72rem;font-weight:900;letter-spacing:.24em;text-transform:uppercase}
+    h1{margin:0;font-family:var(--serif);font-size:clamp(3.1rem,8vw,6.7rem);font-weight:700;line-height:.95;letter-spacing:-.045em}
+    .lead{width:min(640px,100%);margin:22px auto 0;color:rgba(57,50,50,.82);font-size:clamp(1.02rem,1.55vw,1.22rem);font-weight:500;line-height:1.65}
+    .pdf-card{margin:34px auto 0;border:1px solid rgba(174,230,223,.54);border-radius:30px;background:rgba(255,255,255,.84);box-shadow:var(--shadow);overflow:hidden}
+    .pdf-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 18px;border-bottom:1px solid rgba(57,50,50,.08);background:linear-gradient(135deg,rgba(174,230,223,.22),rgba(255,255,255,.82))}
+    .pdf-head strong{font-size:.86rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--dark)}
+    .pdf-head span{font-size:.82rem;font-weight:800;color:rgba(57,50,50,.62)}
+    .pdf-frame{width:100%;height:min(78vh,860px);min-height:620px;border:0;background:#fff;display:block}
+    .pdf-fallback{padding:18px;text-align:center;color:var(--muted);font-weight:700}
+    .actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;margin:28px auto 0}
+    .button{display:inline-flex;align-items:center;justify-content:center;min-height:52px;border-radius:999px;padding:15px 24px;border:0;font-family:var(--sans);font-size:.92rem;font-weight:900;line-height:1.15;text-align:center;text-decoration:none;cursor:pointer;transition:background .18s ease,color .18s ease,transform .18s ease,border-color .18s ease,box-shadow .18s ease}.button:hover{transform:translateY(-2px)}
+    .button-primary{background:var(--red);color:#fff;box-shadow:0 16px 34px rgba(196,32,48,.24)}.button-primary:hover{background:var(--red-deep);box-shadow:0 22px 44px rgba(196,32,48,.30)}
+    .button-secondary{color:var(--dark);border:1px solid var(--line);background:rgba(255,255,255,.62);box-shadow:none}.button-secondary:hover{border-color:rgba(174,230,223,.78);background:rgba(174,230,223,.18)}
+    .note{width:min(620px,100%);margin:16px auto 0;color:rgba(33,29,29,.64);font-size:.92rem;font-weight:650;line-height:1.55;text-align:center}
+    footer{width:min(var(--max),calc(100% - 36px));margin:20px auto 0;padding:28px 0 0;border-top:1px solid rgba(57,50,50,.10);color:rgba(57,50,50,.62);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:.9rem}footer strong{color:var(--dark);font-weight:900}
+    @media(max-width:720px){.topbar-inner{min-height:66px}.pdf-head{display:grid;text-align:left}.pdf-frame{height:72vh;min-height:520px}.actions{display:grid}.button{width:100%}footer{text-align:center;justify-content:center;flex-direction:column;gap:8px}}
   </style>
-<script src="https://cdn.brevo.com/js/sdk-loader.js" async></script>
-<script>
-    // Version: 2.0
+  <script src="https://cdn.brevo.com/js/sdk-loader.js" async></script>
+  <script>
     window.Brevo = window.Brevo || [];
-    Brevo.push([
-        "init",
-        {
-        client_key: "gu4ikku1gux285thidd4251y"
-        }
-    ]);
-</script>
+    Brevo.push(["init",{client_key:"gu4ikku1gux285thidd4251y"}]);
+  </script>
 </head>
 <body>
-  <main>
-    <p class="eyebrow">DESCARGA GRATUITA</p>
-    <h1>Material gratuito: Técnica de la embocadura</h1>
-    <p class="lead">3 ejercicios para observar tu emisión, encontrar un ángulo más claro y organizar mejor tu sonido.</p>
-    <div class="actions">
-      <a id="download-material" class="button button-primary" href="./Material%20gratuito%20EDF.pdf" download="tecnica-de-la-embocadura.pdf">DESCARGAR MATERIAL</a>
-      <p class="note">Luego únete a la masterclass gratuita para trabajarlo con guía.</p>
-      <a class="button button-secondary" href="/masterclass/">INSCRIBIRME A LA MASTERCLASS</a>
+  <nav class="topbar">
+    <div class="topbar-inner wrap">
+      <a class="logo" href="/">Escuela de Flautistas<span>Material gratuito</span></a>
+      <a class="button button-secondary" href="/embocadura-organizada/">Ver desafío 21 días</a>
     </div>
+  </nav>
+
+  <main class="wrap">
+    <section class="hero">
+      <p class="eyebrow">DESCARGA GRATUITA</p>
+      <h1>Material gratuito: Técnica de la embocadura</h1>
+      <p class="lead">Lee aquí los 3 ejercicios para observar tu emisión, encontrar un ángulo más claro y organizar mejor tu sonido.</p>
+    </section>
+
+    <section class="pdf-card" aria-label="Material gratuito embebido">
+      <div class="pdf-head">
+        <strong>Material embebido</strong>
+        <span>Puedes leerlo aquí sin descargar nada</span>
+      </div>
+      <object class="pdf-frame" data="./Material%20gratuito%20EDF.pdf#view=FitH" type="application/pdf">
+        <iframe class="pdf-frame" src="./Material%20gratuito%20EDF.pdf#view=FitH" title="Material gratuito: Técnica de la embocadura"></iframe>
+        <div class="pdf-fallback">Tu navegador no pudo mostrar el PDF embebido. Usa el botón de descarga.</div>
+      </object>
+    </section>
+
+    <div class="actions">
+      <a id="download-material" class="button button-secondary" href="./Material%20gratuito%20EDF.pdf" download="tecnica-de-la-embocadura.pdf">Descargar PDF</a>
+      <a class="button button-primary" href="/embocadura-organizada/">Ver Desafío 21 días</a>
+    </div>
+    <p class="note">El material gratuito te ayuda a observar. El Desafío 21 días te guía paso a paso para ordenar la embocadura con clases breves.</p>
   </main>
 
   <footer>
@@ -386,58 +88,6 @@
     <div>@escueladeflautistas<br>escueladeflautistas.cl</div>
   </footer>
 
-  <div class="modal-backdrop" id="download-modal" hidden>
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="download-modal-title" aria-describedby="download-modal-description">
-      <button class="modal-x" type="button" id="download-modal-x" aria-label="Cerrar modal">&times;</button>
-      <h2 id="download-modal-title">No te saltes este paso, ingresa al grupo VIP de EDF</h2>
-      <p id="download-modal-description">Únete al grupo de WhatsApp para recibir el link de Zoom, avisos importantes y recursos previos.</p>
-      <div class="modal-actions">
-        <a class="button button-primary" href="https://chat.whatsapp.com/EHWKSTV9IMzFVOusTEkr5G" target="_blank" rel="noopener noreferrer">UNIRME AL GRUPO DE WHATSAPP</a>
-        <button class="modal-close" type="button" id="download-modal-close">Seguir leyendo</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const downloadButton = document.querySelector('#download-material');
-    const downloadModal = document.querySelector('#download-modal');
-    const closeModal = document.querySelector('#download-modal-close');
-    const closeModalX = document.querySelector('#download-modal-x');
-    let modalTimer;
-
-    function showDownloadModal() {
-      downloadModal.hidden = false;
-      requestAnimationFrame(() => downloadModal.classList.add('is-visible'));
-      closeModal.focus();
-    }
-
-    function hideDownloadModal() {
-      downloadModal.classList.remove('is-visible');
-      window.setTimeout(() => {
-        downloadModal.hidden = true;
-      }, 220);
-    }
-
-    downloadButton.addEventListener('click', () => {
-      window.clearTimeout(modalTimer);
-      modalTimer = window.setTimeout(showDownloadModal, 1500);
-    });
-
-    closeModal.addEventListener('click', hideDownloadModal);
-    closeModalX.addEventListener('click', hideDownloadModal);
-
-    downloadModal.addEventListener('click', (event) => {
-      if (event.target === downloadModal) {
-        hideDownloadModal();
-      }
-    });
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && !downloadModal.hidden) {
-        hideDownloadModal();
-      }
-    });
-  </script>
-  
-<script src="/assets/desafio-popup.js" defer></script></body>
+  <script src="/assets/desafio-popup.js" defer></script>
+</body>
 </html>
