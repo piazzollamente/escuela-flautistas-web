@@ -469,68 +469,9 @@
       </section>
     </div>
   </main>
-
-  <div class="challenge-popup-backdrop" id="challengePopupBackdrop"></div>
-  <aside class="challenge-popup" id="challengePopup" aria-label="Desafío 21 días">
-    <div class="challenge-popup__top">
-      <span>Escuela de Flautistas</span>
-      <button class="challenge-popup__close" type="button" aria-label="Cerrar aviso" id="challengePopupClose">×</button>
-    </div>
-    <div class="challenge-popup__body">
-      <span class="challenge-popup__badge">Acceso promocional</span>
-      <h3>¡Desafío 21 días abierto!</h3>
-      <p>¡Ordena tu embocadura con clases de 3 a 7 min!</p>
-      <div class="challenge-popup__meta"><span>21 días</span><span>3 a 7 min</span><span>29 USD</span></div>
-      <a class="btn" href="https://escueladeflautistas.cl/embocadura-organizada/?utm_source=web&utm_medium=popup&utm_campaign=desafio_21_dias&utm_content=desafio_abierto">Entrar al desafío</a>
-    </div>
-  </aside>
-
-  <footer>
+<footer>
     <strong>Escuela de Flautistas</strong>
   </footer>
-
-  <script>
-    (function () {
-      const popup = document.getElementById('challengePopup');
-      const close = document.getElementById('challengePopupClose');
-      const backdrop = document.getElementById('challengePopupBackdrop');
-      const storageKey = 'edfChallengePopupClosed';
-
-      if (!popup) return;
-
-      try {
-        if (window.localStorage && localStorage.getItem(storageKey) === '1') return;
-      } catch (error) {}
-
-      function showPopup() {
-        popup.classList.add('is-visible');
-        if (backdrop) backdrop.classList.add('is-visible');
-      }
-
-      function hidePopup() {
-        popup.classList.remove('is-visible');
-        if (backdrop) backdrop.classList.remove('is-visible');
-        try {
-          if (window.localStorage) localStorage.setItem(storageKey, '1');
-        } catch (error) {}
-      }
-
-      const showTimer = window.setTimeout(showPopup, 5000);
-
-      if (close) {
-        close.addEventListener('click', function () {
-          window.clearTimeout(showTimer);
-          hidePopup();
-        });
-      }
-
-      if (backdrop) {
-        backdrop.addEventListener('click', function () {
-          window.clearTimeout(showTimer);
-          hidePopup();
-        });
-      }
-    })();
-  </script>
+  <script src="/assets/desafio-popup.js" defer></script>
 </body>
 </html>
