@@ -36,3 +36,5 @@ jobs:
           git add index.html
           git commit -m "Add free material link to menu"
           git push
+
+# trigger: material-gratuito-menu
