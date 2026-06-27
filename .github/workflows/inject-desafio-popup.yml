@@ -1,0 +1,69 @@
+name: Inject Desafio Popup
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/desafio-popup.js'
+      - '.github/workflows/inject-desafio-popup.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  inject-popup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Inject popup script into HTML pages
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          import re
+
+          popup_script = '  <script src="/assets/desafio-popup.js" defer></script>'
+          changed = []
+
+          for path in sorted(Path('.').glob('**/*.html')):
+              if '.git' in path.parts:
+                  continue
+              if path.name == 'brevo-frame.html':
+                  continue
+
+              text = path.read_text(encoding='utf-8')
+              original = text
+
+              # Remove previous inline popup markup from masterclass page to avoid duplicates.
+              text = re.sub(r'\n\s*<div class="challenge-popup-backdrop" id="challengePopupBackdrop"></div>\s*\n\s*<aside class="challenge-popup" id="challengePopup"[\s\S]*?</aside>\s*', '\n', text)
+              text = re.sub(r'\n\s*<aside class="challenge-popup" id="challengePopup"[\s\S]*?</aside>\s*', '\n', text)
+              text = re.sub(r'\n\s*<script>\s*\(function \(\) \{\s*const popup = document\.getElementById\(\'challengePopup\'\);[\s\S]*?\}\)\(\);\s*</script>\s*', '\n', text)
+
+              if '/assets/desafio-popup.js' not in text:
+                  if '</body>' in text:
+                      text = text.replace('</body>', popup_script + '\n</body>', 1)
+                  elif '</html>' in text:
+                      text = text.replace('</html>', popup_script + '\n</html>', 1)
+
+              if text != original:
+                  path.write_text(text, encoding='utf-8')
+                  changed.append(str(path))
+
+          print('Changed files:')
+          for item in changed:
+              print(item)
+          PY
+
+      - name: Commit changes
+        run: |
+          if git diff --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Inject global challenge popup across site"
+          git push
