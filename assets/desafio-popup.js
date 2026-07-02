@@ -2,7 +2,12 @@
   const path=window.location.pathname.endsWith('/')?window.location.pathname:window.location.pathname+'/';
   const isEs=path==='/embocadura-organizada/';
   const isPt=path==='/pt/embocadura-organizada/';
-  if(!isEs&&!isPt)return;
+  const isMasterclass=path==='/masterclass/';
+  if(!isEs&&!isPt&&!isMasterclass)return;
+
+  const PRICE='USD $39';
+  const SAVING_ES='Ahorras USD $279';
+  const SAVING_PT='Você economiza USD $279';
 
   function flag(type){
     const ns='http://www.w3.org/2000/svg';
@@ -38,6 +43,7 @@
   }
 
   function languageSwitch(){
+    if(!isEs&&!isPt)return;
     const nav=document.querySelector('.nav-links');
     if(!nav)return;
     document.querySelectorAll('#edfLanguageSwitch').forEach(el=>el.remove());
@@ -64,7 +70,38 @@
     band.innerHTML='<div class="marquee-track"><div class="marquee-group"><span>EMBOCADURA</span><span>·</span><span>SOM</span><span>·</span><span>RESPIRAÇÃO</span><span>·</span><span>CORPO</span><span>·</span><span>ESTABILIDADE</span><span>·</span><span>21 DIAS</span><span>·</span></div><div class="marquee-group" aria-hidden="true"><span>EMBOCADURA</span><span>·</span><span>SOM</span><span>·</span><span>RESPIRAÇÃO</span><span>·</span><span>CORPO</span><span>·</span><span>ESTABILIDADE</span><span>·</span><span>21 DIAS</span><span>·</span></div></div>';
   }
 
+  function pricePatch(){
+    document.querySelectorAll('.price-big').forEach(el=>{
+      if((el.textContent||'').includes('USD $29'))el.textContent=PRICE;
+    });
+    document.querySelectorAll('.savings').forEach(el=>{
+      if((el.textContent||'').includes('289'))el.textContent=isPt?SAVING_PT:SAVING_ES;
+    });
+    document.querySelectorAll('.mobile-cta-copy span').forEach(el=>{
+      el.textContent=(el.textContent||'').replace('USD $29',PRICE);
+    });
+    document.querySelectorAll('.hero-actions a,.price-card strong').forEach(el=>{
+      el.textContent=(el.textContent||'').replace('USD $29',PRICE);
+    });
+    document.querySelectorAll('.price-card small').forEach(el=>{
+      if((el.textContent||'').trim()==='Acceso promocional')el.textContent='Acceso de lanzamiento';
+    });
+    if(isEs){
+      const support=document.querySelector('#precio .receipt-support');
+      if(support){
+        support.textContent='Esta es la primera edición de Embocadura Organizada. Aún puedes acceder al programa completo por una fracción de su valor real mientras sigue abierta la primera generación de participantes del desafío.';
+      }
+    }
+    if(isPt){
+      const support=document.querySelector('#preco .receipt-support');
+      if(support){
+        support.textContent='Esta é a primeira edição de Embocadura Organizada. Você ainda pode acessar o programa completo por uma fração do seu valor real enquanto a primeira geração de participantes do desafio continua aberta.';
+      }
+    }
+  }
+
   function css(){
+    if(!isEs&&!isPt)return;
     if(document.getElementById('edfLangAndMarqueeCss'))return;
     const style=document.createElement('style');
     style.id='edfLangAndMarqueeCss';
@@ -72,7 +109,7 @@
     document.head.appendChild(style);
   }
 
-  function init(){languageSwitch();marqueePt();css()}
+  function init(){pricePatch();languageSwitch();marqueePt();css()}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
   window.addEventListener('load',init);
   setTimeout(init,500);
