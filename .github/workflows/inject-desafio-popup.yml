@@ -19,14 +19,220 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Inject popup script into HTML pages
+      - name: Inject popup script and update challenge price
         run: |
           python3 <<'PY'
           from pathlib import Path
           import re
 
-          popup_script = '<script src="/assets/desafio-popup.js" defer></script>'
+          popup_script = '<script src="/assets/desafio-popup.js?v=39" defer></script>'
           changed = []
+
+          replacements = {
+              'Entrar al desafío por USD $29': 'Entrar al desafío por USD $39',
+              '<span class="price-big">USD $29</span>': '<span class="price-big">USD $39</span>',
+              '21 días · USD $29 · acceso 1 año': '21 días · USD $39 · acceso 1 año',
+              'Ahorras USD $289': 'Ahorras USD $279',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $39': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar en el desafío por USD $29': 'Entrar en el desafío por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafío por USD $29': 'Entrar no desafío por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              'Entrar no desafío por USD $29': 'Entrar no desafío por USD $39',
+              'Entrar no desafio por USD $29': 'Entrar no desafio por USD $39',
+              '21 dias · USD $29 · acesso 1 ano': '21 dias · USD $39 · acesso 1 ano',
+              'Você economiza USD $289': 'Você economiza USD $279',
+              '<strong>USD $29</strong>': '<strong>USD $39</strong>',
+              '<small>Acceso promocional</small>': '<small>Acceso de lanzamiento</small>',
+          }
+
+          es_old = 'Esta es la primera edición de Embocadura Organizada. Durante esta etapa inicial puedes acceder al programa completo por una fracción de su valor real mientras construimos la primera generación de participantes del desafío.'
+          es_new = 'Esta es la primera edición de Embocadura Organizada. Aún puedes acceder al programa completo por una fracción de su valor real mientras sigue abierta la primera generación de participantes del desafío.'
+          pt_old = 'Esta é a primeira edição de Embocadura Organizada. Durante esta etapa inicial, você pode acessar o programa completo por uma fração do seu valor real enquanto construímos a primeira geração de participantes do desafio.'
+          pt_new = 'Esta é a primeira edição de Embocadura Organizada. Você ainda pode acessar o programa completo por uma fração do seu valor real enquanto a primeira geração de participantes do desafio continua aberta.'
 
           for path in sorted(Path('.').glob('**/*.html')):
               if '.git' in path.parts or path.name == 'brevo-frame.html':
@@ -35,16 +241,16 @@ jobs:
               text = path.read_text(encoding='utf-8')
               original = text
 
-              # Remove any old duplicate script tags.
-              text = text.replace('<script src="/assets/desafio-popup.js" defer></script>', '')
-              text = text.replace('  <script src="/assets/desafio-popup.js" defer></script>', '')
+              for old, new in replacements.items():
+                  text = text.replace(old, new)
+              text = text.replace(es_old, es_new).replace(pt_old, pt_new)
 
-              # Remove previous inline popup markup from masterclass page to avoid duplicates.
+              text = re.sub(r'\s*<script src="/assets/desafio-popup\.js(?:\?v=[^"/<>]*)?" defer></script>\s*', '', text)
+
               text = re.sub(r'\n?\s*<div class="challenge-popup-backdrop" id="challengePopupBackdrop"></div>\s*\n?\s*<aside class="challenge-popup" id="challengePopup"[\s\S]*?</aside>\s*', '\n', text)
               text = re.sub(r'\n?\s*<aside class="challenge-popup" id="challengePopup"[\s\S]*?</aside>\s*', '\n', text)
               text = re.sub(r'\n?\s*<script>\s*\(function \(\) \{\s*const popup = document\.getElementById\(\'challengePopup\'\);[\s\S]*?\}\)\(\);\s*</script>\s*', '\n', text)
 
-              # Inject before </body> even when the HTML is minified onto one long line.
               if '</body>' in text:
                   text = text.replace('</body>', popup_script + '</body>', 1)
               elif '</html>' in text:
@@ -70,7 +276,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .
-          git commit -m "Force inject global challenge popup"
+          git commit -m "Force update challenge price to 39 USD"
           git push
 
-# trigger: force-all-pages-2026-06-27
+# trigger: force-price-39-2026-07-02
