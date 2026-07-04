@@ -310,6 +310,60 @@ select {
   opacity: 0.86;
 }
 
+.debug-panel {
+  display: none;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(22, 19, 19, 0.88);
+  color: white;
+  padding: 16px;
+  margin-top: 18px;
+}
+
+.debug-panel.visible {
+  display: block;
+}
+
+.debug-panel h2 {
+  margin-bottom: 12px;
+  font-size: 1rem;
+}
+
+.debug-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.debug-grid span {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  padding: 8px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.debug-grid strong {
+  display: block;
+  color: white;
+  font-size: 0.82rem;
+  margin-top: 2px;
+}
+
+.debug-log {
+  max-height: 180px;
+  overflow: auto;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.28);
+  color: rgba(255, 255, 255, 0.78);
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  padding: 10px;
+}
+
 @media (display-mode: standalone) {
   .app {
     padding-top: max(28px, env(safe-area-inset-top));
@@ -323,5 +377,9 @@ select {
 
   .history-chart-wrap {
     aspect-ratio: 4 / 3;
+  }
+
+  .debug-grid {
+    grid-template-columns: 1fr;
   }
 }

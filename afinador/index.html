@@ -98,6 +98,19 @@
         Ver Desafío 21 días
       </a>
     </section>
+
+    <section id="debugPanel" class="debug-panel" aria-live="polite">
+      <h2>Diagnóstico móvil</h2>
+      <div class="debug-grid">
+        <span>Navegador: <strong id="debugBrowser">—</strong></span>
+        <span>AudioContext: <strong id="debugAudioState">—</strong></span>
+        <span>FFT: <strong id="debugFft">—</strong></span>
+        <span>MIN RMS: <strong id="debugMinRms">—</strong></span>
+        <span>Señal RMS: <strong id="debugRms">—</strong></span>
+        <span>Pitch: <strong id="debugPitch">—</strong></span>
+      </div>
+      <div id="debugLog" class="debug-log"></div>
+    </section>
   </main>
 
   <script src="app.js"></script>

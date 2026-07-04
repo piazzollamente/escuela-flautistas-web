@@ -35,6 +35,8 @@ const needleEl = getDomElement("needle");
 const feedbackEl = getDomElement("feedback");
 const a4Select = getDomElement("a4Reference");
 const exerciseText = getDomElement("exerciseText");
+const debugPanelEl = document.getElementById("debugPanel");
+const debugLogEl = document.getElementById("debugLog");
 const currentCentsEl = getDomElement("currentCents");
 const trendEl = getDomElement("trend");
 const stabilityEl = getDomElement("stability");
@@ -45,7 +47,8 @@ const noteNames = ["C", "C♯", "D", "E♭", "E", "F", "F♯", "G", "A♭", "A",
 const AudioContextClass = window.AudioContext || window.webkitAudioContext;
 const MIN_FREQUENCY = 120;
 const MAX_FREQUENCY = 2600;
-const MIN_RMS = 0.006;
+const DEFAULT_MIN_RMS = 0.006;
+const IOS_MIN_RMS = 0.003;
 const CLARITY_THRESHOLD = 0.12;
 const STABLE_HISTORY_SIZE = 5;
 const HISTORY_DURATION_MS = 30000;
@@ -57,6 +60,13 @@ const HISTORY_PADDING = {
   bottom: 16,
   left: 34
 };
+const DEBUG_MODE = new URLSearchParams(window.location.search).get("debug") === "1";
+const userAgent = navigator.userAgent || "";
+const platform = navigator.platform || "";
+const isIOS = /iPad|iPhone|iPod/.test(userAgent) || (platform === "MacIntel" && navigator.maxTouchPoints > 1);
+const isMobileSafari = isIOS && /Safari/.test(userAgent) && !/CriOS|FxiOS|EdgiOS/.test(userAgent);
+const minRms = isIOS ? IOS_MIN_RMS : DEFAULT_MIN_RMS;
+const analyserFftSize = isIOS ? 4096 : 8192;
 
 let audioContext;
 let analyser;
@@ -70,10 +80,55 @@ let pitchHistory = [];
 let centsHistory = [];
 let lastCanvasWidth = 0;
 let lastCanvasHeight = 0;
+let lastDebugRmsLog = 0;
+let lastDebugPitchLog = 0;
 
 function setFeedback(message, state = "") {
   feedbackEl.textContent = message;
   feedbackEl.className = `feedback${state ? ` ${state}` : ""}`;
+}
+
+function addDebugLog(message) {
+  if (!DEBUG_MODE) return;
+
+  const time = new Date().toLocaleTimeString("es-CL", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
+  });
+
+  debugPanelEl?.classList.add("visible");
+  if (debugLogEl) {
+    const line = document.createElement("div");
+    line.textContent = `${time} · ${message}`;
+    debugLogEl.appendChild(line);
+
+    while (debugLogEl.childNodes.length > 80) {
+      debugLogEl.removeChild(debugLogEl.firstChild);
+    }
+
+    debugLogEl.scrollTop = debugLogEl.scrollHeight;
+  }
+}
+
+function setDebugValue(id, value) {
+  if (!DEBUG_MODE) return;
+  const element = document.getElementById(id);
+  if (element) element.textContent = value;
+}
+
+function formatAudioState(state) {
+  return state === "running" ? "activo" : state || "desconocido";
+}
+
+function initDebugPanel() {
+  if (!DEBUG_MODE) return;
+
+  debugPanelEl?.classList.add("visible");
+  addDebugLog(isMobileSafari ? "Safari detectado" : isIOS ? "iOS detectado" : "Navegador no iOS detectado");
+  setDebugValue("debugBrowser", isMobileSafari ? "Safari móvil" : isIOS ? "iOS" : "Desktop/otro");
+  setDebugValue("debugFft", String(analyserFftSize));
+  setDebugValue("debugMinRms", minRms.toFixed(4));
 }
 
 function showDomWarning() {
@@ -131,7 +186,7 @@ function parabolicInterpolation(values, index) {
 
 function detectPitchYin(samples, sampleRate) {
   const rms = getRms(samples);
-  if (rms < MIN_RMS) return { frequency: null, rms, clarity: 0, reason: "quiet" };
+  if (rms < minRms) return { frequency: null, rms, clarity: 0, reason: "quiet" };
 
   const minTau = Math.max(2, Math.floor(sampleRate / MAX_FREQUENCY));
   const maxTau = Math.min(Math.floor(sampleRate / MIN_FREQUENCY), Math.floor(samples.length / 2) - 1);
@@ -410,24 +465,32 @@ function clearHistory() {
 }
 
 async function requestMicrophoneStream() {
-  const preferredConstraints = {
-    audio: {
-      autoGainControl: false,
-      channelCount: 1,
-      echoCancellation: false,
-      noiseSuppression: false
-    },
-    video: false
-  };
+  addDebugLog("Permiso de micrófono solicitado");
+
+  if (isIOS) {
+    addDebugLog("Configuración iOS conservadora: audio true");
+    return navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+  }
+
+  addDebugLog("Configuración desktop: audio true");
+  return navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+}
+
+async function applyDesktopAudioConstraints(stream) {
+  if (isIOS) return;
+
+  const [track] = stream.getAudioTracks();
+  if (!track?.applyConstraints) return;
 
   try {
-    return await navigator.mediaDevices.getUserMedia(preferredConstraints);
+    await track.applyConstraints({
+      autoGainControl: false,
+      echoCancellation: false,
+      noiseSuppression: false
+    });
+    addDebugLog("Constraints avanzadas aplicadas");
   } catch (error) {
-    if (error?.name !== "OverconstrainedError" && error?.name !== "ConstraintNotSatisfiedError") {
-      throw error;
-    }
-
-    return navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+    addDebugLog(`Constraints avanzadas omitidas: ${error?.name || "desconocido"}`);
   }
 }
 
@@ -455,25 +518,36 @@ async function startTuner() {
     setFeedback("Acepta el permiso del micrófono para iniciar el afinador.", "listening");
 
     audioContext = audioContext || new AudioContextClass({ latencyHint: "interactive" });
+    addDebugLog("AudioContext creado");
+    setDebugValue("debugAudioState", formatAudioState(audioContext.state));
     await audioContext.resume();
+    addDebugLog(`AudioContext ${formatAudioState(audioContext.state)}`);
+    setDebugValue("debugAudioState", formatAudioState(audioContext.state));
 
     micStream = await requestMicrophoneStream();
+    addDebugLog("Stream recibido");
+    await applyDesktopAudioConstraints(micStream);
 
     if (audioContext.state === "suspended") await audioContext.resume();
+    addDebugLog(`AudioContext ${formatAudioState(audioContext.state)}`);
+    setDebugValue("debugAudioState", formatAudioState(audioContext.state));
 
     analyser = audioContext.createAnalyser();
-    analyser.fftSize = 8192;
+    analyser.fftSize = analyserFftSize;
     analyser.smoothingTimeConstant = 0;
     buffer = new Float32Array(analyser.fftSize);
 
     micSource = audioContext.createMediaStreamSource(micStream);
     micSource.connect(analyser);
+    addDebugLog("Analyser conectado");
+    setDebugValue("debugFft", String(analyser.fftSize));
 
     isRunning = true;
     startBtn.textContent = "Afinador activo";
     setFeedback("Micrófono activo. Toca una nota larga y estable.", "listening");
     updatePitch();
   } catch (error) {
+    addDebugLog(`Error al iniciar: ${error?.name || "desconocido"}`);
     startBtn.disabled = false;
     startBtn.textContent = "Activar micrófono";
     resetDisplay(getMicrophoneErrorMessage(error), "error");
@@ -485,10 +559,25 @@ function updatePitch() {
 
   analyser.getFloatTimeDomainData(buffer);
   const result = detectPitchYin(buffer, audioContext.sampleRate);
+  const now = performance.now();
+
+  setDebugValue("debugAudioState", formatAudioState(audioContext.state));
+  setDebugValue("debugRms", result.rms.toFixed(4));
+
+  if (DEBUG_MODE && now - lastDebugRmsLog > 1200) {
+    addDebugLog(`Señal RMS: ${result.rms.toFixed(4)}`);
+    lastDebugRmsLog = now;
+  }
 
   if (result.frequency) {
+    setDebugValue("debugPitch", `${result.frequency.toFixed(1)} Hz`);
+    if (DEBUG_MODE && now - lastDebugPitchLog > 1200) {
+      addDebugLog(`Pitch detectado: ${result.frequency.toFixed(1)} Hz`);
+      lastDebugPitchLog = now;
+    }
     renderPitch(smoothFrequency(result.frequency));
   } else {
+    setDebugValue("debugPitch", "—");
     if (result.reason === "quiet") {
       resetDisplay("No hay señal suficiente. Acerca la flauta o toca una nota más sostenida.", "warning");
     } else if (result.reason === "out-of-range") {
@@ -524,6 +613,7 @@ window.addEventListener("pagehide", () => {
 
 window.addEventListener("resize", drawHistory);
 
+initDebugPanel();
 showDomWarning();
 drawHistory();
 
