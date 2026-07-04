@@ -1,11 +1,12 @@
-const CACHE_NAME = "afinador-edf-v10";
+const CACHE_NAME = "afinador-edf-v11";
 const FILES = [
   "./",
   "index.html",
   "styles.css",
   "app.js",
   "manifest.json",
-  "icon.svg"
+  "icon.svg",
+  "service-worker.js"
 ];
 
 self.addEventListener("install", (event) => {
@@ -26,12 +27,12 @@ self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
 
   const url = new URL(event.request.url);
-  if (url.origin !== self.location.origin || url.search) return;
+  if (url.origin !== self.location.origin) return;
 
   event.respondWith(
     fetch(event.request)
       .then((response) => {
-        if (!response.ok) return response;
+        if (!response.ok || url.search) return response;
 
         const copy = response.clone();
         event.waitUntil(
