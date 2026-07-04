@@ -18,7 +18,7 @@
     </section>
 
     <section class="card tuner-card">
-      <button id="startBtn" class="primary-btn">Activar micrófono</button>
+      <button id="startBtn" class="primary-btn" type="button">Activar micrófono</button>
 
       <div class="note-display">
         <div id="noteName" class="note">—</div>
@@ -48,7 +48,7 @@
         </div>
       </div>
 
-      <p id="feedback" class="feedback">Activa el micrófono y toca una nota larga.</p>
+      <p id="feedback" class="feedback" role="status" aria-live="polite">Activa el micrófono y toca una nota larga.</p>
 
       <label class="select-label" for="a4Reference">Referencia</label>
       <select id="a4Reference">

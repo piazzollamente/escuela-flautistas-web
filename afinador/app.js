@@ -9,12 +9,36 @@ const a4Select = document.getElementById("a4Reference");
 const exerciseText = document.getElementById("exerciseText");
 
 const noteNames = ["C", "C♯", "D", "E♭", "E", "F", "F♯", "G", "A♭", "A", "B♭", "B"];
+const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+const MIN_FREQUENCY = 120;
+const MAX_FREQUENCY = 2600;
+const MIN_RMS = 0.006;
+const CLARITY_THRESHOLD = 0.12;
+const STABLE_HISTORY_SIZE = 5;
 
 let audioContext;
 let analyser;
 let micSource;
+let micStream;
 let buffer;
+let animationId;
 let isRunning = false;
+let lastPitch = null;
+let pitchHistory = [];
+
+function setFeedback(message, state = "") {
+  feedbackEl.textContent = message;
+  feedbackEl.className = `feedback${state ? ` ${state}` : ""}`;
+}
+
+function resetDisplay(message = "Toca una nota clara y sostenida.", state = "warning") {
+  noteNameEl.textContent = "—";
+  octaveEl.textContent = "";
+  frequencyEl.textContent = "— Hz";
+  centsEl.textContent = "— cents";
+  needleEl.style.left = "50%";
+  setFeedback(message, state);
+}
 
 function frequencyToMidi(freq, a4 = 442) {
   return 69 + 12 * Math.log2(freq / a4);
@@ -24,139 +48,237 @@ function midiToFrequency(midi, a4 = 442) {
   return a4 * Math.pow(2, (midi - 69) / 12);
 }
 
-function autoCorrelate(buf, sampleRate) {
-  let size = buf.length;
-  let rms = 0;
+function getRms(samples) {
+  let sum = 0;
+  for (let i = 0; i < samples.length; i += 1) {
+    sum += samples[i] * samples[i];
+  }
+  return Math.sqrt(sum / samples.length);
+}
 
-  for (let i = 0; i < size; i++) rms += buf[i] * buf[i];
-  rms = Math.sqrt(rms / size);
-  if (rms < 0.01) return -1;
+function parabolicInterpolation(values, index) {
+  const previous = values[index - 1];
+  const current = values[index];
+  const next = values[index + 1];
+  const divisor = previous + next - 2 * current;
 
-  let r1 = 0;
-  let r2 = size - 1;
-  const threshold = 0.2;
+  if (!Number.isFinite(divisor) || Math.abs(divisor) < 1e-12) return index;
+  return index + (previous - next) / (2 * divisor);
+}
 
-  for (let i = 0; i < size / 2; i++) {
-    if (Math.abs(buf[i]) < threshold) {
-      r1 = i;
+function detectPitchYin(samples, sampleRate) {
+  const rms = getRms(samples);
+  if (rms < MIN_RMS) return { frequency: null, rms, clarity: 0, reason: "quiet" };
+
+  const minTau = Math.max(2, Math.floor(sampleRate / MAX_FREQUENCY));
+  const maxTau = Math.min(Math.floor(sampleRate / MIN_FREQUENCY), Math.floor(samples.length / 2) - 1);
+  const yin = new Float32Array(maxTau + 1);
+  let runningSum = 0;
+
+  for (let tau = 1; tau <= maxTau; tau += 1) {
+    let difference = 0;
+    for (let i = 0; i < maxTau; i += 1) {
+      const delta = samples[i] - samples[i + tau];
+      difference += delta * delta;
+    }
+
+    runningSum += difference;
+    yin[tau] = runningSum === 0 ? 1 : (difference * tau) / runningSum;
+  }
+
+  let tauEstimate = -1;
+  for (let tau = minTau; tau <= maxTau; tau += 1) {
+    if (yin[tau] < CLARITY_THRESHOLD) {
+      while (tau + 1 <= maxTau && yin[tau + 1] < yin[tau]) tau += 1;
+      tauEstimate = tau;
       break;
     }
   }
 
-  for (let i = 1; i < size / 2; i++) {
-    if (Math.abs(buf[size - i]) < threshold) {
-      r2 = size - i;
-      break;
+  if (tauEstimate === -1) {
+    let bestTau = minTau;
+    for (let tau = minTau + 1; tau <= maxTau; tau += 1) {
+      if (yin[tau] < yin[bestTau]) bestTau = tau;
     }
+
+    if (yin[bestTau] > 0.22) {
+      return { frequency: null, rms, clarity: 1 - yin[bestTau], reason: "unclear" };
+    }
+    tauEstimate = bestTau;
   }
 
-  buf = buf.slice(r1, r2);
-  size = buf.length;
+  const refinedTau = parabolicInterpolation(yin, tauEstimate);
+  const frequency = sampleRate / refinedTau;
+  const clarity = Math.max(0, Math.min(1, 1 - yin[tauEstimate]));
 
-  const correlations = new Array(size).fill(0);
-  for (let lag = 0; lag < size; lag++) {
-    for (let i = 0; i < size - lag; i++) {
-      correlations[lag] += buf[i] * buf[i + lag];
-    }
+  if (!Number.isFinite(frequency) || frequency < MIN_FREQUENCY || frequency > MAX_FREQUENCY) {
+    return { frequency: null, rms, clarity, reason: "out-of-range" };
   }
 
-  let d = 0;
-  while (correlations[d] > correlations[d + 1]) d++;
+  return { frequency, rms, clarity, reason: "ok" };
+}
 
-  let maxValue = -1;
-  let maxPosition = -1;
-  for (let i = d; i < size; i++) {
-    if (correlations[i] > maxValue) {
-      maxValue = correlations[i];
-      maxPosition = i;
-    }
+function smoothFrequency(frequency) {
+  if (!lastPitch) {
+    lastPitch = frequency;
   }
 
-  let t0 = maxPosition;
-  if (t0 <= 0) return -1;
+  const centsFromLast = Math.abs(1200 * Math.log2(frequency / lastPitch));
+  if (centsFromLast > 80) pitchHistory = [];
 
-  const x1 = correlations[t0 - 1];
-  const x2 = correlations[t0];
-  const x3 = correlations[t0 + 1];
+  pitchHistory.push(frequency);
+  if (pitchHistory.length > STABLE_HISTORY_SIZE) pitchHistory.shift();
 
-  const a = (x1 + x3 - 2 * x2) / 2;
-  const b = (x3 - x1) / 2;
-  if (a) t0 = t0 - b / (2 * a);
+  const sorted = [...pitchHistory].sort((a, b) => a - b);
+  const median = sorted[Math.floor(sorted.length / 2)];
+  lastPitch = median;
 
-  return sampleRate / t0;
+  return median;
+}
+
+function renderPitch(frequency) {
+  const a4 = Number(a4Select.value);
+  const midi = frequencyToMidi(frequency, a4);
+  const roundedMidi = Math.round(midi);
+  const noteIndex = ((roundedMidi % 12) + 12) % 12;
+  const octave = Math.floor(roundedMidi / 12) - 1;
+  const targetFreq = midiToFrequency(roundedMidi, a4);
+  const cents = Math.round(1200 * Math.log2(frequency / targetFreq));
+  const limitedCents = Math.max(-50, Math.min(50, cents));
+
+  noteNameEl.textContent = noteNames[noteIndex];
+  octaveEl.textContent = octave;
+  frequencyEl.textContent = `${frequency.toFixed(1)} Hz`;
+  centsEl.textContent = `${cents > 0 ? "+" : ""}${cents} cents`;
+  needleEl.style.left = `${50 + limitedCents}%`;
+
+  if (Math.abs(cents) <= 5) {
+    setFeedback("Centro estable. Mantén la calidad del sonido.", "listening");
+  } else if (cents < -5) {
+    setFeedback("La nota está baja. Revisa dirección del aire, apoyo y estabilidad.", "listening");
+  } else {
+    setFeedback("La nota está alta. Evita apretar la embocadura.", "listening");
+  }
+}
+
+function getMicrophoneErrorMessage(error) {
+  if (!navigator.mediaDevices?.getUserMedia) {
+    return "Este navegador no expone acceso al micrófono. Prueba Safari o Chrome actualizado.";
+  }
+
+  if (error?.name === "NotAllowedError" || error?.name === "SecurityError") {
+    return "El micrófono está bloqueado. Actívalo en los permisos del navegador y vuelve a intentarlo.";
+  }
+
+  if (error?.name === "NotFoundError" || error?.name === "DevicesNotFoundError") {
+    return "No se encontró un micrófono disponible en este dispositivo.";
+  }
+
+  if (error?.name === "NotReadableError" || error?.name === "TrackStartError") {
+    return "El micrófono está ocupado o el sistema no permite abrirlo ahora.";
+  }
+
+  return "No se pudo acceder al micrófono. Revisa permisos del navegador.";
+}
+
+async function requestMicrophoneStream() {
+  const preferredConstraints = {
+    audio: {
+      autoGainControl: false,
+      channelCount: 1,
+      echoCancellation: false,
+      noiseSuppression: false
+    },
+    video: false
+  };
+
+  try {
+    return await navigator.mediaDevices.getUserMedia(preferredConstraints);
+  } catch (error) {
+    if (error?.name !== "OverconstrainedError" && error?.name !== "ConstraintNotSatisfiedError") {
+      throw error;
+    }
+
+    return navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+  }
 }
 
 async function startTuner() {
+  if (isRunning) return;
+
+  if (!window.isSecureContext && !["localhost", "127.0.0.1"].includes(window.location.hostname)) {
+    resetDisplay("El micrófono sólo funciona en HTTPS. Abre el afinador desde https://escueladeflautistas.cl/afinador/.", "error");
+    return;
+  }
+
+  if (!AudioContextClass) {
+    resetDisplay("Este navegador no soporta Web Audio API. Prueba Safari o Chrome actualizado.", "error");
+    return;
+  }
+
+  if (!navigator.mediaDevices?.getUserMedia) {
+    resetDisplay("Este navegador no permite usar el micrófono desde esta página.", "error");
+    return;
+  }
+
   try {
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const stream = await navigator.mediaDevices.getUserMedia({
-      audio: {
-        echoCancellation: false,
-        noiseSuppression: false,
-        autoGainControl: false
-      }
-    });
+    startBtn.disabled = true;
+    startBtn.textContent = "Solicitando micrófono...";
+    setFeedback("Acepta el permiso del micrófono para iniciar el afinador.", "listening");
+
+    audioContext = audioContext || new AudioContextClass({ latencyHint: "interactive" });
+    await audioContext.resume();
+
+    micStream = await requestMicrophoneStream();
+
+    if (audioContext.state === "suspended") await audioContext.resume();
 
     analyser = audioContext.createAnalyser();
-    analyser.fftSize = 4096;
+    analyser.fftSize = 8192;
+    analyser.smoothingTimeConstant = 0;
     buffer = new Float32Array(analyser.fftSize);
 
-    micSource = audioContext.createMediaStreamSource(stream);
+    micSource = audioContext.createMediaStreamSource(micStream);
     micSource.connect(analyser);
 
     isRunning = true;
     startBtn.textContent = "Afinador activo";
-    startBtn.disabled = true;
+    setFeedback("Micrófono activo. Toca una nota larga y estable.", "listening");
     updatePitch();
   } catch (error) {
-    feedbackEl.textContent = "No se pudo acceder al micrófono. Revisa permisos del navegador.";
+    startBtn.disabled = false;
+    startBtn.textContent = "Activar micrófono";
+    resetDisplay(getMicrophoneErrorMessage(error), "error");
   }
 }
 
 function updatePitch() {
-  if (!isRunning) return;
+  if (!isRunning || !analyser || !audioContext) return;
 
   analyser.getFloatTimeDomainData(buffer);
-  const freq = autoCorrelate(buffer, audioContext.sampleRate);
-  const a4 = Number(a4Select.value);
+  const result = detectPitchYin(buffer, audioContext.sampleRate);
 
-  if (freq > 60 && freq < 2500) {
-    const midi = frequencyToMidi(freq, a4);
-    const roundedMidi = Math.round(midi);
-    const noteIndex = ((roundedMidi % 12) + 12) % 12;
-    const octave = Math.floor(roundedMidi / 12) - 1;
-    const targetFreq = midiToFrequency(roundedMidi, a4);
-    const cents = Math.round(1200 * Math.log2(freq / targetFreq));
-
-    noteNameEl.textContent = noteNames[noteIndex];
-    octaveEl.textContent = octave;
-    frequencyEl.textContent = `${freq.toFixed(1)} Hz`;
-    centsEl.textContent = `${cents > 0 ? "+" : ""}${cents} cents`;
-
-    const limited = Math.max(-50, Math.min(50, cents));
-    const percent = 50 + limited;
-    needleEl.style.left = `${percent}%`;
-
-    if (Math.abs(cents) <= 5) {
-      feedbackEl.textContent = "Centro estable. Mantén la calidad del sonido.";
-    } else if (cents < -5) {
-      feedbackEl.textContent = "La nota está baja. Revisa dirección del aire, apoyo y estabilidad.";
-    } else {
-      feedbackEl.textContent = "La nota está alta. Evita apretar la embocadura.";
-    }
+  if (result.frequency) {
+    renderPitch(smoothFrequency(result.frequency));
   } else {
-    noteNameEl.textContent = "—";
-    octaveEl.textContent = "";
-    frequencyEl.textContent = "— Hz";
-    centsEl.textContent = "— cents";
-    needleEl.style.left = "50%";
-    feedbackEl.textContent = "Toca una nota clara y sostenida.";
+    if (result.reason === "quiet") {
+      resetDisplay("No hay señal suficiente. Acerca la flauta o toca una nota más sostenida.", "warning");
+    } else if (result.reason === "out-of-range") {
+      resetDisplay("La señal está fuera del rango esperado para flauta.", "warning");
+    } else {
+      resetDisplay("Señal inestable. Toca una nota larga, sin ruido alrededor.", "warning");
+    }
   }
 
-  requestAnimationFrame(updatePitch);
+  animationId = requestAnimationFrame(updatePitch);
 }
 
 startBtn.addEventListener("click", startTuner);
+
+a4Select.addEventListener("change", () => {
+  pitchHistory = [];
+  lastPitch = null;
+});
 
 document.querySelectorAll(".exercise").forEach((button) => {
   button.addEventListener("click", () => {
@@ -166,8 +288,16 @@ document.querySelectorAll(".exercise").forEach((button) => {
   });
 });
 
+window.addEventListener("pagehide", () => {
+  if (animationId) cancelAnimationFrame(animationId);
+  micStream?.getTracks().forEach((track) => track.stop());
+});
+
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("service-worker.js").catch(() => {});
+    navigator.serviceWorker
+      .register("service-worker.js")
+      .then((registration) => registration.update())
+      .catch(() => {});
   });
 }

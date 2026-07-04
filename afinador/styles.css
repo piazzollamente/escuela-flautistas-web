@@ -197,6 +197,19 @@ h2 {
   color: var(--muted);
 }
 
+.feedback.error,
+.feedback.warning {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 12px;
+  background: rgba(142, 31, 47, 0.08);
+  color: var(--red);
+}
+
+.feedback.listening {
+  color: var(--ink);
+}
+
 select {
   width: 100%;
   border: 1px solid var(--line);
