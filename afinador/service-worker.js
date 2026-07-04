@@ -1,4 +1,4 @@
-const CACHE_NAME = "afinador-edf-v14";
+const CACHE_NAME = "afinador-edf-v15";
 const APP_SHELL = [
   "./",
   "index.html",
@@ -32,7 +32,6 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
-
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
 
