@@ -13,38 +13,74 @@
   <main class="app">
     <section class="hero">
       <p class="eyebrow">Escuela de Flautistas</p>
-      <h1>Afinador Cromático EDF</h1>
-      <p class="subtitle">Afinación en tiempo real para estudiar sonido, aire y estabilidad.</p>
+      <h1>Afinador cromático</h1>
     </section>
 
     <section class="card tuner-card">
-      <button id="startBtn" class="primary-btn" type="button">Activar micrófono</button>
-
-      <div class="note-display">
-        <div id="noteName" class="note">—</div>
-        <div id="octave" class="octave"></div>
-      </div>
-
-      <div class="data-row">
-        <div>
-          <span class="label">Frecuencia</span>
-          <strong id="frequency">— Hz</strong>
+      <div class="tuner-shell">
+        <div class="tuner-topbar">
+          <span>EDF Chromatic Tuner</span>
+          <span>Modo: Flauta</span>
         </div>
-        <div>
-          <span class="label">Desviación</span>
-          <strong id="cents">— cents</strong>
-        </div>
-      </div>
 
-      <div class="meter-wrap">
-        <div class="meter">
-          <div class="meter-center"></div>
-          <div id="needle" class="needle"></div>
+        <div class="tuner-screen">
+          <div class="status-lights" aria-hidden="true">
+            <div id="lowLight" class="status-light low"><span></span><strong>Baja</strong></div>
+            <div id="tunedLight" class="status-light tuned"><span></span><strong>Afinado</strong></div>
+            <div id="highLight" class="status-light high"><span></span><strong>Alta</strong></div>
+          </div>
+
+          <div class="analog-meter" aria-hidden="true">
+            <div class="scale-arc"></div>
+            <span class="scale-label label-minus-50">-50</span>
+            <span class="scale-label label-minus-25">-25</span>
+            <span class="scale-label label-zero">0</span>
+            <span class="scale-label label-plus-25">+25</span>
+            <span class="scale-label label-plus-50">+50</span>
+            <div class="scale-ticks"></div>
+            <div id="analogNeedle" class="analog-needle"></div>
+            <div class="needle-pivot"></div>
+          </div>
+
+          <div class="note-display">
+            <div id="noteName" class="note">—</div>
+            <div id="octave" class="octave"></div>
+          </div>
+
+          <div class="data-row">
+            <div>
+              <span class="label">Frecuencia</span>
+              <strong id="frequency">— Hz</strong>
+            </div>
+            <div>
+              <span class="label">Desviación</span>
+              <strong id="cents">— cents</strong>
+            </div>
+          </div>
         </div>
-        <div class="meter-labels">
-          <span>Baja</span>
-          <span>Centro</span>
-          <span>Alta</span>
+
+        <div class="meter-wrap legacy-meter" aria-hidden="true">
+          <div class="meter">
+            <div class="meter-center"></div>
+            <div id="needle" class="needle"></div>
+          </div>
+          <div class="meter-labels">
+            <span>Baja</span>
+            <span>Centro</span>
+            <span>Alta</span>
+          </div>
+        </div>
+
+        <div class="control-strip">
+          <button id="startBtn" class="primary-btn" type="button">Activar micrófono</button>
+          <div class="reference-control">
+            <label class="select-label" for="a4Reference">Referencia</label>
+            <select id="a4Reference">
+              <option value="440">A = 440 Hz</option>
+              <option value="442" selected>A = 442 Hz</option>
+              <option value="443">A = 443 Hz</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -63,16 +99,9 @@
       </section>
 
       <p id="feedback" class="feedback" role="status" aria-live="polite">Activa el micrófono y toca una nota larga.</p>
-
-      <label class="select-label" for="a4Reference">Referencia</label>
-      <select id="a4Reference">
-        <option value="440">A = 440 Hz</option>
-        <option value="442" selected>A = 442 Hz</option>
-        <option value="443">A = 443 Hz</option>
-      </select>
     </section>
 
-    <section class="card">
+    <section class="card exercise-card">
       <h2>Modo flauta</h2>
       <div class="exercise-list">
         <button class="exercise" data-instruction="Toca una nota larga de 8 segundos. Observa si la afinación cae o sube al final.">

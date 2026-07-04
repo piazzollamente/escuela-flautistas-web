@@ -32,6 +32,10 @@ const octaveEl = getDomElement("octave");
 const frequencyEl = getDomElement("frequency");
 const centsEl = getDomElement("cents");
 const needleEl = getDomElement("needle");
+const analogNeedleEl = getDomElement("analogNeedle");
+const lowLightEl = getDomElement("lowLight");
+const tunedLightEl = getDomElement("tunedLight");
+const highLightEl = getDomElement("highLight");
 const feedbackEl = getDomElement("feedback");
 const a4Select = getDomElement("a4Reference");
 const exerciseText = getDomElement("exerciseText");
@@ -86,6 +90,30 @@ let lastDebugPitchLog = 0;
 function setFeedback(message, state = "") {
   feedbackEl.textContent = message;
   feedbackEl.className = `feedback${state ? ` ${state}` : ""}`;
+}
+
+function setLightState(activeLight) {
+  lowLightEl.classList.remove("active");
+  tunedLightEl.classList.remove("active");
+  highLightEl.classList.remove("active");
+
+  if (activeLight === "low") lowLightEl.classList.add("active");
+  if (activeLight === "tuned") tunedLightEl.classList.add("active");
+  if (activeLight === "high") highLightEl.classList.add("active");
+}
+
+function updateAnalogNeedle(cents = 0) {
+  const limited = Math.max(-50, Math.min(50, cents));
+  const degrees = (limited / 50) * 45;
+  analogNeedleEl.style.transform = `translateX(-50%) rotate(${degrees}deg)`;
+
+  if (Math.abs(cents) <= 5) {
+    setLightState("tuned");
+  } else if (cents < -5) {
+    setLightState("low");
+  } else {
+    setLightState("high");
+  }
 }
 
 function addDebugLog(message) {
@@ -153,6 +181,8 @@ function resetDisplay(message = "Toca una nota clara y sostenida.", state = "war
   frequencyEl.textContent = "— Hz";
   centsEl.textContent = "— cents";
   needleEl.style.left = "50%";
+  updateAnalogNeedle(0);
+  setLightState("");
   setFeedback(message, state);
   updateHistoryStats();
   drawHistory();
@@ -269,6 +299,7 @@ function renderPitch(frequency) {
   frequencyEl.textContent = `${frequency.toFixed(1)} Hz`;
   centsEl.textContent = `${cents > 0 ? "+" : ""}${cents} cents`;
   needleEl.style.left = `${50 + limitedCents}%`;
+  updateAnalogNeedle(cents);
   recordCents(cents);
 
   if (Math.abs(cents) <= 5) {
@@ -384,14 +415,14 @@ function drawHistoryLabels(ctx, width, height, chartTop, chartHeight) {
 
   labels.forEach((value) => {
     const y = mapCentsToY(value, chartTop, chartHeight);
-    ctx.strokeStyle = value === 0 ? "rgba(22, 19, 19, 0.35)" : "rgba(22, 19, 19, 0.09)";
+    ctx.strokeStyle = value === 0 ? "rgba(255, 255, 255, 0.34)" : "rgba(255, 255, 255, 0.1)";
     ctx.lineWidth = value === 0 ? 1.4 : 1;
     ctx.beginPath();
     ctx.moveTo(HISTORY_PADDING.left, y);
     ctx.lineTo(width - HISTORY_PADDING.right, y);
     ctx.stroke();
 
-    ctx.fillStyle = value === 0 ? "#161313" : "#726861";
+    ctx.fillStyle = value === 0 ? "rgba(255, 255, 255, 0.92)" : "rgba(255, 255, 255, 0.62)";
     ctx.fillText(value > 0 ? `+${value}` : String(value), HISTORY_PADDING.left - 7, y);
   });
 }
@@ -411,13 +442,13 @@ function drawHistory(now = performance.now()) {
   const chartHeight = chartBottom - chartTop;
 
   ctx.clearRect(0, 0, width, height);
-  ctx.fillStyle = "rgba(255, 253, 249, 0.72)";
+  ctx.fillStyle = "rgba(13, 12, 12, 0.82)";
   ctx.fillRect(0, 0, width, height);
 
   drawHistoryLabels(ctx, width, height, chartTop, chartHeight);
 
   if (centsHistory.length < 2) {
-    ctx.fillStyle = "#726861";
+    ctx.fillStyle = "rgba(255, 255, 255, 0.62)";
     ctx.font = "700 12px Montserrat, Inter, system-ui, sans-serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
