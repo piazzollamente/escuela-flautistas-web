@@ -1,4 +1,4 @@
-const CACHE_NAME = "afinador-edf-v9";
+const CACHE_NAME = "afinador-edf-v10";
 const FILES = [
   "./",
   "index.html",

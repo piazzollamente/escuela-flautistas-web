@@ -86,6 +86,7 @@ let lastCanvasWidth = 0;
 let lastCanvasHeight = 0;
 let lastDebugRmsLog = 0;
 let lastDebugPitchLog = 0;
+let lastPitchAt = 0;
 
 function setFeedback(message, state = "") {
   feedbackEl.textContent = message;
@@ -175,14 +176,20 @@ function showDomWarning() {
   target?.prepend(warning);
 }
 
-function resetDisplay(message = "Toca una nota clara y sostenida.", state = "warning") {
-  noteNameEl.textContent = "—";
-  octaveEl.textContent = "";
-  frequencyEl.textContent = "— Hz";
-  centsEl.textContent = "— cents";
-  needleEl.style.left = "50%";
-  updateAnalogNeedle(0);
-  setLightState("");
+function resetDisplay(message = "Toca una nota clara y sostenida.", state = "warning", options = {}) {
+  if (!options.holdReadout) {
+    noteNameEl.textContent = "—";
+    octaveEl.textContent = "";
+    frequencyEl.textContent = "— Hz";
+    centsEl.textContent = "— cents";
+    needleEl.style.left = "50%";
+  }
+
+  if (options.resetAnalog !== false) {
+    updateAnalogNeedle(0);
+    setLightState("");
+  }
+
   setFeedback(message, state);
   updateHistoryStats();
   drawHistory();
@@ -299,6 +306,7 @@ function renderPitch(frequency) {
   frequencyEl.textContent = `${frequency.toFixed(1)} Hz`;
   centsEl.textContent = `${cents > 0 ? "+" : ""}${cents} cents`;
   needleEl.style.left = `${50 + limitedCents}%`;
+  lastPitchAt = performance.now();
   updateAnalogNeedle(cents);
   recordCents(cents);
 
@@ -609,12 +617,15 @@ function updatePitch() {
     renderPitch(smoothFrequency(result.frequency));
   } else {
     setDebugValue("debugPitch", "—");
+    const shouldResetAnalog = !lastPitchAt || now - lastPitchAt > 1200;
+    const holdRecentReadout = !shouldResetAnalog;
+
     if (result.reason === "quiet") {
-      resetDisplay("No hay señal suficiente. Acerca la flauta o toca una nota más sostenida.", "warning");
+      resetDisplay("No hay señal suficiente. Acerca la flauta o toca una nota más sostenida.", "warning", { resetAnalog: shouldResetAnalog, holdReadout: holdRecentReadout });
     } else if (result.reason === "out-of-range") {
-      resetDisplay("La señal está fuera del rango esperado para flauta.", "warning");
+      resetDisplay("La señal está fuera del rango esperado para flauta.", "warning", { resetAnalog: shouldResetAnalog, holdReadout: holdRecentReadout });
     } else {
-      resetDisplay("Señal inestable. Toca una nota larga, sin ruido alrededor.", "warning");
+      resetDisplay("Señal inestable. Toca una nota larga, sin ruido alrededor.", "warning", { resetAnalog: shouldResetAnalog, holdReadout: holdRecentReadout });
     }
   }
 
