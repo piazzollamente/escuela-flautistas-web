@@ -7,6 +7,11 @@ const needleEl = document.getElementById("needle");
 const feedbackEl = document.getElementById("feedback");
 const a4Select = document.getElementById("a4Reference");
 const exerciseText = document.getElementById("exerciseText");
+const currentCentsEl = document.getElementById("currentCents");
+const trendEl = document.getElementById("trend");
+const stabilityEl = document.getElementById("stability");
+const historyCanvas = document.getElementById("historyCanvas");
+const historyContext = historyCanvas?.getContext("2d");
 
 const noteNames = ["C", "C♯", "D", "E♭", "E", "F", "F♯", "G", "A♭", "A", "B♭", "B"];
 const AudioContextClass = window.AudioContext || window.webkitAudioContext;
@@ -15,6 +20,15 @@ const MAX_FREQUENCY = 2600;
 const MIN_RMS = 0.006;
 const CLARITY_THRESHOLD = 0.12;
 const STABLE_HISTORY_SIZE = 5;
+const HISTORY_DURATION_MS = 30000;
+const TREND_WINDOW_MS = 5000;
+const STABILITY_WINDOW_MS = 10000;
+const HISTORY_PADDING = {
+  top: 12,
+  right: 10,
+  bottom: 16,
+  left: 34
+};
 
 let audioContext;
 let analyser;
@@ -25,6 +39,9 @@ let animationId;
 let isRunning = false;
 let lastPitch = null;
 let pitchHistory = [];
+let centsHistory = [];
+let lastCanvasWidth = 0;
+let lastCanvasHeight = 0;
 
 function setFeedback(message, state = "") {
   feedbackEl.textContent = message;
@@ -38,6 +55,8 @@ function resetDisplay(message = "Toca una nota clara y sostenida.", state = "war
   centsEl.textContent = "— cents";
   needleEl.style.left = "50%";
   setFeedback(message, state);
+  updateHistoryStats();
+  drawHistory();
 }
 
 function frequencyToMidi(freq, a4 = 442) {
@@ -151,6 +170,7 @@ function renderPitch(frequency) {
   frequencyEl.textContent = `${frequency.toFixed(1)} Hz`;
   centsEl.textContent = `${cents > 0 ? "+" : ""}${cents} cents`;
   needleEl.style.left = `${50 + limitedCents}%`;
+  recordCents(cents);
 
   if (Math.abs(cents) <= 5) {
     setFeedback("Centro estable. Mantén la calidad del sonido.", "listening");
@@ -179,6 +199,170 @@ function getMicrophoneErrorMessage(error) {
   }
 
   return "No se pudo acceder al micrófono. Revisa permisos del navegador.";
+}
+
+function formatCents(cents) {
+  return `${cents > 0 ? "+" : ""}${Math.round(cents)} cents`;
+}
+
+function pruneCentsHistory(now = performance.now()) {
+  centsHistory = centsHistory.filter((sample) => now - sample.time <= HISTORY_DURATION_MS);
+}
+
+function getAverageCents(samples) {
+  if (!samples.length) return null;
+  return samples.reduce((sum, sample) => sum + sample.cents, 0) / samples.length;
+}
+
+function getTrend(now = performance.now()) {
+  const windowSamples = centsHistory.filter((sample) => now - sample.time <= TREND_WINDOW_MS);
+  if (windowSamples.length < 4) return "estable";
+
+  const midpoint = windowSamples[0].time + (windowSamples[windowSamples.length - 1].time - windowSamples[0].time) / 2;
+  const initialAverage = getAverageCents(windowSamples.filter((sample) => sample.time <= midpoint));
+  const finalAverage = getAverageCents(windowSamples.filter((sample) => sample.time > midpoint));
+
+  if (initialAverage === null || finalAverage === null) return "estable";
+  if (finalAverage - initialAverage > 5) return "sube";
+  if (initialAverage - finalAverage > 5) return "baja";
+  return "estable";
+}
+
+function getStability(now = performance.now()) {
+  const recentSamples = centsHistory.filter((sample) => now - sample.time <= STABILITY_WINDOW_MS);
+  if (!recentSamples.length) return null;
+
+  const stableSamples = recentSamples.filter((sample) => Math.abs(sample.cents) <= 5);
+  return Math.round((stableSamples.length / recentSamples.length) * 100);
+}
+
+function updateHistoryStats(now = performance.now()) {
+  const latest = centsHistory[centsHistory.length - 1];
+  const stability = getStability(now);
+
+  currentCentsEl.textContent = latest ? `Actual: ${formatCents(latest.cents)}` : "Actual: — cents";
+  trendEl.textContent = `Tendencia: ${getTrend(now)}`;
+  stabilityEl.textContent = stability === null ? "Estabilidad: —%" : `Estabilidad: ${stability}%`;
+}
+
+function getCentsColor(cents) {
+  const absolute = Math.abs(cents);
+  if (absolute <= 5) return "#2E8B57";
+  if (absolute <= 20) return "#D9902F";
+  return "#8E1F2F";
+}
+
+function setupCanvasSize() {
+  if (!historyCanvas || !historyContext) return false;
+
+  const rect = historyCanvas.getBoundingClientRect();
+  const pixelRatio = window.devicePixelRatio || 1;
+  const width = Math.max(1, Math.round(rect.width * pixelRatio));
+  const height = Math.max(1, Math.round(rect.height * pixelRatio));
+
+  if (width !== lastCanvasWidth || height !== lastCanvasHeight) {
+    historyCanvas.width = width;
+    historyCanvas.height = height;
+    lastCanvasWidth = width;
+    lastCanvasHeight = height;
+  }
+
+  historyContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+  return true;
+}
+
+function mapCentsToY(cents, chartTop, chartHeight) {
+  const limited = Math.max(-50, Math.min(50, cents));
+  return chartTop + ((50 - limited) / 100) * chartHeight;
+}
+
+function drawHistoryLabels(ctx, width, height, chartTop, chartHeight) {
+  const labels = [50, 25, 0, -25, -50];
+
+  ctx.font = "700 11px Montserrat, Inter, system-ui, sans-serif";
+  ctx.textAlign = "right";
+  ctx.textBaseline = "middle";
+
+  labels.forEach((value) => {
+    const y = mapCentsToY(value, chartTop, chartHeight);
+    ctx.strokeStyle = value === 0 ? "rgba(22, 19, 19, 0.35)" : "rgba(22, 19, 19, 0.09)";
+    ctx.lineWidth = value === 0 ? 1.4 : 1;
+    ctx.beginPath();
+    ctx.moveTo(HISTORY_PADDING.left, y);
+    ctx.lineTo(width - HISTORY_PADDING.right, y);
+    ctx.stroke();
+
+    ctx.fillStyle = value === 0 ? "#161313" : "#726861";
+    ctx.fillText(value > 0 ? `+${value}` : String(value), HISTORY_PADDING.left - 7, y);
+  });
+}
+
+function drawHistory(now = performance.now()) {
+  if (!setupCanvasSize()) return;
+
+  const ctx = historyContext;
+  const rect = historyCanvas.getBoundingClientRect();
+  const width = rect.width;
+  const height = rect.height;
+  const chartLeft = HISTORY_PADDING.left;
+  const chartRight = width - HISTORY_PADDING.right;
+  const chartTop = HISTORY_PADDING.top;
+  const chartBottom = height - HISTORY_PADDING.bottom;
+  const chartWidth = chartRight - chartLeft;
+  const chartHeight = chartBottom - chartTop;
+
+  ctx.clearRect(0, 0, width, height);
+  ctx.fillStyle = "rgba(255, 253, 249, 0.72)";
+  ctx.fillRect(0, 0, width, height);
+
+  drawHistoryLabels(ctx, width, height, chartTop, chartHeight);
+
+  if (centsHistory.length < 2) {
+    ctx.fillStyle = "#726861";
+    ctx.font = "700 12px Montserrat, Inter, system-ui, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("Toca una nota larga para ver el historial", chartLeft + chartWidth / 2, chartTop + chartHeight / 2);
+    return;
+  }
+
+  const samples = centsHistory.filter((sample) => now - sample.time <= HISTORY_DURATION_MS);
+
+  for (let i = 1; i < samples.length; i += 1) {
+    const previous = samples[i - 1];
+    const current = samples[i];
+    const previousX = chartRight - ((now - previous.time) / HISTORY_DURATION_MS) * chartWidth;
+    const currentX = chartRight - ((now - current.time) / HISTORY_DURATION_MS) * chartWidth;
+    const previousY = mapCentsToY(previous.cents, chartTop, chartHeight);
+    const currentY = mapCentsToY(current.cents, chartTop, chartHeight);
+
+    ctx.strokeStyle = getCentsColor(current.cents);
+    ctx.lineWidth = 2.4;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.beginPath();
+    ctx.moveTo(previousX, previousY);
+    ctx.lineTo(currentX, currentY);
+    ctx.stroke();
+  }
+}
+
+function recordCents(cents) {
+  const now = performance.now();
+  centsHistory.push({
+    time: now,
+    cents: Math.max(-50, Math.min(50, cents))
+  });
+
+  pruneCentsHistory(now);
+  updateHistoryStats(now);
+  drawHistory(now);
+}
+
+function clearHistory() {
+  centsHistory = [];
+  updateHistoryStats();
+  drawHistory();
 }
 
 async function requestMicrophoneStream() {
@@ -278,6 +462,7 @@ startBtn.addEventListener("click", startTuner);
 a4Select.addEventListener("change", () => {
   pitchHistory = [];
   lastPitch = null;
+  clearHistory();
 });
 
 document.querySelectorAll(".exercise").forEach((button) => {
@@ -292,6 +477,10 @@ window.addEventListener("pagehide", () => {
   if (animationId) cancelAnimationFrame(animationId);
   micStream?.getTracks().forEach((track) => track.stop());
 });
+
+window.addEventListener("resize", drawHistory);
+
+drawHistory();
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {

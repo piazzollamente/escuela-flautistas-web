@@ -48,6 +48,20 @@
         </div>
       </div>
 
+      <section class="history-panel" aria-labelledby="historyTitle">
+        <div class="history-heading">
+          <h2 id="historyTitle">Historial de afinación</h2>
+          <div class="history-stats" aria-live="polite">
+            <span id="currentCents">Actual: — cents</span>
+            <span id="trend">Tendencia: estable</span>
+            <span id="stability">Estabilidad: —%</span>
+          </div>
+        </div>
+        <div class="history-chart-wrap">
+          <canvas id="historyCanvas" class="history-chart" width="640" height="280" aria-label="Historial de desviación en cents de los últimos 30 segundos"></canvas>
+        </div>
+      </section>
+
       <p id="feedback" class="feedback" role="status" aria-live="polite">Activa el micrófono y toca una nota larga.</p>
 
       <label class="select-label" for="a4Reference">Referencia</label>
