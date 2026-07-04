@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Afinador Cromático EDF</title>
+  <meta name="description" content="Afinador cromático educativo para flautistas de Escuela de Flautistas." />
+  <meta name="theme-color" content="#8E1F2F" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <section class="hero">
+      <p class="eyebrow">Escuela de Flautistas</p>
+      <h1>Afinador Cromático EDF</h1>
+      <p class="subtitle">Afinación en tiempo real para estudiar sonido, aire y estabilidad.</p>
+    </section>
+
+    <section class="card tuner-card">
+      <button id="startBtn" class="primary-btn">Activar micrófono</button>
+
+      <div class="note-display">
+        <div id="noteName" class="note">—</div>
+        <div id="octave" class="octave"></div>
+      </div>
+
+      <div class="data-row">
+        <div>
+          <span class="label">Frecuencia</span>
+          <strong id="frequency">— Hz</strong>
+        </div>
+        <div>
+          <span class="label">Desviación</span>
+          <strong id="cents">— cents</strong>
+        </div>
+      </div>
+
+      <div class="meter-wrap">
+        <div class="meter">
+          <div class="meter-center"></div>
+          <div id="needle" class="needle"></div>
+        </div>
+        <div class="meter-labels">
+          <span>Baja</span>
+          <span>Centro</span>
+          <span>Alta</span>
+        </div>
+      </div>
+
+      <p id="feedback" class="feedback">Activa el micrófono y toca una nota larga.</p>
+
+      <label class="select-label" for="a4Reference">Referencia</label>
+      <select id="a4Reference">
+        <option value="440">A = 440 Hz</option>
+        <option value="442" selected>A = 442 Hz</option>
+        <option value="443">A = 443 Hz</option>
+      </select>
+    </section>
+
+    <section class="card">
+      <h2>Modo flauta</h2>
+      <div class="exercise-list">
+        <button class="exercise" data-instruction="Toca una nota larga de 8 segundos. Observa si la afinación cae o sube al final.">
+          <span>01</span> Nota larga estable
+        </button>
+        <button class="exercise" data-instruction="Toca una nota grave y luego su octava. Busca que ambas tengan centro, no solo volumen.">
+          <span>02</span> Octavas
+        </button>
+        <button class="exercise" data-instruction="Ataca suave, sin golpe de lengua excesivo. La afinación debe aparecer centrada desde el inicio.">
+          <span>03</span> Ataque suave
+        </button>
+        <button class="exercise" data-instruction="Haz diminuendo sin apretar la embocadura. Evita que la nota suba al cerrar el sonido.">
+          <span>04</span> Diminuendo
+        </button>
+      </div>
+      <p id="exerciseText" class="exercise-text">Selecciona un ejercicio para estudiar con intención.</p>
+    </section>
+
+    <section class="cta">
+      <h2>Entrena tu sonido con Escuela de Flautistas</h2>
+      <p>Usa el afinador como observación, no como castigo. La afinación revela aire, dirección y organización.</p>
+      <a class="secondary-btn" href="https://escueladeflautistas.cl/embocadura-organizada/?utm_source=app&utm_medium=afinador&utm_campaign=edf_tools">
+        Ver Desafío 21 días
+      </a>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
