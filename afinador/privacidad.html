@@ -5,19 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Privacidad del micrófono · Afinador EDF</title>
   <meta name="description" content="Información sobre el uso del micrófono en el Afinador Cromático EDF." />
-  <meta name="theme-color" content="#8E1F2F" />
-  <link rel="icon" href="icon.svg?v=afinador-edf-v12" type="image/svg+xml" />
-  <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png?v=afinador-edf-v12" />
-  <link rel="manifest" href="manifest.json?v=afinador-edf-v12" />
-  <link rel="stylesheet" href="styles.css?v=afinador-edf-v12" />
-  <link rel="stylesheet" href="pwa.css?v=afinador-edf-v12" />
+  <meta name="theme-color" content="#C42030" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="icon" href="icon.svg?v=afinador-edf-v13" type="image/svg+xml" />
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png?v=afinador-edf-v13" />
+  <link rel="manifest" href="manifest.json?v=afinador-edf-v13" />
+  <link rel="stylesheet" href="styles.css?v=afinador-edf-v13" />
+  <link rel="stylesheet" href="pwa.css?v=afinador-edf-v13" />
 </head>
 <body>
+  <div class="ambient-orbs" aria-hidden="true"><span></span><span></span><span></span></div>
+  <header class="site-nav">
+    <div class="nav-inner">
+      <a class="brand" href="https://escueladeflautistas.cl/">Escuela de Flautistas</a>
+      <a class="nav-back" href="./">Volver al afinador</a>
+    </div>
+  </header>
+
   <main class="app privacy-page">
     <article class="privacy-card">
       <p class="eyebrow">Escuela de Flautistas</p>
       <h1>Privacidad del micrófono</h1>
-
       <p>El Afinador Cromático EDF solicita acceso al micrófono únicamente cuando presionas <strong>“Activar micrófono”</strong>.</p>
 
       <h2>Cómo se procesa el sonido</h2>
@@ -34,9 +44,7 @@
       <h2>Cómo revocar el permiso</h2>
       <p>Puedes retirar el permiso del micrófono desde la configuración de privacidad de Safari, Chrome, Android o iOS. Al hacerlo, el afinador no podrá detectar notas hasta que vuelvas a autorizarlo.</p>
 
-      <div class="privacy-back">
-        <a class="secondary-btn" href="./">Volver al afinador</a>
-      </div>
+      <div class="privacy-back"><a class="secondary-btn" href="./">Volver al afinador</a></div>
     </article>
   </main>
 

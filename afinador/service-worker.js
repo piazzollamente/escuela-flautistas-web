@@ -1,4 +1,4 @@
-const CACHE_NAME = "afinador-edf-v12";
+const CACHE_NAME = "afinador-edf-v13";
 const APP_SHELL = [
   "./",
   "index.html",
@@ -40,24 +40,14 @@ self.addEventListener("fetch", (event) => {
     fetch(event.request)
       .then((response) => {
         if (!response.ok) return response;
-
         const copy = response.clone();
-        event.waitUntil(
-          caches
-            .open(CACHE_NAME)
-            .then((cache) => cache.put(event.request, copy))
-            .catch(() => {})
-        );
+        event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy)).catch(() => {}));
         return response;
       })
       .catch(async () => {
         const cached = await caches.match(event.request, { ignoreSearch: true });
         if (cached) return cached;
-
-        if (event.request.mode === "navigate") {
-          return caches.match("./");
-        }
-
+        if (event.request.mode === "navigate") return caches.match("./");
         return Response.error();
       })
   );
