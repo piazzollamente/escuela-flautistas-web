@@ -1,17 +1,45 @@
-const startBtn = document.getElementById("startBtn");
-const noteNameEl = document.getElementById("noteName");
-const octaveEl = document.getElementById("octave");
-const frequencyEl = document.getElementById("frequency");
-const centsEl = document.getElementById("cents");
-const needleEl = document.getElementById("needle");
-const feedbackEl = document.getElementById("feedback");
-const a4Select = document.getElementById("a4Reference");
-const exerciseText = document.getElementById("exerciseText");
-const currentCentsEl = document.getElementById("currentCents");
-const trendEl = document.getElementById("trend");
-const stabilityEl = document.getElementById("stability");
-const historyCanvas = document.getElementById("historyCanvas");
-const historyContext = historyCanvas?.getContext("2d");
+const missingDomIds = [];
+
+function createFallbackElement(id) {
+  return {
+    id,
+    dataset: {},
+    disabled: false,
+    textContent: "",
+    value: id === "a4Reference" ? "442" : "",
+    style: {},
+    classList: {
+      add() {},
+      remove() {}
+    },
+    addEventListener() {},
+    getBoundingClientRect: () => ({ width: 0, height: 0 }),
+    getContext: () => null
+  };
+}
+
+function getDomElement(id) {
+  const element = document.getElementById(id);
+  if (element) return element;
+
+  missingDomIds.push(id);
+  return createFallbackElement(id);
+}
+
+const startBtn = getDomElement("startBtn");
+const noteNameEl = getDomElement("noteName");
+const octaveEl = getDomElement("octave");
+const frequencyEl = getDomElement("frequency");
+const centsEl = getDomElement("cents");
+const needleEl = getDomElement("needle");
+const feedbackEl = getDomElement("feedback");
+const a4Select = getDomElement("a4Reference");
+const exerciseText = getDomElement("exerciseText");
+const currentCentsEl = getDomElement("currentCents");
+const trendEl = getDomElement("trend");
+const stabilityEl = getDomElement("stability");
+const historyCanvas = getDomElement("historyCanvas");
+const historyContext = historyCanvas.getContext("2d");
 
 const noteNames = ["C", "C♯", "D", "E♭", "E", "F", "F♯", "G", "A♭", "A", "B♭", "B"];
 const AudioContextClass = window.AudioContext || window.webkitAudioContext;
@@ -46,6 +74,22 @@ let lastCanvasHeight = 0;
 function setFeedback(message, state = "") {
   feedbackEl.textContent = message;
   feedbackEl.className = `feedback${state ? ` ${state}` : ""}`;
+}
+
+function showDomWarning() {
+  if (!missingDomIds.length) return;
+
+  const message = `Algunos elementos visuales no están disponibles (${missingDomIds.join(", ")}). Recarga la página para limpiar una versión anterior en caché.`;
+  setFeedback(message, "error");
+
+  if (document.getElementById("domWarning")) return;
+
+  const warning = document.createElement("p");
+  warning.id = "domWarning";
+  warning.className = "feedback error";
+  warning.textContent = message;
+  const target = document.querySelector(".tuner-card") || document.body;
+  target?.prepend(warning);
 }
 
 function resetDisplay(message = "Toca una nota clara y sostenida.", state = "warning") {
@@ -480,6 +524,7 @@ window.addEventListener("pagehide", () => {
 
 window.addEventListener("resize", drawHistory);
 
+showDomWarning();
 drawHistory();
 
 if ("serviceWorker" in navigator) {

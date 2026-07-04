@@ -1,4 +1,4 @@
-const CACHE_NAME = "afinador-edf-v5";
+const CACHE_NAME = "afinador-edf-v6";
 const FILES = [
   "./",
   "index.html",
@@ -25,13 +25,24 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
 
+  const url = new URL(event.request.url);
+  if (url.origin !== self.location.origin || url.search) return;
+
   event.respondWith(
     fetch(event.request)
       .then((response) => {
+        if (!response.ok) return response;
+
         const copy = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+        event.waitUntil(
+          caches
+            .open(CACHE_NAME)
+            .then((cache) => cache.put(event.request, copy))
+            .catch((error) => console.warn("No se pudo actualizar el caché del afinador:", error))
+        );
         return response;
       })
       .catch(() => caches.match(event.request))
+      .then((response) => response || Response.error())
   );
 });
