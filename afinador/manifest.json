@@ -1,0 +1,16 @@
+{
+  "name": "Afinador Cromático EDF",
+  "short_name": "Afinador EDF",
+  "description": "Afinador cromático educativo para Escuela de Flautistas.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#F7F0E8",
+  "theme_color": "#8E1F2F",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
