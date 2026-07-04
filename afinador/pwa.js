@@ -8,11 +8,17 @@
   const connectionState = document.getElementById("connectionState");
   const displayModeState = document.getElementById("displayModeState");
   const a4Reference = document.getElementById("a4Reference");
+  const startBtn = document.getElementById("startBtn");
 
   const STORAGE_KEYS = {
     reference: "edf-tuner-a4-reference",
-    installDismissedUntil: "edf-tuner-install-dismissed-until"
+    installDismissedUntil: "edf-tuner-install-dismissed-until",
+    promoDismissedUntil: "edf-tuner-challenge-promo-dismissed-until"
   };
+
+  const PROMO_DELAY_AFTER_MIC_MS = 25000;
+  const PROMO_FALLBACK_DELAY_MS = 60000;
+  const PROMO_COOLDOWN_MS = 7 * 24 * 60 * 60 * 1000;
 
   const userAgent = navigator.userAgent || "";
   const platform = navigator.platform || "";
@@ -21,6 +27,9 @@
   const isStandalone = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
 
   let deferredInstallPrompt = null;
+  let promoTimer = null;
+  let promoShownThisSession = false;
+  let lastFocusedElement = null;
 
   function readStorage(key) {
     try {
@@ -38,8 +47,19 @@
     }
   }
 
+  function trackEvent(name, parameters = {}) {
+    if (typeof window.gtag === "function") {
+      window.gtag("event", name, parameters);
+    }
+  }
+
   function isInstallSuggestionDismissed() {
     const dismissedUntil = Number(readStorage(STORAGE_KEYS.installDismissedUntil));
+    return Number.isFinite(dismissedUntil) && dismissedUntil > Date.now();
+  }
+
+  function isPromoDismissed() {
+    const dismissedUntil = Number(readStorage(STORAGE_KEYS.promoDismissedUntil));
     return Number.isFinite(dismissedUntil) && dismissedUntil > Date.now();
   }
 
@@ -129,6 +149,133 @@
     });
   }
 
+  function createPromoModal() {
+    if (document.getElementById("challengePromo")) return;
+
+    document.body.insertAdjacentHTML(
+      "beforeend",
+      `
+        <div id="challengePromo" class="promo-modal" hidden>
+          <button class="promo-backdrop" type="button" aria-label="Cerrar promoción" data-promo-close></button>
+          <section class="promo-dialog" role="dialog" aria-modal="true" aria-labelledby="promoTitle" aria-describedby="promoDescription" tabindex="-1">
+            <button class="promo-close" type="button" aria-label="Cerrar" data-promo-close>×</button>
+            <div class="promo-accent" aria-hidden="true"><span>21</span><small>días</small></div>
+            <div class="promo-content">
+              <p class="promo-kicker">Desafío Embocadura Organizada</p>
+              <h2 id="promoTitle">Tu afinación no empieza en la aguja.</h2>
+              <p id="promoDescription">Durante 21 días trabajas la organización de la embocadura con ejercicios breves y progresivos. Los videos se liberan uno por día.</p>
+              <div class="promo-points" aria-label="Características del desafío">
+                <span>Práctica diaria</span>
+                <span>Acceso online</span>
+                <span>Para flautistas reales</span>
+              </div>
+              <div class="promo-actions">
+                <a id="promoCta" class="promo-cta" href="https://escueladeflautistas.cl/embocadura-organizada/?utm_source=afinador&utm_medium=popup&utm_campaign=desafio_21_dias&utm_content=afinador_pwa">Conocer el desafío</a>
+                <button class="promo-secondary" type="button" data-promo-close>Seguir afinando</button>
+              </div>
+            </div>
+          </section>
+        </div>
+      `
+    );
+  }
+
+  function getPromoElements() {
+    const modal = document.getElementById("challengePromo");
+    return {
+      modal,
+      dialog: modal?.querySelector(".promo-dialog"),
+      closeControls: modal ? Array.from(modal.querySelectorAll("[data-promo-close]")) : [],
+      cta: document.getElementById("promoCta")
+    };
+  }
+
+  function closePromo({ remember = true, source = "close" } = {}) {
+    const { modal } = getPromoElements();
+    if (!modal || modal.hidden) return;
+
+    modal.classList.remove("is-visible");
+    document.body.classList.remove("promo-open");
+
+    if (remember) {
+      writeStorage(STORAGE_KEYS.promoDismissedUntil, String(Date.now() + PROMO_COOLDOWN_MS));
+    }
+
+    trackEvent("challenge_promo_close", { source });
+
+    window.setTimeout(() => {
+      modal.hidden = true;
+      lastFocusedElement?.focus?.();
+    }, 220);
+  }
+
+  function openPromo() {
+    if (promoShownThisSession || isPromoDismissed() || document.visibilityState !== "visible") return;
+
+    const { modal, dialog } = getPromoElements();
+    if (!modal || !dialog) return;
+
+    promoShownThisSession = true;
+    lastFocusedElement = document.activeElement;
+    modal.hidden = false;
+    document.body.classList.add("promo-open");
+
+    window.requestAnimationFrame(() => {
+      modal.classList.add("is-visible");
+      dialog.focus();
+    });
+
+    trackEvent("challenge_promo_view", { placement: "afinador" });
+  }
+
+  function schedulePromo(delay) {
+    if (promoShownThisSession || isPromoDismissed()) return;
+    if (promoTimer) window.clearTimeout(promoTimer);
+    promoTimer = window.setTimeout(openPromo, delay);
+  }
+
+  function setupPromoModal() {
+    createPromoModal();
+    const { modal, dialog, closeControls, cta } = getPromoElements();
+    if (!modal || !dialog) return;
+
+    closeControls.forEach((control) => {
+      control.addEventListener("click", () => closePromo({ source: control.classList.contains("promo-backdrop") ? "backdrop" : "button" }));
+    });
+
+    cta?.addEventListener("click", () => {
+      writeStorage(STORAGE_KEYS.promoDismissedUntil, String(Date.now() + 30 * 24 * 60 * 60 * 1000));
+      trackEvent("challenge_promo_click", { placement: "afinador" });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (modal.hidden) return;
+
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closePromo({ source: "escape" });
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+      const focusable = Array.from(dialog.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'));
+      if (!focusable.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+
+    startBtn?.addEventListener("click", () => schedulePromo(PROMO_DELAY_AFTER_MIC_MS), { once: true });
+    schedulePromo(PROMO_FALLBACK_DELAY_MS);
+  }
+
   window.addEventListener("beforeinstallprompt", (event) => {
     event.preventDefault();
     deferredInstallPrompt = event;
@@ -160,6 +307,7 @@
   updateConnectionState();
   updateDisplayModeState();
   restoreReferencePreference();
+  setupPromoModal();
 
   if (!isStandalone && isIOS && !isInstallSuggestionDismissed()) {
     configureInstallCard();
