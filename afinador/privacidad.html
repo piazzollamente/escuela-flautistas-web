@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Privacidad del micrófono · Afinador EDF</title>
+  <meta name="description" content="Información sobre el uso del micrófono en el Afinador Cromático EDF." />
+  <meta name="theme-color" content="#8E1F2F" />
+  <link rel="icon" href="icon.svg?v=afinador-edf-v12" type="image/svg+xml" />
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png?v=afinador-edf-v12" />
+  <link rel="manifest" href="manifest.json?v=afinador-edf-v12" />
+  <link rel="stylesheet" href="styles.css?v=afinador-edf-v12" />
+  <link rel="stylesheet" href="pwa.css?v=afinador-edf-v12" />
+</head>
+<body>
+  <main class="app privacy-page">
+    <article class="privacy-card">
+      <p class="eyebrow">Escuela de Flautistas</p>
+      <h1>Privacidad del micrófono</h1>
+
+      <p>El Afinador Cromático EDF solicita acceso al micrófono únicamente cuando presionas <strong>“Activar micrófono”</strong>.</p>
+
+      <h2>Cómo se procesa el sonido</h2>
+      <ul>
+        <li>El audio se analiza directamente en tu navegador o dispositivo.</li>
+        <li>No se graba ni se guarda una copia de tu interpretación.</li>
+        <li>No se envía audio a servidores de Escuela de Flautistas.</li>
+        <li>El acceso termina al cerrar la página o la aplicación.</li>
+      </ul>
+
+      <h2>Datos guardados en el dispositivo</h2>
+      <p>La aplicación puede recordar la referencia de afinación elegida —440, 442 o 443 Hz— y si cerraste temporalmente la sugerencia de instalación. Esa información se guarda localmente en tu dispositivo.</p>
+
+      <h2>Cómo revocar el permiso</h2>
+      <p>Puedes retirar el permiso del micrófono desde la configuración de privacidad de Safari, Chrome, Android o iOS. Al hacerlo, el afinador no podrá detectar notas hasta que vuelvas a autorizarlo.</p>
+
+      <div class="privacy-back">
+        <a class="secondary-btn" href="./">Volver al afinador</a>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => navigator.serviceWorker.register("service-worker.js").catch(() => {}));
+    }
+  </script>
+</body>
+</html>
