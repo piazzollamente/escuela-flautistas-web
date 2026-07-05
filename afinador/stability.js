@@ -83,4 +83,78 @@
       subtree: true
     });
   }
+
+  const GA_ID = "G-DCXF3B1KV9";
+  const params = new URLSearchParams(window.location.search);
+  const displayMode = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true
+    ? "installed_app"
+    : "web";
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function gtag() {
+    window.dataLayer.push(arguments);
+  };
+
+  const analyticsScript = document.createElement("script");
+  analyticsScript.async = true;
+  analyticsScript.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+  document.head.appendChild(analyticsScript);
+
+  window.gtag("js", new Date());
+  window.gtag("config", GA_ID, {
+    page_title: "Afinador Cromático EDF",
+    page_location: window.location.href,
+    page_path: "/afinador/",
+    send_page_view: true
+  });
+
+  const campaignData = {
+    app_mode: displayMode,
+    campaign_source: params.get("utm_source") || "direct",
+    campaign_medium: params.get("utm_medium") || "none",
+    campaign_name: params.get("utm_campaign") || "none",
+    campaign_content: params.get("utm_content") || "none"
+  };
+
+  window.gtag("event", "tuner_open", campaignData);
+  window.gtag("event", "pwa_mode", { app_mode: displayMode });
+
+  const startBtn = document.getElementById("startBtn");
+  startBtn?.addEventListener("click", () => {
+    window.gtag("event", "tuner_start", campaignData);
+  });
+
+  const noteName = document.getElementById("noteName");
+  let effectiveUseTracked = false;
+  if (noteName) {
+    const detectEffectiveUse = () => {
+      const value = noteName.textContent?.trim();
+      if (!effectiveUseTracked && value && value !== "—") {
+        effectiveUseTracked = true;
+        window.gtag("event", "pitch_detected", {
+          ...campaignData,
+          first_note: value
+        });
+      }
+    };
+
+    new MutationObserver(detectEffectiveUse).observe(noteName, {
+      childList: true,
+      characterData: true,
+      subtree: true
+    });
+  }
+
+  document.querySelectorAll('a[href*="embocadura-organizada"]').forEach((link) => {
+    link.addEventListener("click", () => {
+      window.gtag("event", "challenge_link_click", {
+        ...campaignData,
+        link_location: link.id === "promoCta" ? "popup" : "page_cta"
+      });
+    });
+  });
+
+  window.addEventListener("appinstalled", () => {
+    window.gtag("event", "tuner_install", campaignData);
+  });
 })();
