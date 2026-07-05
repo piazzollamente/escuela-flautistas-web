@@ -1,4 +1,4 @@
-const CACHE_NAME = "afinador-edf-v21";
+const CACHE_NAME = "afinador-edf-v33";
 const APP_SHELL = [
   "./",
   "index.html",
@@ -10,8 +10,8 @@ const APP_SHELL = [
   "pwa.js",
   "manifest.json",
   "icon.svg",
-  "privacidad.html",
   "../assets/embocadura-organizada/portada.png",
+  "privacidad.html",
   "icons/icon-180.png",
   "icons/icon-192.png",
   "icons/icon-512.png",

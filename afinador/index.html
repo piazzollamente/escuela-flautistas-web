@@ -14,13 +14,21 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="icon" href="icon.svg?v=afinador-edf-v19" type="image/svg+xml" />
-  <link rel="mask-icon" href="icon.svg?v=afinador-edf-v19" color="#C42030" />
-  <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png?v=afinador-edf-v19" />
-  <link rel="manifest" href="manifest.json?v=afinador-edf-v19" />
-  <link rel="stylesheet" href="styles.css?v=afinador-edf-v19" />
-  <link rel="stylesheet" href="pwa.css?v=afinador-edf-v19" />
-  <link rel="stylesheet" href="challenge-card.css?v=afinador-edf-v19" />
+  <link rel="icon" href="icon.svg?v=afinador-edf-v33" type="image/svg+xml" />
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png?v=afinador-edf-v33" />
+  <link rel="manifest" href="manifest.json?v=afinador-edf-v33" />
+  <link rel="stylesheet" href="styles.css?v=afinador-edf-v33" />
+  <link rel="stylesheet" href="pwa.css?v=afinador-edf-v33" />
+  <link rel="stylesheet" href="challenge-card.css?v=afinador-edf-v33" />
+  <script>
+    (() => {
+      const removeOldStudyBlocks = () => {
+        document.querySelectorAll(".history-panel,.exercise-card,.study-column").forEach((element) => element.remove());
+      };
+      removeOldStudyBlocks();
+      new MutationObserver(removeOldStudyBlocks).observe(document.documentElement, { childList: true, subtree: true });
+    })();
+  </script>
 </head>
 <body>
   <div class="ambient-orbs" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -64,8 +72,7 @@
     </section>
 
     <section class="workspace">
-      <div class="tuner-column">
-        <section class="card tuner-card">
+      <section class="card tuner-card">
           <div class="section-heading">
             <div>
               <p class="section-kicker">Afinación en tiempo real</p>
@@ -103,27 +110,7 @@
             </div>
           </div>
           <p id="feedback" class="feedback" role="status" aria-live="polite">Activa el micrófono y toca una nota larga.</p>
-        </section>
-      </div>
-
-      <aside class="study-column">
-        <section class="history-panel" aria-labelledby="historyTitle">
-          <div class="history-heading"><div><p class="section-kicker light">Lectura de tendencia</p><h2 id="historyTitle">Historial de afinación</h2></div><span class="section-number light">02</span></div>
-          <div class="history-stats" aria-live="polite"><span id="currentCents">Actual: — cents</span><span id="trend">Tendencia: estable</span><span id="stability">Estabilidad: —%</span></div>
-          <div class="history-chart-wrap"><canvas id="historyCanvas" class="history-chart" width="640" height="280" aria-label="Historial de desviación en cents de los últimos 30 segundos"></canvas></div>
-        </section>
-
-        <section class="card exercise-card">
-          <div class="section-heading compact"><div><p class="section-kicker">Práctica guiada</p><h2>Modo flauta</h2></div><span class="section-number">03</span></div>
-          <div class="exercise-list">
-            <button class="exercise" data-instruction="Toca una nota larga de 8 segundos. Observa si la afinación cae o sube al final."><span>01</span> Nota larga estable</button>
-            <button class="exercise" data-instruction="Toca una nota grave y luego su octava. Busca que ambas tengan centro, no solo volumen."><span>02</span> Octavas</button>
-            <button class="exercise" data-instruction="Ataca suave, sin golpe de lengua excesivo. La afinación debe aparecer centrada desde el inicio."><span>03</span> Ataque suave</button>
-            <button class="exercise" data-instruction="Haz diminuendo sin apretar la embocadura. Evita que la nota suba al cerrar el sonido."><span>04</span> Diminuendo</button>
-          </div>
-          <p id="exerciseText" class="exercise-text">Selecciona un ejercicio para estudiar con intención.</p>
-        </section>
-      </aside>
+      </section>
     </section>
 
     <section class="challenge-offer" aria-labelledby="challengeOfferTitle">
@@ -141,8 +128,8 @@
           <li>Acceso online para avanzar a tu ritmo</li>
         </ul>
         <div class="challenge-purchase-row">
-          <div class="challenge-price"><span>Acceso completo</span><strong><small>USD</small> 39</strong><em>pago único</em></div>
-          <a id="challengeHotmartCta" class="challenge-buy-btn" href="https://pay.hotmart.com/H106402860V?checkoutMode=2&utm_source=afinador&utm_medium=app&utm_campaign=desafio_21_dias&utm_content=tarjeta_final">Comenzar el desafío</a>
+          <div class="challenge-price"><span>Acceso completo</span><strong><small>USD</small> 39</strong><em>Pago único</em></div>
+          <a id="challengeHotmartCta" class="challenge-buy-btn" href="https://pay.hotmart.com/X106484678E?checkoutMode=2&utm_source=afinador&utm_medium=app&utm_campaign=desafio_21_dias&utm_content=tarjeta_final">COMENZAR EL DESAFÍO</a>
         </div>
         <p class="challenge-secure">Pago seguro procesado por Hotmart · Acceso digital inmediato</p>
       </div>
@@ -160,8 +147,8 @@
     </section>
   </main>
 
-  <script src="stability.js?v=afinador-edf-v19"></script>
-  <script src="app.js?v=afinador-edf-v19"></script>
-  <script src="pwa.js?v=afinador-edf-v19"></script>
+  <script src="stability.js?v=afinador-edf-v33"></script>
+  <script src="app.js?v=afinador-edf-v33"></script>
+  <script src="pwa.js?v=afinador-edf-v33"></script>
 </body>
 </html>

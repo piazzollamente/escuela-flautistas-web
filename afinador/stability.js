@@ -1,4 +1,6 @@
 (() => {
+  document.querySelectorAll(".history-panel,.exercise-card,.study-column").forEach((element) => element.remove());
+
   const nativeRequestAnimationFrame = window.requestAnimationFrame.bind(window);
   const nativeCancelAnimationFrame = window.cancelAnimationFrame.bind(window);
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent || "") || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
@@ -40,15 +42,7 @@
 
   const style = document.createElement("style");
   style.textContent = `
-    .history-chart-wrap{contain:layout paint;transform:translateZ(0);backface-visibility:hidden;isolation:isolate}
-    .history-chart{transform:translateZ(0);backface-visibility:hidden;image-rendering:auto}
-    .study-guide-list{display:grid;gap:12px}
-    .study-guide-step{padding:18px;border:1px solid rgba(57,50,50,.1);border-radius:20px;background:rgba(255,255,255,.8)}
-    .study-guide-step span{display:block;margin-bottom:6px;color:var(--red);font-size:.66rem;font-weight:900;letter-spacing:.12em}
-    .study-guide-step h3{margin:0;color:var(--dark);font-family:var(--sans);font-size:.98rem;font-weight:900;letter-spacing:0}
-    .study-guide-step p{margin:8px 0 0;color:var(--muted);font-size:.84rem;line-height:1.5}
-    .study-guide-note{margin:16px 2px 0;padding-top:15px;border-top:1px solid var(--line);color:var(--muted);font-size:.84rem;font-weight:650}
-    @media(max-width:680px){.history-panel{contain:layout paint;transform:translateZ(0);backface-visibility:hidden}.study-guide-step{padding:16px}}
+    .tuner-shell{contain:layout paint;transform:translateZ(0);backface-visibility:hidden;isolation:isolate}
   `;
   document.head.appendChild(style);
 
@@ -62,28 +56,6 @@
     };
     suppressUnstableMessage();
     new MutationObserver(suppressUnstableMessage).observe(feedback,{childList:true,characterData:true,subtree:true});
-  }
-
-  const exerciseCard = document.querySelector(".exercise-card");
-  if (exerciseCard) {
-    const title = exerciseCard.querySelector("h2");
-    if (title) title.textContent = "Guía de observación";
-    const kicker = exerciseCard.querySelector(".section-kicker");
-    if (kicker) kicker.textContent = "Cómo usar el afinador";
-    const list = exerciseCard.querySelector(".exercise-list");
-    const note = exerciseCard.querySelector("#exerciseText");
-    if (list) {
-      list.className = "study-guide-list";
-      list.innerHTML = `
-        <article class="study-guide-step"><span>01 · SOSTÉN</span><h3>Nota larga</h3><p>Observa si la afinación permanece centrada o cambia al final de la respiración.</p></article>
-        <article class="study-guide-step"><span>02 · COMPARA</span><h3>Octavas</h3><p>Toca una nota grave y su octava. Busca continuidad de centro, no solo más volumen.</p></article>
-        <article class="study-guide-step"><span>03 · ESCUCHA</span><h3>Inicio de la nota</h3><p>Comprueba que la afinación aparezca centrada desde el ataque, sin golpe excesivo de lengua.</p></article>
-        <article class="study-guide-step"><span>04 · REGULA</span><h3>Diminuendo</h3><p>Reduce el sonido sin cerrar la embocadura ni dejar que la afinación suba.</p></article>`;
-    }
-    if (note) {
-      note.className = "study-guide-note";
-      note.textContent = "El afinador no corrige por ti: úsalo para reconocer tendencias y relacionarlas con lo que haces al tocar.";
-    }
   }
 
   const GA_ID = "G-DCXF3B1KV9";
