@@ -1,15 +1,17 @@
-const CACHE_NAME = "afinador-edf-v18";
+const CACHE_NAME = "afinador-edf-v19";
 const APP_SHELL = [
   "./",
   "index.html",
   "styles.css",
   "pwa.css",
+  "challenge-card.css",
   "stability.js",
   "app.js",
   "pwa.js",
   "manifest.json",
   "icon.svg",
   "privacidad.html",
+  "../assets/embocadura-organizada/portada.png",
   "icons/icon-180.png",
   "icons/icon-192.png",
   "icons/icon-512.png",
