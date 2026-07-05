@@ -81,7 +81,6 @@
         <article class="study-guide-step"><span>04 · REGULA</span><h3>Diminuendo</h3><p>Reduce el sonido sin cerrar la embocadura ni dejar que la afinación suba.</p></article>`;
     }
     if (note) {
-      note.id = "";
       note.className = "study-guide-note";
       note.textContent = "El afinador no corrige por ti: úsalo para reconocer tendencias y relacionarlas con lo que haces al tocar.";
     }
