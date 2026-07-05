@@ -1,4 +1,6 @@
 (() => {
+  document.querySelectorAll(".history-panel,.exercise-card,.study-column").forEach((element) => element.remove());
+
   const nativeRequestAnimationFrame = window.requestAnimationFrame.bind(window);
   const nativeCancelAnimationFrame = window.cancelAnimationFrame.bind(window);
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent || "") || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);

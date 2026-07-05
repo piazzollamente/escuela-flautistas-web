@@ -1,4 +1,4 @@
-const CACHE_NAME = "afinador-edf-v31";
+const CACHE_NAME = "afinador-edf-v32";
 const APP_SHELL = [
   "./",
   "index.html",
