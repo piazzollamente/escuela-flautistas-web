@@ -145,11 +145,14 @@
     });
   }
 
-  document.querySelectorAll('a[href*="embocadura-organizada"]').forEach((link) => {
+  document.querySelectorAll('a[href*="embocadura-organizada"], a[href*="pay.hotmart.com"]').forEach((link) => {
     link.addEventListener("click", () => {
-      window.gtag("event", "challenge_link_click", {
+      const isCheckout = link.href.includes("pay.hotmart.com");
+      window.gtag("event", isCheckout ? "hotmart_checkout_click" : "challenge_link_click", {
         ...campaignData,
-        link_location: link.id === "promoCta" ? "popup" : "page_cta"
+        link_location: link.id === "promoCta" ? "popup" : link.id === "challengeHotmartCta" ? "final_offer_card" : "page_cta",
+        value: isCheckout ? 39 : undefined,
+        currency: isCheckout ? "USD" : undefined
       });
     });
   });
