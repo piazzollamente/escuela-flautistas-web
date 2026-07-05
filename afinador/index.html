@@ -82,82 +82,32 @@
           </div>
 
           <div class="tuner-shell">
-            <div class="tuner-topbar"><span>EDF Analog Tuner</span><span>Flauta cromática</span></div>
+            <div class="tuner-topbar"><span>EDF Chromatic Tuner</span><span>Modo: Flauta</span></div>
             <div class="tuner-screen">
-              <div class="screen-shine" aria-hidden="true"></div>
-              <div class="note-display" aria-label="Nota detectada">
-                <div id="noteName" class="note">—</div>
-                <div id="octave" class="octave"></div>
-              </div>
-              <div class="reference-readout" aria-live="polite">
-                <span>A</span>
-                <strong id="referenceReadout">442</strong>
-                <em>Hz</em>
-              </div>
-              <div class="analog-meter" aria-hidden="true">
-                <svg class="meter-svg" viewBox="0 0 720 360" role="img" focusable="false">
-                  <defs>
-                    <linearGradient id="scaleInk" x1="0" x2="1" y1="0" y2="0">
-                      <stop offset="0" stop-color="#1b1510" stop-opacity="0.78" />
-                      <stop offset="0.5" stop-color="#0d0b08" stop-opacity="0.94" />
-                      <stop offset="1" stop-color="#1b1510" stop-opacity="0.78" />
-                    </linearGradient>
-                  </defs>
-                  <path class="scale-arc" d="M 72 272 A 318 318 0 0 1 648 272" />
-                  <g class="scale-ticks" transform="translate(360 272)">
-                    <line class="tick major" x1="0" y1="-318" x2="0" y2="-286" transform="rotate(-58)" />
-                    <line class="tick minor" x1="0" y1="-318" x2="0" y2="-296" transform="rotate(-52.2)" />
-                    <line class="tick minor" x1="0" y1="-318" x2="0" y2="-296" transform="rotate(-46.4)" />
-                    <line class="tick medium" x1="0" y1="-318" x2="0" y2="-290" transform="rotate(-40.6)" />
-                    <line class="tick minor" x1="0" y1="-318" x2="0" y2="-296" transform="rotate(-34.8)" />
-                    <line class="tick major" x1="0" y1="-318" x2="0" y2="-284" transform="rotate(-29)" />
-                    <line class="tick minor" x1="0" y1="-318" x2="0" y2="-296" transform="rotate(-23.2)" />
-                    <line class="tick minor" x1="0" y1="-318" x2="0" y2="-296" transform="rotate(-17.4)" />
-                    <line class="tick tuned" x1="0" y1="-318" x2="0" y2="-282" transform="rotate(-11.6)" />
-                    <line class="tick tuned" x1="0" y1="-318" x2="0" y2="-280" transform="rotate(-5.8)" />
-                    <line class="tick center" x1="0" y1="-322" x2="0" y2="-272" />
-                    <line class="tick tuned" x1="0" y1="-318" x2="0" y2="-280" transform="rotate(5.8)" />
-                    <line class="tick tuned" x1="0" y1="-318" x2="0" y2="-282" transform="rotate(11.6)" />
-                    <line class="tick minor" x1="0" y1="-318" x2="0" y2="-296" transform="rotate(17.4)" />
-                    <line class="tick minor" x1="0" y1="-318" x2="0" y2="-296" transform="rotate(23.2)" />
-                    <line class="tick major" x1="0" y1="-318" x2="0" y2="-284" transform="rotate(29)" />
-                    <line class="tick minor" x1="0" y1="-318" x2="0" y2="-296" transform="rotate(34.8)" />
-                    <line class="tick medium" x1="0" y1="-318" x2="0" y2="-290" transform="rotate(40.6)" />
-                    <line class="tick minor" x1="0" y1="-318" x2="0" y2="-296" transform="rotate(46.4)" />
-                    <line class="tick minor" x1="0" y1="-318" x2="0" y2="-296" transform="rotate(52.2)" />
-                    <line class="tick major" x1="0" y1="-318" x2="0" y2="-286" transform="rotate(58)" />
-                  </g>
-                  <text class="scale-number minus" x="77" y="289" transform="rotate(-37 77 289)">-50</text>
-                  <text class="scale-number zero" x="360" y="106">0</text>
-                  <text class="scale-number plus" x="643" y="289" transform="rotate(37 643 289)">+50</text>
-                  <text class="scale-cent" x="606" y="222">CENT</text>
-                  <path class="center-guide" d="M 360 122 L 360 344" />
-                  <path class="tuned-marker left" d="M 256 111 L 277 153 L 239 144 Z" />
-                  <path class="tuned-marker right" d="M 464 111 L 481 144 L 443 153 Z" />
-                </svg>
-                <div id="analogNeedle" class="analog-needle"></div>
-                <div class="needle-pivot"></div>
-              </div>
-              <div class="data-row">
-                <div><span class="label">Frecuencia</span><strong id="frequency">— Hz</strong></div>
-                <div><span class="label">Desviación</span><strong id="cents">— cents</strong></div>
-              </div>
-            </div>
-            <div class="hardware-panel">
               <div class="status-lights" aria-hidden="true">
                 <div id="lowLight" class="status-light low"><span></span><strong>Baja</strong></div>
                 <div id="tunedLight" class="status-light tuned"><span></span><strong>Afinado</strong></div>
                 <div id="highLight" class="status-light high"><span></span><strong>Alta</strong></div>
               </div>
-              <div class="control-strip">
-                <button id="startBtn" class="primary-btn" type="button">Activar micrófono</button>
-                <div class="reference-control">
-                  <label class="select-label" for="a4Reference">Referencia</label>
-                  <select id="a4Reference"><option value="440">A = 440 Hz</option><option value="442" selected>A = 442 Hz</option><option value="443">A = 443 Hz</option></select>
-                </div>
+              <div class="analog-meter" aria-hidden="true">
+                <div class="scale-arc"></div>
+                <span class="scale-label label-minus-50">-50</span><span class="scale-label label-minus-25">-25</span><span class="scale-label label-zero">0</span><span class="scale-label label-plus-25">+25</span><span class="scale-label label-plus-50">+50</span>
+                <div class="scale-ticks"></div><div id="analogNeedle" class="analog-needle"></div><div class="needle-pivot"></div>
+              </div>
+              <div class="note-display"><div id="noteName" class="note">—</div><div id="octave" class="octave"></div></div>
+              <div class="data-row">
+                <div><span class="label">Frecuencia</span><strong id="frequency">— Hz</strong></div>
+                <div><span class="label">Desviación</span><strong id="cents">— cents</strong></div>
               </div>
             </div>
             <div class="meter-wrap legacy-meter" aria-hidden="true"><div class="meter"><div class="meter-center"></div><div id="needle" class="needle"></div></div></div>
+            <div class="control-strip">
+              <button id="startBtn" class="primary-btn" type="button">Activar micrófono</button>
+              <div class="reference-control">
+                <label class="select-label" for="a4Reference">Referencia</label>
+                <select id="a4Reference"><option value="440">A = 440 Hz</option><option value="442" selected>A = 442 Hz</option><option value="443">A = 443 Hz</option></select>
+              </div>
+            </div>
           </div>
           <p id="feedback" class="feedback" role="status" aria-live="polite">Activa el micrófono y toca una nota larga.</p>
       </section>
