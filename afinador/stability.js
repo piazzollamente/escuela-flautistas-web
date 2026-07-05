@@ -66,4 +66,21 @@
     }
   `;
   document.head.appendChild(style);
+
+  const feedback = document.getElementById("feedback");
+  if (feedback) {
+    const suppressUnstableMessage = () => {
+      if (feedback.textContent?.startsWith("Señal inestable.")) {
+        feedback.textContent = "Micrófono activo.";
+        feedback.className = "feedback listening";
+      }
+    };
+
+    suppressUnstableMessage();
+    new MutationObserver(suppressUnstableMessage).observe(feedback, {
+      childList: true,
+      characterData: true,
+      subtree: true
+    });
+  }
 })();
