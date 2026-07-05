@@ -38,6 +38,7 @@ const tunedLightEl = getDomElement("tunedLight");
 const highLightEl = getDomElement("highLight");
 const feedbackEl = getDomElement("feedback");
 const a4Select = getDomElement("a4Reference");
+const referenceReadoutEl = getDomElement("referenceReadout");
 const debugPanelEl = document.getElementById("debugPanel");
 const debugLogEl = document.getElementById("debugLog");
 
@@ -87,7 +88,7 @@ function setLightState(activeLight) {
 
 function updateAnalogNeedle(cents = 0) {
   const limited = Math.max(-50, Math.min(50, cents));
-  const degrees = (limited / 50) * 45;
+  const degrees = (limited / 50) * 58;
   analogNeedleEl.style.transform = `translateX(-50%) rotate(${degrees}deg)`;
 
   if (Math.abs(cents) <= 5) {
@@ -452,6 +453,7 @@ startBtn.addEventListener("click", startTuner);
 a4Select.addEventListener("change", () => {
   pitchHistory = [];
   lastPitch = null;
+  referenceReadoutEl.textContent = a4Select.value;
 });
 
 window.addEventListener("pagehide", () => {
@@ -461,6 +463,7 @@ window.addEventListener("pagehide", () => {
 
 initDebugPanel();
 showDomWarning();
+referenceReadoutEl.textContent = a4Select.value;
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
