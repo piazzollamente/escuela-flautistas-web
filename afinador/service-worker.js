@@ -1,9 +1,10 @@
-const CACHE_NAME = "afinador-edf-v15";
+const CACHE_NAME = "afinador-edf-v16";
 const APP_SHELL = [
   "./",
   "index.html",
   "styles.css",
   "pwa.css",
+  "stability.js",
   "app.js",
   "pwa.js",
   "manifest.json",
