@@ -38,7 +38,7 @@ const tunedLightEl = getDomElement("tunedLight");
 const highLightEl = getDomElement("highLight");
 const feedbackEl = getDomElement("feedback");
 const a4Select = getDomElement("a4Reference");
-const exerciseText = getDomElement("exerciseText");
+const exerciseText = document.getElementById("exerciseText");
 const debugPanelEl = document.getElementById("debugPanel");
 const debugLogEl = document.getElementById("debugLog");
 const currentCentsEl = getDomElement("currentCents");
@@ -644,7 +644,7 @@ document.querySelectorAll(".exercise").forEach((button) => {
   button.addEventListener("click", () => {
     document.querySelectorAll(".exercise").forEach((b) => b.classList.remove("active"));
     button.classList.add("active");
-    exerciseText.textContent = button.dataset.instruction;
+    if (exerciseText) exerciseText.textContent = button.dataset.instruction;
   });
 });
 
