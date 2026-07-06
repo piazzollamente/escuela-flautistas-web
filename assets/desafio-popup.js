@@ -95,7 +95,7 @@
     if(isPt){
       const support=document.querySelector('#preco .receipt-support');
       if(support){
-        support.textContent='Esta é a primeira edição de Embocadura Organizada. Você ainda pode acessar el programa completo por una fracción de su valor real mientras la primera generación de participantes del desafío continua abierta.';
+        support.textContent='Esta é a primeira edição de Embocadura Organizada. Você ainda pode acessar o programa completo por uma fração do seu valor real enquanto a primeira geração de participantes do desafio continua aberta.';
       }
     }
   }
