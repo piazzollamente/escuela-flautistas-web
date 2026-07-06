@@ -101,16 +101,19 @@
   }
 
   function testimonials(){
-    if(!isEs||document.getElementById('testimonios'))return;
-    const priceSection=document.getElementById('precio');
-    if(!priceSection||!priceSection.parentNode)return;
+    if(!isEs)return;
+    const problemSection=document.getElementById('problema');
+    if(!problemSection||!problemSection.parentNode)return;
 
-    const section=document.createElement('section');
-    section.className='section testimonials-section';
-    section.id='testimonios';
-    section.setAttribute('aria-labelledby','testimonios-title');
-    section.innerHTML='<div class="container"><div class="testimonials-heading"><div><div class="eyebrow">Testimonios reales</div><h2 id="testimonios-title">Lo que ya están descubriendo las alumnas</h2><p class="section-lead">Desde los primeros días, el desafío empieza a cambiar la manera de observar la embocadura, comprender las dificultades y organizar el estudio.</p></div><span class="testimonials-badge">Mensajes recibidos por WhatsApp</span></div><div class="testimonials-grid"><figure class="testimonial-card testimonial-card-featured"><div class="testimonial-image-wrap"><img src="/embocadura-organizada/Testimonio%202.jpeg" alt="Testimonio de Leticia, alumna de Embocadura Organizada, sobre el workbook y el acompañamiento del desafío" loading="lazy" decoding="async"></div><figcaption><strong>Una ruta que da tranquilidad</strong><span>“El workbook me encanta… las dificultades se van poniendo en su sitio.”</span></figcaption></figure><figure class="testimonial-card"><div class="testimonial-image-wrap"><img src="/embocadura-organizada/Testimonio%201.jpeg" alt="Testimonio de una alumna de Embocadura Organizada que agradece el material y cuenta sus descubrimientos" loading="lazy" decoding="async"></div><figcaption><strong>Descubrimientos desde el comienzo</strong><span>“Gracias por este tesoro de material.”</span></figcaption></figure></div><p class="testimonials-note">Capturas reales compartidas por participantes de la primera edición.</p></div>';
-    priceSection.parentNode.insertBefore(section,priceSection);
+    let section=document.getElementById('testimonios');
+    if(!section){
+      section=document.createElement('section');
+      section.className='section testimonials-section';
+      section.id='testimonios';
+      section.setAttribute('aria-labelledby','testimonios-title');
+      section.innerHTML='<div class="container"><div class="testimonials-heading"><div><div class="eyebrow">Testimonios reales</div><h2 id="testimonios-title">Lo que ya están descubriendo las alumnas</h2><p class="section-lead">Desde los primeros días, el desafío empieza a cambiar la manera de observar la embocadura, comprender las dificultades y organizar el estudio.</p></div><span class="testimonials-badge">Mensajes recibidos por WhatsApp</span></div><div class="testimonials-grid"><figure class="testimonial-card testimonial-card-featured"><div class="testimonial-image-wrap"><img src="/embocadura-organizada/Testimonio%202.jpeg" alt="Testimonio de Leticia, alumna de Embocadura Organizada, sobre el workbook y el acompañamiento del desafío" loading="lazy" decoding="async"></div><figcaption><strong>Una ruta que da tranquilidad</strong><span>“El workbook me encanta… las dificultades se van poniendo en su sitio.”</span></figcaption></figure><figure class="testimonial-card"><div class="testimonial-image-wrap"><img src="/embocadura-organizada/Testimonio%201.jpeg" alt="Testimonio de una alumna de Embocadura Organizada que agradece el material y cuenta sus descubrimientos" loading="lazy" decoding="async"></div><figcaption><strong>Descubrimientos desde el comienzo</strong><span>“Gracias por este tesoro de material.”</span></figcaption></figure></div><p class="testimonials-note">Capturas reales compartidas por participantes de la primera edición.</p></div>';
+    }
+    problemSection.parentNode.insertBefore(section,problemSection);
   }
 
   function css(){
