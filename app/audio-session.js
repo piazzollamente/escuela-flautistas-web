@@ -1,5 +1,14 @@
 (() => {
   "use strict";
+
+  const isIPad = /iPad/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  if (isIPad && !document.querySelector('script[data-edf-ipad-tuner]')) {
+    const ipadTunerScript = document.createElement("script");
+    ipadTunerScript.src = "./ipad-tuner-fix.js";
+    ipadTunerScript.dataset.edfIpadTuner = "true";
+    document.head.appendChild(ipadTunerScript);
+  }
+
   const $ = selector => document.querySelector(selector);
   let lastType = null;
 
