@@ -42,7 +42,7 @@
           highPass.Q.value = 0.55;
 
           lowPass.type = "lowpass";
-          lowPass.frequency.value = 2800;
+          lowPass.frequency.value = 5600;
           lowPass.Q.value = 0.55;
 
           gain.gain.value = 2.25;
@@ -80,7 +80,7 @@
         let previous = array[0] || 0;
         for (let i = 0; i < array.length; i++) {
           const current = array[i];
-          const softened = i ? current * 0.72 + previous * 0.28 : current;
+          const softened = i ? current * 0.90 + previous * 0.10 : current;
           array[i] = Math.max(-1, Math.min(1, softened * adaptiveGain));
           previous = current;
         }
