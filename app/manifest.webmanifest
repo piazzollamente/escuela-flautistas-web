@@ -1,0 +1,27 @@
+{
+  "name": "Sala de Estudio · Escuela de Flautistas",
+  "short_name": "Sala de Estudio",
+  "description": "Afinador, metrónomo e Hiperfoco para alumnos de Escuela de Flautistas.",
+  "lang": "es-CL",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f4efe6",
+  "theme_color": "#171513",
+  "categories": ["education", "music", "productivity"],
+  "icons": [
+    {
+      "src": "./icons/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

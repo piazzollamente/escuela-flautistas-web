@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#171513">
+  <meta name="description" content="Afinador, metrónomo e Hiperfoco para alumnos de Escuela de Flautistas.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Sala de Estudio">
+  <title>Sala de Estudio · Escuela de Flautistas</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon-192.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icons/icon-192.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <section id="accessGate" class="gate">
+    <div class="gate-card">
+      <div class="brand-mark" aria-hidden="true">EF</div>
+      <p class="eyebrow">ESCUELA DE FLAUTISTAS</p>
+      <h1>Tu sala de estudio</h1>
+      <p class="gate-copy">Herramientas de uso exclusivo para alumnos.</p>
+      <form id="accessForm" class="access-form">
+        <label for="accessCode">Código de acceso</label>
+        <div class="access-row">
+          <input id="accessCode" type="password" autocomplete="current-password" placeholder="Ingresa tu código" required>
+          <button type="submit" class="primary-button">Entrar</button>
+        </div>
+        <p id="accessError" class="form-error" role="alert"></p>
+      </form>
+      <p class="microcopy">La prueba guarda tus datos únicamente en este dispositivo.</p>
+    </div>
+  </section>
+
+  <div id="appShell" class="app-shell" hidden>
+    <header class="topbar">
+      <button class="brand-button" data-route="home" aria-label="Ir al inicio">
+        <span class="brand-mark small">EF</span>
+        <span>
+          <strong>ESCUELA DE FLAUTISTAS</strong>
+          <small>Sala de Estudio</small>
+        </span>
+      </button>
+      <div class="topbar-actions">
+        <button id="installButton" class="ghost-button compact" hidden>Instalar</button>
+        <button id="logoutButton" class="icon-button" aria-label="Cerrar acceso" title="Cerrar acceso">↗</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="view-home" class="view active" data-view="home">
+        <div class="hero">
+          <p class="eyebrow">ESTUDIA CON INTENCIÓN</p>
+          <h1>¿Qué vas a trabajar hoy?</h1>
+          <p>Precisión para escuchar, pulso para organizar y foco para sostener el proceso.</p>
+        </div>
+
+        <div class="weekly-card">
+          <div>
+            <span>Esta semana</span>
+            <strong id="weeklyTotal">0 min</strong>
+          </div>
+          <div class="weekly-track"><span id="weeklyProgress"></span></div>
+          <small id="weeklyMessage">Tu historial comenzará con la primera sesión.</small>
+        </div>
+
+        <div class="tool-grid">
+          <button class="tool-card tuner-card" data-route="tuner">
+            <span class="tool-number">01</span>
+            <span class="tool-icon">◉</span>
+            <strong>Afinador</strong>
+            <small>Escucha la estabilidad antes de corregir.</small>
+          </button>
+          <button class="tool-card metro-card" data-route="metronome">
+            <span class="tool-number">02</span>
+            <span class="tool-icon">⌁</span>
+            <strong>Metrónomo</strong>
+            <small>Construye pulso, subdivisión y autonomía.</small>
+          </button>
+          <button class="tool-card focus-card" data-route="focus">
+            <span class="tool-number">03</span>
+            <span class="tool-icon">◎</span>
+            <strong>Hiperfoco</strong>
+            <small>Una tarea concreta durante un tiempo posible.</small>
+          </button>
+        </div>
+
+        <div id="iosInstallTip" class="info-card" hidden>
+          <strong>Instalar en iPhone o iPad</strong>
+          <p>Abre el menú Compartir de Safari y elige <b>Agregar a pantalla de inicio</b>.</p>
+        </div>
+      </section>
+
+      <section id="view-tuner" class="view" data-view="tuner">
+        <div class="section-heading">
+          <button class="back-button" data-route="home">←</button>
+          <div>
+            <p class="eyebrow">HERRAMIENTA 01</p>
+            <h1>Afinador</h1>
+          </div>
+        </div>
+
+        <div class="tuner-layout">
+          <div class="panel tuner-main">
+            <div class="tuner-status-row">
+              <span id="tunerStatus" class="status-pill">Micrófono apagado</span>
+              <label class="calibration">La =
+                <input id="calibrationInput" type="number" min="430" max="450" value="440" inputmode="numeric">
+                Hz
+              </label>
+            </div>
+
+            <div class="note-display">
+              <span id="detectedNote">—</span>
+              <small id="detectedOctave"></small>
+            </div>
+            <div id="frequencyDisplay" class="frequency">0.0 Hz</div>
+
+            <div class="cent-scale" aria-label="Desviación en cents">
+              <span>-50</span><span>-25</span><span>0</span><span>+25</span><span>+50</span>
+              <div class="cent-line"></div>
+              <div id="centNeedle" class="cent-needle"></div>
+              <div class="in-tune-zone"></div>
+            </div>
+
+            <div id="centDisplay" class="cent-value">0 cents</div>
+            <p id="tunerAdvice" class="tuner-advice">Activa el micrófono y toca una nota larga.</p>
+            <button id="tunerToggle" class="primary-button large">Activar micrófono</button>
+          </div>
+
+          <aside class="panel reference-panel">
+            <p class="eyebrow">NOTA DE REFERENCIA</p>
+            <h2>Escucha antes de tocar</h2>
+            <label for="referenceNote">Nota</label>
+            <select id="referenceNote">
+              <option value="A4">La 4</option>
+              <option value="Bb4">Si♭ 4</option>
+              <option value="C5">Do 5</option>
+              <option value="D5">Re 5</option>
+              <option value="E5">Mi 5</option>
+            </select>
+            <button id="referenceToggle" class="secondary-button">Reproducir referencia</button>
+            <p class="microcopy">Usa audífonos para evitar que el afinador detecte la propia referencia.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section id="view-metronome" class="view" data-view="metronome">
+        <div class="section-heading">
+          <button class="back-button" data-route="home">←</button>
+          <div>
+            <p class="eyebrow">HERRAMIENTA 02</p>
+            <h1>Metrónomo</h1>
+          </div>
+        </div>
+
+        <div class="metro-layout">
+          <div class="panel metro-main">
+            <div id="pulseOrb" class="pulse-orb"><span id="pulseCount">1</span></div>
+            <div class="bpm-control">
+              <button id="bpmDown" class="step-button" aria-label="Bajar BPM">−</button>
+              <div>
+                <input id="bpmInput" type="number" min="30" max="240" value="72" inputmode="numeric">
+                <span>BPM</span>
+              </div>
+              <button id="bpmUp" class="step-button" aria-label="Subir BPM">+</button>
+            </div>
+            <input id="bpmRange" class="range" type="range" min="30" max="240" value="72">
+            <div class="metro-actions">
+              <button id="tapTempo" class="secondary-button">Tap tempo</button>
+              <button id="metronomeToggle" class="primary-button large">Comenzar</button>
+            </div>
+          </div>
+
+          <aside class="panel metro-settings">
+            <div class="setting-group">
+              <p class="eyebrow">COMPÁS</p>
+              <div class="time-signature">
+                <input id="numeratorInput" type="number" min="1" max="16" value="4" aria-label="Numerador">
+                <span>/</span>
+                <select id="denominatorInput" aria-label="Denominador">
+                  <option>2</option><option selected>4</option><option>8</option><option>16</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="setting-group">
+              <p class="eyebrow">SUBDIVISIÓN</p>
+              <div id="subdivisionButtons" class="segmented">
+                <button data-subdivision="1" class="active">1</button>
+                <button data-subdivision="2">2</button>
+                <button data-subdivision="3">3</button>
+                <button data-subdivision="4">4</button>
+                <button data-subdivision="5">5</button>
+                <button data-subdivision="6">6</button>
+              </div>
+            </div>
+
+            <div class="setting-group">
+              <div class="setting-title">
+                <p class="eyebrow">ACENTOS</p>
+                <small>Toca cada pulso para cambiarlo.</small>
+              </div>
+              <div id="accentPattern" class="accent-pattern"></div>
+            </div>
+
+            <div class="setting-group ramp-grid">
+              <div>
+                <label for="rampEvery">Subir cada</label>
+                <select id="rampEvery">
+                  <option value="0">No subir</option>
+                  <option value="2">2 compases</option>
+                  <option value="4">4 compases</option>
+                  <option value="8">8 compases</option>
+                </select>
+              </div>
+              <div>
+                <label for="rampAmount">Incremento</label>
+                <select id="rampAmount">
+                  <option value="2">+2 BPM</option>
+                  <option value="4">+4 BPM</option>
+                  <option value="5">+5 BPM</option>
+                </select>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="view-focus" class="view" data-view="focus">
+        <div class="section-heading">
+          <button class="back-button" data-route="home">←</button>
+          <div>
+            <p class="eyebrow">HERRAMIENTA 03</p>
+            <h1>Hiperfoco</h1>
+          </div>
+        </div>
+
+        <div class="focus-layout">
+          <div class="panel focus-main">
+            <div id="focusRing" class="focus-ring" style="--progress:0deg">
+              <div>
+                <span id="focusTime">25:00</span>
+                <small id="focusState">Preparar sesión</small>
+              </div>
+            </div>
+            <div class="preset-row">
+              <button data-minutes="10">10</button>
+              <button data-minutes="15">15</button>
+              <button data-minutes="25" class="active">25</button>
+              <button data-minutes="40">40</button>
+              <button data-minutes="50">50</button>
+            </div>
+            <div class="focus-actions">
+              <button id="focusReset" class="secondary-button">Reiniciar</button>
+              <button id="focusToggle" class="primary-button large">Comenzar</button>
+              <button id="focusAdd" class="secondary-button">+5 min</button>
+            </div>
+          </div>
+
+          <aside class="panel focus-settings">
+            <label for="focusCategory">¿Qué trabajarás?</label>
+            <select id="focusCategory">
+              <option>Sonido</option>
+              <option>Técnica</option>
+              <option>Articulación</option>
+              <option>Escalas</option>
+              <option>Lectura</option>
+              <option>Repertorio</option>
+              <option>Preparación corporal</option>
+              <option>Estudio libre</option>
+            </select>
+
+            <label for="focusObjective">Objetivo concreto</label>
+            <textarea id="focusObjective" rows="3" maxlength="160" placeholder="Ej.: estabilizar el aire en el inicio de la frase."></textarea>
+
+            <label for="customMinutes">Duración personalizada</label>
+            <div class="inline-field">
+              <input id="customMinutes" type="number" min="1" max="180" value="25" inputmode="numeric">
+              <span>minutos</span>
+            </div>
+
+            <label class="toggle-row">
+              <input id="notificationToggle" type="checkbox">
+              <span>Avisarme al terminar</span>
+            </label>
+            <label class="toggle-row">
+              <input id="wakeLockToggle" type="checkbox" checked>
+              <span>Mantener pantalla activa</span>
+            </label>
+            <p class="microcopy">En esta versión web, el contador de pantalla bloqueada no está disponible. La hora de término se conserva aunque vuelvas más tarde.</p>
+          </aside>
+        </div>
+
+        <div class="panel history-panel">
+          <div class="history-heading">
+            <div>
+              <p class="eyebrow">REGISTRO LOCAL</p>
+              <h2>Sesiones recientes</h2>
+            </div>
+            <button id="clearHistory" class="ghost-button compact">Borrar historial</button>
+          </div>
+          <div id="historyList" class="history-list">
+            <p class="empty-state">Aún no hay sesiones terminadas.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navegación principal">
+      <button data-route="home" class="active"><span>⌂</span>Inicio</button>
+      <button data-route="tuner"><span>◉</span>Afinador</button>
+      <button data-route="metronome"><span>⌁</span>Metrónomo</button>
+      <button data-route="focus"><span>◎</span>Hiperfoco</button>
+    </nav>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </div>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
