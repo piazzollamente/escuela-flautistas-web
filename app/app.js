@@ -454,6 +454,8 @@
       } else {
         state.focus.running = false;
         state.focus.remaining = 0;
+        setTimeout(() => finishFocus({ silent: true }), 0);
+        return;
       }
     }
     updateFocusDisplay();
@@ -498,7 +500,7 @@
     updateFocusDisplay();
   }
 
-  async function finishFocus() {
+  async function finishFocus({ silent = false } = {}) {
     clearInterval(state.focus.interval);
     state.focus.running = false;
     state.focus.endAt = null;
@@ -518,12 +520,19 @@
     });
     localStorage.setItem("edf_history", JSON.stringify(history.slice(0, 120)));
     localStorage.removeItem("edf_focus_state");
-    playCompletionSound();
-    if ($("#notificationToggle").checked && Notification.permission === "granted") {
-      new Notification("Hiperfoco terminado", {
-        body: `${completedMinutes} minutos de ${$("#focusCategory").value.toLowerCase()}.`,
-        icon: "./icons/icon-192.svg"
-      });
+    if (!silent) {
+      playCompletionSound();
+      if ($("#notificationToggle").checked && "Notification" in window && Notification.permission === "granted") {
+        const options = {
+          body: `${completedMinutes} minutos de ${$("#focusCategory").value.toLowerCase()}.`,
+          icon: "./icons/icon-192.svg"
+        };
+        try {
+          const registration = "serviceWorker" in navigator ? await navigator.serviceWorker.ready : null;
+          if (registration) await registration.showNotification("Hiperfoco terminado", options);
+          else new Notification("Hiperfoco terminado", options);
+        } catch (_) {}
+      }
     }
     renderHistory();
     updateDashboard();
@@ -561,7 +570,12 @@
   $("#focusCategory").addEventListener("change", persistFocus);
   $("#focusObjective").addEventListener("input", persistFocus);
   $("#notificationToggle").addEventListener("change", async event => {
-    if (!event.target.checked || !("Notification" in window)) return;
+    if (!event.target.checked) return;
+    if (!("Notification" in window)) {
+      event.target.checked = false;
+      toast("Este navegador no admite notificaciones web.");
+      return;
+    }
     const permission = await Notification.requestPermission();
     if (permission !== "granted") {
       event.target.checked = false;
