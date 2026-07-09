@@ -1,4 +1,4 @@
-const CACHE = "edf-sala-estudio-v4";
+const CACHE = "edf-sala-estudio-v5";
 const ASSETS = [
   "./",
   "./index.html",
@@ -7,6 +7,7 @@ const ASSETS = [
   "./focus-dock.js",
   "./audio-session.js",
   "./ipad-tuner-fix.js",
+  "./high-register-tuner.js",
   "./manifest.webmanifest",
   "./icons/icon-192.svg",
   "./icons/icon-512.svg"
