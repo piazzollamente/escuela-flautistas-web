@@ -1,6 +1,13 @@
 (() => {
   "use strict";
 
+  if (!document.querySelector('script[data-edf-audio-session]')) {
+    const audioSessionScript = document.createElement("script");
+    audioSessionScript.src = "./audio-session.js";
+    audioSessionScript.dataset.edfAudioSession = "true";
+    document.head.appendChild(audioSessionScript);
+  }
+
   const $ = selector => document.querySelector(selector);
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
