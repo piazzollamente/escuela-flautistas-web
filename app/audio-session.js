@@ -5,8 +5,17 @@
   if (isIPad && !document.querySelector('script[data-edf-ipad-tuner]')) {
     const ipadTunerScript = document.createElement("script");
     ipadTunerScript.src = "./ipad-tuner-fix.js";
+    ipadTunerScript.async = false;
     ipadTunerScript.dataset.edfIpadTuner = "true";
     document.head.appendChild(ipadTunerScript);
+  }
+
+  if (!document.querySelector('script[data-edf-high-register]')) {
+    const highRegisterScript = document.createElement("script");
+    highRegisterScript.src = "./high-register-tuner.js";
+    highRegisterScript.async = false;
+    highRegisterScript.dataset.edfHighRegister = "true";
+    document.head.appendChild(highRegisterScript);
   }
 
   const $ = selector => document.querySelector(selector);
