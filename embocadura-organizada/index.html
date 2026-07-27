@@ -30,10 +30,11 @@
     .compare{overflow:hidden;padding:0}.compare h3{padding:25px 30px;background:var(--ink);color:#fff;font-family:var(--sans);font-size:.86rem;letter-spacing:.1em;text-transform:uppercase}.compare.organized h3{background:var(--red)}.compare .list{padding:5px 30px 30px}.audience-close{margin-top:30px;font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:var(--ink)}.portrait{min-height:560px;border-radius:32px;background:url('../assets/valentina-4.png') center/cover no-repeat;box-shadow:var(--shadow)}.bio p+p{margin-top:16px}.credentials{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px}.credential{padding:8px 12px;border-radius:999px;background:var(--mint);font-size:.76rem;font-weight:800}
     .offer{max-width:800px;margin:auto;text-align:center}.offer .lead{margin-inline:auto}.price{display:block;margin:25px 0 10px;color:var(--red);font-family:var(--serif);font-size:clamp(5rem,13vw,8rem);font-weight:700;line-height:.8;letter-spacing:-.06em}.offer-facts{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:28px 0}.offer-facts span{padding:8px 12px;border-radius:999px;background:var(--mint);font-size:.76rem;font-weight:800}.offer .actions,.final .actions{justify-content:center}
     .faq{display:grid;gap:12px;margin-top:38px}.faq details{padding:20px 24px;border:1px solid rgba(255,255,255,.17);border-radius:18px;background:rgba(255,255,255,.06)}.faq summary{cursor:pointer;color:#fff;font-weight:800}.faq details p{margin-top:12px}.final{text-align:center}.final h2,.final .lead{margin-inline:auto}.mobile-cta{position:fixed;left:12px;right:12px;bottom:12px;z-index:30;display:none;align-items:center;justify-content:space-between;gap:10px;padding:10px;border:1px solid rgba(17,17,17,.1);border-radius:20px;background:rgba(255,255,255,.96);box-shadow:var(--shadow)}.mobile-cta strong{font-size:.8rem}.mobile-cta span{display:block;color:var(--muted);font-size:.7rem}.mobile-cta .btn{min-height:46px;padding:10px 14px;font-size:.68rem}footer{padding:32px 20px;text-align:center;color:var(--muted);font-size:.8rem}
+    .testimonials-section{background:rgba(255,255,255,.72);padding:clamp(62px,7vw,86px) 0}.testimonials-shell{width:min(900px,calc(100% - 40px));margin-inline:auto}.testimonials-shell h2{margin-bottom:30px}.testimonials-carousel{position:relative}.testimonials-viewport{display:flex;gap:20px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:rgba(17,17,17,.24) transparent;padding:5px 4px 14px}.testimonial-item{flex:0 0 clamp(280px,34%,320px);height:420px;margin:0;padding:7px;border:1px solid rgba(17,17,17,.12);border-radius:18px;background:var(--beige);box-shadow:0 8px 22px rgba(17,17,17,.055);cursor:zoom-in;scroll-snap-align:start}.testimonial-item img{width:100%;height:100%;object-fit:contain;border-radius:12px}.testimonial-item:focus-visible,.testimonial-arrow:focus-visible,.testimonial-modal-close:focus-visible{outline:3px solid #16776b;outline-offset:3px}.testimonial-arrow{position:absolute;top:calc(50% - 23px);z-index:2;display:grid;place-items:center;width:38px;height:38px;padding:0;border:1px solid rgba(17,17,17,.14);border-radius:50%;background:rgba(255,255,255,.94);color:var(--ink);box-shadow:0 5px 16px rgba(17,17,17,.09);font:400 1.75rem/1 var(--serif);cursor:pointer}.testimonial-arrow:hover{background:var(--mint)}.testimonial-prev{left:-18px}.testimonial-next{right:-18px}.testimonial-modal[hidden]{display:none}.testimonial-modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:28px;background:rgba(17,17,17,.88);overflow:auto}.testimonial-modal-image{display:block;max-width:min(100%,1100px);max-height:calc(100vh - 56px);margin:auto;object-fit:contain}.testimonial-modal-close{position:fixed;top:14px;right:18px;z-index:101;display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid rgba(255,255,255,.6);border-radius:50%;background:rgba(17,17,17,.76);color:#fff;font:400 2rem/1 var(--sans);cursor:pointer}
     .reveal{opacity:0;transform:translateY(18px);transition:opacity .65s,transform .65s}.reveal.visible{opacity:1;transform:none}
-    @media(max-width:900px){.hero-grid,.split,.includes-layout{grid-template-columns:1fr}.hero .visual{max-width:620px}.grid-3,.grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}.sticky-visual{position:static}.nav-links>a:not(.btn){display:none}.mobile-cta{display:flex}body{padding-bottom:82px}}
-    @media(max-width:620px){.container{width:min(var(--max),calc(100% - 28px))}.section{padding:68px 0}.hero{padding:58px 0}.hero h1{font-size:clamp(3.2rem,16vw,4.6rem)}.grid-2,.grid-3,.grid-4,.includes-layout .grid{grid-template-columns:1fr}.actions .btn{width:100%}.nav .btn{padding:10px 13px;font-size:.67rem}.logo{font-size:.65rem}.portrait{min-height:420px}.price{font-size:5rem}.mobile-cta>div{min-width:0}.mobile-cta strong{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.btn{transition:none}}
+    @media(max-width:900px){.hero-grid,.split,.includes-layout{grid-template-columns:1fr}.hero .visual{max-width:620px}.grid-3,.grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}.sticky-visual{position:static}.nav-links>a:not(.btn){display:none}.mobile-cta{display:flex}body{padding-bottom:82px}.testimonial-item{flex-basis:clamp(280px,43%,310px)}}
+    @media(max-width:620px){.container{width:min(var(--max),calc(100% - 28px))}.section{padding:68px 0}.hero{padding:58px 0}.hero h1{font-size:clamp(3.2rem,16vw,4.6rem)}.grid-2,.grid-3,.grid-4,.includes-layout .grid{grid-template-columns:1fr}.actions .btn{width:100%}.nav .btn{padding:10px 13px;font-size:.67rem}.logo{font-size:.65rem}.portrait{min-height:420px}.price{font-size:5rem}.mobile-cta>div{min-width:0}.mobile-cta strong{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.testimonials-section{padding:58px 0}.testimonials-shell{width:calc(100% - 28px)}.testimonials-shell h2{margin-bottom:24px}.testimonials-viewport{gap:16px;padding-inline:2px}.testimonial-item{flex-basis:82%;height:min(420px,112vw)}.testimonial-prev{left:-8px}.testimonial-next{right:-8px}.testimonial-arrow{width:34px;height:34px;font-size:1.55rem}.testimonial-modal{padding:54px 12px 18px}.testimonial-modal-image{max-height:none}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.btn{transition:none}.testimonials-viewport{scroll-behavior:auto}}
   </style>
   <script src="https://cdn.brevo.com/js/sdk-loader.js" async></script>
   <script>window.Brevo=window.Brevo||[];Brevo.push(["init",{client_key:"gu4ikku1gux285thidd4251y"}]);</script>
@@ -106,6 +107,20 @@
       </div>
     </div></section>
 
+    <section class="section testimonials-section" id="testimonios" aria-labelledby="testimonios-title"><div class="testimonials-shell">
+      <h2 id="testimonios-title">Experiencias reales dentro del desafío</h2>
+      <div class="testimonials-carousel">
+        <button class="testimonial-arrow testimonial-prev" type="button" aria-label="Testimonio anterior">‹</button>
+        <div class="testimonials-viewport" tabindex="0" aria-label="Carrusel de testimonios">
+          <button class="testimonial-item" type="button" aria-label="Ampliar testimonio 4"><img src="/embocadura-organizada/Testimonio%204.jpeg" alt="Testimonio real de una persona participante de Embocadura Organizada" loading="lazy" decoding="async" width="1261" height="353"></button>
+          <button class="testimonial-item" type="button" aria-label="Ampliar testimonio 3"><img src="/embocadura-organizada/Testimonio%203.jpeg" alt="Testimonio real de una persona participante de Embocadura Organizada" loading="lazy" decoding="async" width="1095" height="809"></button>
+          <button class="testimonial-item" type="button" aria-label="Ampliar testimonio 2"><img src="/embocadura-organizada/Testimonio%202.jpeg" alt="Testimonio real de una persona participante de Embocadura Organizada" loading="lazy" decoding="async" width="1284" height="945"></button>
+          <button class="testimonial-item" type="button" aria-label="Ampliar testimonio 1"><img src="/embocadura-organizada/Testimonio%201.jpeg" alt="Testimonio real de una persona participante de Embocadura Organizada" loading="lazy" decoding="async" width="1284" height="1193"></button>
+        </div>
+        <button class="testimonial-arrow testimonial-next" type="button" aria-label="Testimonio siguiente">›</button>
+      </div>
+    </div></section>
+
     <section class="section mint"><div class="container split">
       <div><div class="eyebrow reveal">Una práctica para la vida real</div><h2 class="reveal">Este desafío fue creado para ti si…</h2><p class="audience-close reveal">Hacer música por disfrute no significa hacerlo sin profundidad.</p></div>
       <ul class="list reveal"><li>Trabajas y no puedes dedicar varias horas diarias a la flauta.</li><li>No vives de la música, pero quieres hacerla bien.</li><li>Buscas una guía seria sin entrar en una relación rígida con el instrumento.</li><li>Quieres comprender tu sonido, no limitarte a repetir ejercicios.</li><li>Valoras estudiar con técnica, profundidad y claridad.</li><li>Necesitas que la práctica pueda convivir con tu vida adulta.</li><li>Quieres recuperar una sensación de dirección al estudiar.</li></ul>
@@ -153,12 +168,50 @@
   </main>
 
   <div class="mobile-cta"><div><strong>Embocadura Organizada</strong><span>21 días · USD 39</span></div><a class="btn hotmart-fb hotmart__button-checkout" href="https://pay.hotmart.com/X106484678E?checkoutMode=2">Quiero comenzar el desafío</a></div>
+  <div class="testimonial-modal" role="dialog" aria-modal="true" aria-label="Testimonio ampliado" hidden>
+    <button class="testimonial-modal-close" type="button" aria-label="Cerrar testimonio ampliado">×</button>
+    <img class="testimonial-modal-image" alt="">
+  </div>
   <footer>Escuela de Flautistas · Formación musical online</footer>
   <script>
     const items=document.querySelectorAll('.reveal');
     if(matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver'in window)){items.forEach(i=>i.classList.add('visible'))}
     else{const o=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');o.unobserve(e.target)}}),{threshold:.1});items.forEach(i=>o.observe(i))}
+    const testimonialSection=document.getElementById('testimonios');
+    if(testimonialSection){
+      const viewport=testimonialSection.querySelector('.testimonials-viewport');
+      const slides=[...testimonialSection.querySelectorAll('.testimonial-item')];
+      const previous=testimonialSection.querySelector('.testimonial-prev');
+      const next=testimonialSection.querySelector('.testimonial-next');
+      const modal=document.querySelector('.testimonial-modal');
+      const modalImage=modal.querySelector('.testimonial-modal-image');
+      const modalClose=modal.querySelector('.testimonial-modal-close');
+      const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let autoplayTimer=0,autoplayIndex=0,autoplayStarted=false,manualInteraction=false,programmaticScrollUntil=0,lastTrigger=null,bodyOverflow='';
+      const step=()=>slides[0].getBoundingClientRect().width+parseFloat(getComputedStyle(viewport).gap||0);
+      const cancelAutoplay=(manual=false)=>{clearTimeout(autoplayTimer);autoplayTimer=0;if(manual)manualInteraction=true};
+      const move=(direction)=>viewport.scrollBy({left:step()*direction,behavior:reduced?'auto':'smooth'});
+      const autoplay=()=>{if(manualInteraction||document.hidden||autoplayIndex>=slides.length-1)return;autoplayIndex+=1;programmaticScrollUntil=Date.now()+800;move(1);if(autoplayIndex<slides.length-1)autoplayTimer=setTimeout(autoplay,7000);else autoplayTimer=0};
+      const startAutoplay=()=>{if(reduced||autoplayStarted||manualInteraction||document.hidden)return;autoplayStarted=true;autoplayTimer=setTimeout(autoplay,2000)};
+      const manualMove=direction=>{cancelAutoplay(true);move(direction)};
+      previous.addEventListener('click',()=>manualMove(-1));
+      next.addEventListener('click',()=>manualMove(1));
+      viewport.addEventListener('pointerenter',()=>cancelAutoplay(true));
+      testimonialSection.addEventListener('focusin',()=>cancelAutoplay(true));
+      viewport.addEventListener('pointerdown',()=>cancelAutoplay(true),{passive:true});
+      viewport.addEventListener('touchstart',()=>cancelAutoplay(true),{passive:true});
+      viewport.addEventListener('wheel',()=>cancelAutoplay(true),{passive:true});
+      viewport.addEventListener('scroll',()=>{if(Date.now()>programmaticScrollUntil)cancelAutoplay(true)},{passive:true});
+      viewport.addEventListener('keydown',event=>{if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();manualMove(event.key==='ArrowRight'?1:-1)}else cancelAutoplay(true)});
+      const closeModal=()=>{if(modal.hidden)return;modal.hidden=true;modalImage.removeAttribute('src');document.body.style.overflow=bodyOverflow;lastTrigger?.focus();lastTrigger=null};
+      slides.forEach(slide=>slide.addEventListener('click',()=>{cancelAutoplay(true);lastTrigger=slide;bodyOverflow=document.body.style.overflow;document.body.style.overflow='hidden';const image=slide.querySelector('img');modalImage.src=image.currentSrc||image.src;modalImage.alt=image.alt;modal.hidden=false;modalClose.focus()}));
+      modalClose.addEventListener('click',closeModal);
+      modal.addEventListener('click',event=>{if(event.target===modal)closeModal()});
+      modal.addEventListener('keydown',event=>{if(event.key==='Escape'){event.preventDefault();closeModal()}else if(event.key==='Tab'){event.preventDefault();modalClose.focus()}});
+      document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAutoplay()});
+      if('IntersectionObserver'in window){new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)startAutoplay();else cancelAutoplay()}),{threshold:.25}).observe(testimonialSection)}else startAutoplay();
+    }
   </script>
-  <script src="/assets/desafio-popup.js?v=39" defer></script>
+  <script src="/assets/desafio-popup.js?v=43" defer></script>
 </body>
 </html>
