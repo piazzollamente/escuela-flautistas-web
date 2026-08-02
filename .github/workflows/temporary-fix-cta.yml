@@ -1,0 +1,58 @@
+name: Temporary CTA repair
+
+on:
+  push:
+    paths:
+      - '.github/workflows/temporary-fix-cta.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Restore baseline and update mobile CTA
+        shell: bash
+        run: |
+          git checkout 6300b7bd7dd1b4a00850f2a8dfa08d62029d05f2 -- mentorias.html
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('mentorias.html')
+          text = path.read_text(encoding='utf-8')
+
+          old_footer = '''    .footer{padding:28px 0 42px;border-top:1px solid rgba(57,50,50,.10);color:rgba(57,50,50,.62);font-size:.9rem;font-weight:600}\n'''
+          if old_footer in text:
+              pass
+
+          old_base = '''    .footer{padding:28px 20px 42px;border-top:1px solid var(--line);color:var(--muted);font-size:.75rem;text-align:center}\n    .mobile-cta{display:none}\n'''
+          new_base = '''    .footer{padding:28px 20px 42px;border-top:1px solid var(--line);color:var(--muted);font-size:.75rem;text-align:center}\n    .mobile-cta{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;padding:10px max(14px,env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left));border-top:1px solid var(--line);background:rgba(252,250,247,.97);box-shadow:0 -8px 24px rgba(17,17,17,.10);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}\n    .mobile-cta .btn{width:100%;min-height:56px;gap:10px;padding:14px 18px;font-size:.72rem}\n    .mobile-cta .whatsapp-icon{width:21px;height:21px;flex:0 0 auto;fill:currentColor}\n'''
+          if text.count(old_base) != 1:
+              raise SystemExit(f'Base CTA block not found exactly once: {text.count(old_base)}')
+          text = text.replace(old_base, new_base)
+
+          old_mobile = '''      .mobile-cta{position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));z-index:60;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:12px 12px 12px 16px;border:1px solid var(--line);background:rgba(252,250,247,.97);box-shadow:0 10px 35px rgba(17,17,17,.14)}\n      .mobile-cta strong,.mobile-cta span{display:block}\n      .mobile-cta strong{font-size:.83rem}\n      .mobile-cta span{color:var(--muted);font-size:.69rem}\n      .mobile-cta .btn{min-height:48px;padding:12px 16px;font-size:.65rem}\n    }\n    @media(max-width:430px){\n      .mobile-cta{grid-template-columns:1fr}\n      .mobile-cta>div{display:none}\n      .mobile-cta .btn{width:100%}\n'''
+          new_mobile = '''      body{padding-bottom:calc(86px + env(safe-area-inset-bottom))}\n      .mobile-cta{display:block}\n'''
+          if text.count(old_mobile) != 1:
+              raise SystemExit(f'Mobile CTA media block not found exactly once: {text.count(old_mobile)}')
+          text = text.replace(old_mobile, new_mobile)
+
+          old_html = '''  <div class="mobile-cta"><div><strong>Pack Transformación</strong><span>12 clases · $427.000 CLP</span></div><a class="btn" href="https://wa.me/56981527088?text=Hola%20Valentina%2C%20quiero%20recibir%20informaci%C3%B3n%20sobre%20Flautista%20Diamante%20%E2%80%94%20Pack%20Transformaci%C3%B3n%20de%2012%20clases%20%28%24427.000%20CLP%29.%20Mi%20punto%20de%20partida%20con%20la%20flauta%20es%3A" target="_blank" rel="noopener" aria-label="Consultar el Pack Transformación por WhatsApp" onclick="gtag('event','cta_whatsapp_mobile_transformacion');">WhatsApp</a></div>\n'''
+          new_html = '''  <div class="mobile-cta"><a class="btn" href="https://wa.me/56981527088?text=Hola%20Valentina%2C%20quiero%20recibir%20informaci%C3%B3n%20sobre%20Flautista%20Diamante%20%E2%80%94%20Pack%20Transformaci%C3%B3n%20de%2012%20clases%20%28%24427.000%20CLP%29.%20Mi%20punto%20de%20partida%20con%20la%20flauta%20es%3A" target="_blank" rel="noopener" aria-label="Escribirme por WhatsApp sobre el Pack Transformación" onclick="gtag('event','cta_whatsapp_mobile_transformacion');"><svg class="whatsapp-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M16.04 3.2A12.72 12.72 0 0 0 5.1 22.39L3.8 28.8l6.56-1.22A12.74 12.74 0 1 0 16.04 3.2Zm0 22.98a10.22 10.22 0 0 1-5.2-1.42l-.37-.22-3.89.72.75-3.78-.25-.39a10.2 10.2 0 1 1 8.96 5.09Zm5.86-7.63c-.32-.16-1.89-.93-2.18-1.04-.29-.11-.5-.16-.72.16-.21.32-.82 1.04-1 1.25-.19.21-.37.24-.69.08-.32-.16-1.35-.5-2.58-1.59-.95-.85-1.6-1.9-1.78-2.22-.19-.32-.02-.49.14-.65.14-.14.32-.37.48-.56.16-.19.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.72-1.73-.98-2.37-.26-.62-.52-.54-.72-.55l-.61-.01c-.21 0-.56.08-.85.4-.29.32-1.12 1.09-1.12 2.66 0 1.57 1.15 3.09 1.31 3.3.16.21 2.26 3.45 5.47 4.84.76.33 1.36.53 1.82.68.77.24 1.47.21 2.02.13.62-.09 1.89-.77 2.16-1.52.27-.75.27-1.39.19-1.52-.08-.13-.29-.21-.61-.37Z"/></svg><span>Escríbeme por WhatsApp</span></a></div>\n'''
+          if text.count(old_html) != 1:
+              raise SystemExit(f'Mobile CTA markup not found exactly once: {text.count(old_html)}')
+          text = text.replace(old_html, new_html)
+
+          path.write_text(text, encoding='utf-8')
+          PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add mentorias.html
+          git commit -m "Mejorar CTA móvil de WhatsApp"
+          git push
