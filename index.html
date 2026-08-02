@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Escuela de Flautistas · Programas y recursos</title>
-  <meta name="description" content="Elige entre los programas y acompañamientos premium de Escuela de Flautistas o accede gratis a la masterclass y al afinador cromático.">
+  <meta name="description" content="Accede a los programas y acompañamientos premium de Escuela de Flautistas o utiliza gratis la masterclass y el afinador cromático.">
   <link rel="canonical" href="https://escueladeflautistas.cl/">
   <link rel="icon" type="image/png" href="/assets/favicon.png">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_CL">
   <meta property="og:url" content="https://escueladeflautistas.cl/">
   <meta property="og:title" content="Escuela de Flautistas · Programas y recursos">
-  <meta property="og:description" content="Acompañamiento premium y recursos gratuitos para avanzar con tu flauta.">
+  <meta property="og:description" content="Programas premium y recursos gratuitos para avanzar con tu flauta.">
   <meta property="og:image" content="https://escueladeflautistas.cl/assets/valentina-2.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Escuela de Flautistas · Programas y recursos">
-  <meta name="twitter:description" content="Desafío 21 días, mentorías individuales, masterclass y afinador cromático.">
+  <meta name="twitter:description" content="Desafío 21 días, mentorías individuales, masterclass gratuita y afinador cromático.">
   <meta name="twitter:image" content="https://escueladeflautistas.cl/assets/valentina-2.png">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCXF3B1KV9"></script>
   <script>
@@ -26,6 +26,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://img.youtube.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root{
@@ -52,7 +53,7 @@
       height:100dvh;
       display:grid;
       place-items:center;
-      padding:max(18px,env(safe-area-inset-top)) max(18px,env(safe-area-inset-right)) max(18px,env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left));
+      padding:max(18px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(18px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));
       overflow:hidden;
       isolation:isolate;
       background:
@@ -86,160 +87,158 @@
       pointer-events:none;
     }
     .shell{
-      width:min(100%,920px);
-      height:min(100%,760px);
-      min-height:0;
+      width:min(100%,640px);
+      max-height:100%;
       display:grid;
       grid-template-rows:auto minmax(0,1fr) auto;
-      gap:14px;
+      gap:13px;
     }
     .header{text-align:center}
-    .brand{margin:0 0 9px;font-size:.68rem;font-weight:900;letter-spacing:.19em;text-transform:uppercase}
+    .brand{margin:0 0 9px;font-size:.66rem;font-weight:900;letter-spacing:.19em;text-transform:uppercase}
     .brand span{color:var(--red);margin-left:.55em}
-    h1{max-width:760px;margin:0 auto;font-family:var(--serif);font-size:clamp(2.55rem,5.8vw,4.55rem);font-weight:600;letter-spacing:-.045em;line-height:.9}
-    .intro{max-width:610px;margin:9px auto 0;color:var(--muted);font-size:clamp(.8rem,1.3vw,.94rem);font-weight:500;line-height:1.4}
-    .content{min-height:0;display:grid;grid-template-rows:minmax(0,1fr) auto;gap:13px}
-    .group{min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr)}
-    .group-head{display:flex;align-items:center;gap:11px;margin-bottom:7px}
-    .group-head::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,rgba(17,17,17,.16),transparent)}
-    .group-title{margin:0;color:rgba(17,17,17,.56);font-size:.6rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase;white-space:nowrap}
-    .pro-grid{min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-    .pro-card{
-      --shadow-color:rgba(17,17,17,.12);
+    h1{max-width:620px;margin:0 auto;font-family:var(--serif);font-size:clamp(2.45rem,6vw,4.2rem);font-weight:600;letter-spacing:-.045em;line-height:.9}
+    .intro{max-width:540px;margin:9px auto 0;color:var(--muted);font-size:clamp(.78rem,1.35vw,.92rem);font-weight:500;line-height:1.38}
+    .directory{min-height:0;display:grid;align-content:center;gap:9px}
+    .group{display:grid;gap:6px}
+    .group-label{display:flex;align-items:center;gap:10px;margin:0;color:rgba(17,17,17,.5);font-size:.54rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase;white-space:nowrap}
+    .group-label::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,rgba(17,17,17,.16),transparent)}
+    .link-list{display:grid;gap:7px}
+    .link-card{
+      --accent:rgba(217,242,238,.9);
+      --shadow-color:rgba(17,17,17,.11);
       position:relative;
-      min-height:0;
+      min-height:88px;
       display:grid;
-      grid-template-columns:clamp(125px,16vw,168px) minmax(0,1fr) 38px;
+      grid-template-columns:82px minmax(0,1fr) 36px;
       align-items:center;
-      gap:15px;
+      gap:14px;
       overflow:hidden;
-      padding:9px 13px 9px 9px;
-      border:1px solid rgba(255,255,255,.86);
-      border-radius:24px;
+      padding:8px 13px 8px 8px;
+      border:1px solid rgba(255,255,255,.9);
+      border-radius:22px;
       background:rgba(255,255,255,.91);
-      box-shadow:0 18px 40px rgba(17,17,17,.11),0 6px 16px var(--shadow-color),inset 0 1px 0 rgba(255,255,255,.98),inset 0 0 0 1px var(--line);
+      box-shadow:
+        0 16px 34px rgba(17,17,17,.105),
+        0 5px 13px var(--shadow-color),
+        inset 0 1px 0 rgba(255,255,255,.98),
+        inset 0 0 0 1px var(--line);
+      transform:translateZ(0);
       transition:transform .22s cubic-bezier(.2,.8,.2,1),box-shadow .22s ease,border-color .22s ease;
     }
-    .pro-card::after{
+    .link-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:linear-gradient(120deg,rgba(255,255,255,.3),transparent 36%,rgba(255,255,255,.08) 70%,transparent);
+    }
+    .link-card::after{
       content:"";
       position:absolute;
       z-index:0;
-      width:140px;
+      width:120px;
       aspect-ratio:1;
-      right:-74px;
-      bottom:-90px;
+      right:-64px;
+      bottom:-78px;
       border-radius:50%;
       background:var(--accent);
       pointer-events:none;
       transition:transform .25s ease;
     }
-    .pro-card:hover,.pro-card:focus-visible{transform:translateY(-4px);border-color:rgba(227,28,35,.24);box-shadow:0 26px 54px rgba(17,17,17,.15),0 10px 22px var(--shadow-color),inset 0 1px 0 #fff,inset 0 0 0 1px rgba(227,28,35,.12)}
-    .pro-card:hover::after,.pro-card:focus-visible::after{transform:scale(1.12)}
-    .pro-card:active{transform:translateY(1px) scale(.992);box-shadow:0 8px 18px rgba(17,17,17,.12),0 3px 8px var(--shadow-color),inset 0 2px 5px rgba(17,17,17,.06)}
-    .pro-card:focus-visible,.free-button:focus-visible{outline:3px solid var(--red);outline-offset:3px}
-    .visual{position:relative;z-index:1;width:100%;height:100%;min-height:112px;max-height:154px;overflow:hidden;border-radius:17px;background:var(--beige);box-shadow:0 7px 17px rgba(17,17,17,.13)}
-    .visual img{width:100%;height:100%;object-fit:cover;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
-    .pro-card:hover .visual img,.pro-card:focus-visible .visual img{transform:scale(1.045)}
-    .challenge .visual img{object-position:center 18%}
-    .mentoring .visual img{object-position:center 20%}
-    .copy{position:relative;z-index:1;min-width:0}
-    .category{display:block;margin-bottom:5px;color:var(--red);font-size:.54rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase}
-    .title{display:block;font-family:var(--serif);font-size:clamp(1.55rem,2.6vw,2.15rem);font-weight:600;letter-spacing:-.03em;line-height:.94}
-    .description{display:block;margin-top:7px;color:var(--muted);font-size:.69rem;font-weight:500;line-height:1.35}
-    .cta{display:block;margin-top:8px;font-size:.55rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
-    .arrow{position:relative;z-index:1;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--ink);color:#fff;font-size:.9rem;box-shadow:0 8px 16px rgba(17,17,17,.2);transition:transform .2s ease,background .2s ease,box-shadow .2s ease}
-    .pro-card:hover .arrow,.pro-card:focus-visible .arrow,.free-button:hover .arrow,.free-button:focus-visible .arrow{transform:translate(2px,-2px);background:var(--red);box-shadow:0 11px 22px rgba(227,28,35,.27)}
-    .challenge{--accent:rgba(227,28,35,.14);--shadow-color:rgba(227,28,35,.13)}
-    .mentoring{--accent:rgba(217,242,238,.94);--shadow-color:rgba(78,153,143,.16)}
-    .free-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-    .free-button{
-      position:relative;
-      min-height:68px;
-      display:grid;
-      grid-template-columns:42px minmax(0,1fr) 32px;
-      align-items:center;
-      gap:11px;
-      padding:9px 11px;
-      border:1px solid rgba(17,17,17,.1);
-      border-radius:20px;
-      background:rgba(255,255,255,.84);
-      box-shadow:0 12px 27px rgba(17,17,17,.085),inset 0 1px 0 rgba(255,255,255,.98);
-      transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
+    .link-card:hover,.link-card:focus-visible{
+      transform:translateY(-3px) scale(1.004);
+      border-color:rgba(227,28,35,.24);
+      box-shadow:
+        0 23px 48px rgba(17,17,17,.145),
+        0 9px 20px var(--shadow-color),
+        inset 0 1px 0 #fff,
+        inset 0 0 0 1px rgba(227,28,35,.12);
     }
-    .free-button:hover,.free-button:focus-visible{transform:translateY(-3px);border-color:rgba(227,28,35,.24);box-shadow:0 18px 34px rgba(17,17,17,.13),inset 0 1px 0 #fff}
-    .free-button:active{transform:translateY(1px) scale(.99);box-shadow:0 6px 13px rgba(17,17,17,.1),inset 0 2px 5px rgba(17,17,17,.05)}
-    .free-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:14px;background:var(--mint);color:var(--ink);font-size:.72rem;font-weight:900;box-shadow:0 7px 15px rgba(78,153,143,.16)}
-    .free-copy{min-width:0}
-    .free-title{display:block;font-size:.82rem;font-weight:850;line-height:1.12}
-    .free-meta{display:block;margin-top:3px;color:var(--muted);font-size:.58rem;font-weight:600}
-    .free-button .arrow{width:30px;height:30px;font-size:.76rem}
-    .footer{text-align:center;color:rgba(17,17,17,.42);font-size:.56rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase}
+    .link-card:hover::after,.link-card:focus-visible::after{transform:scale(1.13)}
+    .link-card:active{
+      transform:translateY(1px) scale(.992);
+      box-shadow:0 7px 16px rgba(17,17,17,.12),0 2px 7px var(--shadow-color),inset 0 2px 5px rgba(17,17,17,.06);
+    }
+    .link-card:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+    .thumb{position:relative;z-index:1;width:82px;height:72px;overflow:hidden;border-radius:16px;background:var(--beige);box-shadow:0 6px 14px rgba(17,17,17,.13)}
+    .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .42s cubic-bezier(.2,.8,.2,1)}
+    .link-card:hover .thumb img,.link-card:focus-visible .thumb img{transform:scale(1.045)}
+    .challenge .thumb img{object-position:center 18%}
+    .mentoring .thumb img{object-position:center 20%}
+    .masterclass .thumb img{object-position:center center}
+    .tuner .thumb{display:grid;place-items:center;background:linear-gradient(145deg,var(--ink),#2f2929)}
+    .tuner .thumb img{width:54px;height:54px;object-fit:contain;filter:drop-shadow(0 5px 10px rgba(0,0,0,.2))}
+    .copy{position:relative;z-index:1;min-width:0}
+    .eyebrow{display:block;margin-bottom:4px;color:var(--red);font-size:.49rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+    .title{display:block;font-family:var(--serif);font-size:clamp(1.42rem,3.3vw,1.88rem);font-weight:600;letter-spacing:-.03em;line-height:.94}
+    .description{display:block;margin-top:5px;color:var(--muted);font-size:.64rem;font-weight:500;line-height:1.28}
+    .arrow{position:relative;z-index:1;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;font-size:.82rem;box-shadow:0 8px 16px rgba(17,17,17,.2);transition:transform .2s ease,background .2s ease,box-shadow .2s ease}
+    .link-card:hover .arrow,.link-card:focus-visible .arrow{transform:translate(2px,-2px);background:var(--red);box-shadow:0 11px 22px rgba(227,28,35,.27)}
+    .challenge{--accent:rgba(227,28,35,.14);--shadow-color:rgba(227,28,35,.13)}
+    .mentoring{--accent:rgba(217,242,238,.95);--shadow-color:rgba(78,153,143,.16)}
+    .masterclass{--accent:rgba(227,28,35,.08);--shadow-color:rgba(17,17,17,.1)}
+    .tuner{--accent:rgba(217,242,238,.9);--shadow-color:rgba(78,153,143,.15)}
+    .footer{text-align:center;color:rgba(17,17,17,.42);font-size:.54rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase}
 
     @media(max-width:640px){
       .page{place-items:stretch center;padding:max(8px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))}
       .shell{width:min(100%,560px);height:100%;grid-template-rows:auto minmax(0,1fr) auto;gap:clamp(6px,1.05dvh,9px)}
-      .brand{margin-bottom:clamp(3px,.75dvh,6px);font-size:.55rem}
-      h1{font-size:clamp(1.85rem,9.4vw,2.75rem);line-height:.88}
-      .intro{margin-top:clamp(3px,.8dvh,6px);font-size:.69rem;line-height:1.25}
-      .content{grid-template-rows:minmax(0,1fr) auto;gap:clamp(6px,1dvh,8px)}
-      .group-head{gap:7px;margin-bottom:4px}
-      .group-title{font-size:.46rem;letter-spacing:.12em}
-      .pro-grid{grid-template-columns:1fr;grid-template-rows:repeat(2,minmax(0,1fr));gap:clamp(5px,.9dvh,7px)}
-      .pro-card{height:100%;grid-template-columns:clamp(72px,23vw,94px) minmax(0,1fr) 28px;gap:8px;padding:5px 8px 5px 5px;border-radius:18px;box-shadow:0 11px 24px rgba(17,17,17,.11),0 4px 10px var(--shadow-color),inset 0 1px 0 rgba(255,255,255,.98),inset 0 0 0 1px var(--line)}
-      .pro-card:hover,.pro-card:focus-visible{transform:translateY(-2px);box-shadow:0 15px 30px rgba(17,17,17,.14),0 6px 14px var(--shadow-color)}
-      .visual{height:100%;min-height:0;max-height:none;border-radius:12px;box-shadow:0 5px 12px rgba(17,17,17,.13)}
-      .category{margin-bottom:2px;font-size:.41rem}
-      .title{font-size:clamp(1.08rem,5.1vw,1.45rem)}
-      .description{display:-webkit-box;margin-top:3px;overflow:hidden;font-size:.53rem;line-height:1.18;-webkit-box-orient:vertical;-webkit-line-clamp:2}
-      .cta{display:none}
-      .arrow{width:27px;height:27px;font-size:.73rem}
-      .free-grid{gap:6px}
-      .free-button{min-height:55px;grid-template-columns:31px minmax(0,1fr) 24px;gap:7px;padding:6px;border-radius:16px;box-shadow:0 8px 18px rgba(17,17,17,.09),inset 0 1px 0 rgba(255,255,255,.98)}
-      .free-icon{width:31px;height:31px;border-radius:10px;font-size:.54rem}
-      .free-title{font-size:clamp(.66rem,2.9vw,.78rem)}
-      .free-meta{font-size:.47rem}
-      .free-button .arrow{width:23px;height:23px;font-size:.62rem}
-      .footer{font-size:.47rem}
+      .brand{margin-bottom:clamp(3px,.7dvh,6px);font-size:.54rem}
+      h1{font-size:clamp(1.9rem,9.5vw,2.75rem);line-height:.88}
+      .intro{margin-top:clamp(3px,.75dvh,6px);font-size:.68rem;line-height:1.22}
+      .directory{align-content:stretch;grid-template-rows:auto auto;gap:clamp(6px,1dvh,8px)}
+      .group{min-height:0;grid-template-rows:auto minmax(0,1fr);gap:4px}
+      .group-label{font-size:.43rem;letter-spacing:.11em}
+      .link-list{min-height:0;grid-template-rows:repeat(2,minmax(0,1fr));gap:clamp(5px,.85dvh,7px)}
+      .link-card{height:100%;min-height:0;grid-template-columns:clamp(66px,21vw,82px) minmax(0,1fr) 28px;gap:8px;padding:5px 8px 5px 5px;border-radius:18px;box-shadow:0 11px 24px rgba(17,17,17,.11),0 4px 10px var(--shadow-color),inset 0 1px 0 rgba(255,255,255,.98),inset 0 0 0 1px var(--line)}
+      .link-card:hover,.link-card:focus-visible{transform:translateY(-2px);box-shadow:0 15px 30px rgba(17,17,17,.14),0 6px 14px var(--shadow-color)}
+      .thumb{width:100%;height:100%;min-height:56px;border-radius:12px;box-shadow:0 5px 12px rgba(17,17,17,.13)}
+      .tuner .thumb img{width:42px;height:42px}
+      .eyebrow{margin-bottom:2px;font-size:.39rem}
+      .title{font-size:clamp(1.04rem,5vw,1.38rem)}
+      .description{display:-webkit-box;margin-top:3px;overflow:hidden;font-size:.51rem;line-height:1.16;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+      .arrow{width:27px;height:27px;font-size:.72rem}
+      .footer{font-size:.48rem}
     }
 
-    @media(max-width:360px){
-      .brand span{display:none}
-      .pro-card{grid-template-columns:68px minmax(0,1fr) 25px;gap:6px}
-      .title{font-size:1.02rem}
-      .description{font-size:.49rem}
-      .free-button{grid-template-columns:28px minmax(0,1fr) 21px;gap:5px;padding:5px}
-      .free-icon{width:28px;height:28px}
-      .free-title{font-size:.63rem}
-      .free-meta{display:none}
-      .free-button .arrow{width:21px;height:21px}
+    @media(max-width:380px){
+      .link-card{grid-template-columns:62px minmax(0,1fr) 26px;gap:7px;padding-right:7px}
+      .title{font-size:clamp(.98rem,4.9vw,1.26rem)}
+      .description{font-size:.48rem}
+      .arrow{width:25px;height:25px}
     }
 
-    @media(max-width:640px) and (max-height:570px){
-      .page{padding-top:max(5px,env(safe-area-inset-top));padding-bottom:max(5px,env(safe-area-inset-bottom))}
+    @media(max-width:640px) and (max-height:620px){
+      .page{padding-top:max(6px,env(safe-area-inset-top));padding-bottom:max(6px,env(safe-area-inset-bottom))}
       .shell{grid-template-rows:auto minmax(0,1fr);gap:5px}
-      .brand{margin-bottom:2px;font-size:.49rem}
-      h1{font-size:clamp(1.55rem,8.1vw,2.05rem)}
-      .intro{display:none}
-      .content{gap:5px}
-      .group-head{margin-bottom:3px}
-      .pro-grid{gap:4px}
-      .pro-card{padding:4px;grid-template-columns:66px minmax(0,1fr) 24px;border-radius:15px}
-      .category{font-size:.37rem}
-      .title{font-size:.98rem}
-      .description{font-size:.46rem;line-height:1.1;-webkit-line-clamp:1}
-      .free-button{min-height:45px;padding:4px;border-radius:14px}
-      .free-meta{display:none}
+      .brand{margin-bottom:2px;font-size:.48rem}
+      h1{font-size:clamp(1.62rem,8.3vw,2.2rem);line-height:.86}
+      .intro{margin-top:2px;font-size:.58rem;line-height:1.12}
+      .directory{gap:4px}
+      .group{gap:2px}
+      .group-label{font-size:.38rem}
+      .link-list{gap:4px}
+      .link-card{grid-template-columns:58px minmax(0,1fr) 24px;gap:7px;padding:4px 7px 4px 4px;border-radius:15px}
+      .thumb{min-height:0;border-radius:10px}
+      .tuner .thumb img{width:36px;height:36px}
+      .eyebrow{font-size:.34rem}
+      .title{font-size:clamp(.92rem,4.7vw,1.18rem)}
+      .description{font-size:.44rem;line-height:1.1;-webkit-line-clamp:1}
+      .arrow{width:23px;height:23px;font-size:.64rem}
       .footer{display:none}
     }
 
-    @media(max-height:720px) and (min-width:641px){
-      .shell{height:100%;gap:10px}
-      h1{font-size:3.25rem}
+    @media(max-height:700px) and (min-width:641px){
+      .shell{gap:9px}
+      .brand{margin-bottom:6px}
+      h1{font-size:3rem}
       .intro{margin-top:6px;font-size:.78rem}
-      .content{gap:9px}
-      .visual{min-height:94px;max-height:118px}
-      .description{font-size:.63rem}
-      .free-button{min-height:58px}
+      .directory{gap:7px}
+      .group{gap:4px}
+      .link-list{gap:5px}
+      .link-card{min-height:76px}
+      .thumb{height:62px}
+      .description{font-size:.59rem}
     }
 
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
@@ -251,54 +250,60 @@
       <header class="header">
         <p class="brand">Escuela de Flautistas <span>Valentina Galaz</span></p>
         <h1>¿Qué necesitas hoy para avanzar con tu flauta?</h1>
-        <p class="intro">Elige entre un proceso premium o un recurso gratuito para tu práctica.</p>
+        <p class="intro">Elige un proceso de acompañamiento o accede a uno de los recursos gratuitos.</p>
       </header>
 
-      <div class="content">
+      <nav class="directory" aria-label="Programas y recursos de Escuela de Flautistas">
         <section class="group" aria-labelledby="premium-title">
-          <div class="group-head"><h2 class="group-title" id="premium-title">Programas y acompañamiento premium</h2></div>
-          <div class="pro-grid">
-            <a class="pro-card challenge" href="/embocadura-organizada/" data-track="desafio_21_dias">
-              <span class="visual"><img src="/assets/embocadura-organizada/portada.png" alt="Portada de Embocadura Organizada, Desafío de 21 días" width="1414" height="2000" fetchpriority="high"></span>
+          <h2 class="group-label" id="premium-title">Programas y acompañamiento premium</h2>
+          <div class="link-list">
+            <a class="link-card challenge" href="/embocadura-organizada/" data-track="desafio_21_dias">
+              <span class="thumb"><img src="/assets/embocadura-organizada/portada.png" alt="Portada de Embocadura Organizada" width="1414" height="2000" fetchpriority="high"></span>
               <span class="copy">
-                <span class="category">Programa autónomo</span>
+                <span class="eyebrow">Programa autónomo</span>
                 <strong class="title">Desafío 21 días</strong>
-                <span class="description">Un recorrido guiado para organizar tu embocadura, el aire y la práctica.</span>
-                <span class="cta">Conocer el desafío</span>
+                <span class="description">Práctica guiada para organizar embocadura, aire y sonido.</span>
               </span>
               <span class="arrow" aria-hidden="true">↗</span>
             </a>
 
-            <a class="pro-card mentoring" href="/mentorias.html" data-track="mentorias_individuales">
-              <span class="visual"><img src="/assets/valentina-2.png" alt="Valentina Galaz presentando las mentorías individuales" width="1200" height="1200"></span>
+            <a class="link-card mentoring" href="/mentorias.html" data-track="mentorias_individuales">
+              <span class="thumb"><img src="/assets/valentina-2.png" alt="Valentina Galaz, mentora de Escuela de Flautistas" width="1200" height="1200"></span>
               <span class="copy">
-                <span class="category">Acompañamiento premium</span>
+                <span class="eyebrow">Acompañamiento premium</span>
                 <strong class="title">Mentorías individuales</strong>
-                <span class="description">Un proceso continuo y personalizado con dirección y seguimiento cercano.</span>
-                <span class="cta">Conocer las mentorías</span>
+                <span class="description">Proceso continuo, personalizado y con seguimiento cercano.</span>
               </span>
               <span class="arrow" aria-hidden="true">↗</span>
             </a>
           </div>
         </section>
 
-        <section class="group free-group" aria-labelledby="free-title">
-          <div class="group-head"><h2 class="group-title" id="free-title">Recursos gratuitos</h2></div>
-          <nav class="free-grid" aria-label="Recursos gratuitos de Escuela de Flautistas">
-            <a class="free-button" href="/masterclass/" data-track="masterclass_gratuita">
-              <span class="free-icon" aria-hidden="true">▶</span>
-              <span class="free-copy"><strong class="free-title">Masterclass gratuita</strong><span class="free-meta">Ver la clase</span></span>
+        <section class="group" aria-labelledby="free-title">
+          <h2 class="group-label" id="free-title">Recursos gratuitos</h2>
+          <div class="link-list">
+            <a class="link-card masterclass" href="/masterclass/" data-track="masterclass_gratuita">
+              <span class="thumb"><img src="https://img.youtube.com/vi/Yoxhr-eF_NA/hqdefault.jpg" alt="Replay de la masterclass gratuita" width="480" height="360" loading="lazy"></span>
+              <span class="copy">
+                <span class="eyebrow">Clase gratuita</span>
+                <strong class="title">Masterclass gratuita</strong>
+                <span class="description">Comprende qué observar cuando el sonido no responde.</span>
+              </span>
               <span class="arrow" aria-hidden="true">↗</span>
             </a>
 
-            <a class="free-button" href="/afinador/" data-track="afinador_cromatico">
-              <span class="free-icon" aria-hidden="true">440</span>
-              <span class="free-copy"><strong class="free-title">Afinador cromático</strong><span class="free-meta">Abrir herramienta</span></span>
+            <a class="link-card tuner" href="/afinador/" data-track="afinador_cromatico">
+              <span class="thumb"><img src="/afinador/icon.svg?v=afinador-edf-v33" alt="Icono del Afinador Cromático de Escuela de Flautistas" width="64" height="64" loading="lazy"></span>
+              <span class="copy">
+                <span class="eyebrow">Herramienta gratuita</span>
+                <strong class="title">Afinador cromático</strong>
+                <span class="description">Afina y entrena tu escucha directamente desde el teléfono.</span>
+              </span>
               <span class="arrow" aria-hidden="true">↗</span>
             </a>
-          </nav>
+          </div>
         </section>
-      </div>
+      </nav>
 
       <div class="footer">Educación musical especializada · Online</div>
     </div>
