@@ -3,20 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Escuela de Flautistas · Programas y recursos</title>
-  <meta name="description" content="Accede a los programas y acompañamientos premium de Escuela de Flautistas o utiliza gratis la masterclass y el afinador cromático.">
+  <title>Escuela de Flautistas · Formación y recursos para mejorar tu sonido</title>
+  <meta name="description" content="Elige entre el Desafío 21 días, las mentorías individuales, la masterclass gratuita y el afinador cromático de Escuela de Flautistas.">
   <link rel="canonical" href="https://escueladeflautistas.cl/">
   <link rel="icon" type="image/png" href="/assets/favicon.png">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_CL">
   <meta property="og:url" content="https://escueladeflautistas.cl/">
-  <meta property="og:title" content="Escuela de Flautistas · Programas y recursos">
-  <meta property="og:description" content="Programas premium y recursos gratuitos para avanzar con tu flauta.">
+  <meta property="og:title" content="Escuela de Flautistas · Formación y recursos">
+  <meta property="og:description" content="Formación y recursos para mejorar tu sonido en la flauta traversa.">
   <meta property="og:image" content="https://escueladeflautistas.cl/assets/valentina-2.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Escuela de Flautistas · Programas y recursos">
-  <meta name="twitter:description" content="Desafío 21 días, mentorías individuales, masterclass gratuita y afinador cromático.">
+  <meta name="twitter:title" content="Escuela de Flautistas · Formación y recursos">
+  <meta name="twitter:description" content="Desafío 21 días, mentorías individuales, masterclass y afinador cromático.">
   <meta name="twitter:image" content="https://escueladeflautistas.cl/assets/valentina-2.png">
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCXF3B1KV9"></script>
   <script>
     window.dataLayer=window.dataLayer||[];
@@ -24,10 +25,12 @@
     gtag('js',new Date());
     gtag('config','G-DCXF3B1KV9');
   </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://img.youtube.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
   <style>
     :root{
       --red:#E31C23;
@@ -35,213 +38,443 @@
       --beige:#F7F5F2;
       --ink:#111111;
       --white:#FFFFFF;
-      --muted:#68615e;
+      --muted:#68615E;
       --line:rgba(17,17,17,.11);
       --serif:'Cormorant Garamond',Georgia,serif;
       --sans:'Montserrat',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
     }
+
     *{box-sizing:border-box}
-    html,body{width:100%;height:100%;margin:0;overflow:hidden}
-    html{background:var(--beige)}
-    body{color:var(--ink);font-family:var(--sans);background:var(--beige)}
-    a{color:inherit;text-decoration:none}
-    img{display:block;max-width:100%}
-    .page{
-      position:relative;
-      width:100%;
-      height:100vh;
-      height:100dvh;
-      display:grid;
-      place-items:center;
-      padding:max(18px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(18px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));
-      overflow:hidden;
-      isolation:isolate;
+    html{min-width:320px;background:var(--beige);scroll-behavior:smooth}
+    body{
+      min-width:320px;
+      min-height:100vh;
+      min-height:100dvh;
+      margin:0;
+      overflow-x:hidden;
+      overflow-y:auto;
+      color:var(--ink);
+      font-family:var(--sans);
       background:
-        radial-gradient(circle at 8% 8%,rgba(217,242,238,.92),transparent 27rem),
-        radial-gradient(circle at 92% 90%,rgba(227,28,35,.095),transparent 23rem),
+        radial-gradient(circle at 8% 4%,rgba(217,242,238,.92),transparent 27rem),
+        radial-gradient(circle at 94% 92%,rgba(227,28,35,.09),transparent 24rem),
         linear-gradient(180deg,#fff 0%,var(--beige) 100%);
     }
+
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
+
+    .page{
+      position:relative;
+      min-height:100vh;
+      min-height:100dvh;
+      padding:
+        max(26px,env(safe-area-inset-top))
+        max(18px,env(safe-area-inset-right))
+        max(28px,env(safe-area-inset-bottom))
+        max(18px,env(safe-area-inset-left));
+      isolation:isolate;
+    }
+
     .page::before{
       content:"";
-      position:absolute;
+      position:fixed;
       inset:0;
       z-index:-2;
       pointer-events:none;
       background:
-        linear-gradient(90deg,rgba(17,17,17,.03) 1px,transparent 1px),
-        linear-gradient(rgba(17,17,17,.025) 1px,transparent 1px);
+        linear-gradient(90deg,rgba(17,17,17,.026) 1px,transparent 1px),
+        linear-gradient(rgba(17,17,17,.022) 1px,transparent 1px);
       background-size:72px 72px;
-      mask-image:linear-gradient(to bottom,rgba(0,0,0,.72),transparent 88%);
+      mask-image:linear-gradient(to bottom,rgba(0,0,0,.72),transparent 92%);
     }
-    .page::after{
-      content:"";
-      position:absolute;
-      z-index:-1;
-      width:330px;
-      aspect-ratio:1;
-      left:-195px;
-      bottom:-210px;
-      border:1px solid rgba(227,28,35,.17);
-      border-radius:50%;
-      box-shadow:0 0 0 50px rgba(217,242,238,.25),0 0 0 100px rgba(227,28,35,.03);
-      pointer-events:none;
-    }
+
     .shell{
-      width:min(100%,640px);
-      max-height:100%;
-      display:grid;
-      grid-template-rows:auto minmax(0,1fr) auto;
-      gap:13px;
+      width:min(100%,740px);
+      margin:0 auto;
     }
-    .header{text-align:center}
-    .brand{margin:0 0 9px;font-size:.66rem;font-weight:900;letter-spacing:.19em;text-transform:uppercase}
-    .brand span{color:var(--red);margin-left:.55em}
-    h1{max-width:620px;margin:0 auto;font-family:var(--serif);font-size:clamp(2.45rem,6vw,4.2rem);font-weight:600;letter-spacing:-.045em;line-height:.9}
-    .intro{max-width:540px;margin:9px auto 0;color:var(--muted);font-size:clamp(.78rem,1.35vw,.92rem);font-weight:500;line-height:1.38}
-    .directory{min-height:0;display:grid;align-content:center;gap:9px}
-    .group{display:grid;gap:6px}
-    .group-label{display:flex;align-items:center;gap:10px;margin:0;color:rgba(17,17,17,.5);font-size:.54rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase;white-space:nowrap}
-    .group-label::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,rgba(17,17,17,.16),transparent)}
-    .link-list{display:grid;gap:7px}
-    .link-card{
-      --accent:rgba(217,242,238,.9);
-      --shadow-color:rgba(17,17,17,.11);
-      position:relative;
-      min-height:88px;
-      display:grid;
-      grid-template-columns:82px minmax(0,1fr) 36px;
+
+    .header{
+      max-width:680px;
+      margin:0 auto 24px;
+      text-align:center;
+    }
+
+    .brand{
+      margin:0 0 13px;
+      font-size:.72rem;
+      font-weight:900;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+
+    .brand span{
+      display:inline-block;
+      margin-left:.58em;
+      color:var(--red);
+    }
+
+    h1{
+      max-width:670px;
+      margin:0 auto;
+      font-family:var(--serif);
+      font-size:clamp(2.65rem,6vw,4.65rem);
+      font-weight:600;
+      letter-spacing:-.045em;
+      line-height:.94;
+      text-wrap:balance;
+    }
+
+    .intro{
+      max-width:560px;
+      margin:13px auto 0;
+      color:var(--muted);
+      font-size:clamp(.92rem,1.5vw,1.02rem);
+      font-weight:500;
+      line-height:1.5;
+    }
+
+    .section-group + .section-group{margin-top:18px}
+
+    .section-label{
+      display:flex;
       align-items:center;
-      gap:14px;
+      gap:12px;
+      margin:0 0 9px;
+      color:rgba(17,17,17,.58);
+      font-size:.64rem;
+      font-weight:900;
+      letter-spacing:.15em;
+      line-height:1.2;
+      text-transform:uppercase;
+    }
+
+    .section-label::after{
+      content:"";
+      height:1px;
+      flex:1;
+      background:linear-gradient(90deg,rgba(17,17,17,.18),transparent);
+    }
+
+    .link-list{
+      display:grid;
+      gap:10px;
+    }
+
+    .link-card{
+      --accent:var(--red);
+      --accent-soft:rgba(227,28,35,.12);
+      --shadow-tint:rgba(227,28,35,.09);
+      position:relative;
+      min-height:108px;
+      display:grid;
+      grid-template-columns:128px minmax(0,1fr) 42px;
+      align-items:center;
+      gap:18px;
       overflow:hidden;
-      padding:8px 13px 8px 8px;
-      border:1px solid rgba(255,255,255,.9);
-      border-radius:22px;
-      background:rgba(255,255,255,.91);
+      padding:9px 14px 9px 9px;
+      border:1px solid rgba(255,255,255,.92);
+      border-radius:24px;
+      background:rgba(255,255,255,.9);
       box-shadow:
-        0 16px 34px rgba(17,17,17,.105),
-        0 5px 13px var(--shadow-color),
+        0 17px 38px rgba(17,17,17,.09),
+        0 6px 16px var(--shadow-tint),
         inset 0 1px 0 rgba(255,255,255,.98),
         inset 0 0 0 1px var(--line);
       transform:translateZ(0);
-      transition:transform .22s cubic-bezier(.2,.8,.2,1),box-shadow .22s ease,border-color .22s ease;
+      transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
     }
+
     .link-card::before{
       content:"";
       position:absolute;
-      inset:0;
-      pointer-events:none;
-      background:linear-gradient(120deg,rgba(255,255,255,.3),transparent 36%,rgba(255,255,255,.08) 70%,transparent);
+      inset:0 auto 0 0;
+      width:4px;
+      background:var(--accent);
+      opacity:.9;
     }
+
     .link-card::after{
       content:"";
       position:absolute;
       z-index:0;
-      width:120px;
+      width:140px;
       aspect-ratio:1;
-      right:-64px;
-      bottom:-78px;
+      right:-82px;
+      bottom:-98px;
       border-radius:50%;
-      background:var(--accent);
+      background:var(--accent-soft);
       pointer-events:none;
       transition:transform .25s ease;
     }
-    .link-card:hover,.link-card:focus-visible{
-      transform:translateY(-3px) scale(1.004);
-      border-color:rgba(227,28,35,.24);
+
+    .link-card:hover,
+    .link-card:focus-visible{
+      transform:translateY(-3px);
+      border-color:color-mix(in srgb,var(--accent) 24%,transparent);
       box-shadow:
-        0 23px 48px rgba(17,17,17,.145),
-        0 9px 20px var(--shadow-color),
+        0 24px 50px rgba(17,17,17,.13),
+        0 10px 22px var(--shadow-tint),
         inset 0 1px 0 #fff,
-        inset 0 0 0 1px rgba(227,28,35,.12);
+        inset 0 0 0 1px color-mix(in srgb,var(--accent) 16%,transparent);
     }
-    .link-card:hover::after,.link-card:focus-visible::after{transform:scale(1.13)}
+
+    .link-card:hover::after,
+    .link-card:focus-visible::after{transform:scale(1.12)}
+
+    .link-card:focus-visible{
+      outline:3px solid var(--accent);
+      outline-offset:3px;
+    }
+
     .link-card:active{
       transform:translateY(1px) scale(.992);
-      box-shadow:0 7px 16px rgba(17,17,17,.12),0 2px 7px var(--shadow-color),inset 0 2px 5px rgba(17,17,17,.06);
+      box-shadow:
+        0 7px 17px rgba(17,17,17,.10),
+        0 3px 8px var(--shadow-tint),
+        inset 0 2px 5px rgba(17,17,17,.055),
+        inset 0 0 0 1px var(--line);
     }
-    .link-card:focus-visible{outline:3px solid var(--red);outline-offset:3px}
-    .thumb{position:relative;z-index:1;width:82px;height:72px;overflow:hidden;border-radius:16px;background:var(--beige);box-shadow:0 6px 14px rgba(17,17,17,.13)}
-    .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .42s cubic-bezier(.2,.8,.2,1)}
-    .link-card:hover .thumb img,.link-card:focus-visible .thumb img{transform:scale(1.045)}
-    .challenge .thumb img{object-position:center 18%}
-    .mentoring .thumb img{object-position:center 20%}
-    .masterclass .thumb img{object-position:center center}
-    .tuner .thumb{display:grid;place-items:center;background:linear-gradient(145deg,var(--ink),#2f2929)}
-    .tuner .thumb img{width:54px;height:54px;object-fit:contain;filter:drop-shadow(0 5px 10px rgba(0,0,0,.2))}
-    .copy{position:relative;z-index:1;min-width:0}
-    .eyebrow{display:block;margin-bottom:4px;color:var(--red);font-size:.49rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
-    .title{display:block;font-family:var(--serif);font-size:clamp(1.42rem,3.3vw,1.88rem);font-weight:600;letter-spacing:-.03em;line-height:.94}
-    .description{display:block;margin-top:5px;color:var(--muted);font-size:.64rem;font-weight:500;line-height:1.28}
-    .arrow{position:relative;z-index:1;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;font-size:.82rem;box-shadow:0 8px 16px rgba(17,17,17,.2);transition:transform .2s ease,background .2s ease,box-shadow .2s ease}
-    .link-card:hover .arrow,.link-card:focus-visible .arrow{transform:translate(2px,-2px);background:var(--red);box-shadow:0 11px 22px rgba(227,28,35,.27)}
-    .challenge{--accent:rgba(227,28,35,.14);--shadow-color:rgba(227,28,35,.13)}
-    .mentoring{--accent:rgba(217,242,238,.95);--shadow-color:rgba(78,153,143,.16)}
-    .masterclass{--accent:rgba(227,28,35,.08);--shadow-color:rgba(17,17,17,.1)}
-    .tuner{--accent:rgba(217,242,238,.9);--shadow-color:rgba(78,153,143,.15)}
-    .footer{text-align:center;color:rgba(17,17,17,.42);font-size:.54rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase}
+
+    .media{
+      position:relative;
+      z-index:1;
+      width:100%;
+      height:90px;
+      overflow:hidden;
+      border-radius:16px;
+      background:var(--beige);
+      box-shadow:0 7px 17px rgba(17,17,17,.12);
+    }
+
+    .media img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform .38s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .link-card:hover .media img,
+    .link-card:focus-visible .media img{transform:scale(1.04)}
+
+    .challenge .media img{object-position:center 18%}
+    .mentoring .media img{object-position:center 20%}
+    .masterclass .media img{object-position:center center}
+
+    .tuner-visual{
+      display:grid;
+      place-items:center;
+      width:100%;
+      height:100%;
+      padding:9px;
+      background:
+        radial-gradient(circle at 50% 18%,rgba(255,255,255,.58),transparent 52%),
+        linear-gradient(145deg,var(--mint),#eefbf9);
+    }
+
+    .tuner-screen{
+      width:100%;
+      height:100%;
+      display:grid;
+      grid-template-rows:auto 1fr auto;
+      align-items:center;
+      padding:8px 9px;
+      border:1px solid rgba(17,17,17,.12);
+      border-radius:12px;
+      background:rgba(255,255,255,.78);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
+    }
+
+    .tuner-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      color:rgba(17,17,17,.55);
+      font-size:.46rem;
+      font-weight:900;
+      letter-spacing:.11em;
+      text-transform:uppercase;
+    }
+
+    .tuner-note{
+      font-family:var(--serif);
+      font-size:2rem;
+      font-weight:700;
+      line-height:.9;
+      text-align:center;
+    }
+
+    .tuner-meter{
+      position:relative;
+      height:4px;
+      border-radius:999px;
+      background:linear-gradient(90deg,var(--red),rgba(17,17,17,.16) 45%,var(--mint) 55%,var(--red));
+    }
+
+    .tuner-meter::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:3px;
+      height:13px;
+      border-radius:3px;
+      background:var(--ink);
+      transform:translate(-50%,-50%);
+    }
+
+    .card-copy{
+      position:relative;
+      z-index:1;
+      min-width:0;
+    }
+
+    .category{
+      display:block;
+      margin-bottom:5px;
+      color:var(--accent);
+      font-size:.64rem;
+      font-weight:900;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+
+    .title{
+      display:block;
+      font-family:var(--serif);
+      font-size:clamp(1.65rem,3vw,2.15rem);
+      font-weight:600;
+      letter-spacing:-.03em;
+      line-height:.95;
+    }
+
+    .description{
+      display:block;
+      margin-top:7px;
+      color:var(--muted);
+      font-size:.78rem;
+      font-weight:500;
+      line-height:1.4;
+    }
+
+    .arrow{
+      position:relative;
+      z-index:1;
+      display:grid;
+      place-items:center;
+      width:38px;
+      height:38px;
+      border-radius:50%;
+      background:var(--ink);
+      color:#fff;
+      font-size:.9rem;
+      box-shadow:0 8px 17px rgba(17,17,17,.19);
+      transition:transform .2s ease,background .2s ease,box-shadow .2s ease;
+    }
+
+    .link-card:hover .arrow,
+    .link-card:focus-visible .arrow{
+      transform:translate(2px,-2px);
+      background:var(--accent);
+      box-shadow:0 11px 22px color-mix(in srgb,var(--accent) 28%,transparent);
+    }
+
+    .free{
+      --accent:#18766C;
+      --accent-soft:rgba(217,242,238,.92);
+      --shadow-tint:rgba(55,143,132,.11);
+    }
+
+    .footer{
+      margin-top:18px;
+      text-align:center;
+      color:rgba(17,17,17,.42);
+      font-size:.62rem;
+      font-weight:800;
+      letter-spacing:.11em;
+      text-transform:uppercase;
+    }
 
     @media(max-width:640px){
-      .page{place-items:stretch center;padding:max(8px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))}
-      .shell{width:min(100%,560px);height:100%;grid-template-rows:auto minmax(0,1fr) auto;gap:clamp(6px,1.05dvh,9px)}
-      .brand{margin-bottom:clamp(3px,.7dvh,6px);font-size:.54rem}
-      h1{font-size:clamp(1.9rem,9.5vw,2.75rem);line-height:.88}
-      .intro{margin-top:clamp(3px,.75dvh,6px);font-size:.68rem;line-height:1.22}
-      .directory{align-content:stretch;grid-template-rows:auto auto;gap:clamp(6px,1dvh,8px)}
-      .group{min-height:0;grid-template-rows:auto minmax(0,1fr);gap:4px}
-      .group-label{font-size:.43rem;letter-spacing:.11em}
-      .link-list{min-height:0;grid-template-rows:repeat(2,minmax(0,1fr));gap:clamp(5px,.85dvh,7px)}
-      .link-card{height:100%;min-height:0;grid-template-columns:clamp(66px,21vw,82px) minmax(0,1fr) 28px;gap:8px;padding:5px 8px 5px 5px;border-radius:18px;box-shadow:0 11px 24px rgba(17,17,17,.11),0 4px 10px var(--shadow-color),inset 0 1px 0 rgba(255,255,255,.98),inset 0 0 0 1px var(--line)}
-      .link-card:hover,.link-card:focus-visible{transform:translateY(-2px);box-shadow:0 15px 30px rgba(17,17,17,.14),0 6px 14px var(--shadow-color)}
-      .thumb{width:100%;height:100%;min-height:56px;border-radius:12px;box-shadow:0 5px 12px rgba(17,17,17,.13)}
-      .tuner .thumb img{width:42px;height:42px}
-      .eyebrow{margin-bottom:2px;font-size:.39rem}
-      .title{font-size:clamp(1.04rem,5vw,1.38rem)}
-      .description{display:-webkit-box;margin-top:3px;overflow:hidden;font-size:.51rem;line-height:1.16;-webkit-box-orient:vertical;-webkit-line-clamp:2}
-      .arrow{width:27px;height:27px;font-size:.72rem}
-      .footer{font-size:.48rem}
+      .page{
+        padding:
+          max(16px,env(safe-area-inset-top))
+          max(12px,env(safe-area-inset-right))
+          max(20px,env(safe-area-inset-bottom))
+          max(12px,env(safe-area-inset-left));
+      }
+
+      .shell{width:min(100%,520px)}
+      .header{margin-bottom:18px}
+      .brand{margin-bottom:9px;font-size:.62rem;letter-spacing:.15em}
+      .brand span{display:block;margin:4px 0 0}
+      h1{font-size:clamp(2.05rem,10vw,3rem);line-height:.92}
+      .intro{margin-top:9px;font-size:.86rem;line-height:1.42}
+      .section-group + .section-group{margin-top:15px}
+      .section-label{gap:8px;margin-bottom:7px;font-size:.625rem;letter-spacing:.115em}
+      .link-list{gap:8px}
+
+      .link-card{
+        min-height:92px;
+        grid-template-columns:92px minmax(0,1fr) 34px;
+        gap:11px;
+        padding:7px 10px 7px 7px;
+        border-radius:20px;
+        box-shadow:
+          0 12px 27px rgba(17,17,17,.10),
+          0 5px 12px var(--shadow-tint),
+          inset 0 1px 0 rgba(255,255,255,.98),
+          inset 0 0 0 1px var(--line);
+      }
+
+      .media{height:76px;border-radius:13px}
+      .category{margin-bottom:3px;font-size:.625rem;letter-spacing:.1em}
+      .title{font-size:clamp(1.28rem,6vw,1.7rem);line-height:.96}
+      .description{
+        display:-webkit-box;
+        margin-top:4px;
+        overflow:hidden;
+        font-size:.75rem;
+        line-height:1.25;
+        -webkit-box-orient:vertical;
+        -webkit-line-clamp:2;
+      }
+      .arrow{width:32px;height:32px;font-size:.8rem}
+      .footer{margin-top:14px;font-size:.58rem}
+      .tuner-note{font-size:1.65rem}
     }
 
-    @media(max-width:380px){
-      .link-card{grid-template-columns:62px minmax(0,1fr) 26px;gap:7px;padding-right:7px}
-      .title{font-size:clamp(.98rem,4.9vw,1.26rem)}
-      .description{font-size:.48rem}
-      .arrow{width:25px;height:25px}
+    @media(max-width:370px){
+      .page{
+        padding-left:max(10px,env(safe-area-inset-left));
+        padding-right:max(10px,env(safe-area-inset-right));
+      }
+      .header{margin-bottom:16px}
+      h1{font-size:clamp(1.9rem,9.7vw,2.55rem)}
+      .intro{font-size:.82rem}
+      .link-card{grid-template-columns:78px minmax(0,1fr) 30px;gap:8px;padding-right:8px}
+      .media{height:72px}
+      .title{font-size:1.17rem}
+      .description{font-size:.75rem}
+      .arrow{width:29px;height:29px}
+      .section-label{font-size:.625rem}
     }
 
-    @media(max-width:640px) and (max-height:620px){
-      .page{padding-top:max(6px,env(safe-area-inset-top));padding-bottom:max(6px,env(safe-area-inset-bottom))}
-      .shell{grid-template-rows:auto minmax(0,1fr);gap:5px}
-      .brand{margin-bottom:2px;font-size:.48rem}
-      h1{font-size:clamp(1.62rem,8.3vw,2.2rem);line-height:.86}
-      .intro{margin-top:2px;font-size:.58rem;line-height:1.12}
-      .directory{gap:4px}
-      .group{gap:2px}
-      .group-label{font-size:.38rem}
-      .link-list{gap:4px}
-      .link-card{grid-template-columns:58px minmax(0,1fr) 24px;gap:7px;padding:4px 7px 4px 4px;border-radius:15px}
-      .thumb{min-height:0;border-radius:10px}
-      .tuner .thumb img{width:36px;height:36px}
-      .eyebrow{font-size:.34rem}
-      .title{font-size:clamp(.92rem,4.7vw,1.18rem)}
-      .description{font-size:.44rem;line-height:1.1;-webkit-line-clamp:1}
-      .arrow{width:23px;height:23px;font-size:.64rem}
-      .footer{display:none}
+    @media(min-width:641px) and (max-height:760px){
+      .page{padding-top:18px;padding-bottom:20px}
+      .header{margin-bottom:17px}
+      h1{font-size:3.3rem}
+      .intro{margin-top:9px}
+      .section-group + .section-group{margin-top:14px}
+      .link-card{min-height:100px}
+      .media{height:82px}
+      .footer{margin-top:13px}
     }
 
-    @media(max-height:700px) and (min-width:641px){
-      .shell{gap:9px}
-      .brand{margin-bottom:6px}
-      h1{font-size:3rem}
-      .intro{margin-top:6px;font-size:.78rem}
-      .directory{gap:7px}
-      .group{gap:4px}
-      .link-list{gap:5px}
-      .link-card{min-height:76px}
-      .thumb{height:62px}
-      .description{font-size:.59rem}
+    @media(prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      *,*::before,*::after{transition:none!important}
     }
-
-    @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
   </style>
 </head>
 <body>
@@ -249,61 +482,73 @@
     <div class="shell">
       <header class="header">
         <p class="brand">Escuela de Flautistas <span>Valentina Galaz</span></p>
-        <h1>¿Qué necesitas hoy para avanzar con tu flauta?</h1>
-        <p class="intro">Elige un proceso de acompañamiento o accede a uno de los recursos gratuitos.</p>
+        <h1>Si quieres mejorar tu sonido, estás en el lugar correcto.</h1>
+        <p class="intro">Elige la formación que mejor se adapte a ti.</p>
       </header>
 
-      <nav class="directory" aria-label="Programas y recursos de Escuela de Flautistas">
-        <section class="group" aria-labelledby="premium-title">
-          <h2 class="group-label" id="premium-title">Programas y acompañamiento premium</h2>
-          <div class="link-list">
-            <a class="link-card challenge" href="/embocadura-organizada/" data-track="desafio_21_dias">
-              <span class="thumb"><img src="/assets/embocadura-organizada/portada.png" alt="Portada de Embocadura Organizada" width="1414" height="2000" fetchpriority="high"></span>
-              <span class="copy">
-                <span class="eyebrow">Programa autónomo</span>
-                <strong class="title">Desafío 21 días</strong>
-                <span class="description">Práctica guiada para organizar embocadura, aire y sonido.</span>
-              </span>
-              <span class="arrow" aria-hidden="true">↗</span>
-            </a>
+      <section class="section-group" aria-labelledby="premium-heading">
+        <h2 class="section-label" id="premium-heading">Programas y acompañamiento premium</h2>
+        <nav class="link-list" aria-label="Programas y acompañamiento premium">
+          <a class="link-card challenge" href="/embocadura-organizada/" data-track="desafio_21_dias">
+            <span class="media">
+              <img src="/assets/embocadura-organizada/portada.png" alt="Portada de Embocadura Organizada, Desafío de 21 días" width="1414" height="2000" fetchpriority="high">
+            </span>
+            <span class="card-copy">
+              <span class="category">Programa autónomo</span>
+              <strong class="title">Desafío 21 días</strong>
+              <span class="description">Un recorrido guiado para organizar tu embocadura, el aire y la práctica.</span>
+            </span>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
 
-            <a class="link-card mentoring" href="/mentorias.html" data-track="mentorias_individuales">
-              <span class="thumb"><img src="/assets/valentina-2.png" alt="Valentina Galaz, mentora de Escuela de Flautistas" width="1200" height="1200"></span>
-              <span class="copy">
-                <span class="eyebrow">Acompañamiento premium</span>
-                <strong class="title">Mentorías individuales</strong>
-                <span class="description">Proceso continuo, personalizado y con seguimiento cercano.</span>
-              </span>
-              <span class="arrow" aria-hidden="true">↗</span>
-            </a>
-          </div>
-        </section>
+          <a class="link-card mentoring" href="/mentorias.html" data-track="mentorias_individuales">
+            <span class="media">
+              <img src="/assets/valentina-2.png" alt="Valentina Galaz presentando las mentorías individuales" width="1200" height="1200">
+            </span>
+            <span class="card-copy">
+              <span class="category">Acompañamiento premium</span>
+              <strong class="title">Mentorías individuales</strong>
+              <span class="description">Un proceso continuo y personalizado para avanzar con dirección y seguimiento cercano.</span>
+            </span>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+        </nav>
+      </section>
 
-        <section class="group" aria-labelledby="free-title">
-          <h2 class="group-label" id="free-title">Recursos gratuitos</h2>
-          <div class="link-list">
-            <a class="link-card masterclass" href="/masterclass/" data-track="masterclass_gratuita">
-              <span class="thumb"><img src="https://img.youtube.com/vi/Yoxhr-eF_NA/hqdefault.jpg" alt="Replay de la masterclass gratuita" width="480" height="360" loading="lazy"></span>
-              <span class="copy">
-                <span class="eyebrow">Clase gratuita</span>
-                <strong class="title">Masterclass gratuita</strong>
-                <span class="description">Comprende qué observar cuando el sonido no responde.</span>
-              </span>
-              <span class="arrow" aria-hidden="true">↗</span>
-            </a>
+      <section class="section-group" aria-labelledby="free-heading">
+        <h2 class="section-label" id="free-heading">Recursos gratuitos</h2>
+        <nav class="link-list" aria-label="Recursos gratuitos">
+          <a class="link-card free masterclass" href="/masterclass/" data-track="masterclass_gratuita">
+            <span class="media">
+              <img src="https://img.youtube.com/vi/Yoxhr-eF_NA/hqdefault.jpg" alt="Imagen del replay de la masterclass gratuita" width="480" height="360" loading="lazy">
+            </span>
+            <span class="card-copy">
+              <span class="category">Clase gratuita</span>
+              <strong class="title">Masterclass gratuita</strong>
+              <span class="description">Comprende qué observar cuando el sonido no responde y deja de estudiar a ciegas.</span>
+            </span>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
 
-            <a class="link-card tuner" href="/afinador/" data-track="afinador_cromatico">
-              <span class="thumb"><img src="/afinador/icon.svg?v=afinador-edf-v33" alt="Icono del Afinador Cromático de Escuela de Flautistas" width="64" height="64" loading="lazy"></span>
-              <span class="copy">
-                <span class="eyebrow">Herramienta gratuita</span>
-                <strong class="title">Afinador cromático</strong>
-                <span class="description">Afina y entrena tu escucha directamente desde el teléfono.</span>
+          <a class="link-card free tuner" href="/afinador/" data-track="afinador_cromatico">
+            <span class="media" aria-hidden="true">
+              <span class="tuner-visual">
+                <span class="tuner-screen">
+                  <span class="tuner-top"><span>440 Hz</span><span>+0</span></span>
+                  <strong class="tuner-note">A</strong>
+                  <span class="tuner-meter"></span>
+                </span>
               </span>
-              <span class="arrow" aria-hidden="true">↗</span>
-            </a>
-          </div>
-        </section>
-      </nav>
+            </span>
+            <span class="card-copy">
+              <span class="category">Herramienta gratuita</span>
+              <strong class="title">Afinador cromático</strong>
+              <span class="description">Afina tus notas desde el teléfono con una herramienta creada para flautistas.</span>
+            </span>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+        </nav>
+      </section>
 
       <div class="footer">Educación musical especializada · Online</div>
     </div>
@@ -312,7 +557,9 @@
   <script>
     document.querySelectorAll('[data-track]').forEach(function(link){
       link.addEventListener('click',function(){
-        if(window.gtag){gtag('event','selector_portada',{opcion:link.dataset.track})}
+        if(window.gtag){
+          gtag('event','selector_portada',{opcion:link.dataset.track});
+        }
       });
     });
   </script>
