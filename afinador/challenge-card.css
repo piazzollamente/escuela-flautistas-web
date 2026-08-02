@@ -1,290 +1,77 @@
-.challenge-offer {
-  position: relative;
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: minmax(250px, 0.72fr) minmax(0, 1fr);
-  grid-template-areas:
-    "cover content"
-    "cover purchase"
-    "cover secure";
-  gap: 18px clamp(24px, 4vw, 44px);
-  align-items: center;
-  margin-top: 24px;
-  padding: clamp(18px, 3.2vw, 34px);
-  border: 1px solid rgba(174, 230, 223, 0.72);
-  border-radius: 28px;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 250, 243, 0.97)),
-    radial-gradient(circle at 0 0, rgba(174, 230, 223, 0.35), transparent 22rem);
-  box-shadow: 0 22px 58px rgba(33, 29, 29, 0.1);
-}
-
-.challenge-cover-wrap {
-  grid-area: cover;
-  position: relative;
-  align-self: stretch;
-  display: grid;
-  place-items: center;
-  min-height: 100%;
-  padding: clamp(10px, 1.7vw, 16px);
-  border: 1px solid rgba(57, 50, 50, 0.08);
-  border-radius: 24px;
-  background:
-    linear-gradient(180deg, rgba(174, 230, 223, 0.2), rgba(255, 255, 255, 0.88)),
-    #fff;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), 0 16px 34px rgba(33, 29, 29, 0.08);
-}
-
-.challenge-cover {
-  width: min(100%, 330px);
-  aspect-ratio: 1 / 1;
-  object-fit: contain;
-  border-radius: 18px;
-}
-
-.challenge-badge {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  display: inline-flex;
-  align-items: center;
-  min-height: 28px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: rgba(33, 29, 29, 0.88);
-  color: #fffaf3;
-  font-size: 0.58rem;
-  font-weight: 900;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.challenge-offer-content {
-  grid-area: content;
-  min-width: 0;
-}
-
-.challenge-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 10px;
-  color: var(--red);
-  font-size: 0.65rem;
-  font-weight: 900;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.challenge-eyebrow::before {
-  content: "";
-  width: 28px;
-  height: 1px;
-  background: currentColor;
-}
-
-.challenge-offer h2 {
-  max-width: 660px;
-  margin: 0;
-  font-size: clamp(2.2rem, 4.4vw, 4rem);
-  line-height: 0.96;
-}
-
-.challenge-intro {
-  max-width: 660px;
-  margin: 14px 0 0;
-  color: rgba(57, 50, 50, 0.76);
-  font-size: clamp(0.95rem, 1.2vw, 1.06rem);
-  font-weight: 580;
-}
-
-.challenge-benefits {
-  display: grid;
-  gap: 8px;
-  margin: 16px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.challenge-benefits li {
-  position: relative;
-  padding-left: 28px;
-  color: var(--dark);
-  font-size: 0.88rem;
-  font-weight: 780;
-  line-height: 1.35;
-}
-
-.challenge-benefits li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.2em;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background:
-    linear-gradient(135deg, transparent 48%, var(--ink) 48% 58%, transparent 58%),
-    var(--mint);
-  box-shadow: 0 0 0 1px rgba(57, 50, 50, 0.08);
-}
-
-.challenge-purchase-row {
-  grid-area: purchase;
-  display: grid;
-  grid-template-columns: minmax(150px, auto) minmax(190px, 280px);
-  gap: 16px;
-  align-items: center;
-  width: 100%;
-  margin-top: 4px;
-  padding: 16px;
-  border: 1px solid rgba(196, 32, 48, 0.12);
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.76);
-}
-
-.challenge-price {
-  display: grid;
-  gap: 2px;
-}
-
-.challenge-price > span {
-  color: var(--muted);
-  font-size: 0.62rem;
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.challenge-price strong {
-  color: var(--red);
-  font-family: var(--serif);
-  font-size: clamp(2.9rem, 5vw, 4.2rem);
-  font-weight: 700;
-  letter-spacing: -0.045em;
-  line-height: 0.86;
-  white-space: nowrap;
-}
-
-.challenge-price strong small {
-  font-family: var(--sans);
-  font-size: 0.74rem;
-  font-weight: 950;
-  letter-spacing: 0.08em;
-  vertical-align: middle;
-}
-
-.challenge-price > em {
-  color: rgba(57, 50, 50, 0.72);
-  font-size: 0.75rem;
-  font-style: normal;
-  font-weight: 850;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.challenge-buy-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 52px;
-  width: min(100%, 280px);
-  justify-self: end;
-  padding: 13px 22px;
-  border: 1px solid var(--red);
-  border-radius: 999px;
-  background: var(--red);
-  color: #fff;
-  box-shadow: 0 14px 28px rgba(196, 32, 48, 0.2);
-  font-size: 0.76rem;
-  font-weight: 950;
-  letter-spacing: 0.08em;
-  text-align: center;
-  text-transform: uppercase;
-  transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
-}
-
-.challenge-buy-btn:hover {
-  transform: translateY(-2px);
-  background: var(--red-deep);
-  box-shadow: 0 20px 38px rgba(196, 32, 48, 0.25);
-}
-
-.challenge-buy-btn:focus-visible {
-  outline: 3px solid rgba(196, 32, 48, 0.22);
-  outline-offset: 3px;
-}
-
-.challenge-secure {
-  grid-area: secure;
-  margin: -4px 4px 0;
-  color: rgba(111, 102, 102, 0.72);
-  font-size: 0.74rem;
-  font-weight: 760;
-  text-align: right;
-}
-
-@media (max-width: 900px) {
-  .challenge-offer {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "cover"
-      "content"
-      "purchase"
-      "secure";
-  }
-
-  .challenge-cover-wrap {
-    width: min(430px, 100%);
-    justify-self: center;
-  }
-}
-
-@media (max-width: 680px) {
-  .challenge-offer {
-    margin-top: 20px;
-    padding: 14px;
-    border-radius: 24px;
-  }
-
-  .challenge-cover-wrap {
-    padding: 10px;
-    border-radius: 20px;
-  }
-
-  .challenge-cover {
-    width: min(100%, 320px);
-    border-radius: 15px;
-  }
-
-  .challenge-badge {
-    top: 14px;
-    left: 14px;
-    max-width: calc(100% - 28px);
-    font-size: 0.54rem;
-  }
-
-  .challenge-offer-content {
-    padding: 2px 2px 0;
-  }
-
-  .challenge-offer h2 {
-    font-size: clamp(2.25rem, 12vw, 3.45rem);
-  }
-
-  .challenge-purchase-row {
-    grid-template-columns: 1fr;
-    justify-items: stretch;
-    padding: 14px;
-  }
-
-  .challenge-buy-btn {
-    width: 100%;
-    max-width: 320px;
-    justify-self: start;
-  }
-
-  .challenge-secure {
-    text-align: left;
-  }
-}
+:root{--red:#E31C23;--red-dark:#A81419;--mint:#D9F2EE;--mint-ink:#167A71;--beige:#F7F5F2;--cream:#FCFAF7;--ink:#111111;--dark:#111111;--muted:#5F5A56;--line:#D8D0C6;--white:#FFFFFF;--serif:"Cormorant Garamond",Georgia,serif;--sans:"Montserrat",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+html{min-width:320px;background:var(--beige)}
+body{min-width:320px;color:var(--ink);background:radial-gradient(circle at 50% 0,rgba(255,255,255,.94),transparent 34rem),linear-gradient(180deg,#FBF8F3 0%,var(--beige) 100%)}
+body::before,.ambient-orbs{display:none!important}
+.site-nav{border-bottom:1px solid var(--line);background:rgba(247,245,242,.94);backdrop-filter:blur(18px)}
+.nav-inner,.app{width:min(920px,calc(100% - 40px))}
+.nav-inner{min-height:70px}
+.brand{display:grid;gap:4px;color:var(--ink);font-size:.72rem;font-weight:800;letter-spacing:.2em;line-height:1.2}
+.brand::after{content:"Afinador cromático";color:var(--red);font-size:.58rem;letter-spacing:.22em}
+.nav-back{min-height:38px;padding:0;border:0;border-radius:0;background:transparent;color:var(--ink);font-size:.68rem;font-weight:800;letter-spacing:.12em}
+.nav-back::after{content:"→";margin-left:10px;color:var(--red);font-size:1rem}
+.app{padding:0 0 34px}
+.hero{grid-template-columns:minmax(0,1fr) 190px;gap:clamp(32px,6vw,68px);padding:clamp(64px,9vw,104px) 0 clamp(50px,7vw,78px);border-bottom:1px solid var(--line)}
+.hero-copy-wrap{max-width:720px}
+.eyebrow,.section-kicker{margin-bottom:18px;color:var(--red);font-size:.69rem;font-weight:800;letter-spacing:.2em}
+.eyebrow::before,.section-kicker::before{width:34px}
+h1,h2,h3{color:var(--ink);font-weight:500}
+h1{max-width:770px;font-size:clamp(4.2rem,10vw,7rem);line-height:.84}
+h1 em{color:var(--red);font-style:normal;font-weight:500}
+h1::after{content:".";color:var(--red)}
+h2{font-size:clamp(2.3rem,4.8vw,3.8rem);line-height:.92}
+.hero-copy{max-width:650px;margin-top:24px;color:var(--muted);font-weight:400}
+.hero-note{min-height:160px;padding:10px 0 8px 25px;border:0;border-left:1px solid var(--line);border-radius:0;background:transparent;box-shadow:none}
+.hero-note p{margin-top:46px;color:var(--ink);font-size:1.7rem}
+.app-state{gap:0;margin-top:25px}
+.app-state span{min-height:27px;padding:0 14px;border:0;border-left:1px solid var(--line);border-radius:0;background:transparent;color:var(--muted);font-size:.67rem}
+.app-state span:first-child{padding-left:0;border-left:0}
+.workspace{width:min(100%,820px);margin:clamp(48px,7vw,76px) auto 0}
+.card{border:1px solid var(--line);border-radius:3px;background:rgba(252,250,247,.82);box-shadow:none}
+.tuner-card{padding:clamp(20px,3.5vw,34px)}
+.section-heading{margin-bottom:28px}
+.tuner-shell{border-radius:8px;padding:clamp(12px,2vw,18px);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 12px 28px rgba(17,17,17,.16)}
+.tuner-shell::after{display:none}
+.tuner-screen{border-radius:4px}
+.data-row>div{border:0;border-top:1px solid rgba(17,17,17,.18);border-radius:0;background:transparent}
+.primary-btn,.secondary-btn{border-radius:4px;box-shadow:none;font-size:.72rem;font-weight:800;letter-spacing:.1em}
+.primary-btn{background:var(--red)}
+.reference-control{border-radius:4px}
+select{border-radius:2px}
+.feedback.error,.feedback.warning{border:0;border-left:3px solid var(--red);border-radius:0;background:rgba(227,28,35,.055)}
+.app-footer{margin-top:38px;padding-top:24px;border-top:1px solid var(--line)}
+.debug-panel{border-radius:3px}
+.install-card{grid-template-columns:58px minmax(0,1fr) auto;gap:18px;margin:30px 0 0;padding:20px 22px;border:1px solid var(--line);border-radius:3px;background:rgba(252,250,247,.82);box-shadow:none}
+.install-icon{border-radius:3px;background:var(--red);box-shadow:none}
+.install-copy{padding-right:0}
+.install-btn{position:static;transform:none;min-height:48px;border:1px solid var(--red);border-radius:4px;background:var(--red);font-size:.7rem;letter-spacing:.1em}
+.install-dismiss{border-radius:0}
+.share-symbol{border-color:var(--line);border-radius:2px}
+.promo-dialog{grid-template-columns:150px minmax(0,1fr);border:1px solid rgba(255,255,255,.26);border-radius:4px;background:var(--cream);box-shadow:0 30px 80px rgba(0,0,0,.34)}
+.promo-close{border-color:var(--line);border-radius:2px;background:var(--cream)}
+.promo-accent{border-radius:0;background:var(--red)}
+.promo-accent::before,.promo-accent::after{display:none}
+.promo-points{display:grid;gap:0;border-top:1px solid var(--line)}
+.promo-points span{padding:9px 0;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent}
+.promo-cta,.promo-secondary{border-radius:4px;box-shadow:none}
+.privacy-card{border-color:var(--line);border-radius:3px;background:var(--cream);box-shadow:none}
+.challenge-offer{display:grid;grid-template-columns:minmax(250px,.72fr) minmax(0,1fr);grid-template-areas:"cover content" "cover purchase" "cover secure";gap:20px clamp(26px,4vw,46px);align-items:center;margin-top:clamp(48px,7vw,78px);padding:clamp(24px,4vw,42px);border:1px solid var(--ink);border-radius:4px;background:var(--ink);box-shadow:none;color:var(--white)}
+.challenge-cover-wrap{grid-area:cover;position:relative;align-self:stretch;display:grid;place-items:center;min-height:100%;padding:clamp(14px,2vw,20px);border:1px solid rgba(255,255,255,.24);border-radius:3px;background:var(--beige);box-shadow:none;overflow:hidden}
+.challenge-cover{width:min(100%,330px);height:auto;aspect-ratio:auto;object-fit:contain;object-position:center;border-radius:0}
+.challenge-badge{top:16px;left:16px;padding:7px 10px;border:1px solid rgba(17,17,17,.22);border-radius:2px;background:rgba(252,250,247,.94);color:var(--ink);font-size:.56rem}
+.challenge-offer-content{grid-area:content}
+.challenge-eyebrow{margin-bottom:14px;color:var(--mint);font-weight:800}
+.challenge-offer h2{color:var(--white);font-size:clamp(2.65rem,5vw,4.45rem);line-height:.9}
+.challenge-intro{margin-top:18px;color:rgba(255,255,255,.72);font-weight:400}
+.challenge-benefits{display:grid;gap:0;margin-top:22px;border-top:1px solid rgba(255,255,255,.18)}
+.challenge-benefits li{padding:10px 0 10px 22px;border-bottom:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.86);font-weight:600}
+.challenge-benefits li::before{content:"•";top:.15em;width:auto;height:auto;border-radius:0;background:none;box-shadow:none;color:var(--mint);font-size:1.2rem}
+.challenge-purchase-row{grid-area:purchase;grid-template-columns:minmax(150px,auto) minmax(190px,280px);gap:20px;align-items:end;margin-top:6px;padding:22px 0 0;border:0;border-top:1px solid rgba(255,255,255,.24);border-radius:0;background:transparent}
+.challenge-price>span{color:var(--mint)}
+.challenge-price strong{color:var(--white);font-size:clamp(3.3rem,6vw,5rem);font-weight:500}
+.challenge-price>em{color:rgba(255,255,255,.56)}
+.challenge-buy-btn{border-radius:4px;background:var(--red);box-shadow:none;font-size:.72rem;font-weight:800;letter-spacing:.1em}
+.challenge-secure{color:rgba(255,255,255,.48)}
+.brand:focus-visible,.nav-back:focus-visible,.primary-btn:focus-visible,.install-btn:focus-visible,.challenge-buy-btn:focus-visible,.promo-cta:focus-visible,.promo-secondary:focus-visible,.footer-link:focus-visible,select:focus-visible{outline:3px solid var(--mint-ink);outline-offset:4px}
+@media(max-width:900px){.challenge-offer{grid-template-columns:1fr;grid-template-areas:"cover" "content" "purchase" "secure"}.challenge-cover-wrap{width:min(430px,100%);justify-self:center}}
+@media(max-width:760px){.hero{grid-template-columns:1fr;gap:24px}.hero-note{min-height:0;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;padding:18px 0 0;border-left:0;border-top:1px solid var(--line)}.hero-note p{margin:0;font-size:1.45rem}}
+@media(max-width:680px){.nav-inner,.app{width:min(100% - 28px,920px)}.nav-inner{min-height:64px}.brand{font-size:.63rem}.brand::after{font-size:.52rem}.nav-back{font-size:.59rem}.hero{padding:48px 0 42px}h1{font-size:clamp(3.8rem,18vw,5.7rem)}.workspace{margin-top:42px}.tuner-card{padding:14px}.tuner-shell{padding:10px;border-radius:6px}.tuner-screen{border-radius:3px}.install-card{grid-template-columns:48px minmax(0,1fr);gap:12px;padding:15px 14px}.install-icon{width:48px;height:48px}.install-btn{grid-column:1/-1;width:100%}.promo-dialog{grid-template-columns:1fr}.promo-accent{min-height:82px}.challenge-offer{margin-top:42px;padding:14px}.challenge-cover-wrap{padding:10px}.challenge-offer h2{font-size:clamp(2.55rem,12vw,3.7rem)}.challenge-purchase-row{grid-template-columns:1fr}.challenge-buy-btn{width:100%;max-width:320px;justify-self:start}.challenge-secure{text-align:left}}
