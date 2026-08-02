@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Afinador Cromático · Escuela de Flautistas</title>
   <meta name="description" content="Afinador cromático educativo para flautistas de Escuela de Flautistas. Instálalo y úsalo desde tu teléfono." />
-  <meta name="theme-color" content="#C42030" />
+  <meta name="theme-color" content="#E31C23" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -14,12 +14,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="icon" href="icon.svg?v=afinador-edf-v33" type="image/svg+xml" />
-  <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png?v=afinador-edf-v33" />
-  <link rel="manifest" href="manifest.json?v=afinador-edf-v33" />
-  <link rel="stylesheet" href="styles.css?v=afinador-edf-v33" />
-  <link rel="stylesheet" href="pwa.css?v=afinador-edf-v33" />
-  <link rel="stylesheet" href="challenge-card.css?v=afinador-edf-v33" />
+  <link rel="icon" href="icon.svg?v=afinador-edf-v34" type="image/svg+xml" />
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png?v=afinador-edf-v34" />
+  <link rel="manifest" href="manifest.json?v=afinador-edf-v34" />
+  <link rel="stylesheet" href="styles.css?v=afinador-edf-v34" />
+  <link rel="stylesheet" href="pwa.css?v=afinador-edf-v34" />
+  <link rel="stylesheet" href="challenge-card.css?v=afinador-edf-v34" />
   <script>
     (() => {
       const removeOldStudyBlocks = () => {
@@ -31,8 +31,6 @@
   </script>
 </head>
 <body>
-  <div class="ambient-orbs" aria-hidden="true"><span></span><span></span><span></span></div>
-
   <header class="site-nav">
     <div class="nav-inner">
       <a class="brand" href="https://escueladeflautistas.cl/" aria-label="Volver a Escuela de Flautistas">Escuela de Flautistas</a>
@@ -64,8 +62,8 @@
         <p class="install-kicker">Aplicación gratuita</p>
         <h2 id="installTitle">Instala el afinador en tu teléfono</h2>
         <p id="installDescription">Ábrelo desde tu pantalla de inicio y úsalo incluso cuando la conexión sea inestable.</p>
-        <button id="installBtn" class="install-btn" type="button">Instalar aplicación</button>
       </div>
+      <button id="installBtn" class="install-btn" type="button">Instalar aplicación</button>
       <div id="iosInstallHelp" class="ios-install-help" hidden>
         <p><strong>En iPhone o iPad:</strong> toca <span class="share-symbol" aria-label="Compartir">□↑</span> en Safari y elige <strong>Agregar a inicio</strong>.</p>
       </div>
@@ -73,43 +71,61 @@
 
     <section class="workspace">
       <section class="card tuner-card">
-          <div class="section-heading">
-            <div>
-              <p class="section-kicker">Afinación en tiempo real</p>
-              <h2>Observa el centro de tu sonido</h2>
-            </div>
-            <span class="section-number">01</span>
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Afinación en tiempo real</p>
+            <h2>Observa el centro de tu sonido</h2>
           </div>
+          <span class="section-number">01</span>
+        </div>
 
-          <div class="tuner-shell">
-            <div class="tuner-topbar"><span>EDF Chromatic Tuner</span><span>Modo: Flauta</span></div>
-            <div class="tuner-screen">
-              <div class="status-lights" aria-hidden="true">
-                <div id="lowLight" class="status-light low"><span></span><strong>Baja</strong></div>
-                <div id="tunedLight" class="status-light tuned"><span></span><strong>Afinado</strong></div>
-                <div id="highLight" class="status-light high"><span></span><strong>Alta</strong></div>
-              </div>
-              <div class="analog-meter" aria-hidden="true">
-                <div class="scale-arc"></div>
-                <span class="scale-label label-minus-50">-50</span><span class="scale-label label-minus-25">-25</span><span class="scale-label label-zero">0</span><span class="scale-label label-plus-25">+25</span><span class="scale-label label-plus-50">+50</span>
-                <div class="scale-ticks"></div><div id="analogNeedle" class="analog-needle"></div><div class="needle-pivot"></div>
-              </div>
-              <div class="note-display"><div id="noteName" class="note">—</div><div id="octave" class="octave"></div></div>
-              <div class="data-row">
-                <div><span class="label">Frecuencia</span><strong id="frequency">— Hz</strong></div>
-                <div><span class="label">Desviación</span><strong id="cents">— cents</strong></div>
-              </div>
+        <div class="tuner-shell">
+          <div class="tuner-topbar"><span>EDF Chromatic Tuner</span><span>Modo: Flauta</span></div>
+          <div class="tuner-screen">
+            <div class="status-lights" aria-hidden="true">
+              <div id="lowLight" class="status-light low"><span></span><strong>Baja</strong></div>
+              <div id="tunedLight" class="status-light tuned"><span></span><strong>Afinado</strong></div>
+              <div id="highLight" class="status-light high"><span></span><strong>Alta</strong></div>
             </div>
-            <div class="meter-wrap legacy-meter" aria-hidden="true"><div class="meter"><div class="meter-center"></div><div id="needle" class="needle"></div></div></div>
-            <div class="control-strip">
-              <button id="startBtn" class="primary-btn" type="button">Activar micrófono</button>
-              <div class="reference-control">
-                <label class="select-label" for="a4Reference">Referencia</label>
-                <select id="a4Reference"><option value="440">A = 440 Hz</option><option value="442" selected>A = 442 Hz</option><option value="443">A = 443 Hz</option></select>
-              </div>
+            <div class="analog-meter" aria-hidden="true">
+              <div class="scale-arc"></div>
+              <span class="scale-label label-minus-50">-50</span>
+              <span class="scale-label label-minus-25">-25</span>
+              <span class="scale-label label-zero">0</span>
+              <span class="scale-label label-plus-25">+25</span>
+              <span class="scale-label label-plus-50">+50</span>
+              <div class="scale-ticks"></div>
+              <div id="analogNeedle" class="analog-needle"></div>
+              <div class="needle-pivot"></div>
+            </div>
+            <div class="note-display">
+              <div id="noteName" class="note">—</div>
+              <div id="octave" class="octave"></div>
+            </div>
+            <div class="data-row">
+              <div><span class="label">Frecuencia</span><strong id="frequency">— Hz</strong></div>
+              <div><span class="label">Desviación</span><strong id="cents">— cents</strong></div>
             </div>
           </div>
-          <p id="feedback" class="feedback" role="status" aria-live="polite">Activa el micrófono y toca una nota larga.</p>
+          <div class="meter-wrap legacy-meter" aria-hidden="true">
+            <div class="meter">
+              <div class="meter-center"></div>
+              <div id="needle" class="needle"></div>
+            </div>
+          </div>
+          <div class="control-strip">
+            <button id="startBtn" class="primary-btn" type="button">Activar micrófono</button>
+            <div class="reference-control">
+              <label class="select-label" for="a4Reference">Referencia</label>
+              <select id="a4Reference">
+                <option value="440">A = 440 Hz</option>
+                <option value="442" selected>A = 442 Hz</option>
+                <option value="443">A = 443 Hz</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <p id="feedback" class="feedback" role="status" aria-live="polite">Activa el micrófono y toca una nota larga.</p>
       </section>
     </section>
 
@@ -127,27 +143,43 @@
           <li>Ejercicios concretos para aplicar con la flauta</li>
           <li>Acceso online para avanzar a tu ritmo</li>
         </ul>
-        <div class="challenge-purchase-row">
-          <div class="challenge-price"><span>Acceso completo</span><strong><small>USD</small> 39</strong><em>Pago único</em></div>
-          <a id="challengeHotmartCta" class="challenge-buy-btn" href="https://pay.hotmart.com/X106484678E?checkoutMode=2&utm_source=afinador&utm_medium=app&utm_campaign=desafio_21_dias&utm_content=tarjeta_final">COMENZAR EL DESAFÍO</a>
-        </div>
-        <p class="challenge-secure">Pago seguro procesado por Hotmart · Acceso digital inmediato</p>
       </div>
+      <div class="challenge-purchase-row">
+        <div class="challenge-price">
+          <span>Acceso completo</span>
+          <strong><small>USD</small> 39</strong>
+          <em>Pago único</em>
+        </div>
+        <a id="challengeHotmartCta" class="challenge-buy-btn" href="https://pay.hotmart.com/X106484678E?checkoutMode=2&utm_source=afinador&utm_medium=app&utm_campaign=desafio_21_dias&utm_content=tarjeta_final">Comenzar el desafío</a>
+      </div>
+      <p class="challenge-secure">Pago seguro procesado por Hotmart · Acceso digital inmediato</p>
     </section>
 
     <footer class="app-footer">
       <span>Escuela de Flautistas · Valentina Galaz</span>
-      <div><button id="showInstallHelpBtn" class="footer-link" type="button">Cómo instalar</button><a class="footer-link" href="privacidad.html">Privacidad del micrófono</a></div>
+      <div>
+        <button id="showInstallHelpBtn" class="footer-link" type="button">Cómo instalar</button>
+        <a class="footer-link" href="privacidad.html">Privacidad del micrófono</a>
+      </div>
     </footer>
 
     <section id="debugPanel" class="debug-panel" aria-live="polite">
       <h2>Diagnóstico móvil</h2>
-      <div class="debug-grid"><span>Navegador: <strong id="debugBrowser">—</strong></span><span>AudioContext: <strong id="debugAudioState">—</strong></span><span>FFT: <strong id="debugFft">—</strong></span><span>MIN RMS: <strong id="debugMinRms">—</strong></span><span>Señal RMS: <strong id="debugRms">—</strong></span><span>Pitch: <strong id="debugPitch">—</strong></span></div>
+      <div class="debug-grid">
+        <span>Navegador: <strong id="debugBrowser">—</strong></span>
+        <span>AudioContext: <strong id="debugAudioState">—</strong></span>
+        <span>FFT: <strong id="debugFft">—</strong></span>
+        <span>MIN RMS: <strong id="debugMinRms">—</strong></span>
+        <span>Señal RMS: <strong id="debugRms">—</strong></span>
+        <span>Pitch: <strong id="debugPitch">—</strong></span>
+      </div>
       <div id="debugLog" class="debug-log"></div>
     </section>
   </main>
 
-  <script src="stability.js?v=afinador-edf-v33"></script>
-  <script src="app.js?v=afinador-edf-v33"></script>
-  <script src="pwa.js?v=afinador-edf-v33"></script><script src="/assets/desafio-popup.js?v=41" defer></script></body>
+  <script src="stability.js?v=afinador-edf-v34"></script>
+  <script src="app.js?v=afinador-edf-v34"></script>
+  <script src="pwa.js?v=afinador-edf-v34"></script>
+  <script src="/assets/desafio-popup.js?v=41" defer></script>
+</body>
 </html>
