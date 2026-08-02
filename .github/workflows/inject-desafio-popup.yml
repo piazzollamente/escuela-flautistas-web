@@ -25,7 +25,7 @@ jobs:
           from pathlib import Path
           import re
 
-          popup_script = '<script src="/assets/desafio-popup.js?v=40" defer></script>'
+          popup_script = '<script src="/assets/desafio-popup.js?v=41" defer></script>'
           changed = []
 
           replacements = {
@@ -57,15 +57,11 @@ jobs:
                   text = text.replace(old, new)
               text = text.replace(es_old, es_new).replace(pt_old, pt_new)
 
-              # Remove any previous popup script tag, including cache-busted versions.
               text = re.sub(r'\s*<script src="/assets/desafio-popup\.js(?:\?v=[^"/<>]*)?" defer></script>\s*', '', text)
-
-              # Remove previous inline popup markup from older versions to avoid duplicates.
               text = re.sub(r'\n?\s*<div class="challenge-popup-backdrop" id="challengePopupBackdrop"></div>\s*\n?\s*<aside class="challenge-popup" id="challengePopup"[\s\S]*?</aside>\s*', '\n', text)
               text = re.sub(r'\n?\s*<aside class="challenge-popup" id="challengePopup"[\s\S]*?</aside>\s*', '\n', text)
               text = re.sub(r'\n?\s*<script>\s*\(function \(\) \{\s*const popup = document\.getElementById\(\'challengePopup\'\);[\s\S]*?\}\)\(\);\s*</script>\s*', '\n', text)
 
-              # Inject before </body> even when the HTML is minified onto one long line.
               if '</body>' in text:
                   text = text.replace('</body>', popup_script + '</body>', 1)
               elif '</html>' in text:
@@ -94,4 +90,4 @@ jobs:
           git commit -m "Force update challenge price to 39 USD"
           git push
 
-# trigger: force-price-39-2026-08-02-c
+# trigger: remove-logo-restore-brand-2026-08-02
