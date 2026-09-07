@@ -1,25 +1,28 @@
 # Sala de Estudio · Escuela de Flautistas
 
-Piloto PWA con tres herramientas:
+PWA con tres herramientas principales:
 
 - Afinador cromático con calibración La = 430–450 Hz.
 - Metrónomo con compases, subdivisiones de 1 a 6, acentos y aumento progresivo.
 - Hiperfoco con temporizador, objetivo de sesión, pantalla activa e historial local.
 
+## Arquitectura canónica
+
+La implementación activa y canónica de Sala de Estudio se mantiene en `main/app`.
+
+La rama histórica `feature/sala-estudio-pwa` contiene experimentos y parches previos para iPad/iOS (`audio-session.js`, `ipad-tuner-fix.js`, `high-register-tuner.js`) que no deben incorporarse automáticamente a producción. Cualquier lógica útil debe revisarse y trasladarse de forma explícita a la implementación canónica.
+
+El afinador validado actualmente en iPad utiliza `app.js` como motor principal. `app-fixes.js` funciona como capa de compatibilidad para recuperación al volver a la app, referencias adicionales y correcciones táctiles. La meta de mantenimiento es evitar nuevas capas paralelas y consolidar futuros cambios en una única ruta de ejecución.
+
 ## Privacidad y acceso
 
 La aplicación no utiliza servidor ni base de datos. El acceso y el historial se guardan en `localStorage` del dispositivo. El código privado es una barrera ligera para una prueba cerrada, no un sistema de autenticación de alta seguridad.
 
-## Publicación gratuita en Cloudflare Pages
+## Publicación
 
-1. Crear un proyecto de Pages conectado a `piazzollamente/escuela-flautistas-web`.
-2. Seleccionar la rama `feature/sala-estudio-pwa` durante la prueba.
-3. Framework preset: `None`.
-4. Build command: dejar vacío.
-5. Build output directory: `app`.
-6. Agregar el dominio personalizado `app.escueladeflautistas.cl`.
+El proyecto se publica desde el repositorio `piazzollamente/escuela-flautistas-web` con `app` como directorio de salida para Sala de Estudio y el dominio `app.escueladeflautistas.cl`.
 
-Cuando se apruebe la prueba, fusionar la rama a `main` y cambiar la rama de producción del proyecto Pages a `main`.
+Los cambios técnicos deben desarrollarse primero en una rama de prueba, validarse en Safari de iPad y PWA instalada, y recién después integrarse a `main`.
 
 ## Límites conocidos de la versión web
 
