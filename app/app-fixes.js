@@ -4,6 +4,7 @@
   const tunerToggle = document.getElementById("tunerToggle");
   const tunerView = document.getElementById("view-tuner");
   const metronomeView = document.getElementById("view-metronome");
+  const metronomeToggle = document.getElementById("metronomeToggle");
   const referenceNote = document.getElementById("referenceNote");
   const referenceToggle = document.getElementById("referenceToggle");
   const calibrationInput = document.getElementById("calibrationInput");
@@ -21,6 +22,33 @@
     return tunerToggle?.textContent.trim() === "Detener afinador";
   }
 
+  function metronomeIsActive() {
+    return metronomeToggle?.textContent.trim() === "Detener";
+  }
+
+  function referenceIsActive() {
+    return referenceToggle?.textContent.trim() === "Detener referencia";
+  }
+
+  function setAudioSessionType(type) {
+    if (!navigator.audioSession || !("type" in navigator.audioSession)) return;
+    try {
+      if (navigator.audioSession.type !== type) navigator.audioSession.type = type;
+    } catch (_) {}
+  }
+
+  function syncAudioSessionType() {
+    if (tunerIsActive()) {
+      setAudioSessionType("play-and-record");
+      return;
+    }
+    if (referenceIsActive() || metronomeIsActive()) {
+      setAudioSessionType("playback");
+      return;
+    }
+    setAudioSessionType("auto");
+  }
+
   function rememberTunerState() {
     tunerWasActiveBeforeHide = tunerIsActive();
     if (recoveryTimer) {
@@ -36,9 +64,13 @@
       document.visibilityState !== "visible" ||
       !tunerView?.classList.contains("active") ||
       !tunerToggle
-    ) return;
+    ) {
+      syncAudioSessionType();
+      return;
+    }
 
     recoveryInProgress = true;
+    setAudioSessionType("play-and-record");
 
     if (tunerIsActive()) tunerToggle.click();
 
@@ -48,14 +80,29 @@
         tunerView.classList.contains("active") &&
         !tunerIsActive()
       ) {
+        setAudioSessionType("play-and-record");
         tunerToggle.click();
       }
 
       tunerWasActiveBeforeHide = false;
       recoveryInProgress = false;
       recoveryTimer = null;
-    }, 180);
+      setTimeout(syncAudioSessionType, 80);
+    }, 220);
   }
+
+  document.addEventListener("click", event => {
+    if (event.target === tunerToggle) {
+      if (!tunerIsActive()) setAudioSessionType("play-and-record");
+      else setTimeout(syncAudioSessionType, 80);
+      return;
+    }
+
+    if (event.target === metronomeToggle) {
+      if (!metronomeIsActive() && !tunerIsActive()) setAudioSessionType("playback");
+      setTimeout(syncAudioSessionType, 80);
+    }
+  }, true);
 
   document.addEventListener("visibilitychange", () => {
     if (document.visibilityState === "hidden") rememberTunerState();
@@ -65,7 +112,25 @@
   window.addEventListener("pagehide", rememberTunerState);
   window.addEventListener("pageshow", recoverTunerAfterReturn);
 
-  if (!referenceNote || !referenceToggle || !calibrationInput) return;
+  if (navigator.audioSession?.addEventListener) {
+    navigator.audioSession.addEventListener("statechange", () => {
+      if (navigator.audioSession.state === "interrupted") {
+        tunerWasActiveBeforeHide ||= tunerIsActive();
+        return;
+      }
+
+      if (navigator.audioSession.state === "active" && tunerWasActiveBeforeHide) {
+        recoverTunerAfterReturn();
+      } else {
+        syncAudioSessionType();
+      }
+    });
+  }
+
+  if (!referenceNote || !referenceToggle || !calibrationInput) {
+    syncAudioSessionType();
+    return;
+  }
 
   const firstOption = referenceNote.options[0] || null;
   if (![...referenceNote.options].some(option => option.value === "F4")) {
@@ -93,8 +158,12 @@
   async function ensureReferenceAudio() {
     const AudioContextClass = window.AudioContext || window.webkitAudioContext;
     if (!AudioContextClass) throw new Error("Web Audio API no disponible");
-    if (!referenceAudioContext) referenceAudioContext = new AudioContextClass();
-    if (referenceAudioContext.state === "suspended") await referenceAudioContext.resume();
+    if (!referenceAudioContext || referenceAudioContext.state === "closed") {
+      referenceAudioContext = new AudioContextClass();
+    }
+    if (["suspended", "interrupted"].includes(referenceAudioContext.state)) {
+      await referenceAudioContext.resume();
+    }
     return referenceAudioContext;
   }
 
@@ -105,12 +174,14 @@
     referenceOscillator = null;
     referenceGain = null;
     referenceToggle.textContent = "Reproducir referencia";
+    syncAudioSessionType();
   }
 
   async function startReference() {
     const semitones = referenceSemitones[referenceNote.value];
     if (!Number.isFinite(semitones)) return;
 
+    if (!tunerIsActive()) setAudioSessionType("playback");
     const context = await ensureReferenceAudio();
     const calibration = Math.min(450, Math.max(430, Number(calibrationInput.value) || 440));
     const frequency = calibration * Math.pow(2, semitones / 12);
@@ -126,6 +197,7 @@
     referenceOscillator = oscillator;
     referenceGain = gain;
     referenceToggle.textContent = "Detener referencia";
+    syncAudioSessionType();
   }
 
   async function toggleReference() {
@@ -156,4 +228,6 @@
     stopReference();
     startReference().catch(stopReference);
   });
+
+  syncAudioSessionType();
 })();
