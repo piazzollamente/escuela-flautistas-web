@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Flautistas Protagonistas 2027 · Escuela de Flautistas</title>
-  <meta name="description" content="Preinscripción a Flautistas Protagonistas 2027. Recibe toda la información a partir del 3 de octubre.">
+  <meta name="description" content="Pre-anuncio de Flautistas Protagonistas 2027. Recibe toda la información a partir del 3 de octubre.">
   <link rel="canonical" href="https://escueladeflautistas.cl/flautistas-protagonistas/">
   <link rel="icon" type="image/png" href="/assets/favicon.png">
 
@@ -12,7 +12,7 @@
   <meta property="og:locale" content="es_CL">
   <meta property="og:url" content="https://escueladeflautistas.cl/flautistas-protagonistas/">
   <meta property="og:title" content="Flautistas Protagonistas 2027 · Escuela de Flautistas">
-  <meta property="og:description" content="Preinscripción abierta. Toda la información a partir del 3 de octubre.">
+  <meta property="og:description" content="Pre-anuncio 2027. Toda la información a partir del 3 de octubre.">
   <meta property="og:image" content="https://escueladeflautistas.cl/assets/valentina-2.png">
   <meta name="twitter:card" content="summary_large_image">
 
@@ -602,7 +602,7 @@
         </div>
 
         <div class="hero">
-          <div class="eyebrow"><span>Preinscripción 2027</span></div>
+          <div class="eyebrow"><span>Pre-anuncio 2027</span></div>
           <h1>Flautistas<br>Protagonistas<span class="period">.</span></h1>
           <p class="date-line">Toda la información a partir del <strong>3 de octubre</strong>.</p>
 
@@ -630,7 +630,7 @@
 
       <section class="form-section" aria-labelledby="preinscripcion-heading">
         <div class="section-heading">
-          <h2 id="preinscripcion-heading">Preinscripción</h2>
+          <h2 id="preinscripcion-heading">Recibe la información</h2>
           <span class="section-rule" aria-hidden="true"><span class="star">✦</span></span>
         </div>
 
@@ -678,7 +678,7 @@
 
             <div class="form-actions">
               <p class="form-note">Tus datos se utilizarán para enviarte información de Flautistas Protagonistas 2027.</p>
-              <button class="submit-btn" id="submitBtn" type="submit">Enviar preinscripción</button>
+              <button class="submit-btn" id="submitBtn" type="submit">Enviar mis datos</button>
             </div>
 
             <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
@@ -804,7 +804,7 @@
           if(!envioPendiente) return;
           envioPendiente = false;
           submitBtn.disabled = false;
-          submitBtn.textContent = 'Enviar preinscripción';
+          submitBtn.textContent = 'Enviar mis datos';
           mostrarEstado('El envío tardó más de lo esperado. Revisa tu conexión e inténtalo nuevamente.','error');
         },15000);
       });
@@ -815,7 +815,7 @@
         window.clearTimeout(envioTimeout);
         envioPendiente = false;
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Enviar preinscripción';
+        submitBtn.textContent = 'Enviar mis datos';
         form.reset();
         emailHelp.textContent = '';
         confirmarCorreo.setAttribute('aria-invalid','false');
@@ -836,7 +836,7 @@
         window.clearTimeout(envioTimeout);
         envioPendiente = false;
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Enviar preinscripción';
+        submitBtn.textContent = 'Enviar mis datos';
 
         if(data.ok){
           form.reset();
