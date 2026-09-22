@@ -428,6 +428,41 @@
       color:#A81419;
     }
 
+    .form-status-copy{
+      margin:0;
+    }
+
+    .whatsapp-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:46px;
+      margin-top:14px;
+      padding:12px 18px;
+      border:1px solid var(--mint-ink);
+      border-radius:3px;
+      background:transparent;
+      color:var(--mint-ink);
+      font-size:.68rem;
+      font-weight:800;
+      letter-spacing:.11em;
+      line-height:1.2;
+      text-decoration:none;
+      text-transform:uppercase;
+      transition:background .18s ease,color .18s ease,transform .18s ease;
+    }
+
+    .whatsapp-link:hover{
+      background:var(--mint-ink);
+      color:#fff;
+      transform:translateY(-1px);
+    }
+
+    .whatsapp-link:focus-visible{
+      outline:3px solid var(--red);
+      outline-offset:4px;
+    }
+
     .submit-target{
       position:absolute;
       width:1px;
@@ -682,6 +717,13 @@
         formStatus.className = 'form-status is-visible ' + (type === 'success' ? 'is-success' : 'is-error');
       }
 
+      function mostrarExito(){
+        formStatus.innerHTML =
+          '<p class="form-status-copy">Tu inscripción ha sido enviada correctamente. Si no estás en el grupo de WhatsApp, ingresa ahora:</p>' +
+          '<a class="whatsapp-link" href="https://chat.whatsapp.com/EHWKSTV9IMzFVOusTEkr5G" target="_blank" rel="noopener noreferrer">Ingresar al grupo de WhatsApp</a>';
+        formStatus.className = 'form-status is-visible is-success';
+      }
+
       function validarCorreos(){
         const a = normalizarCorreo(correo.value);
         const b = normalizarCorreo(confirmarCorreo.value);
@@ -735,7 +777,7 @@
         form.reset();
         emailHelp.textContent = '';
         confirmarCorreo.setAttribute('aria-invalid','false');
-        mostrarEstado('Tu preinscripción quedó registrada.','success');
+        mostrarExito();
 
         if(typeof gtag === 'function'){
           gtag('event','preinscripcion_flautistas_protagonistas',{
@@ -758,7 +800,7 @@
           form.reset();
           emailHelp.textContent = '';
           confirmarCorreo.setAttribute('aria-invalid','false');
-          mostrarEstado(data.message || 'Tu preinscripción quedó registrada.','success');
+          mostrarExito();
 
           if(typeof gtag === 'function'){
             gtag('event','preinscripcion_flautistas_protagonistas',{
