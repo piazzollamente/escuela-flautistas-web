@@ -669,7 +669,9 @@
       const emailHelp = document.getElementById('emailHelp');
       const submitBtn = document.getElementById('submitBtn');
       const formStatus = document.getElementById('formStatus');
+      const submitTarget = document.querySelector('.submit-target');
       let envioPendiente = false;
+      let envioTimeout = null;
 
       function normalizarCorreo(value){
         return value.trim().toLowerCase();
@@ -712,12 +714,42 @@
         envioPendiente = true;
         submitBtn.disabled = true;
         submitBtn.textContent = 'Enviando…';
+
+        window.clearTimeout(envioTimeout);
+        envioTimeout = window.setTimeout(function(){
+          if(!envioPendiente) return;
+          envioPendiente = false;
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Enviar preinscripción';
+          mostrarEstado('El envío tardó más de lo esperado. Revisa tu conexión e inténtalo nuevamente.','error');
+        },15000);
+      });
+
+      submitTarget.addEventListener('load',function(){
+        if(!envioPendiente) return;
+
+        window.clearTimeout(envioTimeout);
+        envioPendiente = false;
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Enviar preinscripción';
+        form.reset();
+        emailHelp.textContent = '';
+        confirmarCorreo.setAttribute('aria-invalid','false');
+        mostrarEstado('Tu preinscripción quedó registrada.','success');
+
+        if(typeof gtag === 'function'){
+          gtag('event','preinscripcion_flautistas_protagonistas',{
+            event_category:'conversion',
+            event_label:'Flautistas Protagonistas 2027'
+          });
+        }
       });
 
       window.addEventListener('message',function(event){
         const data = event.data;
         if(!envioPendiente || !data || data.source !== 'flautistas-protagonistas') return;
 
+        window.clearTimeout(envioTimeout);
         envioPendiente = false;
         submitBtn.disabled = false;
         submitBtn.textContent = 'Enviar preinscripción';
