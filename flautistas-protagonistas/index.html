@@ -269,76 +269,91 @@
 
     .form-shell{
       border:1px solid var(--line);
-      border-radius:3px;
-      background:rgba(255,255,255,.38);
-      padding:clamp(28px,5vw,52px);
+      border-radius:4px;
+      background:#F3EFE9;
+      padding:clamp(30px,5vw,56px);
     }
 
     .form-grid{
       display:grid;
       grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:26px 28px;
+      gap:22px;
     }
 
     .field{
       display:grid;
-      gap:9px;
+      gap:0;
       min-width:0;
+      overflow:hidden;
+      border:1px solid #CFC5BA;
+      border-radius:4px;
+      background:#fff;
+      box-shadow:0 8px 22px rgba(17,17,17,.035);
+      transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;
+    }
+
+    .field:focus-within{
+      border-color:var(--red);
+      box-shadow:0 0 0 3px rgba(227,28,35,.08),0 10px 26px rgba(17,17,17,.045);
+      transform:translateY(-1px);
     }
 
     .field-full{grid-column:1/-1}
 
     .field label{
+      display:block;
+      padding:16px 18px 7px;
       color:var(--ink);
-      font-size:.68rem;
+      font-size:.72rem;
       font-weight:800;
-      letter-spacing:.14em;
+      letter-spacing:.12em;
       line-height:1.35;
       text-transform:uppercase;
+    }
+
+    .field-hint{
+      display:block;
+      padding:0 18px 10px;
+      color:var(--muted);
+      font-size:.78rem;
+      font-weight:500;
+      line-height:1.4;
     }
 
     .field input,
     .field textarea{
       width:100%;
-      border:1px solid var(--line);
-      border-radius:3px;
+      border:0;
+      border-top:1px solid #E6DED5;
+      border-radius:0;
       outline:0;
       background:#fff;
       color:var(--ink);
       font-family:var(--sans);
-      font-size:1rem;
+      font-size:1.02rem;
       font-weight:500;
       line-height:1.5;
-      box-shadow:0 1px 0 rgba(17,17,17,.02);
-      transition:border-color .18s ease,box-shadow .18s ease,background-color .18s ease;
     }
 
     .field input{
-      min-height:56px;
-      padding:13px 15px;
+      min-height:62px;
+      padding:16px 18px;
     }
 
     .field textarea{
-      min-height:156px;
+      min-height:170px;
       resize:vertical;
-      padding:14px 15px;
+      padding:16px 18px;
     }
 
     .field input::placeholder,
     .field textarea::placeholder{
-      color:rgba(95,90,86,.62);
+      color:rgba(95,90,86,.45);
       font-weight:400;
     }
 
-    .field input:focus,
-    .field textarea:focus{
-      border-color:var(--red);
-      box-shadow:0 0 0 3px rgba(227,28,35,.08);
-    }
-
     .field input[aria-invalid="true"]{
-      border-color:var(--red);
-      box-shadow:0 0 0 3px rgba(227,28,35,.08);
+      background:rgba(227,28,35,.025);
     }
 
     .field-help{
@@ -542,9 +557,12 @@
       .section-heading{gap:12px;margin-bottom:13px}
       .section-heading h2{font-size:.67rem;letter-spacing:.15em}
       .section-rule{gap:7px}
-      .form-shell{padding:28px 24px}
-      .form-grid{grid-template-columns:1fr;gap:22px}
+      .form-shell{padding:26px 20px}
+      .form-grid{grid-template-columns:1fr;gap:18px}
       .field-full{grid-column:auto}
+      .field label{padding:15px 16px 6px}
+      .field-hint{padding:0 16px 9px}
+      .field input,.field textarea{padding-left:16px;padding-right:16px}
       .form-actions{align-items:stretch;flex-direction:column}
       .submit-btn{width:100%}
       .footer{margin-top:26px}
@@ -561,9 +579,10 @@
       .countdown-label{font-size:.48rem;letter-spacing:.07em}
       .section-heading{gap:8px}
       .section-heading h2{font-size:.62rem;letter-spacing:.12em}
-      .form-shell{padding:24px 18px}
-      .field label{font-size:.62rem;letter-spacing:.11em}
-      .field input,.field textarea{font-size:.94rem}
+      .form-shell{padding:22px 14px}
+      .field label{font-size:.64rem;letter-spacing:.1em}
+      .field-hint{font-size:.74rem}
+      .field input,.field textarea{font-size:.96rem}
     }
 
     @media(prefers-reduced-motion:reduce){
@@ -627,28 +646,33 @@
             <div class="form-grid">
               <div class="field">
                 <label for="nombre">Nombre <span class="required-mark">*</span></label>
-                <input id="nombre" name="nombre" type="text" autocomplete="given-name" placeholder="(tu mejor nombre)" required>
+                <span class="field-hint">(tu mejor nombre)</span>
+                <input id="nombre" name="nombre" type="text" autocomplete="given-name" placeholder="Escribe aquí" required>
               </div>
 
               <div class="field">
                 <label for="apellido">Apellido <span class="required-mark">*</span></label>
-                <input id="apellido" name="apellido" type="text" autocomplete="family-name" placeholder="(tu apellido favorito)" required>
+                <span class="field-hint">(tu apellido favorito)</span>
+                <input id="apellido" name="apellido" type="text" autocomplete="family-name" placeholder="Escribe aquí" required>
               </div>
 
               <div class="field">
                 <label for="correo">Correo electrónico <span class="required-mark">*</span></label>
-                <input id="correo" name="correo" type="email" autocomplete="email" inputmode="email" placeholder="(tu correo principal)" required>
+                <span class="field-hint">(el correo que revisas de verdad)</span>
+                <input id="correo" name="correo" type="email" autocomplete="email" inputmode="email" placeholder="nombre@correo.com" required>
               </div>
 
               <div class="field">
                 <label for="confirmarCorreo">Confirma tu correo electrónico <span class="required-mark">*</span></label>
-                <input id="confirmarCorreo" name="confirmarCorreo" type="email" autocomplete="email" inputmode="email" placeholder="(escríbelo otra vez)" required aria-describedby="emailHelp">
+                <span class="field-hint">(escríbelo otra vez para asegurarnos)</span>
+                <input id="confirmarCorreo" name="confirmarCorreo" type="email" autocomplete="email" inputmode="email" placeholder="nombre@correo.com" required aria-describedby="emailHelp">
                 <p class="field-help" id="emailHelp" aria-live="polite"></p>
               </div>
 
               <div class="field field-full">
                 <label for="dificultades">¿Cuáles son tus principales dificultades al estudiar flauta? <span class="required-mark">*</span></label>
-                <textarea id="dificultades" name="dificultades" placeholder="(cuéntame qué es lo que más te cuesta cuando estudias)" required></textarea>
+                <span class="field-hint">(cuéntame qué es lo que más te cuesta cuando estudias)</span>
+                <textarea id="dificultades" name="dificultades" placeholder="Escribe aquí con tus propias palabras" required></textarea>
               </div>
             </div>
 
