@@ -300,43 +300,45 @@
     .field input,
     .field textarea{
       width:100%;
-      border:0;
-      border-bottom:1px solid var(--line);
-      border-radius:0;
+      border:1px solid var(--line);
+      border-radius:3px;
       outline:0;
-      background:transparent;
+      background:#fff;
       color:var(--ink);
       font-family:var(--sans);
       font-size:1rem;
       font-weight:500;
       line-height:1.5;
-      transition:border-color .18s ease,background-color .18s ease;
+      box-shadow:0 1px 0 rgba(17,17,17,.02);
+      transition:border-color .18s ease,box-shadow .18s ease,background-color .18s ease;
     }
 
     .field input{
-      min-height:52px;
-      padding:10px 0 9px;
+      min-height:56px;
+      padding:13px 15px;
     }
 
     .field textarea{
-      min-height:148px;
+      min-height:156px;
       resize:vertical;
-      padding:12px 0;
+      padding:14px 15px;
     }
 
     .field input::placeholder,
     .field textarea::placeholder{
-      color:rgba(95,90,86,.58);
+      color:rgba(95,90,86,.62);
       font-weight:400;
     }
 
     .field input:focus,
     .field textarea:focus{
       border-color:var(--red);
+      box-shadow:0 0 0 3px rgba(227,28,35,.08);
     }
 
     .field input[aria-invalid="true"]{
       border-color:var(--red);
+      box-shadow:0 0 0 3px rgba(227,28,35,.08);
     }
 
     .field-help{
@@ -346,6 +348,20 @@
       font-size:.72rem;
       font-weight:600;
       line-height:1.4;
+    }
+
+    .required-note{
+      margin:0 0 24px;
+      color:var(--muted);
+      font-size:.7rem;
+      font-weight:600;
+      letter-spacing:.04em;
+      line-height:1.45;
+    }
+
+    .required-mark{
+      color:var(--red);
+      font-weight:800;
     }
 
     .form-actions{
@@ -606,31 +622,33 @@
             method="post"
             target="fp-submit-target"
             novalidate>
+            <p class="required-note"><span class="required-mark">*</span> Todos los campos son obligatorios.</p>
+
             <div class="form-grid">
               <div class="field">
-                <label for="nombre">Nombre</label>
-                <input id="nombre" name="nombre" type="text" autocomplete="given-name" required>
+                <label for="nombre">Nombre <span class="required-mark">*</span></label>
+                <input id="nombre" name="nombre" type="text" autocomplete="given-name" placeholder="(tu mejor nombre)" required>
               </div>
 
               <div class="field">
-                <label for="apellido">Apellido</label>
-                <input id="apellido" name="apellido" type="text" autocomplete="family-name" required>
+                <label for="apellido">Apellido <span class="required-mark">*</span></label>
+                <input id="apellido" name="apellido" type="text" autocomplete="family-name" placeholder="(tu apellido favorito)" required>
               </div>
 
               <div class="field">
-                <label for="correo">Correo electrónico</label>
-                <input id="correo" name="correo" type="email" autocomplete="email" inputmode="email" required>
+                <label for="correo">Correo electrónico <span class="required-mark">*</span></label>
+                <input id="correo" name="correo" type="email" autocomplete="email" inputmode="email" placeholder="(tu correo principal)" required>
               </div>
 
               <div class="field">
-                <label for="confirmarCorreo">Confirma tu correo electrónico</label>
-                <input id="confirmarCorreo" name="confirmarCorreo" type="email" autocomplete="email" inputmode="email" required aria-describedby="emailHelp">
+                <label for="confirmarCorreo">Confirma tu correo electrónico <span class="required-mark">*</span></label>
+                <input id="confirmarCorreo" name="confirmarCorreo" type="email" autocomplete="email" inputmode="email" placeholder="(escríbelo otra vez)" required aria-describedby="emailHelp">
                 <p class="field-help" id="emailHelp" aria-live="polite"></p>
               </div>
 
               <div class="field field-full">
-                <label for="dificultades">¿Cuáles son tus principales dificultades al estudiar flauta?</label>
-                <textarea id="dificultades" name="dificultades" required></textarea>
+                <label for="dificultades">¿Cuáles son tus principales dificultades al estudiar flauta? <span class="required-mark">*</span></label>
+                <textarea id="dificultades" name="dificultades" placeholder="(cuéntame qué es lo que más te cuesta cuando estudias)" required></textarea>
               </div>
             </div>
 
