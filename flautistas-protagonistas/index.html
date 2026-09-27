@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Flautistas Protagonistas 2027 · Escuela de Flautistas</title>
-  <meta name="description" content="Pre-anuncio de Flautistas Protagonistas 2027. Recibe toda la información a partir del 3 de octubre.">
+  <meta name="description" content="Flautistas Protagonistas 2027: desarrollo instrumental y construcción de un proyecto artístico propio, con programa de concierto, dossier y estrategia inicial de circulación.">
   <link rel="canonical" href="https://escueladeflautistas.cl/flautistas-protagonistas/">
   <link rel="icon" type="image/png" href="/assets/favicon.png">
 
@@ -12,7 +12,7 @@
   <meta property="og:locale" content="es_CL">
   <meta property="og:url" content="https://escueladeflautistas.cl/flautistas-protagonistas/">
   <meta property="og:title" content="Flautistas Protagonistas 2027 · Escuela de Flautistas">
-  <meta property="og:description" content="Pre-anuncio 2027. Toda la información a partir del 3 de octubre.">
+  <meta property="og:description" content="Desarrolla tu instrumento y, en paralelo, construye un proyecto artístico propio para comenzar a moverlo en 2027.">
   <meta property="og:image" content="https://escueladeflautistas.cl/assets/valentina-2.png">
   <meta name="twitter:card" content="summary_large_image">
 
@@ -185,6 +185,49 @@
       line-height:1.5;
     }
 
+    .hero-cta,
+    .section-cta{
+      display:inline-flex;
+      min-height:52px;
+      align-items:center;
+      justify-content:center;
+      margin-top:24px;
+      padding:14px 22px;
+      border:1px solid var(--red);
+      border-radius:3px;
+      background:var(--red);
+      color:#fff;
+      font-size:.7rem;
+      font-weight:800;
+      letter-spacing:.13em;
+      line-height:1.25;
+      text-decoration:none;
+      text-transform:uppercase;
+      transition:background .18s ease,border-color .18s ease,transform .18s ease;
+    }
+
+    .hero-cta:hover,
+    .section-cta:hover{
+      background:#C9181E;
+      border-color:#C9181E;
+      transform:translateY(-1px);
+    }
+
+    .hero-cta:focus-visible,
+    .section-cta:focus-visible{
+      outline:3px solid var(--mint-ink);
+      outline-offset:4px;
+    }
+
+    .hero-note{
+      max-width:560px;
+      margin:10px auto 0;
+      color:var(--muted);
+      font-size:.72rem;
+      font-weight:500;
+      line-height:1.5;
+    }
+
     .countdown{
       display:grid;
       grid-template-columns:repeat(4,1fr);
@@ -241,8 +284,217 @@
 
     .countdown-status.is-live{color:var(--mint-ink)}
 
+    .program-section{
+      margin-top:clamp(64px,10vw,104px);
+    }
+
+    .program-intro{
+      max-width:760px;
+      margin:0 auto 34px;
+      text-align:center;
+    }
+
+    .program-kicker{
+      margin:0 0 14px;
+      color:var(--red);
+      font-size:.68rem;
+      font-weight:800;
+      letter-spacing:.19em;
+      text-transform:uppercase;
+    }
+
+    .program-title{
+      margin:0;
+      font-family:var(--serif);
+      font-size:clamp(2.7rem,6vw,4.7rem);
+      font-weight:500;
+      letter-spacing:-.045em;
+      line-height:.95;
+      text-wrap:balance;
+    }
+
+    .program-lead{
+      max-width:720px;
+      margin:22px auto 0;
+      color:var(--muted);
+      font-size:clamp(.98rem,1.8vw,1.08rem);
+      font-weight:500;
+      line-height:1.75;
+      text-wrap:balance;
+    }
+
+    .dual-grid,
+    .outcome-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:20px;
+      margin-top:34px;
+    }
+
+    .pillar,
+    .outcome-card{
+      border:1px solid var(--line);
+      border-radius:4px;
+      background:rgba(255,255,255,.56);
+      padding:clamp(26px,4vw,38px);
+    }
+
+    .pillar-number{
+      display:inline-flex;
+      width:34px;
+      height:34px;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:20px;
+      border:1px solid rgba(227,28,35,.24);
+      border-radius:50%;
+      color:var(--red);
+      font-family:var(--serif);
+      font-size:1.15rem;
+      font-weight:600;
+    }
+
+    .pillar h3,
+    .outcome-card h3{
+      margin:0 0 13px;
+      font-family:var(--serif);
+      font-size:clamp(1.8rem,3.2vw,2.45rem);
+      font-weight:600;
+      letter-spacing:-.025em;
+      line-height:1;
+    }
+
+    .pillar p,
+    .outcome-card p{
+      margin:0;
+      color:var(--muted);
+      font-size:.92rem;
+      font-weight:500;
+      line-height:1.7;
+    }
+
+    .bridge{
+      margin-top:24px;
+      padding:clamp(28px,5vw,46px);
+      border-left:4px solid var(--red);
+      background:var(--ink);
+      color:#fff;
+    }
+
+    .bridge strong{
+      display:block;
+      margin-bottom:12px;
+      font-family:var(--serif);
+      font-size:clamp(2rem,4vw,3.1rem);
+      font-weight:500;
+      letter-spacing:-.035em;
+      line-height:1;
+    }
+
+    .bridge p{
+      max-width:760px;
+      margin:0;
+      color:rgba(255,255,255,.78);
+      font-size:.96rem;
+      font-weight:500;
+      line-height:1.72;
+    }
+
+    .project-panel{
+      margin-top:24px;
+      padding:clamp(30px,5vw,52px);
+      border:1px solid rgba(22,122,113,.22);
+      border-radius:4px;
+      background:linear-gradient(135deg,rgba(217,242,238,.8),rgba(255,255,255,.62));
+    }
+
+    .project-panel .program-kicker{
+      color:var(--mint-ink);
+    }
+
+    .project-panel h3{
+      max-width:700px;
+      margin:0;
+      font-family:var(--serif);
+      font-size:clamp(2.5rem,5vw,4rem);
+      font-weight:500;
+      letter-spacing:-.04em;
+      line-height:.95;
+    }
+
+    .project-panel > p{
+      max-width:740px;
+      margin:18px 0 0;
+      color:#3F514E;
+      font-size:.96rem;
+      font-weight:500;
+      line-height:1.72;
+    }
+
+    .project-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+      margin-top:28px;
+    }
+
+    .project-item{
+      min-height:100%;
+      padding:18px 18px 19px;
+      border:1px solid rgba(22,122,113,.18);
+      border-radius:3px;
+      background:rgba(255,255,255,.72);
+    }
+
+    .project-item strong{
+      display:block;
+      margin-bottom:6px;
+      color:var(--ink);
+      font-size:.8rem;
+      font-weight:800;
+      letter-spacing:.04em;
+      line-height:1.4;
+    }
+
+    .project-item span{
+      display:block;
+      color:#4E625F;
+      font-size:.82rem;
+      font-weight:500;
+      line-height:1.55;
+    }
+
+    .outcome-heading{
+      margin-top:44px;
+      text-align:center;
+    }
+
+    .outcome-heading h3{
+      max-width:720px;
+      margin:0 auto;
+      font-family:var(--serif);
+      font-size:clamp(2.4rem,5vw,3.8rem);
+      font-weight:500;
+      letter-spacing:-.04em;
+      line-height:.98;
+    }
+
+    .outcome-heading p{
+      max-width:690px;
+      margin:16px auto 0;
+      color:var(--muted);
+      font-size:.94rem;
+      line-height:1.68;
+    }
+
     .form-section{
       margin-top:clamp(56px,9vw,90px);
+      scroll-margin-top:24px;
+    }
+
+    .program-cta-wrap{
+      margin-top:26px;
+      text-align:center;
     }
 
     .section-heading{
@@ -559,7 +811,9 @@
       .brand{font-size:.67rem;letter-spacing:.18em}
       h1{font-size:clamp(3.35rem,15vw,5.2rem);line-height:.84}
       .date-line{margin-top:20px;font-size:.9rem}
-      .countdown{margin-top:34px}
+      .hero-cta,.section-cta{width:100%;max-width:420px;margin-top:20px}
+      .hero-note{font-size:.68rem}
+      .countdown{margin-top:30px}
       .countdown-item{padding:22px 7px}
       .countdown-value{font-size:clamp(2.6rem,12vw,4rem)}
       .countdown-label{font-size:.54rem;letter-spacing:.1em}
@@ -568,6 +822,16 @@
       .section-heading h2{font-size:.67rem;letter-spacing:.15em}
       .section-rule{gap:7px}
       .form-shell{padding:26px 20px}
+      .dual-grid,.outcome-grid,.project-grid{grid-template-columns:1fr}
+      .program-section{margin-top:62px}
+      .program-intro{margin-bottom:28px}
+      .bridge{padding:28px 24px}
+      .project-panel{padding:28px 22px}
+      .project-grid{gap:0;margin-top:22px}
+      .project-item{padding:16px 2px;border:0;border-top:1px solid rgba(22,122,113,.18);border-radius:0;background:transparent}
+      .project-item:last-child{border-bottom:1px solid rgba(22,122,113,.18)}
+      .outcome-heading{margin-top:34px}
+      .outcome-grid{gap:12px;margin-top:22px}
       .form-grid{grid-template-columns:1fr;gap:18px}
       .field-full{grid-column:auto}
       .field label{padding:15px 16px 6px}
@@ -614,8 +878,10 @@
         <div class="hero">
           <div class="eyebrow"><span>Pre-anuncio 2027</span></div>
           <h1>Flautistas<br>Protagonistas<span class="period">.</span></h1>
-          <p class="intro-copy">Si estudias flauta hace tiempo y quieres comenzar 2027 con más claridad en tu práctica y en tus objetivos, Flautistas Protagonistas es para ti. Durante 6 semanas vamos a trabajar en clases individuales, encuentros grupales y talleres específicos para que aprendas nuevas variaciones de los ejercicios que ya conoces, puedas definir cómo abordar y resolver pasajes difíciles y, sobre todo, darles vida musical. El proceso incluirá análisis musical aplicado, ejercicios complementarios sin flauta, trabajo respiratorio e hipopresivo e improvisación esencial sobre estructuras armónicas simples.</p>
+          <p class="intro-copy">Flautistas Protagonistas es un proceso de 6 semanas para desarrollar en paralelo dos dimensiones de tu camino musical: <strong>la flautista que quieres ser y el proyecto artístico que quieres hacer existir.</strong> Trabajaremos profundamente en tu instrumento —técnica, sonido, repertorio, interpretación, cuerpo e improvisación— mientras construyes una propuesta artística propia, con un programa de concierto leal a ti y las primeras herramientas para comenzar a moverla en 2027.</p>
           <p class="date-line">Toda la información a partir del <strong>3 de octubre</strong>.</p>
+          <a class="hero-cta" href="#preinscripcion-heading">Quiero recibir la información</a>
+          <p class="hero-note">Déjame tus datos y te enviaré los detalles de Flautistas Protagonistas 2027 cuando se abra la información.</p>
 
           <div class="countdown" id="countdown" aria-label="Cuenta regresiva hasta el 3 de octubre" aria-live="polite">
             <div class="countdown-item">
@@ -639,6 +905,86 @@
         </div>
       </header>
 
+      <section class="program-section" aria-labelledby="programa-heading">
+        <div class="program-intro">
+          <p class="program-kicker">Dos procesos · una misma dirección</p>
+          <h2 class="program-title" id="programa-heading">No tienes que elegir entre tocar mejor y construir tu camino artístico.</h2>
+          <p class="program-lead">En Flautistas Protagonistas vamos a trabajar ambas dimensiones en simultáneo. El desarrollo instrumental no queda en segundo plano y el proyecto artístico no será una idea separada de tu realidad como intérprete.</p>
+        </div>
+
+        <div class="dual-grid">
+          <article class="pillar">
+            <span class="pillar-number" aria-hidden="true">01</span>
+            <h3>Desarrollo instrumental</h3>
+            <p>Clases individuales, encuentros grupales y talleres específicos para trabajar de manera concreta el sonido, la técnica, el repertorio y la interpretación. El proceso incluye análisis musical aplicado, resolución de pasajes difíciles, ejercicios complementarios sin flauta, trabajo respiratorio e hipopresivo e improvisación esencial sobre estructuras armónicas simples.</p>
+          </article>
+
+          <article class="pillar">
+            <span class="pillar-number" aria-hidden="true">02</span>
+            <h3>Proyecto artístico 2027</h3>
+            <p>En paralelo, vas a comenzar a transformar tus intereses musicales en una propuesta concreta: definir una idea artística, construir un programa de concierto leal a ti, formular el proyecto, organizar tus antecedentes y preparar las herramientas necesarias para empezar a presentarlo.</p>
+          </article>
+        </div>
+
+        <div class="bridge">
+          <strong>El proyecto no reemplaza la técnica. Le da dirección.</strong>
+          <p>No vamos a esperar a que te sientas completamente “lista” para crear algo propio. Tampoco vamos a construir un proyecto desconectado de tus recursos reales. El repertorio que elijas mostrará qué necesitas desarrollar en el instrumento, y ese trabajo técnico abrirá nuevas posibilidades para tu proyecto.</p>
+        </div>
+
+        <div class="program-cta-wrap">
+          <a class="section-cta" href="#preinscripcion-heading">Quiero recibir los detalles</a>
+        </div>
+
+        <div class="project-panel">
+          <p class="program-kicker">Taller específico</p>
+          <h3>Proyecto Artístico 2027</h3>
+          <p>Este taller será el puntapié inicial para que 2027 no comience solamente con la intención de “hacer algo propio”. Vamos a convertir esa intención en una propuesta que pueda explicarse, mostrarse y comenzar a circular.</p>
+
+          <div class="project-grid">
+            <div class="project-item">
+              <strong>Idea y dirección artística</strong>
+              <span>Definir qué quieres hacer, qué te interesa poner en escena y qué formato tiene sentido para tu propuesta.</span>
+            </div>
+            <div class="project-item">
+              <strong>Programa de concierto leal a ti</strong>
+              <span>Seleccionar y organizar repertorio con una lógica artística propia, no como una simple acumulación de obras.</span>
+            </div>
+            <div class="project-item">
+              <strong>Formulación del proyecto</strong>
+              <span>Dar claridad al concepto, formato, repertorio, duración, participantes y necesidades principales.</span>
+            </div>
+            <div class="project-item">
+              <strong>Dossier artístico</strong>
+              <span>Organizar antecedentes, biografía, descripción del proyecto, fotografías, enlaces y materiales relevantes en una primera versión utilizable.</span>
+            </div>
+            <div class="project-item">
+              <strong>Espacios y presentación</strong>
+              <span>Aprender a reconocer qué espacios son coherentes con tu propuesta y cómo adaptar la presentación del proyecto a cada contexto.</span>
+            </div>
+            <div class="project-item">
+              <strong>Primer plan de circulación</strong>
+              <span>Definir una estrategia inicial para comenzar a presentar y mover el proyecto durante 2027, sin depender únicamente de que alguien te llame.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="outcome-heading">
+          <h3>Quiero que termines el proceso avanzando en dos frentes concretos.</h3>
+          <p>No solamente con más ejercicios ni solamente con un dossier. Con un desarrollo instrumental más consciente y una dirección artística que empiece a tomar forma fuera de la sala de estudio.</p>
+        </div>
+
+        <div class="outcome-grid">
+          <article class="outcome-card">
+            <h3>Como flautista</h3>
+            <p>Habrás trabajado de manera sistemática sobre los aspectos técnicos, sonoros, corporales e interpretativos que necesites fortalecer durante el proceso.</p>
+          </article>
+          <article class="outcome-card">
+            <h3>Como artista</h3>
+            <p>Habrás comenzado a convertir tus intereses musicales en una propuesta concreta: proyecto, programa de concierto, dossier inicial y una estrategia para empezar a presentarlo en 2027.</p>
+          </article>
+        </div>
+      </section>
+
       <section class="form-section" aria-labelledby="preinscripcion-heading">
         <div class="section-heading">
           <h2 id="preinscripcion-heading">Recibe la información</h2>
@@ -657,13 +1003,13 @@
             <div class="form-grid">
               <div class="field">
                 <label for="nombre">Nombre <span class="required-mark">*</span></label>
-                <span class="field-hint">(tu mejor nombre)</span>
+                <span class="field-hint">(cómo quieres que te llame)</span>
                 <input id="nombre" name="nombre" type="text" autocomplete="given-name" placeholder="Escribe aquí" required>
               </div>
 
               <div class="field">
                 <label for="apellido">Apellido <span class="required-mark">*</span></label>
-                <span class="field-hint">(tu apellido favorito)</span>
+                <span class="field-hint">(tu apellido)</span>
                 <input id="apellido" name="apellido" type="text" autocomplete="family-name" placeholder="Escribe aquí" required>
               </div>
 
@@ -681,15 +1027,15 @@
               </div>
 
               <div class="field field-full">
-                <label for="dificultades">¿Cuáles son tus principales dificultades al estudiar flauta? <span class="required-mark">*</span></label>
-                <span class="field-hint">(cuéntame qué es lo que más te cuesta cuando estudias)</span>
+                <label for="dificultades">¿Qué quieres desarrollar hoy en tu flauta y en tu camino artístico? <span class="required-mark">*</span></label>
+                <span class="field-hint">(cuéntame qué necesitas fortalecer en el instrumento y qué te gustaría estar haciendo con la música en 2027)</span>
                 <textarea id="dificultades" name="dificultades" placeholder="Escribe aquí con tus propias palabras" required></textarea>
               </div>
             </div>
 
             <div class="form-actions">
               <p class="form-note">Tus datos se utilizarán para enviarte información de Flautistas Protagonistas 2027.</p>
-              <button class="submit-btn" id="submitBtn" type="submit">Enviar mis datos</button>
+              <button class="submit-btn" id="submitBtn" type="submit">Quiero recibir la información</button>
             </div>
 
             <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
@@ -815,7 +1161,7 @@
           if(!envioPendiente) return;
           envioPendiente = false;
           submitBtn.disabled = false;
-          submitBtn.textContent = 'Enviar mis datos';
+          submitBtn.textContent = 'Quiero recibir la información';
           mostrarEstado('El envío tardó más de lo esperado. Revisa tu conexión e inténtalo nuevamente.','error');
         },15000);
       });
@@ -826,7 +1172,7 @@
         window.clearTimeout(envioTimeout);
         envioPendiente = false;
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Enviar mis datos';
+        submitBtn.textContent = 'Quiero recibir la información';
         form.reset();
         emailHelp.textContent = '';
         confirmarCorreo.setAttribute('aria-invalid','false');
@@ -847,7 +1193,7 @@
         window.clearTimeout(envioTimeout);
         envioPendiente = false;
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Enviar mis datos';
+        submitBtn.textContent = 'Quiero recibir la información';
 
         if(data.ok){
           form.reset();
