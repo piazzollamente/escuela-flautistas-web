@@ -185,6 +185,49 @@
       line-height:1.5;
     }
 
+    .hero-cta,
+    .section-cta{
+      display:inline-flex;
+      min-height:52px;
+      align-items:center;
+      justify-content:center;
+      margin-top:24px;
+      padding:14px 22px;
+      border:1px solid var(--red);
+      border-radius:3px;
+      background:var(--red);
+      color:#fff;
+      font-size:.7rem;
+      font-weight:800;
+      letter-spacing:.13em;
+      line-height:1.25;
+      text-decoration:none;
+      text-transform:uppercase;
+      transition:background .18s ease,border-color .18s ease,transform .18s ease;
+    }
+
+    .hero-cta:hover,
+    .section-cta:hover{
+      background:#C9181E;
+      border-color:#C9181E;
+      transform:translateY(-1px);
+    }
+
+    .hero-cta:focus-visible,
+    .section-cta:focus-visible{
+      outline:3px solid var(--mint-ink);
+      outline-offset:4px;
+    }
+
+    .hero-note{
+      max-width:560px;
+      margin:10px auto 0;
+      color:var(--muted);
+      font-size:.72rem;
+      font-weight:500;
+      line-height:1.5;
+    }
+
     .countdown{
       display:grid;
       grid-template-columns:repeat(4,1fr);
@@ -446,6 +489,12 @@
 
     .form-section{
       margin-top:clamp(56px,9vw,90px);
+      scroll-margin-top:24px;
+    }
+
+    .program-cta-wrap{
+      margin-top:26px;
+      text-align:center;
     }
 
     .section-heading{
@@ -762,7 +811,9 @@
       .brand{font-size:.67rem;letter-spacing:.18em}
       h1{font-size:clamp(3.35rem,15vw,5.2rem);line-height:.84}
       .date-line{margin-top:20px;font-size:.9rem}
-      .countdown{margin-top:34px}
+      .hero-cta,.section-cta{width:100%;max-width:420px;margin-top:20px}
+      .hero-note{font-size:.68rem}
+      .countdown{margin-top:30px}
       .countdown-item{padding:22px 7px}
       .countdown-value{font-size:clamp(2.6rem,12vw,4rem)}
       .countdown-label{font-size:.54rem;letter-spacing:.1em}
@@ -776,6 +827,11 @@
       .program-intro{margin-bottom:28px}
       .bridge{padding:28px 24px}
       .project-panel{padding:28px 22px}
+      .project-grid{gap:0;margin-top:22px}
+      .project-item{padding:16px 2px;border:0;border-top:1px solid rgba(22,122,113,.18);border-radius:0;background:transparent}
+      .project-item:last-child{border-bottom:1px solid rgba(22,122,113,.18)}
+      .outcome-heading{margin-top:34px}
+      .outcome-grid{gap:12px;margin-top:22px}
       .form-grid{grid-template-columns:1fr;gap:18px}
       .field-full{grid-column:auto}
       .field label{padding:15px 16px 6px}
@@ -824,6 +880,8 @@
           <h1>Flautistas<br>Protagonistas<span class="period">.</span></h1>
           <p class="intro-copy">Flautistas Protagonistas es un proceso de 6 semanas para desarrollar en paralelo dos dimensiones de tu camino musical: <strong>la flautista que quieres ser y el proyecto artístico que quieres hacer existir.</strong> Trabajaremos profundamente en tu instrumento —técnica, sonido, repertorio, interpretación, cuerpo e improvisación— mientras construyes una propuesta artística propia, con un programa de concierto leal a ti y las primeras herramientas para comenzar a moverla en 2027.</p>
           <p class="date-line">Toda la información a partir del <strong>3 de octubre</strong>.</p>
+          <a class="hero-cta" href="#preinscripcion-heading">Quiero recibir la información</a>
+          <p class="hero-note">Déjame tus datos y te enviaré los detalles de Flautistas Protagonistas 2027 cuando se abra la información.</p>
 
           <div class="countdown" id="countdown" aria-label="Cuenta regresiva hasta el 3 de octubre" aria-live="polite">
             <div class="countdown-item">
@@ -871,6 +929,10 @@
         <div class="bridge">
           <strong>El proyecto no reemplaza la técnica. Le da dirección.</strong>
           <p>No vamos a esperar a que te sientas completamente “lista” para crear algo propio. Tampoco vamos a construir un proyecto desconectado de tus recursos reales. El repertorio que elijas mostrará qué necesitas desarrollar en el instrumento, y ese trabajo técnico abrirá nuevas posibilidades para tu proyecto.</p>
+        </div>
+
+        <div class="program-cta-wrap">
+          <a class="section-cta" href="#preinscripcion-heading">Quiero recibir los detalles</a>
         </div>
 
         <div class="project-panel">
@@ -941,13 +1003,13 @@
             <div class="form-grid">
               <div class="field">
                 <label for="nombre">Nombre <span class="required-mark">*</span></label>
-                <span class="field-hint">(tu mejor nombre)</span>
+                <span class="field-hint">(cómo quieres que te llame)</span>
                 <input id="nombre" name="nombre" type="text" autocomplete="given-name" placeholder="Escribe aquí" required>
               </div>
 
               <div class="field">
                 <label for="apellido">Apellido <span class="required-mark">*</span></label>
-                <span class="field-hint">(tu apellido favorito)</span>
+                <span class="field-hint">(tu apellido)</span>
                 <input id="apellido" name="apellido" type="text" autocomplete="family-name" placeholder="Escribe aquí" required>
               </div>
 
@@ -973,7 +1035,7 @@
 
             <div class="form-actions">
               <p class="form-note">Tus datos se utilizarán para enviarte información de Flautistas Protagonistas 2027.</p>
-              <button class="submit-btn" id="submitBtn" type="submit">Enviar mis datos</button>
+              <button class="submit-btn" id="submitBtn" type="submit">Quiero recibir la información</button>
             </div>
 
             <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
@@ -1099,7 +1161,7 @@
           if(!envioPendiente) return;
           envioPendiente = false;
           submitBtn.disabled = false;
-          submitBtn.textContent = 'Enviar mis datos';
+          submitBtn.textContent = 'Quiero recibir la información';
           mostrarEstado('El envío tardó más de lo esperado. Revisa tu conexión e inténtalo nuevamente.','error');
         },15000);
       });
@@ -1110,7 +1172,7 @@
         window.clearTimeout(envioTimeout);
         envioPendiente = false;
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Enviar mis datos';
+        submitBtn.textContent = 'Quiero recibir la información';
         form.reset();
         emailHelp.textContent = '';
         confirmarCorreo.setAttribute('aria-invalid','false');
@@ -1131,7 +1193,7 @@
         window.clearTimeout(envioTimeout);
         envioPendiente = false;
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Enviar mis datos';
+        submitBtn.textContent = 'Quiero recibir la información';
 
         if(data.ok){
           form.reset();
