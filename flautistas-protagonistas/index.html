@@ -505,14 +505,10 @@
     .faculty-card > p:last-child{color:rgba(255,255,255,.82)}
     .faculty-footnote{margin:14px 0 0;color:var(--muted);font-size:.72rem;line-height:1.6}
     .pricing-section{margin-top:clamp(64px,10vw,104px);scroll-margin-top:24px}
-    .pricing-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:32px}
-    .pricing-card{padding:clamp(27px,4vw,38px);background:var(--cream);border:1px solid var(--line);border-top:4px solid var(--red);border-radius:4px}
-    .pricing-label{margin:0 0 18px;text-transform:uppercase;color:var(--red);font-size:.68rem;letter-spacing:.16em;font-weight:800}
-    .pricing-amount{margin:0;color:var(--ink);font:500 clamp(2.5rem,5.4vw,4.25rem)/1 var(--serif);letter-spacing:-.045em;white-space:nowrap}
-    .pricing-amount span{font-family:var(--sans);font-size:.67rem;font-weight:800;letter-spacing:.06em}
-    .pricing-detail{margin:14px 0 8px;color:var(--ink);font-size:.84rem;font-weight:600;line-height:1.55}
-    .pricing-international{margin:0;color:var(--muted);font-size:.78rem;line-height:1.5}
-    .pricing-note{margin:17px 0 0;color:var(--muted);font-size:.76rem;line-height:1.7}
+    .private-investment{max-width:820px;margin-inline:auto;padding:clamp(30px,6vw,56px);border:1px solid var(--line);border-top:4px solid var(--red);border-radius:4px;background:var(--cream);text-align:center}
+    .private-investment .program-title{max-width:700px;margin-inline:auto}
+    .private-investment .program-lead{max-width:630px;margin:20px auto 0}
+    .private-investment-note{margin:20px 0 0;color:var(--muted);font-size:.74rem;font-weight:600;line-height:1.7}
 
     .form-section{
       margin-top:clamp(56px,9vw,90px);
@@ -849,11 +845,10 @@
       .section-heading h2{font-size:.67rem;letter-spacing:.15em}
       .section-rule{gap:7px}
       .form-shell{padding:26px 20px}
-      .dual-grid,.outcome-grid,.project-grid,.faculty-grid,.pricing-grid{grid-template-columns:1fr}
+      .dual-grid,.outcome-grid,.project-grid,.faculty-grid{grid-template-columns:1fr}
       .experience-grid{grid-template-columns:1fr;gap:18px}
       .experience-section{padding:26px 20px}
       .faculty-card .faculty-role{min-height:0}
-      .pricing-amount{white-space:normal}
       .program-section{margin-top:62px}
       .program-intro{margin-bottom:28px}
       .bridge{padding:28px 24px}
@@ -1002,27 +997,13 @@
       </section>
 
       <section class="pricing-section" aria-labelledby="inversion-heading">
-        <div class="program-intro">
-          <p class="program-kicker">Inversión de lanzamiento · Edición 2027</p>
-          <h2 class="program-title" id="inversion-heading">Dos opciones de pago. Un mismo programa.</h2>
-          <p class="program-lead">Las inscripciones abren el <strong>1 de noviembre de 2026</strong>. La participación es en una cohorte de ocho flautistas, con inicio previsto en enero de 2027.</p>
+        <div class="private-investment">
+          <p class="program-kicker">Flautistas Protagonistas · Edición 2027</p>
+          <h2 class="program-title" id="inversion-heading">La inversión se consulta por privado.</h2>
+          <p class="program-lead">Si quieres conocer los valores y las alternativas de pago, escríbeme directamente. Te compartiré la información y podremos revisar tus dudas antes de la apertura de inscripciones del <strong>1 de noviembre de 2026</strong>.</p>
+          <a class="section-cta" href="mailto:valentina@escueladeflautistas.cl?subject=Consulta%20de%20inversi%C3%B3n%20-%20Flautistas%20Protagonistas%202027">Consultar inversión por privado</a>
+          <p class="private-investment-note">Ocho participantes · Inicio previsto: enero de 2027 · La preinscripción no confirma una plaza.</p>
         </div>
-        <div class="pricing-grid">
-          <article class="pricing-card">
-            <p class="pricing-label">Pago único</p>
-            <p class="pricing-amount"><span>CLP</span> $399.900</p>
-            <p class="pricing-detail">Una cuota por el programa completo.</p>
-            <p class="pricing-international">Precio internacional: USD 419.</p>
-          </article>
-          <article class="pricing-card">
-            <p class="pricing-label">Tres pagos</p>
-            <p class="pricing-amount"><span>3 × CLP</span> $139.900</p>
-            <p class="pricing-detail">Tres cuotas · Total: CLP $419.700.</p>
-            <p class="pricing-international">Precio internacional: 3 × USD 147.</p>
-          </article>
-        </div>
-        <p class="pricing-note">Los valores en dólares son precios de pago internacional. Existen condiciones especiales para estudiantes activos de clases individuales. La preinscripción no implica pago ni reserva de cupo.</p>
-        <div class="program-cta-wrap"><a class="section-cta" href="#preinscripcion-heading">Recibir información de inscripción</a></div>
       </section>
 
       <section class="form-section" aria-labelledby="preinscripcion-heading">
