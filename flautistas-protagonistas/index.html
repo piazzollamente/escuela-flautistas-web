@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Flautistas Protagonistas 2027 · Escuela de Flautistas</title>
-  <meta name="description" content="Flautistas Protagonistas 2027: seis semanas de formación online más fase preparatoria, tres instancias semanales, dos docentes invitados, proyecto musical propio y ocho participantes. Inscripciones desde el 1 de noviembre de 2026.">
+  <meta name="description" content="Flautistas Protagonistas 2027: seis semanas de formación online, fase preparatoria, interpretación y proyección artística. Inscripción con verificación de WhatsApp y preferencias de pago.">
   <link rel="canonical" href="https://escueladeflautistas.cl/flautistas-protagonistas/">
   <link rel="icon" type="image/png" href="/assets/favicon.png">
 
@@ -12,7 +12,7 @@
   <meta property="og:locale" content="es_CL">
   <meta property="og:url" content="https://escueladeflautistas.cl/flautistas-protagonistas/">
   <meta property="og:title" content="Flautistas Protagonistas 2027 · Escuela de Flautistas">
-  <meta property="og:description" content="Sonido, repertorio y proyección musical. Talleres con Carlos Enguix y Diego Cortez. Inscripciones desde el 1 de noviembre de 2026.">
+  <meta property="og:description" content="Sonido, repertorio y proyección musical. Inscríbete a Flautistas Protagonistas 2027.">
   <meta property="og:image" content="https://escueladeflautistas.cl/assets/valentina-2.png">
   <meta name="twitter:card" content="summary_large_image">
 
@@ -890,6 +890,7 @@
       *,*::before,*::after{transition:none!important}
     }
   </style>
+  <link rel="stylesheet" href="./inscripcion.css">
 </head>
 <body>
   <main class="page">
@@ -906,7 +907,7 @@
           <h1>Flautistas<br>Protagonistas<span class="period">.</span></h1>
           <p class="intro-copy"><strong>Seis semanas para profundizar en tu interpretación y dar dirección a tu vida musical.</strong> Trabajarás una obra o fragmento y una dificultad concreta de tu práctica, mientras desarrollas un programa, propuesta o proyecto artístico posible de compartir con otras personas.</p>
           <p class="date-line"><strong>Inscripciones desde el 1 de noviembre de 2026</strong><br>Inicio previsto: enero de 2027 · Modalidad online</p>
-          <a class="hero-cta" href="#preinscripcion-heading">Quiero recibir la información</a>
+          <a class="hero-cta" href="#inscripcion-heading">Inscribirme al programa</a>
           <p class="hero-note">Cohorte de 8 participantes · 6 semanas + fase preparatoria. Completar el formulario no reserva una plaza.</p>
           <div class="countdown" id="countdown" aria-label="Cuenta regresiva hasta la apertura de inscripciones el 1 de noviembre de 2026">
             <div class="countdown-item"><span class="countdown-value" id="days">00</span><span class="countdown-label">Días</span></div>
@@ -999,70 +1000,114 @@
       <section class="pricing-section" aria-labelledby="inversion-heading">
         <div class="private-investment">
           <p class="program-kicker">Flautistas Protagonistas · Edición 2027</p>
-          <h2 class="program-title" id="inversion-heading">¿Quieres recibir más información?</h2>
-          <p class="program-lead">Completa el formulario y te enviaré la información sobre Flautistas Protagonistas 2027, incluidos los valores y los detalles del proceso de inscripción.</p>
-          <a class="section-cta" href="#preinscripcion-heading">Completar el formulario</a>
-          <p class="private-investment-note">Ocho participantes · Inicio previsto: enero de 2027 · La preinscripción no confirma una plaza.</p>
+          <h2 class="program-title" id="inversion-heading">Inscripción · Flautistas Protagonistas 2027</h2>
+          <p class="program-lead">Indica tus datos de contacto y cómo prefieres pagar. Verificaremos tu WhatsApp y te contactaremos para continuar con el proceso de inscripción.</p>
+          <a class="section-cta" href="#inscripcion-heading">Completar el formulario</a>
+          <p class="private-investment-note">Ocho participantes · Inicio previsto: enero de 2027 · El registro no confirma cupo ni pago.</p>
         </div>
       </section>
 
-      <section class="form-section" aria-labelledby="preinscripcion-heading">
+      <section class="form-section" aria-labelledby="inscripcion-heading">
         <div class="section-heading">
-          <h2 id="preinscripcion-heading">Preinscripción e información</h2>
+          <h2 id="inscripcion-heading">Inscripción · Edición 2027</h2>
           <span class="section-rule" aria-hidden="true"><span class="star">✦</span></span>
         </div>
 
         <div class="form-shell">
-          <form
-            id="fpForm"
-            action="https://script.google.com/macros/s/AKfycby_2A9UGeJwJ7UQD9t3j0px_bVp-pYad69fRkvFM1MZ8lUKWkGKqbmastf00lYXbgSTRw/exec"
-            method="post"
-            target="fp-submit-target"
-            novalidate>
+          <p class="form-lead">Completa tus datos, verifica tu número de WhatsApp y selecciona la moneda y cantidad de cuotas que prefieres. Esta etapa registra tu solicitud; la disponibilidad de cupos y el pago se confirman por separado.</p>
+          <!-- Configuración: introducir solo la URL pública /exec del NUEVO Apps Script.
+               No colocar identificadores de la hoja, tokens de Google ni credenciales de Twilio. -->
+          <form id="fpForm" data-endpoint="#" action="#" method="post">
             <p class="required-note"><span class="required-mark">*</span> Todos los campos son obligatorios.</p>
 
             <div class="form-grid">
               <div class="field">
                 <label for="nombre">Nombre <span class="required-mark">*</span></label>
-                <span class="field-hint">(cómo quieres que te llame)</span>
-                <input id="nombre" name="nombre" type="text" autocomplete="given-name" placeholder="Escribe aquí" required>
+                <span class="field-hint">Como quieres que te llamemos.</span>
+                <input id="nombre" name="nombre" type="text" maxlength="80" autocomplete="given-name" placeholder="Tu nombre" required>
               </div>
 
               <div class="field">
                 <label for="apellido">Apellido <span class="required-mark">*</span></label>
-                <span class="field-hint">(tu apellido)</span>
-                <input id="apellido" name="apellido" type="text" autocomplete="family-name" placeholder="Escribe aquí" required>
+                <span class="field-hint">Tu apellido.</span>
+                <input id="apellido" name="apellido" type="text" maxlength="80" autocomplete="family-name" placeholder="Tu apellido" required>
               </div>
 
               <div class="field">
-                <label for="correo">Correo electrónico <span class="required-mark">*</span></label>
-                <span class="field-hint">(el correo que revisas de verdad)</span>
-                <input id="correo" name="correo" type="email" autocomplete="email" inputmode="email" placeholder="nombre@correo.com" required>
+                <label for="pais">País de residencia <span class="required-mark">*</span></label>
+                <span class="field-hint">Selecciona de la lista o escribe tu país.</span>
+                <input id="pais" name="pais" type="text" list="fp-paises" maxlength="90" autocomplete="country-name" placeholder="Ej. Chile" required>
+                <datalist id="fp-paises">
+                  <option value="Argentina"><option value="Bolivia"><option value="Brasil">
+                  <option value="Canadá"><option value="Chile"><option value="Colombia">
+                  <option value="Costa Rica"><option value="Cuba"><option value="Ecuador">
+                  <option value="El Salvador"><option value="España"><option value="Estados Unidos">
+                  <option value="Francia"><option value="Guatemala"><option value="Honduras">
+                  <option value="Italia"><option value="México"><option value="Nicaragua">
+                  <option value="Panamá"><option value="Paraguay"><option value="Perú">
+                  <option value="Portugal"><option value="Puerto Rico"><option value="Reino Unido">
+                  <option value="República Dominicana"><option value="Uruguay"><option value="Venezuela">
+                </datalist>
               </div>
 
               <div class="field">
-                <label for="confirmarCorreo">Confirma tu correo electrónico <span class="required-mark">*</span></label>
-                <span class="field-hint">(escríbelo otra vez para asegurarnos)</span>
-                <input id="confirmarCorreo" name="confirmarCorreo" type="email" autocomplete="email" inputmode="email" placeholder="nombre@correo.com" required aria-describedby="emailHelp">
-                <p class="field-help" id="emailHelp" aria-live="polite"></p>
+                <label for="whatsapp">Número de WhatsApp <span class="required-mark">*</span></label>
+                <span class="field-hint">Incluye + y código de país, por ejemplo +56912345678.</span>
+                <input id="whatsapp" name="whatsapp" type="tel" maxlength="20" autocomplete="tel" inputmode="tel" placeholder="+56 9 1234 5678" required aria-describedby="whatsappStatus">
+                <div class="verification-actions">
+                  <button class="verify-btn" id="enviarCodigo" type="button" disabled>Enviar código por WhatsApp</button>
+                  <button class="verify-btn secondary" id="cambiarNumero" type="button" hidden>Cambiar número</button>
+                  <p id="whatsappStatus" class="verification-status" aria-live="polite">El número se verificará mediante un código enviado por WhatsApp.</p>
+                </div>
               </div>
 
-              <div class="field field-full">
-                <label for="dificultades">¿Qué quieres desarrollar hoy en tu flauta y en tu camino artístico? <span class="required-mark">*</span></label>
-                <span class="field-hint">(cuéntame qué necesitas fortalecer en el instrumento y qué te gustaría estar haciendo con la música en 2027)</span>
-                <textarea id="dificultades" name="dificultades" placeholder="Escribe aquí con tus propias palabras" required></textarea>
+              <div class="field field-full" id="codigoField" hidden>
+                <label for="codigo">Código de verificación de WhatsApp</label>
+                <span class="field-hint">Ingresa el código recibido en el número indicado.</span>
+                <div class="code-input-row">
+                  <input id="codigo" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{4,10}" maxlength="10" placeholder="Código numérico">
+                  <button class="verify-btn" id="verificarCodigo" type="button" disabled>Verificar número</button>
+                </div>
               </div>
+
+              <div class="field">
+                <label for="moneda">Moneda de pago <span class="required-mark">*</span></label>
+                <span class="field-hint">Indica en qué moneda prefieres pagar.</span>
+                <select id="moneda" name="moneda" required>
+                  <option value="" selected disabled>Selecciona una moneda</option>
+                  <option value="USD — dólares">Dólares (USD)</option>
+                  <option value="ARS — pesos argentinos">Pesos argentinos (ARS)</option>
+                  <option value="CLP — pesos chilenos">Pesos chilenos (CLP)</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="cuotas">Cantidad de cuotas <span class="required-mark">*</span></label>
+                <span class="field-hint">Selecciona tu modalidad preferida.</span>
+                <select id="cuotas" name="cuotas" required>
+                  <option value="" selected disabled>Selecciona una opción</option>
+                  <option value="1">1 cuota</option>
+                  <option value="2">2 cuotas</option>
+                  <option value="3">3 cuotas</option>
+                </select>
+              </div>
+
+              <label class="consent-row" for="consentimiento">
+                <input id="consentimiento" name="consentimiento" type="checkbox" required>
+                <span>Autorizo a Escuela de Flautistas a utilizar estos datos para gestionar mi inscripción a Flautistas Protagonistas 2027 y contactarme por WhatsApp sobre este proceso.</span>
+              </label>
             </div>
 
             <div class="form-actions">
-              <p class="form-note">Tus datos se usarán para compartir información del programa y del proceso de inscripción. El formulario no confirma un cupo ni es una compra.</p>
-              <button class="submit-btn" id="submitBtn" type="submit">Quiero recibir la información</button>
+              <p class="form-note">La moneda y las cuotas son preferencias de pago sujetas a confirmación. El formulario no procesa pagos ni garantiza una plaza.</p>
+              <button class="submit-btn" id="submitBtn" type="submit" disabled>Registrar mi inscripción</button>
             </div>
 
             <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
           </form>
 
-          <iframe class="submit-target" name="fp-submit-target" title="Envío de preinscripción"></iframe>
+          <form id="fpBridgeForm" method="post" target="fp-inscripcion-response" hidden aria-hidden="true"></form>
+          <iframe class="submit-target" id="fp-submit-target" name="fp-inscripcion-response" title="Respuesta privada del sistema de inscripción"></iframe>
         </div>
       </section>
 
@@ -1118,121 +1163,8 @@
         },1000);
       }
 
-      const form = document.getElementById('fpForm');
-      const correo = document.getElementById('correo');
-      const confirmarCorreo = document.getElementById('confirmarCorreo');
-      const emailHelp = document.getElementById('emailHelp');
-      const submitBtn = document.getElementById('submitBtn');
-      const formStatus = document.getElementById('formStatus');
-      const submitTarget = document.querySelector('.submit-target');
-      let envioPendiente = false;
-      let envioTimeout = null;
-
-      function normalizarCorreo(value){
-        return value.trim().toLowerCase();
-      }
-
-      function mostrarEstado(message,type){
-        formStatus.textContent = message;
-        formStatus.className = 'form-status is-visible ' + (type === 'success' ? 'is-success' : 'is-error');
-      }
-
-      function mostrarExito(){
-        formStatus.innerHTML =
-          '<p class="form-status-copy">Tu formulario de interés se ha enviado. Esto no confirma una plaza. Si aún no estás en el grupo de WhatsApp, puedes ingresar aquí:</p>' +
-          '<a class="whatsapp-link" href="https://chat.whatsapp.com/EHWKSTV9IMzFVOusTEkr5G" target="_blank" rel="noopener noreferrer">Ingresar al grupo de WhatsApp</a>';
-        formStatus.className = 'form-status is-visible is-success';
-      }
-
-      function validarCorreos(){
-        const a = normalizarCorreo(correo.value);
-        const b = normalizarCorreo(confirmarCorreo.value);
-        const coinciden = !a || !b || a === b;
-
-        confirmarCorreo.setAttribute('aria-invalid',coinciden ? 'false' : 'true');
-        emailHelp.textContent = coinciden ? '' : 'Los correos electrónicos no coinciden.';
-        return coinciden;
-      }
-
-      correo.addEventListener('input',validarCorreos);
-      confirmarCorreo.addEventListener('input',validarCorreos);
-
-      form.addEventListener('submit',function(event){
-        formStatus.className = 'form-status';
-        formStatus.textContent = '';
-
-        if(!form.checkValidity()){
-          event.preventDefault();
-          form.reportValidity();
-          return;
-        }
-
-        if(!validarCorreos()){
-          event.preventDefault();
-          confirmarCorreo.focus();
-          return;
-        }
-
-        envioPendiente = true;
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Enviando…';
-
-        window.clearTimeout(envioTimeout);
-        envioTimeout = window.setTimeout(function(){
-          if(!envioPendiente) return;
-          envioPendiente = false;
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Quiero recibir la información';
-          mostrarEstado('El envío tardó más de lo esperado. Revisa tu conexión e inténtalo nuevamente.','error');
-        },15000);
-      });
-
-      submitTarget.addEventListener('load',function(){
-        if(!envioPendiente) return;
-
-        window.clearTimeout(envioTimeout);
-        envioPendiente = false;
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Quiero recibir la información';
-        form.reset();
-        emailHelp.textContent = '';
-        confirmarCorreo.setAttribute('aria-invalid','false');
-        mostrarExito();
-
-        if(typeof gtag === 'function'){
-          gtag('event','preinscripcion_flautistas_protagonistas',{
-            event_category:'conversion',
-            event_label:'Flautistas Protagonistas 2027'
-          });
-        }
-      });
-
-      window.addEventListener('message',function(event){
-        const data = event.data;
-        if(!envioPendiente || !data || data.source !== 'flautistas-protagonistas') return;
-
-        window.clearTimeout(envioTimeout);
-        envioPendiente = false;
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Quiero recibir la información';
-
-        if(data.ok){
-          form.reset();
-          emailHelp.textContent = '';
-          confirmarCorreo.setAttribute('aria-invalid','false');
-          mostrarExito();
-
-          if(typeof gtag === 'function'){
-            gtag('event','preinscripcion_flautistas_protagonistas',{
-              event_category:'conversion',
-              event_label:'Flautistas Protagonistas 2027'
-            });
-          }
-        }else{
-          mostrarEstado(data.message || 'No pudimos registrar la preinscripción. Inténtalo nuevamente.','error');
-        }
-      });
     })();
   </script>
+  <script src="./inscripcion.js" defer></script>
 </body>
 </html>
