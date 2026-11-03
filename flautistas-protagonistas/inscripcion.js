@@ -15,6 +15,7 @@
   const help = document.getElementById("whatsappHelp");
   const name = document.getElementById("nombre");
   const surname = document.getElementById("apellido");
+  const email = document.getElementById("correo");
   const country = document.getElementById("pais");
   const currency = document.getElementById("moneda");
   const installments = document.getElementById("cuotas");
@@ -22,6 +23,10 @@
   const registerButton = document.getElementById("submitBtn");
   const formStatus = document.getElementById("formStatus");
   let pending = null;
+  const fallback = document.getElementById("formFallback");
+  const lead = document.getElementById("registroLead");
+  const endpointReady = /^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(endpoint);
+  let readinessToken = "";
 
   // Se normalizan espacios y separadores para que +56 9 ... y +569... coincidan.
   function normalizePhone(value) {
@@ -108,9 +113,19 @@
   }
 
   window.addEventListener("message", function (event) {
-    if (!pending || !eventIsTrusted(event)) return;
+    if (!eventIsTrusted(event)) return;
     const data = event.data;
-    if (!data || data.source !== "fp2027-inscripcion" ||
+    // No mostrar el formulario hasta confirmar que Apps Script almacena email.
+    if (data && data.source === "fp2027-servicio" &&
+        data.version === "email-v2" && readinessToken &&
+        data.token === readinessToken) {
+      form.hidden = false;
+      if (lead) lead.hidden = false;
+      if (fallback) fallback.hidden = true;
+      registerButton.disabled = false;
+      return;
+    }
+    if (!pending || !data || data.source !== "fp2027-inscripcion" ||
         data.solicitudId !== pending.id) return;
 
     window.clearTimeout(pending.timeout);
@@ -122,8 +137,8 @@
       showStatus(data.message || "No se completó la inscripción. Revisa los datos e inténtalo nuevamente.", "error");
       return;
     }
-    if (!data.registrationId) {
-      showStatus("El sistema no devolvió una confirmación válida. Comprueba el estado de la inscripción antes de reenviar.", "error");
+    if (!data.registrationId || data.emailCaptured !== true) {
+      showStatus("No pudimos confirmar el registro del correo electrónico. Contacta a Escuela de Flautistas antes de volver a inscribirte.", "error");
       return;
     }
 
@@ -135,7 +150,7 @@
     form.querySelectorAll("input,select,button").forEach(function (control) {
       control.disabled = true;
     });
-    showStatus("Recibimos tu solicitud de inscripción. Te contactaremos por WhatsApp con los siguientes pasos y las condiciones de pago. Este registro no garantiza una plaza. Código de inscripción: " + data.registrationId, "success");
+    showStatus("Recibimos tu inscripción. Te contactaremos por correo electrónico o WhatsApp con los siguientes pasos. Código de inscripción: " + data.registrationId, "success");
 
     if (typeof window.gtag === "function") {
       window.gtag("event", "inscripcion_flautistas_protagonistas", {
@@ -176,6 +191,7 @@
     request({
       nombre: name.value.trim(),
       apellido: surname.value.trim(),
+      correo: email.value.trim().toLowerCase(),
       pais: country.value.trim(),
       whatsapp: normalized,
       confirmarWhatsapp: normalizePhone(confirmPhone.value),
@@ -185,14 +201,16 @@
     });
   });
 
-  // Si aún no existe un receptor desplegado, mostramos solamente la alternativa
-  // de contacto. Nunca se presenta un formulario que no puede recibir registros.
-  const fallback = document.getElementById("formFallback");
-  const lead = document.getElementById("registroLead");
-  const endpointReady = /^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(endpoint);
+  // Hasta que la propietaria despliegue Apps Script con soporte de email,
+  // mantener la alternativa de contacto para no aceptar datos que se perderían.
+  form.hidden = true;
+  if (lead) lead.hidden = true;
+  if (fallback) fallback.hidden = false;
+  registerButton.disabled = true;
 
-  form.hidden = !endpointReady;
-  if (lead) lead.hidden = !endpointReady;
-  if (fallback) fallback.hidden = endpointReady;
-  registerButton.disabled = !endpointReady;
+  if (endpointReady) {
+    readinessToken = createRequestId();
+    iframe.src = endpoint + "?accion=comprobar_correo&token=" +
+      encodeURIComponent(readinessToken);
+  }
 })();

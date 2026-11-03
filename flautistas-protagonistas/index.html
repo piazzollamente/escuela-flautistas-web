@@ -952,6 +952,11 @@
                 <input id="apellido" name="apellido" type="text" maxlength="80" autocomplete="family-name" placeholder="Tu apellido" required>
               </div>
 
+              <div class="field field-full email-field">
+                <label for="correo">Correo electrónico <span class="required-mark">*</span></label>
+                <input id="correo" name="correo" type="email" maxlength="254" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" placeholder="tu@correo.com" required>
+              </div>
+
               <div class="field">
                 <label for="whatsapp">WhatsApp <span class="required-mark">*</span></label>
                 <span class="field-hint">Incluye el código de país, por ejemplo +56 9 1234 5678.</span>
@@ -970,7 +975,7 @@
 
               <label class="consent-row" for="consentimiento">
                 <input id="consentimiento" name="consentimiento" type="checkbox" required>
-                <span>Autorizo a Escuela de Flautistas a utilizar estos datos para gestionar mi inscripción a Flautistas Protagonistas 2027 y contactarme por WhatsApp sobre este proceso.</span>
+                <span>Autorizo a Escuela de Flautistas a utilizar mis datos para gestionar la inscripción y contactarme por correo electrónico o WhatsApp sobre Flautistas Protagonistas 2027.</span>
               </label>
             </div>
 
@@ -1081,7 +1086,7 @@
     </div>
   </main>
 
-  <script src="./inscripcion.js" defer></script>
+  <script src="./inscripcion.js?v=20261103-email-v2" defer></script>
   <script src="./tarifas-pais.js?v=20261103-pais-primero" defer></script>
 </body>
 </html>
