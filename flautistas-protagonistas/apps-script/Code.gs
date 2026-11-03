@@ -464,10 +464,102 @@ function fpFechaPagoDias_(value, today) {
   );
 }
 
+function fpInicioClases_(book) {
+  const config = book.getSheetByName(FP_MAIL_CONFIG_SHEET);
+  if (!config) return null;
+  const date = config.getRange(2, 6).getValue();
+  return date instanceof Date && !isNaN(date.getTime()) ? date : null;
+}
+
+function fpCalendarioValido_(plan, startDate) {
+  if (!startDate || !(startDate instanceof Date)) return false;
+  const dates = [plan[4], plan[5], plan[6]];
+  return dates.every(function (date) {
+    return date instanceof Date && !isNaN(date.getTime());
+  }) && dates[0].getTime() < dates[1].getTime() &&
+    dates[1].getTime() < dates[2].getTime() &&
+    dates[2].getTime() < startDate.getTime();
+}
+
+function fpConfirmarCalendarios_(book, quota) {
+  const plans = book.getSheetByName(FP_MAIL_PLAN_SHEET);
+  const enrollments = book.getSheetByName(FP_SHEET_NAME);
+  const kickoff = fpInicioClases_(book);
+  if (!plans || !enrollments || !kickoff ||
+      plans.getLastRow() <= 1 || enrollments.getLastRow() <= 1) return quota;
+
+  const paidRows = enrollments.getRange(2, 1,
+    enrollments.getLastRow() - 1, 22).getValues();
+  const eligible = new Set(paidRows.filter(function (r) {
+    return String(r[17] || "") === "Enviado";
+  }).map(function (r) { return String(r[1] || "").trim(); }));
+
+  const rows = plans.getRange(2, 1, plans.getLastRow() - 1, 18).getValues();
+  for (let i = 0; i < rows.length && quota > 0; i++) {
+    const row = rows[i];
+    const id = String(row[0] || "").trim();
+    const email = String(row[1] || "").trim();
+    const market = String(row[2] || "").trim();
+    const approved = ["sí", "si", "aprobado"].includes(
+      String(row[7] || "").trim().toLowerCase());
+    if (!id || !eligible.has(id) || !fpEmailValido_(email) ||
+        !FP_MAIL_PRICES[market] || String(row[3]) !== "3" ||
+        !approved || row[16] || !fpCalendarioValido_(row, kickoff)) continue;
+
+    const dates = [row[4], row[5], row[6]].map(function (date) {
+      return Utilities.formatDate(date, FP_MAIL_TIMEZONE, "dd/MM/yyyy");
+    });
+    const price = FP_MAIL_PRICES[market];
+    const textDates = "1. " + dates[0] + "\n2. " + dates[1] +
+      "\n3. " + dates[2];
+    const body = "Hola:\n\nConfirmamos tu calendario de tres pagos " +
+      "para Flautistas Protagonistas 2027:\n\n" + textDates +
+      "\n\nCada cuota: " + price.three + " (total: " + price.total + ")." +
+      "\n\nTodos los pagos deben estar acreditados antes del inicio " +
+      "de las clases. Conserva tus comprobantes y respóndenos " +
+      "en este hilo después de cada transferencia.\n\n" +
+      "Valentina Galaz\nEscuela de Flautistas";
+    const html = "<p>Confirmamos las fechas de tus tres pagos:</p>" +
+      '<p style="border-left:3px solid #E31C23;padding:14px;' +
+      'background:#F7F5F2;">' + dates.map(function (d, j) {
+        return "Cuota " + (j + 1) + ": <strong>" +
+          fpEscaparHtml_(d) + "</strong>";
+      }).join("<br>") + "</p>" +
+      "<p>Valor de cada cuota: <strong>" +
+      fpEscaparHtml_(price.three) + "</strong>. Total: " +
+      fpEscaparHtml_(price.total) + ".</p>" +
+      "<p><strong>El total debe estar abonado antes del comienzo " +
+      "de las clases.</strong></p>" +
+      "<p>Responde con el comprobante de cada pago para verificarlo.</p>";
+
+    const cell = plans.getRange(i + 2, 17);
+    cell.setValue("Enviando");
+    SpreadsheetApp.flush();
+    try {
+      fpEnviarMail_(email, {
+        subject: "Flautistas Protagonistas 2027 · Fechas aceptadas · " + id,
+        body: body,
+        htmlBody: fpCorreoPlantilla_("Calendario de pagos confirmado", html)
+      });
+      cell.setValue("Enviado");
+      plans.getRange(i + 2, 18).setValue(new Date());
+      fpCorreoLog_(book, id, email, "Calendario aprobado", "Enviado", "");
+      quota--;
+    } catch (error) {
+      cell.setValue("Revisión requerida");
+      fpCorreoLog_(book, id, email, "Calendario aprobado",
+        "Error/revisión", String(error));
+    }
+  }
+  return quota;
+}
+
 function fpRecordatoriosCuotas_(book, configs, quota) {
   const plans = book.getSheetByName(FP_MAIL_PLAN_SHEET);
   if (!plans || plans.getLastRow() <= 1) return quota;
-  const rows = plans.getRange(2, 1, plans.getLastRow() - 1, 16).getValues();
+  const rows = plans.getRange(2, 1, plans.getLastRow() - 1, 18).getValues();
+  const kickoff = fpInicioClases_(book);
+  if (!kickoff) return quota;
   const today = new Date();
   const enrollmentSheet = book.getSheetByName(FP_SHEET_NAME);
   const settled = new Set(enrollmentSheet && enrollmentSheet.getLastRow() > 1 ?
@@ -484,7 +576,9 @@ function fpRecordatoriosCuotas_(book, configs, quota) {
         String(row[3]) !== "3" ||
         !["sí", "si", "aprobado"].includes(
           String(row[7] || "").trim().toLowerCase()) ||
-        !fpCorreoDisponible_(market, configs)) continue;
+        !fpCorreoDisponible_(market, configs) ||
+        String(row[16] || "") !== "Enviado" ||
+        !fpCalendarioValido_(row, kickoff)) continue;
 
     // Los vencimientos y pagos son revisados por la directora de la escuela.
     for (let j = 0; j < 3 && quota > 0; j++) {
@@ -607,6 +701,7 @@ function procesarCorreosFP2027() {
     const quota = Math.min(FP_MAIL_MAX_PER_RUN,
       MailApp.getRemainingDailyQuota());
     let left = fpEnviarCorreosIniciales_(book, configs, quota);
+    left = fpConfirmarCalendarios_(book, left);
     left = fpRecordatoriosCuotas_(book, configs, left);
     left = fpConfirmacionesPagoCompleto_(book, left);
     return "Correos procesados. Enviados: " + (quota - left) + ".";
@@ -638,6 +733,8 @@ function probarConfiguracionCorreosFP2027() {
     result[market] = fpCorreoDisponible_(market, configs) ?
       "Listo para enviar" : "Pendiente: revisar instrucciones y habilitar";
   });
+  result["Inicio de clases"] = fpInicioClases_(book) ?
+    "Fecha configurada" : "Pendiente: definir la fecha para validar cuotas";
   Logger.log(JSON.stringify(result));
   return result;
 }
