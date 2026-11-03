@@ -42,8 +42,8 @@
 
     marketLabel.textContent = selected.market;
     singlePrice.textContent = selected.one;
-    triplePrice.textContent = selected.three + " / cuota";
-    tripleTotal.textContent = "Total: " + selected.total;
+    triplePrice.textContent = selected.three;
+    tripleTotal.textContent = "Cada cuota · Total: " + selected.total;
     currency.value = selected.currency;
     updateInstallments();
   }
