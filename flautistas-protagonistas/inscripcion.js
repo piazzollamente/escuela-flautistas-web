@@ -135,7 +135,7 @@
     form.querySelectorAll("input,select,button").forEach(function (control) {
       control.disabled = true;
     });
-    showStatus("Recibimos tu inscripción y tus preferencias de pago. Los dos números de WhatsApp coincidieron, pero no se ha comprobado la titularidad del número. El cupo y el pago se confirmarán por separado. Código de registro: " + data.registrationId, "success");
+    showStatus("Recibimos tu solicitud de inscripción. Te contactaremos por WhatsApp con los siguientes pasos y las condiciones de pago. Este registro no garantiza una plaza. Código de inscripción: " + data.registrationId, "success");
 
     if (typeof window.gtag === "function") {
       window.gtag("event", "inscripcion_flautistas_protagonistas", {
@@ -178,14 +178,14 @@
     });
   });
 
-  // La hoja de Google Sheets no es un endpoint público. El script receptor
-  // debe desplegarse por separado; nunca usar URLs privadas o claves en cliente.
-  if (!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(endpoint)) {
-    registerButton.disabled = true;
-    showStatus("La inscripción en línea estará disponible cuando finalice la conexión segura con Google Sheets.", "error");
-    const fallback = document.getElementById("formFallback");
-    if (fallback) fallback.hidden = false;
-  } else {
-    registerButton.disabled = false;
-  }
+  // Si aún no existe un receptor desplegado, mostramos solamente la alternativa
+  // de contacto. Nunca se presenta un formulario que no puede recibir registros.
+  const fallback = document.getElementById("formFallback");
+  const lead = document.getElementById("registroLead");
+  const endpointReady = /^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(endpoint);
+
+  form.hidden = !endpointReady;
+  if (lead) lead.hidden = !endpointReady;
+  if (fallback) fallback.hidden = endpointReady;
+  registerButton.disabled = !endpointReady;
 })();
