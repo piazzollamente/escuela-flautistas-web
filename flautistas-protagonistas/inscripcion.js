@@ -156,6 +156,13 @@
       form.reportValidity();
       return;
     }
+    // Las opciones visuales son radios; Apps Script sigue recibiendo cuotas=1|3.
+    const selectedPlan = form.querySelector('input[name="modalidad"]:checked');
+    if (!selectedPlan || !["1", "3"].includes(selectedPlan.value) || !currency.value) {
+      showStatus("Selecciona tu país y la modalidad de pago.", "error");
+      return;
+    }
+    installments.value = selectedPlan.value;
     const normalized = normalizePhone(phone.value);
     if (!phoneIsValid(normalized) ||
         normalized !== normalizePhone(confirmPhone.value)) {
