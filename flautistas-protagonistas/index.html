@@ -1014,10 +1014,10 @@
         </div>
 
         <div class="form-shell">
-          <p class="form-lead">Completa tus datos, escribe dos veces tu número de WhatsApp para evitar errores y selecciona la moneda y cantidad de cuotas que prefieres. Esta etapa registra tu solicitud; la disponibilidad de cupos y el pago se confirman por separado.</p>
+          <p class="form-lead" id="registroLead" hidden>Completa tus datos, escribe dos veces tu número de WhatsApp para evitar errores y selecciona la moneda y cantidad de cuotas que prefieres. Esta etapa registra tu solicitud; la disponibilidad de cupos y el pago se confirman por separado.</p>
           <!-- Configuración: introducir solo la URL pública /exec del NUEVO Apps Script.
                No colocar credenciales de Google ni permisos de edición en el código público. -->
-          <form id="fpForm" data-endpoint="#" action="#" method="post">
+          <form id="fpForm" data-endpoint="#" action="#" method="post" hidden>
             <p class="required-note"><span class="required-mark">*</span> Todos los campos son obligatorios.</p>
 
             <div class="form-grid">
@@ -1097,12 +1097,14 @@
             </div>
 
             <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
-            <div class="form-fallback" id="formFallback" hidden>
-              <p>Mientras habilitamos el registro de inscripciones, puedes seguir dejando tus datos en el formulario de solicitud de información.</p>
-              <a class="section-cta" href="./solicitar-informacion.html">Solicitar información del programa</a>
-              <p class="form-note">Esta alternativa es una preinscripción: no procesa pagos ni reserva plazas.</p>
-            </div>
           </form>
+
+          <div class="form-fallback" id="formFallback">
+            <p class="form-fallback-heading">Tu camino como Flautista Protagonista comienza aquí.</p>
+            <p>Déjanos tus datos para recibir la información del programa, las modalidades de pago y los siguientes pasos de inscripción.</p>
+            <a class="section-cta" href="./solicitar-informacion.html">Solicitar información para inscribirme</a>
+            <p class="form-note">Este primer contacto no garantiza una plaza ni genera un pago.</p>
+          </div>
 
           <form id="fpBridgeForm" method="post" target="fp-inscripcion-response" hidden aria-hidden="true"></form>
           <iframe class="submit-target" id="fp-submit-target" name="fp-inscripcion-response" title="Respuesta privada del sistema de inscripción"></iframe>
