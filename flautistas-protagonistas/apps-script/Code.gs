@@ -469,12 +469,18 @@ function fpRecordatoriosCuotas_(book, configs, quota) {
   if (!plans || plans.getLastRow() <= 1) return quota;
   const rows = plans.getRange(2, 1, plans.getLastRow() - 1, 16).getValues();
   const today = new Date();
+  const enrollmentSheet = book.getSheetByName(FP_SHEET_NAME);
+  const settled = new Set(enrollmentSheet && enrollmentSheet.getLastRow() > 1 ?
+    enrollmentSheet.getRange(2, 1, enrollmentSheet.getLastRow() - 1, 12)
+      .getValues().filter(function (r) {
+        return String(r[11] || "").trim().toLowerCase() === "confirmado";
+      }).map(function (r) { return String(r[1] || "").trim(); }) : []);
   for (let i = 0; i < rows.length && quota > 0; i++) {
     const row = rows[i];
     const id = String(row[0] || "").trim();
     const email = String(row[1] || "").trim();
     const market = String(row[2] || "").trim();
-    if (!id || !fpEmailValido_(email) ||
+    if (!id || settled.has(id) || !fpEmailValido_(email) ||
         String(row[3]) !== "3" ||
         !["sí", "si", "aprobado"].includes(
           String(row[7] || "").trim().toLowerCase()) ||
@@ -545,7 +551,7 @@ function fpConfirmacionesPagoCompleto_(book, quota) {
   for (let i = 0; i < rows.length && quota > 0; i++) {
     const row = rows[i];
     const status = String(row[20] || "");
-    if (status || String(row[11] || "").toLowerCase() !== "pagado" ||
+    if (status || String(row[11] || "").toLowerCase() !== "confirmado" ||
         String(row[17] || "") !== "Enviado") continue;
 
     const id = String(row[1] || "");
