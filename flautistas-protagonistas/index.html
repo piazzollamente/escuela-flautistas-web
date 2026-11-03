@@ -537,6 +537,26 @@
       gap:22px;
     }
 
+    /* El país y la inversión siempre ocupan una fila completa del formulario.
+       Se deja junto al grid principal para que el diseño no dependa de cachés de CSS externos. */
+    #fpForm .form-grid{align-items:start}
+    #fpForm .form-grid > .country-field,
+    #fpForm .form-grid > .form-pricing{
+      grid-column:1/-1;
+      min-width:0;
+      width:100%;
+      align-self:start;
+    }
+    #fpForm .form-grid > .form-pricing{
+      margin:0;
+    }
+    #fpForm .form-grid > .form-pricing[hidden]{
+      display:none !important;
+    }
+    #fpForm .form-grid > .country-field input{
+      min-height:62px;
+    }
+
     .field{
       display:grid;
       gap:0;
@@ -859,7 +879,7 @@
     }
   </style>
   <link rel="stylesheet" href="./inscripcion.css">
-  <link rel="stylesheet" href="./precios.css">
+  <link rel="stylesheet" href="./precios.css?v=20261103-fix1">
 </head>
 <body>
   <main class="page">
@@ -912,7 +932,7 @@
                 <input id="apellido" name="apellido" type="text" maxlength="80" autocomplete="family-name" placeholder="Tu apellido" required>
               </div>
 
-              <div class="field">
+              <div class="field field-full country-field">
                 <label for="pais">País de residencia <span class="required-mark">*</span></label>
                 <span class="field-hint">Selecciona de la lista o escribe tu país.</span>
                 <input id="pais" name="pais" type="text" list="fp-paises" maxlength="90" autocomplete="country-name" placeholder="Ej. Chile" required>
@@ -929,7 +949,7 @@
                 </datalist>
               </div>
 
-      <section class="pricing-section form-pricing" aria-labelledby="inversion-heading">
+              <section class="pricing-section form-pricing field-full" id="precioSeccion" aria-labelledby="inversion-heading" hidden>
         <div class="private-investment">
           <p class="program-kicker">Flautistas Protagonistas · Edición 2027</p>
           <h2 class="program-title" id="inversion-heading">Tu inversión según el país.</h2>
@@ -1119,6 +1139,6 @@
   </main>
 
   <script src="./inscripcion.js" defer></script>
-  <script src="./precios.js" defer></script>
+  <script src="./precios.js?v=20261103-fix1" defer></script>
 </body>
 </html>
