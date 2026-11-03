@@ -86,7 +86,7 @@ function fpRequiredText_(value, maxLength) {
 function fpEmail_(value) {
   const email = String(value || "").trim().toLowerCase();
   if (email.length > 254 ||
-      !/^[a-z0-9][a-z0-9._%+\\-]*@[a-z0-9](?:[a-z0-9.\\-]*[a-z0-9])?\\.[a-z]{2,}$/i.test(email)) {
+      !/^[a-z0-9][a-z0-9._%+-]*@[a-z0-9][a-z0-9.-]*[.][a-z]{2,}$/i.test(email)) {
     throw new Error("EMAIL_INVALID");
   }
   return email;
