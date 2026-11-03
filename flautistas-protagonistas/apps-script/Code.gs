@@ -491,6 +491,229 @@ function fpCalendarioValido_(plan, deadline) {
     iso[2] < FP_PAYMENT_DEADLINE_ISO;
 }
 
+
+/* Las respuestas con fechas se leen mediante GmailApp en la cuenta que
+ * ejecuta el disparador. Debe tener acceso REAL al buzón que recibe las
+ * respuestas dirigidas a valentina@escueladeflautistas.cl.
+ *
+ * Solo se aceptan propuestas asociadas al ID del correo original y
+ * remitidas desde el email de la inscripción. Nunca se marca pago recibido.
+ */
+
+function fpEmailRemitente_(from) {
+  const match = String(from || "").match(/<([^<>]+)>/);
+  return String(match ? match[1] : from || "").trim().toLowerCase();
+}
+
+function fpRespuestaPropia_(body) {
+  // Descarta respuestas citadas y plantillas originales: evita que se
+  // interpreten como fechas enviadas por el estudiante.
+  const text = String(body || "").slice(0, 8000).replace(/\r\n?/g, "\n");
+  return text.split(
+    /^\s*(?:On .+ wrote:|El .+ escribió:|De:|From:|-----\s*Original Message\s*-----|_{8,}|>)/im
+  )[0].trim();
+}
+
+function fpFechaDia_(day, month, year) {
+  const d = Number(day), m = Number(month), y = Number(year);
+  if (y < 2026 || y > 2027 || m < 1 || m > 12 || d < 1 || d > 31) return null;
+  // El mediodía UTC conserva el día local en America/Santiago.
+  const date = new Date(Date.UTC(y, m - 1, d, 12, 0, 0));
+  if (date.getUTCFullYear() !== y ||
+      date.getUTCMonth() + 1 !== m || date.getUTCDate() !== d) return null;
+  return date;
+}
+
+function fpParsearRespuestaFechas_(body) {
+  const own = fpRespuestaPropia_(body);
+  const lines = own.split("\n").map(function (line) {
+    return line.trim().replace(/^(?:[-*•]\s*)/, "").trim();
+  }).filter(Boolean);
+  // Admitimos etiquetas explícitas de las tres cuotas o tres fechas
+  // completas en líneas separadas. No inferimos el año.
+  const labels = [
+    /^(?:primera(?:\s+cuota)?|cuota\s*1|1\s*[.)-]?\s*(?:cuota)?)\s*[:\-–]?\s*(\d{1,2})\s*[\/.\-]\s*(\d{1,2})\s*[\/.\-]\s*(\d{4})\s*$/i,
+    /^(?:segunda(?:\s+cuota)?|cuota\s*2|2\s*[.)-]?\s*(?:cuota)?)\s*[:\-–]?\s*(\d{1,2})\s*[\/.\-]\s*(\d{1,2})\s*[\/.\-]\s*(\d{4})\s*$/i,
+    /^(?:tercera(?:\s+cuota)?|cuota\s*3|3\s*[.)-]?\s*(?:cuota)?)\s*[:\-–]?\s*(\d{1,2})\s*[\/.\-]\s*(\d{1,2})\s*[\/.\-]\s*(\d{4})\s*$/i
+  ];
+  const found = labels.map(function (pattern) {
+    const matches = lines.map(function (line) { return line.match(pattern); })
+      .filter(Boolean);
+    return matches.length === 1 ? matches[0] : null;
+  });
+  const labelled = found.every(Boolean);
+  const labelledPartial = /(?:primera|segunda|tercera)\s+cuota|cuota\s*[123]/i
+    .test(own);
+  if (labelled) {
+    return {
+      attempted: true,
+      dates: found.map(function (match) {
+        return fpFechaDia_(match[1], match[2], match[3]);
+      })
+    };
+  }
+
+  const simple = /^(?:\d{1,2}\s*[\/.\-]\s*\d{1,2}\s*[\/.\-]\s*\d{4})$/;
+  const dateLines = lines.filter(function (line) { return simple.test(line); });
+  if (!labelledPartial && dateLines.length === 3 &&
+      lines.length <= 6) {
+    return {
+      attempted: true,
+      dates: dateLines.map(function (line) {
+        const parts = line.split(/[\/.\-]/).map(function (part) {
+          return part.trim();
+        });
+        return fpFechaDia_(parts[0], parts[1], parts[2]);
+      })
+    };
+  }
+  // Ignorar comprobantes, saludos y otras respuestas sin propuesta.
+  const dateLike = (own.match(/\b\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{4}\b/g) || []);
+  return {attempted: labelledPartial || dateLike.length >= 2, dates: null};
+}
+
+function fpFechasAutomaticasValidas_(dates) {
+  if (!dates || dates.length !== 3 || !dates.every(function (d) {
+    return d instanceof Date && !isNaN(d.getTime());
+  })) return false;
+  const today = Utilities.formatDate(new Date(), FP_MAIL_TIMEZONE, "yyyy-MM-dd");
+  const formatted = dates.map(function (d) {
+    return Utilities.formatDate(d, FP_MAIL_TIMEZONE, "yyyy-MM-dd");
+  });
+  return formatted.every(function (date) {
+    return date >= today && date < FP_PAYMENT_DEADLINE_ISO;
+  }) && formatted[0] < formatted[1] && formatted[1] < formatted[2];
+}
+
+/** Reconoce respuestas entrantes y agenda las cuotas sin esperar transferencias. */
+function fpProcesarRespuestasFechas_(book, quota) {
+  const plans = book.getSheetByName(FP_MAIL_PLAN_SHEET);
+  const registrations = book.getSheetByName(FP_SHEET_NAME);
+  if (!plans || !registrations || plans.getLastRow() <= 1 ||
+      registrations.getLastRow() <= 1 || !fpFechaLimitePago_(book)) return quota;
+
+  const enrollmentRows = registrations.getRange(
+    2, 1, registrations.getLastRow() - 1, 22).getValues();
+  const registered = {};
+  enrollmentRows.forEach(function (r) {
+    const id = String(r[1] || "").trim();
+    if (id) registered[id] = {
+      email: String(r[16] || "").trim().toLowerCase(),
+      initialSent: String(r[17] || "").trim() === "Enviado",
+      initialDate: r[18] instanceof Date ? r[18] : null
+    };
+  });
+
+  const rows = plans.getRange(2, 1, plans.getLastRow() - 1, 20).getValues();
+  for (let i = 0; i < rows.length && quota > 0; i++) {
+    const p = rows[i];
+    const id = String(p[0] || "").trim();
+    const email = String(p[1] || "").trim().toLowerCase();
+    const original = registered[id];
+    if (!id || !/^[0-9A-F]{8}$/i.test(id) || !fpEmailValido_(email) ||
+        !original || !original.initialSent || !original.initialDate ||
+        original.email !== email || String(p[3] || "") !== "3" ||
+        String(p[7] || "").trim().toLowerCase() !== "no") continue;
+
+    // Fechas editadas previamente no se sobrescriben automáticamente.
+    if ([p[4], p[5], p[6]].some(function (v) { return !!v; })) continue;
+
+    const threads = GmailApp.search(
+      'in:anywhere from:"' + email + '" "' + id + '"', 0, 20);
+    const found = [];
+    threads.forEach(function (thread) {
+      thread.getMessages().forEach(function (msg) {
+        if (fpEmailRemitente_(msg.getFrom()) !== email) return;
+        if (msg.getDate().getTime() <= original.initialDate.getTime()) return;
+        if (String(msg.getSubject() || "").toUpperCase().indexOf(id.toUpperCase()) < 0) return;
+        found.push(msg);
+      });
+    });
+    found.sort(function (a, b) {
+      return a.getDate().getTime() - b.getDate().getTime();
+    });
+    // Solo se leen las respuestas posteriores al último mensaje procesado.
+    const lastId = String(p[18] || "").trim();
+    const at = found.findIndex(function (msg) {
+      return msg.getId() === lastId;
+    });
+    const candidates = found.slice(at + 1).filter(function (msg) {
+      return msg.getId() !== lastId;
+    });
+    let latest = null, parse = null;
+    for (let j = candidates.length - 1; j >= 0; j--) {
+      const candidate = fpParsearRespuestaFechas_(candidates[j].getPlainBody());
+      if (candidate.attempted) {
+        latest = candidates[j];
+        parse = candidate;
+        break;
+      }
+    }
+    if (!latest) continue;
+    const targetRow = i + 2;
+    const valid = fpFechasAutomaticasValidas_(parse.dates);
+    // Guardar el ID antes de enviar mensajes para evitar respuestas repetidas.
+    plans.getRange(targetRow, 19).setValue(latest.getId());
+    if (valid) {
+      plans.getRange(targetRow, 5, 1, 3).setValues([parse.dates]);
+      plans.getRange(targetRow, 8).setValue("Aprobado");
+      plans.getRange(targetRow, 20).setValue("Fechas validadas automáticamente");
+      fpCorreoLog_(book, id, email, "Respuesta de fechas",
+        "Calendario agendado", "Validación automática, sin relación con abonos");
+    } else {
+      plans.getRange(targetRow, 20).setValue("Corrección solicitada");
+      SpreadsheetApp.flush();
+      const mail = {
+        subject: "Flautistas Protagonistas 2027 · Corrige tus fechas · " + id,
+        body: "Hola:\n\nNo pude validar las tres fechas propuestas." +
+          "\n\nResponde con este formato:\n" +
+          "Primera cuota: DD/MM/AAAA\nSegunda cuota: DD/MM/AAAA" +
+          "\nTercera cuota: DD/MM/AAAA\n\n" +
+          "Las fechas deben ser futuras, diferentes, ordenadas y anteriores" +
+          " al 15 de enero de 2027 (último día: 14 de enero)." +
+          "\n\nEl calendario se registra sin necesidad de haber realizado" +
+          " la primera transferencia.\n\nValentina Galaz\nEscuela de Flautistas",
+        htmlBody: fpCorreoPlantilla_("Revisemos las fechas de tus cuotas",
+          "<p>La propuesta no cumple los requisitos de fechas.</p>" +
+          "<p>Responde usando el siguiente formato:</p>" +
+          "<p>Primera cuota: DD/MM/AAAA<br>" +
+          "Segunda cuota: DD/MM/AAAA<br>" +
+          "Tercera cuota: DD/MM/AAAA</p>" +
+          "<p>Las tres fechas deben estar en orden y ser anteriores al " +
+          "<strong>15/01/2027</strong> (último día: 14 de enero).</p>" +
+          "<p>No es necesario haber realizado la primera transferencia " +
+          "para organizar el calendario.</p>")
+      };
+      try {
+        fpEnviarMail_(email, mail);
+        fpCorreoLog_(book, id, email, "Corrección de fechas",
+          "Enviado", latest.getId());
+        quota--;
+      } catch (error) {
+        plans.getRange(targetRow, 20).setValue("Revisión requerida: no se pudo responder");
+        fpCorreoLog_(book, id, email, "Corrección de fechas",
+          "Revisión requerida", String(error));
+      }
+    }
+  }
+  return quota;
+}
+
+/** Diagnóstico de permisos para leer respuestas; nunca envía correos. */
+function probarBuzonRespuestasFP2027() {
+  const threads = GmailApp.search('in:anywhere "Flautistas Protagonistas 2027"', 0, 1);
+  const principal = Session.getEffectiveUser().getEmail();
+  const result = {
+    cuentaQueEjecuta: principal,
+    gmailAccesible: true,
+    conversacionesEncontradas: threads.length,
+    respuestaDirigidaA: FP_MAIL_REPLY_TO,
+    aviso: "La cuenta que ejecuta Apps Script debe recibir o tener reenviadas las respuestas dirigidas a esta dirección."
+  };
+  Logger.log(JSON.stringify(result));
+  return result;
+}
+
 function fpConfirmarCalendarios_(book, quota) {
   const plans = book.getSheetByName(FP_MAIL_PLAN_SHEET);
   const enrollments = book.getSheetByName(FP_SHEET_NAME);
@@ -711,6 +934,7 @@ function procesarCorreosFP2027() {
     const quota = Math.min(FP_MAIL_MAX_PER_RUN,
       MailApp.getRemainingDailyQuota());
     let left = fpEnviarCorreosIniciales_(book, configs, quota);
+    left = fpProcesarRespuestasFechas_(book, left);
     left = fpConfirmarCalendarios_(book, left);
     left = fpRecordatoriosCuotas_(book, configs, left);
     left = fpConfirmacionesPagoCompleto_(book, left);
