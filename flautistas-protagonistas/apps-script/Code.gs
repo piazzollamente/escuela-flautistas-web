@@ -16,7 +16,21 @@ const FP_SHEET_NAME = "Inscripciones web";
 const FP_ORIGIN = "Landing inscripción Flautistas Protagonistas 2027";
 const FP_CURRENCIES = ["USD — dólares", "ARS — pesos argentinos", "CLP — pesos chilenos"];
 
-function doGet() {
+function doGet(e) {
+  const p = (e && e.parameter) || {};
+  const token = String(p.token || "");
+  // Permite a la web confirmar que esta versión ya guarda la columna de email.
+  // La versión anterior no responde; así evitamos perder direcciones de correo.
+  if (p.accion === "comprobar_correo" && /^[a-zA-Z0-9-]{8,80}$/.test(token)) {
+    const payload = JSON.stringify({
+      source: "fp2027-servicio", version: "email-v2", token: token
+    }).replace(/</g, "\\u003c");
+    const html = '<!doctype html><html><head><meta charset="utf-8"></head><body>' +
+      '<script>window.parent.postMessage(' + payload + ',' +
+      JSON.stringify(FP_ALLOWED_ORIGIN) + ');<\\/script></body></html>';
+    return HtmlService.createHtmlOutput(html)
+      .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+  }
   return HtmlService.createHtmlOutput("Servicio de inscripciones. Envía los datos desde la página oficial.");
 }
 
@@ -40,9 +54,10 @@ function probarConexion() {
   const libro = SpreadsheetApp.openById(FP_SPREADSHEET_ID);
   const hoja = libro.getSheetByName(FP_SHEET_NAME);
   if (!hoja) throw new Error("No se encontró la pestaña de inscripciones.");
-  const encabezados = hoja.getRange(1, 1, 1, 16).getDisplayValues()[0];
+  const encabezados = hoja.getRange(1, 1, 1, 17).getDisplayValues()[0];
   const camposEsperados = ["Fecha de inscripción", "ID de inscripción", "Nombre", "Apellido", "País de residencia"];
-  if (camposEsperados.some(function (campo, i) { return encabezados[i] !== campo; })) {
+  if (camposEsperados.some(function (campo, i) { return encabezados[i] !== campo; }) ||
+      encabezados[16] !== "Correo electrónico") {
     throw new Error("Los encabezados de la hoja no coinciden con el formulario.");
   }
   const resultado = "Conexión correcta con " + FP_SHEET_NAME + ". No se escribieron datos.";
@@ -66,6 +81,15 @@ function fpRequiredText_(value, maxLength) {
   return text;
 }
 
+function fpEmail_(value) {
+  const email = String(value || "").trim().toLowerCase();
+  if (email.length > 254 ||
+      !/^[a-z0-9][a-z0-9._%+\\-]*@[a-z0-9](?:[a-z0-9.\\-]*[a-z0-9])?\\.[a-z]{2,}$/i.test(email)) {
+    throw new Error("EMAIL_INVALID");
+  }
+  return email;
+}
+
 function fpSafeCell_(value) {
   // Evita inyección de fórmulas en Sheets a través de campos de texto libre.
   const text = String(value);
@@ -79,6 +103,7 @@ function fpRegister_(p) {
 
   const name = fpSafeCell_(fpRequiredText_(p.nombre, 80));
   const surname = fpSafeCell_(fpRequiredText_(p.apellido, 80));
+  const email = fpEmail_(p.correo);
   const country = fpSafeCell_(fpRequiredText_(p.pais, 90));
   const currency = String(p.moneda || "");
   const installments = String(p.cuotas || "");
@@ -119,10 +144,11 @@ function fpRegister_(p) {
       "",
       FP_ORIGIN,
       "Sí",
-      ""
+      "",
+      email
     ]);
     SpreadsheetApp.flush();
-    return { ok: true, registrationId: registrationId };
+    return { ok: true, registrationId: registrationId, emailCaptured: true };
   } finally {
     lock.releaseLock();
   }
@@ -132,6 +158,7 @@ function fpPublicError_(err) {
   const messages = {
     PHONE_INVALID: "Revisa el número. Incluye +, código de país y número.",
     PHONE_MISMATCH: "Los dos números de WhatsApp no coinciden.",
+    EMAIL_INVALID: "Revisa tu correo electrónico e inténtalo nuevamente.",
     FORM_INVALID: "Revisa los datos de tu inscripción e inténtalo nuevamente.",
     CONSENT_REQUIRED: "Debes aceptar el uso de los datos para gestionar tu inscripción.",
     ALREADY_REGISTERED: "Este WhatsApp ya figura en las inscripciones. Contacta a la escuela si necesitas modificar tu registro."
