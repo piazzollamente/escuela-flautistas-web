@@ -113,3 +113,102 @@
   .market-option-amount{font-size:clamp(2rem,7vw,2.6rem)}
   .pricing-editorial .section-cta{width:100%;margin-top:21px}
 }
+
+/* Vista previa accesible junto al selector de cuotas. Esta tabla es HTML
+   estático: los importes siguen visibles si JS está bloqueado. */
+.form-grid > .payment-preview{
+  grid-column:1/-1;
+  min-width:0;
+  margin:0;
+  padding:clamp(20px,3vw,28px);
+  border:1px solid #CFC5BA;
+  border-left:4px solid var(--red);
+  border-radius:3px;
+  background:#fff;
+  text-align:left;
+}
+.payment-preview-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px 20px;
+}
+.payment-preview-kicker{
+  display:block;
+  margin-bottom:7px;
+  color:var(--red);
+  font:800 .64rem/1.4 var(--sans);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.payment-preview-top h3{
+  margin:0;
+  font:500 clamp(1.8rem,3vw,2.4rem)/1.06 var(--serif);
+  letter-spacing:-.035em;
+}
+.payment-preview-link{
+  flex-shrink:0;
+  margin-top:8px;
+  color:var(--red);
+  font:800 .65rem/1.5 var(--sans);
+  text-underline-offset:4px;
+}
+.payment-preview-current{
+  margin:17px 0 0;
+  padding:15px 17px;
+  border:1px solid #D9E9E5;
+  border-radius:3px;
+  background:#EFF8F5;
+  color:var(--ink);
+  font:700 clamp(.87rem,1.55vw,1rem)/1.55 var(--sans);
+}
+.payment-preview-reference{
+  margin-top:20px;
+}
+.payment-preview-subheading{
+  margin:0 0 12px;
+  color:var(--ink);
+  font:800 .7rem/1.4 var(--sans);
+  letter-spacing:.065em;
+  text-transform:uppercase;
+}
+.payment-preview-list{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+}
+.payment-preview-market{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+  min-width:0;
+  padding:15px 13px;
+  border:1px solid var(--line);
+  background:#F7F5F2;
+}
+.payment-preview-market strong{
+  color:var(--ink);
+  font:800 .76rem/1.35 var(--sans);
+}
+.payment-preview-market span{
+  color:var(--ink);
+  font:500 clamp(1.5rem,2.3vw,2.1rem)/1.1 var(--serif);
+  font-variant-numeric:tabular-nums;
+}
+.payment-preview-market small{
+  color:var(--muted);
+  font:600 .72rem/1.45 var(--sans);
+}
+.payment-preview-disclaimer{
+  margin:15px 0 0;
+  color:var(--muted);
+  font:500 .7rem/1.6 var(--sans);
+}
+@media(max-width:700px){
+  .form-grid > .payment-preview{grid-column:1;padding:20px 15px}
+  .payment-preview-top{flex-direction:column;gap:6px}
+  .payment-preview-link{margin-top:3px}
+  .payment-preview-list{grid-template-columns:1fr}
+  .payment-preview-market{padding:12px 14px}
+  .payment-preview-market span{font-size:1.85rem}
+}
