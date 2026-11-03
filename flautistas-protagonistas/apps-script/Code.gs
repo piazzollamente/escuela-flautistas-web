@@ -83,7 +83,7 @@ function fpRegister_(p) {
   const currency = String(p.moneda || "");
   const installments = String(p.cuotas || "");
   if (!FP_CURRENCIES.includes(currency) ||
-      !["1", "2", "3"].includes(installments)) throw new Error("FORM_INVALID");
+      !["1", "3"].includes(installments)) throw new Error("FORM_INVALID");
   if (p.consentimiento !== "si") throw new Error("CONSENT_REQUIRED");
 
   const lock = LockService.getScriptLock();

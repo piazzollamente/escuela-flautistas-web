@@ -101,45 +101,6 @@
   line-height:1.7;
   text-align:left;
 }
-.price-two{
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px 20px;
-  margin-top:24px;
-  padding:17px 0;
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-  text-align:left;
-}
-.price-two-copy{flex:1 1 240px}
-.price-two-copy strong{
-  display:block;
-  font-size:.78rem;
-  line-height:1.45;
-}
-.price-two-copy span{
-  display:block;
-  margin-top:4px;
-  font-size:.72rem;
-  line-height:1.6;
-  color:var(--muted);
-}
-.price-two button{
-  min-height:42px;
-  padding:10px 16px;
-  border:1px solid var(--line);
-  border-radius:3px;
-  background:transparent;
-  color:var(--ink);
-  cursor:pointer;
-  font:800 .64rem/1.35 var(--sans);
-  letter-spacing:.08em;
-  text-transform:uppercase;
-}
-.price-two button:hover{border-color:var(--red);color:var(--red)}
-.price-two button[aria-pressed="true"]{outline:2px solid var(--mint-ink);outline-offset:3px}
 .price-compliance{
   max-width:670px;
   margin:20px auto 0;
@@ -153,8 +114,6 @@
   .price-grid{grid-template-columns:1fr;gap:12px}
   .price-card{padding:22px 20px}
   .price-value{font-size:clamp(2.25rem,8.8vw,3rem)}
-  .price-two{align-items:stretch}
-  .price-two button{width:100%}
   .price-select-btn{margin-top:19px}
 }
 /* Los precios aparecen dentro del formulario, justo tras el país. */
@@ -214,4 +173,21 @@
   .form-pricing .private-investment{padding:21px 16px}
   .form-pricing .price-card{padding:19px 17px}
   .form-pricing .price-value{font-size:clamp(2.1rem,8vw,2.7rem)}
+}
+
+/* Monto visible también bajo el selector de cuotas del formulario. */
+.field .payment-selection-note{
+  min-height:2.4em;
+  padding:11px 18px 15px;
+  margin:0;
+  border-top:1px solid #E6DED5;
+  background:#F7F5F2;
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:.77rem;
+  font-weight:700;
+  line-height:1.55;
+}
+@media(max-width:700px){
+  .field .payment-selection-note{padding:10px 16px 14px}
 }

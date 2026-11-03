@@ -14,7 +14,7 @@
 1. Abrir [Flautistas Protagonistas 2027](https://escueladeflautistas.cl/flautistas-protagonistas/) en una ventana de incógnito y recargar para evitar caché.
 2. Confirmar que se ve el formulario de inscripción y que no aparece ningún aviso sobre Google Sheets o configuración técnica.
 3. Introducir un número de WhatsApp diferente en cada campo: el navegador debe bloquear el envío con un mensaje de discordancia.
-4. Ingresar datos de **prueba claramente identificados**, una moneda y 1, 2 o 3 cuotas; aceptar el consentimiento y enviar.
+4. Ingresar datos de **prueba claramente identificados**, una moneda y 1 o 3 cuotas; aceptar el consentimiento y enviar.
 5. Debe mostrarse un **código de registro** solo después del mensaje positivo del servidor.
 6. Abrir la [hoja de inscripciones](https://docs.google.com/spreadsheets/d/19ODt7wTppY6FJsE7ZQsH-lqNTiGJv4Ll9RqOvp7a2dQ/edit), pestaña `Inscripciones web`. Confirmar que hay **una fila**, con el número normalizado, `Coinciden`, `No realizada`, moneda y cuotas correctas.
 7. Eliminar cuidadosamente **solo el registro de prueba**. No modificar inscripciones reales.
@@ -25,11 +25,11 @@
 
 El formulario de inscripción aparece inmediatamente después del encabezado **INSCRIPCIONES ABIERTAS**, antes de la descripción completa del programa. Al introducir el **país de residencia**, el módulo de inversión aparece **dentro del mismo formulario**, justo después de ese dato y antes del WhatsApp. No existe un segundo selector de país. Los importes son comerciales **fijos**, sin conversión de divisas ni servicios de cotización. La moneda se propone automáticamente según el país y el visitante puede modificarla, actualizándose entonces los precios para mantener coherencia.
 
-| País / mercado | Pago único | 3 cuotas | Total 3 cuotas | 2 cuotas |
+| País / mercado | 1 cuota (total) | 3 cuotas (cada una) | Total 3 cuotas |
 |---|---:|---:|---:|---|
-| Chile (CLP) | 399.900 | 139.900 cada una | 419.700 | No definido |
-| Argentina (ARS) | 399.000 | 139.900 cada una | 419.700 | No definido |
-| Otros países (USD) | 419 | 147 cada una | 441 | No definido |
+| Chile (CLP) | 399.900 | 139.900 | 419.700 |
+| Argentina (ARS) | 399.000 | 139.900 | 419.700 |
+| Otros países (USD) | 419 | 147 | 441 |
 
 **Fuentes cotejadas:**
 
@@ -37,7 +37,7 @@ El formulario de inscripción aparece inmediatamente después del encabezado **I
 - [Flautistas Protagonistas 2027 — dossier público](https://drive.google.com/file/d/142hHbwOIfBmINAMQIyIB3xh0HgQ4i4Lm/view): CLP y USD.
 - [Flautistas Protagonistas 2027 — Argentina, 3 cuotas](https://drive.google.com/file/d/1GNqTMqkVymMYuYu_tOcVitrLejde9xzL/view): ARS.
 
-La elección de 2 cuotas permanece disponible en el formulario **sin publicar ningún valor no aprobado**. Los importes del módulo no implican que haya un checkout activo, una plaza confirmada ni un pago realizado.
+El formulario **solo ofrece 1 cuota o 3 cuotas**. Después de completar el país de residencia, el importe aparece en las tarjetas, en cada opción del selector de cuotas y en un resumen bajo el selector. Los importes no implican que haya checkout activo, plaza confirmada ni pago realizado.
 
 El anuncio principal ya no tiene cuenta regresiva. La página muestra **«INSCRIPCIONES ABIERTAS»** y no presenta condiciones especiales de estudiantes activos.
 
@@ -54,7 +54,7 @@ El servidor escribe:
 - nombre, apellido y país;
 - el WhatsApp normalizado en formato `+código número` (solo una copia);
 - **Confirmación WhatsApp = Coinciden** y **Verificación externa = No realizada**;
-- moneda USD, ARS o CLP y 1, 2 o 3 cuotas;
+- moneda USD, ARS o CLP y 1 o 3 cuotas;
 - **Estado inscripción = Recibida**, **Estado pago = Pendiente**;
 - origen y consentimiento.
 
@@ -63,6 +63,8 @@ El registro **no cobra cuotas ni garantiza cupos**.
 ## Actualización del despliegue
 
 La URL /exec ya fue incorporada al sitio. Si la implementación cambia, actualizar el atributo `data-endpoint` en `index.html`, publicar el cambio y repetir la prueba anterior.
+
+**Actualización del receptor:** el código del repositorio se restringió a 1 o 3 cuotas, pero la aplicación de Apps Script ya desplegada conserva su versión anterior hasta copiar el archivo `apps-script/Code.gs` actualizado y publicar una versión nueva en **Implementar → Gestionar implementaciones**. El formulario público ya impide seleccionar 2 cuotas sin esa actualización.
 
 ## Seguridad y experiencia
 

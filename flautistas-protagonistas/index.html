@@ -879,7 +879,7 @@
     }
   </style>
   <link rel="stylesheet" href="./inscripcion.css">
-  <link rel="stylesheet" href="./precios.css?v=20261103-fix1">
+  <link rel="stylesheet" href="./precios.css?v=20261103-cuotas13">
 </head>
 <body>
   <main class="page">
@@ -960,26 +960,19 @@
           <div class="price-panel" id="preciosPanel" hidden>
             <div class="price-grid" aria-label="Modalidades de pago disponibles">
               <article class="price-card">
-                <p class="price-card-kicker">Pago único</p>
+                <p class="price-card-kicker">1 cuota · Pago único</p>
                 <strong class="price-value" id="precioUnPago">—</strong>
                 <p class="price-card-subtitle">Una sola cuota · Total de la inversión.</p>
                 <button class="price-select-btn" id="precioElegirUno" type="button" aria-pressed="false">Elegir pago único</button>
               </article>
 
               <article class="price-card">
-                <p class="price-card-kicker">Pago en tres cuotas</p>
+                <p class="price-card-kicker">3 cuotas · Pago fraccionado</p>
                 <strong class="price-value" id="precioTresCuotas">—</strong>
                 <p class="price-card-subtitle" id="precioTotalCuotas">—</p>
+                <p class="price-card-subtitle">Importe de cada cuota indicado arriba.</p>
                 <button class="price-select-btn" id="precioElegirTres" type="button" aria-pressed="false">Elegir tres cuotas</button>
               </article>
-            </div>
-
-            <div class="price-two">
-              <div class="price-two-copy">
-                <strong>¿Prefieres pagar en dos cuotas?</strong>
-                <span>Esta modalidad puede solicitarse. El importe está pendiente de confirmación y no se muestra una cifra estimada.</span>
-              </div>
-              <button id="precioElegirDos" type="button" aria-pressed="false">Consultar dos cuotas</button>
             </div>
 
           </div>
@@ -1016,13 +1009,13 @@
 
               <div class="field">
                 <label for="cuotas">Cantidad de cuotas <span class="required-mark">*</span></label>
-                <span class="field-hint">Selecciona tu modalidad preferida.</span>
-                <select id="cuotas" name="cuotas" required>
+                <span class="field-hint">Solo 1 cuota o 3 cuotas. El importe se indica según tu país.</span>
+                <select id="cuotas" name="cuotas" required aria-describedby="cuotasMonto">
                   <option value="" selected disabled>Selecciona una opción</option>
-                  <option value="1">1 cuota</option>
-                  <option value="2">2 cuotas (valor por confirmar)</option>
-                  <option value="3">3 cuotas</option>
+                  <option value="1" id="cuotaUnoOption">1 cuota — indica tu país para ver el monto</option>
+                  <option value="3" id="cuotaTresOption">3 cuotas — indica tu país para ver el monto</option>
                 </select>
+                <p class="payment-selection-note" id="cuotasMonto" aria-live="polite">Elige una modalidad para ver el importe de tu pago.</p>
               </div>
 
               <label class="consent-row" for="consentimiento">
@@ -1032,7 +1025,7 @@
             </div>
 
             <div class="form-actions">
-              <p class="form-note">La moneda y las cuotas son preferencias de pago sujetas a confirmación. El formulario no procesa pagos ni garantiza una plaza.</p>
+              <p class="form-note">Puedes inscribirte en un pago o en tres cuotas. El formulario no procesa pagos ni garantiza una plaza; confirmaremos los medios de pago antes de cobrar.</p>
               <button class="submit-btn" id="submitBtn" type="submit" disabled>Registrar mi inscripción</button>
             </div>
 
@@ -1139,6 +1132,6 @@
   </main>
 
   <script src="./inscripcion.js" defer></script>
-  <script src="./precios.js?v=20261103-fix1" defer></script>
+  <script src="./precios.js?v=20261103-cuotas13" defer></script>
 </body>
 </html>
