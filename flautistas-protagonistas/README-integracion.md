@@ -1,88 +1,55 @@
-# Inscripciones — Flautistas Protagonistas 2027
+# Conexión de inscripciones a Google Sheets — Flautistas Protagonistas 2027
 
-La página `/flautistas-protagonistas/` conserva su identidad editorial y añade un formulario de inscripción destinado a una **nueva hoja de Google Sheets**, independiente de la preinscripción anterior.
+## Estado verificado
 
-**Estado:** el diseño del formulario puede publicarse con el envío a Google Sheets inactivo. Mientras falta el nuevo Apps Script, el sitio muestra un enlace a la **preinscripción original** en `solicitar-informacion.html`, que sigue usando el receptor y la hoja anteriores. La hoja nueva no recibe datos hasta conectar el endpoint y comprobar un envío real.
+- La página está diseñada con el branding de Escuela de Flautistas y valida que el WhatsApp se escriba dos veces.
+- El receptor de Google Apps Script ya está programado en [apps-script/Code.gs](./apps-script/Code.gs), vinculado a la hoja de destino sin necesidad de introducir IDs ni propiedades.
+- Se ha comprobado con pruebas simuladas el guardado de las 16 columnas, coincidencia de números, consentimiento, moneda, cuotas y prevención de registros duplicados.
+- **La aplicación de Apps Script todavía no está implementada en la cuenta de Google.** La nueva hoja **no recibe inscripciones** hasta realizar los pasos de activación.
+- Hasta activar la conexión, la página oculta el formulario inoperante y muestra un CTA editorial hacia el formulario de solicitud de información que ya existía. No aparecen avisos técnicos.
 
-## Campos de la página
-
-- Nombre
-- Apellido
-- País de residencia
-- WhatsApp, con código internacional
-- Confirma tu WhatsApp: se escribe el mismo número por segunda vez
-- Moneda de pago: USD, ARS o CLP
-- Cantidad de cuotas: 1, 2 o 3
-- Consentimiento para gestionar y responder a la inscripción
-
-El navegador comprueba coincidencia y formato. El receptor de Apps Script **vuelve a validar ambos números**. Se conserva únicamente un número normalizado en la hoja.
-
-**Importante:** este procedimiento reduce errores de digitación, pero **no confirma la identidad, la existencia del número ni la titularidad de la cuenta de WhatsApp**. No envía códigos ni requiere servicios externos de verificación.
-
-## Google Sheets de destino
+## Hoja de destino
 
 [Inscripciones — Flautistas Protagonistas 2027](https://docs.google.com/spreadsheets/d/19ODt7wTppY6FJsE7ZQsH-lqNTiGJv4Ll9RqOvp7a2dQ/edit)
 
-Pestaña: **Inscripciones web**. Columnas A:P:
+La pestaña que recibe los datos es **Inscripciones web**. No se modifica la hoja original de preinscripciones.
 
-| Columna | Registro |
-|---|---|
-| A | Fecha de inscripción |
-| B | ID de inscripción |
-| C–D | Nombre, apellido |
-| E | País |
-| F | WhatsApp normalizado |
-| G | Confirmación WhatsApp: **Coinciden** |
-| H | Verificación externa: **No realizada** |
-| I | Moneda |
-| J | Cuotas |
-| K | Estado de inscripción: Recibida |
-| L | Estado de pago: Pendiente |
-| M | Fecha de pago (vacía hasta confirmación) |
-| N | Origen |
-| O | Consentimiento |
-| P | Observaciones internas |
+El servidor escribe:
+- fecha e identificador de inscripción;
+- nombre, apellido y país;
+- el WhatsApp normalizado en formato `+código número` (solo una copia);
+- **Confirmación WhatsApp = Coinciden** y **Verificación externa = No realizada**;
+- moneda USD, ARS o CLP y 1, 2 o 3 cuotas;
+- **Estado inscripción = Recibida**, **Estado pago = Pendiente**;
+- origen y consentimiento.
 
-La hoja no procesa pagos y no confirma automáticamente ninguna plaza.
+El registro **no cobra cuotas ni garantiza cupos**.
 
-## Pasos para conectar la página
+## Activación desde la cuenta de Google
 
-1. Crear un **nuevo** proyecto Google Apps Script con una cuenta que tenga permiso de edición sobre la hoja. No reutilizar el receptor de preinscripciones.
-2. Copiar el contenido de [apps-script/Code.gs](./apps-script/Code.gs).
-3. En **Configuración del proyecto → Propiedades de secuencia de comandos**, ingresar:
-   
-   | Propiedad | Valor |
-   |---|---|
-   | `SPREADSHEET_ID` | `19ODt7wTppY6FJsE7ZQsH-lqNTiGJv4Ll9RqOvp7a2dQ` |
-   | `ALLOWED_ORIGIN` | `https://escueladeflautistas.cl` |
+El paso de autorización y despliegue debe ejecutarse en una sesión de Google con permisos de edición sobre la hoja. Esta operación no está disponible mediante el conector de Google Drive utilizado para preparar los archivos.
 
-4. En Apps Script, **Implementar → Nueva implementación → Aplicación web**. Ejecutar como la cuenta administradora. Conceder acceso público al endpoint únicamente si el formulario está destinado al público general, y revisar los permisos de la cuenta.
-5. Copiar la URL final del tipo `https://script.google.com/macros/s/.../exec` y sustituir `data-endpoint="#"` en [index.html](./index.html). No colocar credenciales de Google en HTML o JavaScript.
-6. Probar los casos siguientes con un número de prueba y borrar después los registros de prueba. Verificar la respuesta real de Apps Script en navegador, no dar por exitoso solo porque el iframe cargó.
-7. Comprobar la hoja de preinscripciones original: no debe sufrir cambios ni recibir nuevos registros de esta versión.
-8. Después de verificar la escritura, habilitar el envío del formulario principal; hasta entonces debe permanecer disponible la alternativa de preinscripción.
+1. Abrir la [hoja de inscripciones](https://docs.google.com/spreadsheets/d/19ODt7wTppY6FJsE7ZQsH-lqNTiGJv4Ll9RqOvp7a2dQ/edit) desde una computadora y seleccionar **Extensiones → Apps Script**.
+2. En el archivo `Código.gs`, eliminar el código de ejemplo y pegar **todo** el contenido del archivo [apps-script/Code.gs](./apps-script/Code.gs) de este repositorio. Guardar el proyecto con el nombre **Inscripciones Flautistas Protagonistas 2027**.
+3. En el selector de funciones, elegir **`probarConexion`** y pulsar **Ejecutar**. Autorizar la lectura/escritura de Google Sheets si Google lo solicita. El registro de ejecución debe indicar: **«Conexión correcta con Inscripciones web. No se escribieron datos.»** Si falla, detenerse aquí.
+4. Seleccionar **Implementar → Nueva implementación → Aplicación web**. Configurar **Ejecutar como: Yo** y **Quién tiene acceso: Cualquier persona** (incluidas personas sin sesión de Google; si la cuenta no ofrece esa opción, no estará disponible un registro público). Confirmar la implementación y copiar su URL que termina en `/exec`. <https://developers.google.com/apps-script/guides/web>
+5. Enviar **únicamente la URL `/exec`** para actualizar el atributo `data-endpoint` de `flautistas-protagonistas/index.html` en GitHub. Esa URL no es una credencial privada; jamás compartir contraseñas ni tokens.
+6. Tras incorporar la URL al sitio, probar una inscripción con datos de ensayo y comprobar que aparece **una sola fila nueva** en la pestaña **Inscripciones web**, que los dos números se comparan correctamente y que la página solo muestra éxito después del acuse del servidor. Borrar cualquier registro de ensayo en la hoja al finalizar.
 
-## Pruebas de aceptación
+## Seguridad y experiencia
 
-| Caso | Comportamiento esperado |
-|---|---|
-| Primer y segundo WhatsApp distintos | Impide enviar; muestra «Los números de WhatsApp no coinciden» |
-| Mismo teléfono con espacios distintos | Coinciden tras normalización |
-| Número sin código internacional | Impide enviar |
-| No seleccionar moneda, cuotas o país | Impide enviar |
-| Consentimiento sin marcar | Impide enviar |
-| Envío válido | Backend crea una sola fila con `Coinciden` y `No realizada` |
-| Enviar mismo número otra vez | El servidor impide duplicar |
-| Se cae el receptor | No aparece confirmación falsa |
-| Endpoint sin configurar | Botón inactivo, aviso visible y enlace a `solicitar-informacion.html` |
-| Cualquier elección de cuota | Solo se registra preferencia; no confirma pago |
+- Los datos enviados por el público se comprueban tanto en el navegador como en Apps Script.
+- Se aplica un bloqueo de escritura para evitar duplicación simultánea, y se controla la repetición del número registrado.
+- Se neutralizan las posibles fórmulas en texto libre que podría introducir un visitante.
+- El servidor tiene acceso a la hoja privada mediante la autorización de la cuenta de despliegue; **no** es necesario hacer pública la hoja de Google Sheets.
+- La verificación mediante doble escritura evita errores, pero **no acredita la titularidad del número**.
+- Esta API pública puede ser objeto de spam; si el tráfico lo requiere, agregar medidas antiautomatización sin almacenar más datos de los necesarios.
+- Revisar la información de privacidad antes de ofrecer la inscripción públicamente.
 
-## Mantenimiento y privacidad
+## Archivos
 
-- El frontend de esta funcionalidad se encuentra en [inscripcion.js](./inscripcion.js) y su CSS en [inscripcion.css](./inscripcion.css).
-- El receptor utiliza los permisos de Google Apps Script. La hoja permanece privada; no se comparte con «cualquiera que tenga el enlace».
-- Se protege la hoja frente a fórmulas escritas en entradas libres y se impide el registro duplicado por número.
-- **No existe prueba de titularidad**: cualquier persona podría registrar un número ajeno si lo conoce. Si se necesita protección más sólida contra registros falsos, se requerirá otro mecanismo de verificación o moderación.
-- Revisar aviso de privacidad y política de conservación de números de teléfono antes de publicarlo.
-
-Documentación oficial: [Implementar una aplicación web de Apps Script](https://developers.google.com/apps-script/guides/web), [HTML Service](https://developers.google.com/apps-script/guides/html).
+- [index.html](./index.html): página y formulario.
+- [inscripcion.js](./inscripcion.js): validación de campos y envío.
+- [inscripcion.css](./inscripcion.css): estilos editoriales del formulario.
+- [apps-script/Code.gs](./apps-script/Code.gs): receptor para Google Sheets.
+- [solicitar-informacion.html](./solicitar-informacion.html): alternativa de contacto que continúa usando el sistema anterior.
