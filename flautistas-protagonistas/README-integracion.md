@@ -77,13 +77,13 @@ Se ha preparado el código de correo transaccional, con guía completa en [apps-
 
 Estructura creada en el mismo Google Sheets:
 - `Inscripciones web`: R–T seguimiento del primer correo, U–V seguimiento de confirmación de pago total; Emma Rioseco tiene su correo recuperado de los eventos de mentoría e incorporado a Q2, R2 = Pendiente.
-- `Configuración pagos FP2027`: ruta Chile / Argentina / Otro país (Western Union); instrucciones de pago y habilitación restringida. Los tres mercados comienzan con D = No; en F2 va la fecha oficial de inicio.
-- `Plan pagos FP2027`: tres fechas propuestas, validación de aprobación humana, abonos acreditados y recordatorios.
+- `Configuración pagos FP2027`: ruta Chile / Argentina / Otro país (Western Union); instrucciones de pago y habilitación restringida. Los mercados solo envían correos cuando D = Sí; F2 contiene el límite exclusivo de pago del 15/01/2027 (último día: 14/01).
+- `Plan pagos FP2027`: tres fechas propuestas, aprobación automática de respuestas válidas por GmailApp sin requerir transferencias, abonos acreditados por separado y recordatorios.
 - `Historial correo FP2027`: auditoría de cada intento.
 
 **No habrá envíos antes de** completar datos de pago verificados en columna C, cambiar D = Sí para el mercado correspondiente, instalar el disparador y autorizar `MailApp` desde Apps Script. El envío real depende de esos pasos manuales.
 
-Secuencia: aviso inicial de 1 pago / 3 cuotas → respuesta del alumno con tres fechas → revisión humana y aprobación antes del inicio de clases → correo de fechas aceptadas → recordatorios una vez por cuota → confirmación final tras acreditación completa. La autorización de pagos, el examen de comprobantes y la confirmación de fechas no son automáticos.
+Secuencia: aviso inicial de 1 pago / 3 cuotas → respuesta por email con tres fechas → revisión y registro automático en el calendario de pagos (solo fechas válidas anteriores al 15/01/2027) → correo de confirmación de fechas → recordatorios → confirmación final solo tras acreditar los pagos. El calendario puede aprobarse antes de la primera transferencia. **La acreditación bancaria continúa siendo manual.** La cuenta ejecutora de Apps Script debe recibir las respuestas del correo configurado.
 
 ## Seguridad y experiencia
 
