@@ -2,7 +2,7 @@
 
 La página `/flautistas-protagonistas/` conserva su identidad editorial y añade un formulario de inscripción destinado a una **nueva hoja de Google Sheets**, independiente de la preinscripción anterior.
 
-**Estado:** los cambios están preparados en una rama del repositorio. La página todavía **no envía inscripciones reales**: falta desplegar el nuevo Google Apps Script, obtener su URL y hacer una prueba de escritura. No sustituir la página pública hasta completar estos pasos.
+**Estado:** el diseño del formulario puede publicarse con el envío a Google Sheets inactivo. Mientras falta el nuevo Apps Script, el sitio muestra un enlace a la **preinscripción original** en `solicitar-informacion.html`, que sigue usando el receptor y la hoja anteriores. La hoja nueva no recibe datos hasta conectar el endpoint y comprobar un envío real.
 
 ## Campos de la página
 
@@ -60,7 +60,7 @@ La hoja no procesa pagos y no confirma automáticamente ninguna plaza.
 5. Copiar la URL final del tipo `https://script.google.com/macros/s/.../exec` y sustituir `data-endpoint="#"` en [index.html](./index.html). No colocar credenciales de Google en HTML o JavaScript.
 6. Probar los casos siguientes con un número de prueba y borrar después los registros de prueba. Verificar la respuesta real de Apps Script en navegador, no dar por exitoso solo porque el iframe cargó.
 7. Comprobar la hoja de preinscripciones original: no debe sufrir cambios ni recibir nuevos registros de esta versión.
-8. Una vez verificado todo, integrar la rama a `main`.
+8. Después de verificar la escritura, habilitar el envío del formulario principal; hasta entonces debe permanecer disponible la alternativa de preinscripción.
 
 ## Pruebas de aceptación
 
@@ -74,7 +74,7 @@ La hoja no procesa pagos y no confirma automáticamente ninguna plaza.
 | Envío válido | Backend crea una sola fila con `Coinciden` y `No realizada` |
 | Enviar mismo número otra vez | El servidor impide duplicar |
 | Se cae el receptor | No aparece confirmación falsa |
-| Endpoint sin configurar | Botón inactivo y aviso visible |
+| Endpoint sin configurar | Botón inactivo, aviso visible y enlace a `solicitar-informacion.html` |
 | Cualquier elección de cuota | Solo se registra preferencia; no confirma pago |
 
 ## Mantenimiento y privacidad
