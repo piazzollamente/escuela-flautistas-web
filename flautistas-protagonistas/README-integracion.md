@@ -37,9 +37,9 @@ La página presenta **un bloque de inversión completamente independiente del fo
 - [Flautistas Protagonistas 2027 — dossier público](https://drive.google.com/file/d/142hHbwOIfBmINAMQIyIB3xh0HgQ4i4Lm/view): CLP y USD.
 - [Flautistas Protagonistas 2027 — Argentina, 3 cuotas](https://drive.google.com/file/d/1GNqTMqkVymMYuYu_tOcVitrLejde9xzL/view): ARS.
 
-El formulario recoge el país de residencia, una moneda preferida y una de **dos modalidades: 1 o 3 cuotas**, sin duplicar los importes ni condicionar la visibilidad de la sección comercial a su validación. No se registran importes en Sheets ni se procesa ningún pago.
+El formulario recoge el país de residencia, una moneda preferida y una de **dos modalidades: 1 o 3 cuotas**. La sección principal de inversión continúa siendo independiente, siempre visible en HTML y sin necesidad de JavaScript. Además, debajo del selector de cuotas hay una **vista previa** con un resumen dinámico del pago elegido y una referencia estática de 3 cuotas para los tres mercados. Esta referencia se ve incluso si el JavaScript no funciona. El resumen dinámico es informativo y no cambia el registro en Sheets. No se registran importes en Sheets ni se procesa ningún pago.
 
-La sección de inversión es contenido HTML del archivo [index.html](./index.html), con estilos en [precios.css](./precios.css). No se necesita JavaScript para visualizarla, por lo que los importes se leen aun cuando un script del formulario no cargue.
+La sección de inversión es contenido HTML del archivo [index.html](./index.html), con estilos en [precios.css](./precios.css). No se necesita JavaScript para visualizarla, por lo que los importes se leen aun cuando un script del formulario no cargue. [vista-cuotas.js](./vista-cuotas.js) solo mejora el resumen al escoger país, moneda y una modalidad de pago; no es responsable de desplegar los precios fijos ni de enviar el formulario.
 
 ## Hoja de destino
 

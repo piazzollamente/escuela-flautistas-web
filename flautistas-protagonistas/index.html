@@ -879,7 +879,7 @@
     }
   </style>
   <link rel="stylesheet" href="./inscripcion.css">
-  <link rel="stylesheet" href="./precios.css?v=20261103-precios-claros">
+  <link rel="stylesheet" href="./precios.css?v=20261103-vista-cuotas">
 </head>
 <body>
   <main class="page">
@@ -1041,12 +1041,45 @@
               <div class="field">
                 <label for="cuotas">Cantidad de cuotas <span class="required-mark">*</span></label>
                 <span class="field-hint">Elige una de las dos modalidades indicadas en la sección de inversión.</span>
-                <select id="cuotas" name="cuotas" required>
+                <select id="cuotas" name="cuotas" required aria-describedby="vistaPagoActual">
                   <option value="" selected disabled>Selecciona una opción</option>
                   <option value="1">1 pago</option>
                   <option value="3">3 cuotas</option>
                 </select>
               </div>
+
+              <aside class="payment-preview field-full" id="vistaPago" aria-labelledby="vistaPagoTitulo">
+                <div class="payment-preview-top">
+                  <div>
+                    <span class="payment-preview-kicker">Referencia de inversión · 2027</span>
+                    <h3 id="vistaPagoTitulo">Vista previa de tu pago</h3>
+                  </div>
+                  <a class="payment-preview-link" href="#inversion-heading">Ver precios completos</a>
+                </div>
+                <p class="payment-preview-current" id="vistaPagoActual" aria-live="polite">Selecciona tu país de residencia y elige 1 pago o 3 cuotas para consultar el importe correspondiente.</p>
+
+                <div class="payment-preview-reference">
+                  <p class="payment-preview-subheading">Valor de cada cuota al pagar en tres cuotas</p>
+                  <div class="payment-preview-list">
+                    <div class="payment-preview-market">
+                      <strong>Chile</strong>
+                      <span>3 × CLP $139.900</span>
+                      <small>Total: CLP $419.700</small>
+                    </div>
+                    <div class="payment-preview-market">
+                      <strong>Argentina</strong>
+                      <span>3 × ARS $139.900</span>
+                      <small>Total: ARS $419.700</small>
+                    </div>
+                    <div class="payment-preview-market">
+                      <strong>Otros países</strong>
+                      <span>3 × USD 147</span>
+                      <small>Total: USD 441</small>
+                    </div>
+                  </div>
+                </div>
+                <p class="payment-preview-disclaimer">Esta referencia no realiza cobros. La modalidad se registra como preferencia y los medios de pago se confirman por separado.</p>
+              </aside>
 
               <label class="consent-row" for="consentimiento">
                 <input id="consentimiento" name="consentimiento" type="checkbox" required>
@@ -1162,5 +1195,6 @@
   </main>
 
   <script src="./inscripcion.js" defer></script>
+  <script src="./vista-cuotas.js?v=20261103-v1" defer></script>
 </body>
 </html>
