@@ -23,10 +23,10 @@
 
 ## Tarifas públicas de lanzamiento 2027
 
-El formulario de inscripción aparece inmediatamente después del encabezado **INSCRIPCIONES ABIERTAS**, antes de la descripción completa del programa. Al introducir el **país de residencia**, el módulo de inversión aparece **dentro del mismo formulario**, justo después de ese dato y antes del WhatsApp. No existe un segundo selector de país. Los importes son comerciales **fijos**, sin conversión de divisas ni servicios de cotización. La moneda se propone automáticamente según el país y el visitante puede modificarla, actualizándose entonces los precios para mantener coherencia.
+La página presenta **un bloque de inversión completamente independiente del formulario**, situado debajo del encabezado principal y antes de los campos de inscripción. Los precios de los tres mercados están **siempre visibles** en HTML, sin selector adicional, sin scripts, sin conversiones de divisas y sin requerir que el visitante entregue datos.
 
-| País / mercado | 1 cuota (total) | 3 cuotas (cada una) | Total 3 cuotas |
-|---|---:|---:|---:|---|
+| País / mercado | 1 pago | 3 cuotas (importe de cada cuota) | Total con 3 cuotas |
+|---|---:|---:|---:|
 | Chile (CLP) | 399.900 | 139.900 | 419.700 |
 | Argentina (ARS) | 399.000 | 139.900 | 419.700 |
 | Otros países (USD) | 419 | 147 | 441 |
@@ -37,11 +37,9 @@ El formulario de inscripción aparece inmediatamente después del encabezado **I
 - [Flautistas Protagonistas 2027 — dossier público](https://drive.google.com/file/d/142hHbwOIfBmINAMQIyIB3xh0HgQ4i4Lm/view): CLP y USD.
 - [Flautistas Protagonistas 2027 — Argentina, 3 cuotas](https://drive.google.com/file/d/1GNqTMqkVymMYuYu_tOcVitrLejde9xzL/view): ARS.
 
-El formulario **solo ofrece 1 cuota o 3 cuotas**. Después de completar el país de residencia, el importe aparece en las tarjetas, en cada opción del selector de cuotas y en un resumen bajo el selector. Los importes no implican que haya checkout activo, plaza confirmada ni pago realizado.
+El formulario recoge el país de residencia, una moneda preferida y una de **dos modalidades: 1 o 3 cuotas**, sin duplicar los importes ni condicionar la visibilidad de la sección comercial a su validación. No se registran importes en Sheets ni se procesa ningún pago.
 
-El anuncio principal ya no tiene cuenta regresiva. La página muestra **«INSCRIPCIONES ABIERTAS»** y no presenta condiciones especiales de estudiantes activos.
-
-Código de precios: [precios.js](./precios.js) y [precios.css](./precios.css). Modificar los importes **solo** después de una decisión comercial confirmada, manteniendo actualizados los totales y esta tabla.
+La sección de inversión es contenido HTML del archivo [index.html](./index.html), con estilos en [precios.css](./precios.css). No se necesita JavaScript para visualizarla, por lo que los importes se leen aun cuando un script del formulario no cargue.
 
 ## Hoja de destino
 
