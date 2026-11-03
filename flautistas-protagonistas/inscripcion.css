@@ -1,4 +1,4 @@
-/* Complemento visual al branding editorial original de Flautistas Protagonistas. */
+/* Campos de inscripción integrados al branding editorial de Flautistas Protagonistas. */
 .field select{
   width:100%;
   min-height:62px;
@@ -20,67 +20,12 @@
   outline:2px solid var(--mint-ink);
   outline-offset:-3px;
 }
-.field[hidden],
-.verification-actions [hidden]{
-  display:none !important;
+.field .field-help{
+  padding:0 18px 12px;
+  min-height:1.2em;
 }
-.verification-actions{
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  gap:12px;
-  padding:12px 18px 16px;
-  border-top:1px solid #E6DED5;
-}
-.verify-btn{
-  display:inline-flex;
-  min-height:42px;
-  align-items:center;
-  justify-content:center;
-  padding:10px 15px;
-  border:1px solid var(--ink);
-  border-radius:3px;
-  background:var(--ink);
-  color:white;
-  font-family:var(--sans);
-  font-size:.67rem;
-  font-weight:800;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  cursor:pointer;
-}
-.verify-btn:hover{background:#303030}
-.verify-btn:disabled{opacity:.52;cursor:wait}
-.verify-btn.secondary{
-  background:transparent;
-  border-color:var(--line);
-  color:var(--ink);
-}
-.verify-btn.secondary:hover{background:var(--beige)}
-.verification-status{
-  margin:0;
-  padding:0;
-  font-size:.76rem;
-  font-weight:600;
-  line-height:1.5;
-  color:var(--muted);
-}
-.verification-status.verified{color:var(--mint-ink)}
-.verification-status.error{color:#A81419}
-.verification-status.pending{color:var(--ink)}
-.code-input-row{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:0 18px 18px;
-}
-.code-input-row input{
-  min-width:0;
-  flex:1;
-  border:1px solid var(--line);
-  border-radius:3px;
-  text-align:center;
-  letter-spacing:.25em;
+.field input[aria-invalid="true"]{
+  border-top-color:var(--red);
 }
 .consent-row{
   display:flex;
@@ -108,9 +53,6 @@
 }
 @media(max-width:700px){
   .field select{padding-left:16px;font-size:.96rem}
-  .verification-actions{padding-left:16px;padding-right:16px}
-  .code-input-row{flex-direction:column;align-items:stretch;padding:0 16px 16px}
-  .code-input-row input{width:100%}
+  .field .field-help{padding:0 16px 12px}
   .consent-row{font-size:.74rem}
-  .verify-btn{width:100%}
 }
