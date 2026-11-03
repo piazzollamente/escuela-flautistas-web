@@ -879,7 +879,7 @@
     }
   </style>
   <link rel="stylesheet" href="./inscripcion.css">
-  <link rel="stylesheet" href="./precios.css?v=20261103-cuotas13">
+  <link rel="stylesheet" href="./precios.css?v=20261103-precios-claros">
 </head>
 <body>
   <main class="page">
@@ -906,6 +906,71 @@
         </div>
       </header>
 
+
+      <section class="pricing-section independent-pricing" aria-labelledby="inversion-heading">
+        <div class="pricing-editorial">
+          <p class="program-kicker">Flautistas Protagonistas · Edición 2027</p>
+          <h2 class="program-title" id="inversion-heading">Inversión de lanzamiento.</h2>
+          <p class="program-lead">Elige la tarifa correspondiente a tu país de residencia. Los valores son fijos en cada moneda, sin conversiones automáticas.</p>
+
+          <div class="pricing-markets">
+            <article class="market-price" aria-label="Precios para Chile">
+              <div class="market-price-head">
+                <span class="market-price-region">Chile</span>
+                <span class="market-price-currency">CLP · Pesos chilenos</span>
+              </div>
+              <div class="market-option">
+                <span class="market-option-label">1 pago</span>
+                <strong class="market-option-amount">CLP $399.900</strong>
+                <span class="market-option-foot">Pago único · Total</span>
+              </div>
+              <div class="market-option market-option-installments">
+                <span class="market-option-label">3 cuotas</span>
+                <strong class="market-option-amount">3 × CLP $139.900</strong>
+                <span class="market-option-foot">Total: CLP $419.700</span>
+              </div>
+            </article>
+
+            <article class="market-price" aria-label="Precios para Argentina">
+              <div class="market-price-head">
+                <span class="market-price-region">Argentina</span>
+                <span class="market-price-currency">ARS · Pesos argentinos</span>
+              </div>
+              <div class="market-option">
+                <span class="market-option-label">1 pago</span>
+                <strong class="market-option-amount">ARS $399.000</strong>
+                <span class="market-option-foot">Pago único · Total</span>
+              </div>
+              <div class="market-option market-option-installments">
+                <span class="market-option-label">3 cuotas</span>
+                <strong class="market-option-amount">3 × ARS $139.900</strong>
+                <span class="market-option-foot">Total: ARS $419.700</span>
+              </div>
+            </article>
+
+            <article class="market-price" aria-label="Precios para otros países">
+              <div class="market-price-head">
+                <span class="market-price-region">Otros países</span>
+                <span class="market-price-currency">USD · Dólares</span>
+              </div>
+              <div class="market-option">
+                <span class="market-option-label">1 pago</span>
+                <strong class="market-option-amount">USD 419</strong>
+                <span class="market-option-foot">Pago único · Total</span>
+              </div>
+              <div class="market-option market-option-installments">
+                <span class="market-option-label">3 cuotas</span>
+                <strong class="market-option-amount">3 × USD 147</strong>
+                <span class="market-option-foot">Total: USD 441</span>
+              </div>
+            </article>
+          </div>
+
+          <p class="pricing-caption">Los medios de pago y las condiciones de las cuotas se confirman antes de realizar el pago. La inscripción no reserva automáticamente un cupo.</p>
+          <a class="section-cta" href="#inscripcion-heading">Completar inscripción</a>
+        </div>
+      </section>
+
       <section class="form-section" aria-labelledby="inscripcion-heading">
         <div class="section-heading">
           <h2 id="inscripcion-heading">Inscripción · Edición 2027</h2>
@@ -913,7 +978,7 @@
         </div>
 
         <div class="form-shell">
-          <p class="form-lead" id="registroLead" hidden>Primero completa tu nombre, apellido y país de residencia. Verás los precios disponibles antes de continuar con tu WhatsApp y las preferencias de pago. Registrar tus datos no confirma una plaza.</p>
+          <p class="form-lead" id="registroLead" hidden>Completa tus datos y selecciona si prefieres pagar en 1 o en 3 cuotas. Los precios de cada país se muestran arriba, por separado. El registro no confirma una plaza.</p>
           <!-- Configuración: introducir solo la URL pública /exec del NUEVO Apps Script.
                No colocar credenciales de Google ni permisos de edición en el código público. -->
           <form id="fpForm" data-endpoint="https://script.google.com/macros/s/AKfycbwE1gLqw2rEew7G1RauCN00_Q-U7Qi154zT4nYVV9sz4j0snJUTdKDEL1rG68AYm4zJ/exec" action="#" method="post" hidden>
@@ -949,40 +1014,6 @@
                 </datalist>
               </div>
 
-              <section class="pricing-section form-pricing field-full" id="precioSeccion" aria-labelledby="inversion-heading" hidden>
-        <div class="private-investment">
-          <p class="program-kicker">Flautistas Protagonistas · Edición 2027</p>
-          <h2 class="program-title" id="inversion-heading">Tu inversión según el país.</h2>
-          <p class="program-lead">Al completar tu país de residencia se mostrarán las opciones de pago. Los importes son fijos y no dependen de la cotización del día.</p>
-
-          <p class="price-context" id="precioContexto" aria-live="polite">Primero indica tu país de residencia para ver las tarifas.</p>
-
-          <div class="price-panel" id="preciosPanel" hidden>
-            <div class="price-grid" aria-label="Modalidades de pago disponibles">
-              <article class="price-card">
-                <p class="price-card-kicker">1 cuota · Pago único</p>
-                <strong class="price-value" id="precioUnPago">—</strong>
-                <p class="price-card-subtitle">Una sola cuota · Total de la inversión.</p>
-                <button class="price-select-btn" id="precioElegirUno" type="button" aria-pressed="false">Elegir pago único</button>
-              </article>
-
-              <article class="price-card">
-                <p class="price-card-kicker">3 cuotas · Pago fraccionado</p>
-                <strong class="price-value" id="precioTresCuotas">—</strong>
-                <p class="price-card-subtitle" id="precioTotalCuotas">—</p>
-                <p class="price-card-subtitle">Importe de cada cuota indicado arriba.</p>
-                <button class="price-select-btn" id="precioElegirTres" type="button" aria-pressed="false">Elegir tres cuotas</button>
-              </article>
-            </div>
-
-          </div>
-
-          <p class="price-compliance">Los valores indicados corresponden al lanzamiento de 2027. Los medios de pago, las condiciones de las cuotas y los posibles cargos del proveedor se confirmarán antes de realizar el pago.</p>
-          <p class="private-investment-note">Ocho participantes · Inicio previsto: enero de 2027 · El registro no confirma cupo ni pago.</p>
-        </div>
-      </section>
-
-
               <div class="field">
                 <label for="whatsapp">WhatsApp <span class="required-mark">*</span></label>
                 <span class="field-hint">Incluye el código de país, por ejemplo +56 9 1234 5678.</span>
@@ -1009,13 +1040,12 @@
 
               <div class="field">
                 <label for="cuotas">Cantidad de cuotas <span class="required-mark">*</span></label>
-                <span class="field-hint">Solo 1 cuota o 3 cuotas. El importe se indica según tu país.</span>
-                <select id="cuotas" name="cuotas" required aria-describedby="cuotasMonto">
+                <span class="field-hint">Elige una de las dos modalidades indicadas en la sección de inversión.</span>
+                <select id="cuotas" name="cuotas" required>
                   <option value="" selected disabled>Selecciona una opción</option>
-                  <option value="1" id="cuotaUnoOption">1 cuota — indica tu país para ver el monto</option>
-                  <option value="3" id="cuotaTresOption">3 cuotas — indica tu país para ver el monto</option>
+                  <option value="1">1 pago</option>
+                  <option value="3">3 cuotas</option>
                 </select>
-                <p class="payment-selection-note" id="cuotasMonto" aria-live="polite">Elige una modalidad para ver el importe de tu pago.</p>
               </div>
 
               <label class="consent-row" for="consentimiento">
@@ -1132,6 +1162,5 @@
   </main>
 
   <script src="./inscripcion.js" defer></script>
-  <script src="./precios.js?v=20261103-cuotas13" defer></script>
 </body>
 </html>
