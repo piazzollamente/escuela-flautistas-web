@@ -1014,9 +1014,9 @@
         </div>
 
         <div class="form-shell">
-          <p class="form-lead">Completa tus datos, verifica tu número de WhatsApp y selecciona la moneda y cantidad de cuotas que prefieres. Esta etapa registra tu solicitud; la disponibilidad de cupos y el pago se confirman por separado.</p>
+          <p class="form-lead">Completa tus datos, escribe dos veces tu número de WhatsApp para evitar errores y selecciona la moneda y cantidad de cuotas que prefieres. Esta etapa registra tu solicitud; la disponibilidad de cupos y el pago se confirman por separado.</p>
           <!-- Configuración: introducir solo la URL pública /exec del NUEVO Apps Script.
-               No colocar identificadores de la hoja, tokens de Google ni credenciales de Twilio. -->
+               No colocar credenciales de Google ni permisos de edición en el código público. -->
           <form id="fpForm" data-endpoint="#" action="#" method="post">
             <p class="required-note"><span class="required-mark">*</span> Todos los campos son obligatorios.</p>
 
@@ -1051,23 +1051,16 @@
               </div>
 
               <div class="field">
-                <label for="whatsapp">Número de WhatsApp <span class="required-mark">*</span></label>
-                <span class="field-hint">Incluye + y código de país, por ejemplo +56912345678.</span>
-                <input id="whatsapp" name="whatsapp" type="tel" maxlength="20" autocomplete="tel" inputmode="tel" placeholder="+56 9 1234 5678" required aria-describedby="whatsappStatus">
-                <div class="verification-actions">
-                  <button class="verify-btn" id="enviarCodigo" type="button" disabled>Enviar código por WhatsApp</button>
-                  <button class="verify-btn secondary" id="cambiarNumero" type="button" hidden>Cambiar número</button>
-                  <p id="whatsappStatus" class="verification-status" aria-live="polite">El número se verificará mediante un código enviado por WhatsApp.</p>
-                </div>
+                <label for="whatsapp">WhatsApp <span class="required-mark">*</span></label>
+                <span class="field-hint">Incluye el código de país, por ejemplo +56 9 1234 5678.</span>
+                <input id="whatsapp" name="whatsapp" type="tel" maxlength="22" autocomplete="tel" inputmode="tel" placeholder="+56 9 1234 5678" required aria-describedby="whatsappHelp">
               </div>
 
-              <div class="field field-full" id="codigoField" hidden>
-                <label for="codigo">Código de verificación de WhatsApp</label>
-                <span class="field-hint">Ingresa el código recibido en el número indicado.</span>
-                <div class="code-input-row">
-                  <input id="codigo" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{4,10}" maxlength="10" placeholder="Código numérico">
-                  <button class="verify-btn" id="verificarCodigo" type="button" disabled>Verificar número</button>
-                </div>
+              <div class="field">
+                <label for="confirmarWhatsapp">Confirma tu WhatsApp <span class="required-mark">*</span></label>
+                <span class="field-hint">Escribe nuevamente el mismo número.</span>
+                <input id="confirmarWhatsapp" name="confirmarWhatsapp" type="tel" maxlength="22" autocomplete="off" inputmode="tel" placeholder="+56 9 1234 5678" required aria-describedby="whatsappHelp" aria-invalid="false">
+                <p class="field-help" id="whatsappHelp" aria-live="polite"></p>
               </div>
 
               <div class="field">
