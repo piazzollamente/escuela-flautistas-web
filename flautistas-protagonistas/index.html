@@ -886,6 +886,153 @@
         </div>
       </header>
 
+      <section class="form-section" aria-labelledby="inscripcion-heading">
+        <div class="section-heading">
+          <h2 id="inscripcion-heading">Inscripción · Edición 2027</h2>
+          <span class="section-rule" aria-hidden="true"><span class="star">✦</span></span>
+        </div>
+
+        <div class="form-shell">
+          <p class="form-lead" id="registroLead" hidden>Primero completa tu nombre, apellido y país de residencia. Verás los precios disponibles antes de continuar con tu WhatsApp y las preferencias de pago. Registrar tus datos no confirma una plaza.</p>
+          <!-- Configuración: introducir solo la URL pública /exec del NUEVO Apps Script.
+               No colocar credenciales de Google ni permisos de edición en el código público. -->
+          <form id="fpForm" data-endpoint="https://script.google.com/macros/s/AKfycbwE1gLqw2rEew7G1RauCN00_Q-U7Qi154zT4nYVV9sz4j0snJUTdKDEL1rG68AYm4zJ/exec" action="#" method="post" hidden>
+            <p class="required-note"><span class="required-mark">*</span> Todos los campos son obligatorios.</p>
+
+            <div class="form-grid">
+              <div class="field">
+                <label for="nombre">Nombre <span class="required-mark">*</span></label>
+                <span class="field-hint">Como quieres que te llamemos.</span>
+                <input id="nombre" name="nombre" type="text" maxlength="80" autocomplete="given-name" placeholder="Tu nombre" required>
+              </div>
+
+              <div class="field">
+                <label for="apellido">Apellido <span class="required-mark">*</span></label>
+                <span class="field-hint">Tu apellido.</span>
+                <input id="apellido" name="apellido" type="text" maxlength="80" autocomplete="family-name" placeholder="Tu apellido" required>
+              </div>
+
+              <div class="field">
+                <label for="pais">País de residencia <span class="required-mark">*</span></label>
+                <span class="field-hint">Selecciona de la lista o escribe tu país.</span>
+                <input id="pais" name="pais" type="text" list="fp-paises" maxlength="90" autocomplete="country-name" placeholder="Ej. Chile" required>
+                <datalist id="fp-paises">
+                  <option value="Argentina"><option value="Bolivia"><option value="Brasil">
+                  <option value="Canadá"><option value="Chile"><option value="Colombia">
+                  <option value="Costa Rica"><option value="Cuba"><option value="Ecuador">
+                  <option value="El Salvador"><option value="España"><option value="Estados Unidos">
+                  <option value="Francia"><option value="Guatemala"><option value="Honduras">
+                  <option value="Italia"><option value="México"><option value="Nicaragua">
+                  <option value="Panamá"><option value="Paraguay"><option value="Perú">
+                  <option value="Portugal"><option value="Puerto Rico"><option value="Reino Unido">
+                  <option value="República Dominicana"><option value="Uruguay"><option value="Venezuela">
+                </datalist>
+              </div>
+
+      <section class="pricing-section form-pricing" aria-labelledby="inversion-heading">
+        <div class="private-investment">
+          <p class="program-kicker">Flautistas Protagonistas · Edición 2027</p>
+          <h2 class="program-title" id="inversion-heading">Tu inversión según el país.</h2>
+          <p class="program-lead">Al completar tu país de residencia se mostrarán las opciones de pago. Los importes son fijos y no dependen de la cotización del día.</p>
+
+          <p class="price-context" id="precioContexto" aria-live="polite">Primero indica tu país de residencia para ver las tarifas.</p>
+
+          <div class="price-panel" id="preciosPanel" hidden>
+            <div class="price-grid" aria-label="Modalidades de pago disponibles">
+              <article class="price-card">
+                <p class="price-card-kicker">Pago único</p>
+                <strong class="price-value" id="precioUnPago">—</strong>
+                <p class="price-card-subtitle">Una sola cuota · Total de la inversión.</p>
+                <button class="price-select-btn" id="precioElegirUno" type="button" aria-pressed="false">Elegir pago único</button>
+              </article>
+
+              <article class="price-card">
+                <p class="price-card-kicker">Pago en tres cuotas</p>
+                <strong class="price-value" id="precioTresCuotas">—</strong>
+                <p class="price-card-subtitle" id="precioTotalCuotas">—</p>
+                <button class="price-select-btn" id="precioElegirTres" type="button" aria-pressed="false">Elegir tres cuotas</button>
+              </article>
+            </div>
+
+            <div class="price-two">
+              <div class="price-two-copy">
+                <strong>¿Prefieres pagar en dos cuotas?</strong>
+                <span>Esta modalidad puede solicitarse. El importe está pendiente de confirmación y no se muestra una cifra estimada.</span>
+              </div>
+              <button id="precioElegirDos" type="button" aria-pressed="false">Consultar dos cuotas</button>
+            </div>
+
+          </div>
+
+          <p class="price-compliance">Los valores indicados corresponden al lanzamiento de 2027. Los medios de pago, las condiciones de las cuotas y los posibles cargos del proveedor se confirmarán antes de realizar el pago.</p>
+          <p class="private-investment-note">Ocho participantes · Inicio previsto: enero de 2027 · El registro no confirma cupo ni pago.</p>
+        </div>
+      </section>
+
+
+              <div class="field">
+                <label for="whatsapp">WhatsApp <span class="required-mark">*</span></label>
+                <span class="field-hint">Incluye el código de país, por ejemplo +56 9 1234 5678.</span>
+                <input id="whatsapp" name="whatsapp" type="tel" maxlength="22" autocomplete="tel" inputmode="tel" placeholder="+56 9 1234 5678" required aria-describedby="whatsappHelp">
+              </div>
+
+              <div class="field">
+                <label for="confirmarWhatsapp">Confirma tu WhatsApp <span class="required-mark">*</span></label>
+                <span class="field-hint">Escribe nuevamente el mismo número.</span>
+                <input id="confirmarWhatsapp" name="confirmarWhatsapp" type="tel" maxlength="22" autocomplete="off" inputmode="tel" placeholder="+56 9 1234 5678" required aria-describedby="whatsappHelp" aria-invalid="false">
+                <p class="field-help" id="whatsappHelp" aria-live="polite"></p>
+              </div>
+
+              <div class="field">
+                <label for="moneda">Moneda de pago <span class="required-mark">*</span></label>
+                <span class="field-hint">Indica en qué moneda prefieres pagar.</span>
+                <select id="moneda" name="moneda" required>
+                  <option value="" selected disabled>Selecciona una moneda</option>
+                  <option value="USD — dólares">Dólares (USD)</option>
+                  <option value="ARS — pesos argentinos">Pesos argentinos (ARS)</option>
+                  <option value="CLP — pesos chilenos">Pesos chilenos (CLP)</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="cuotas">Cantidad de cuotas <span class="required-mark">*</span></label>
+                <span class="field-hint">Selecciona tu modalidad preferida.</span>
+                <select id="cuotas" name="cuotas" required>
+                  <option value="" selected disabled>Selecciona una opción</option>
+                  <option value="1">1 cuota</option>
+                  <option value="2">2 cuotas (valor por confirmar)</option>
+                  <option value="3">3 cuotas</option>
+                </select>
+              </div>
+
+              <label class="consent-row" for="consentimiento">
+                <input id="consentimiento" name="consentimiento" type="checkbox" required>
+                <span>Autorizo a Escuela de Flautistas a utilizar estos datos para gestionar mi inscripción a Flautistas Protagonistas 2027 y contactarme por WhatsApp sobre este proceso.</span>
+              </label>
+            </div>
+
+            <div class="form-actions">
+              <p class="form-note">La moneda y las cuotas son preferencias de pago sujetas a confirmación. El formulario no procesa pagos ni garantiza una plaza.</p>
+              <button class="submit-btn" id="submitBtn" type="submit" disabled>Registrar mi inscripción</button>
+            </div>
+
+            <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+          </form>
+
+          <div class="form-fallback" id="formFallback" hidden>
+            <p class="form-fallback-heading">Tu camino como Flautista Protagonista comienza aquí.</p>
+            <p>Déjanos tus datos para recibir la información del programa, las modalidades de pago y los siguientes pasos de inscripción.</p>
+            <a class="section-cta" href="./solicitar-informacion.html">Solicitar información para inscribirme</a>
+            <p class="form-note">Este primer contacto no garantiza una plaza ni genera un pago.</p>
+          </div>
+
+          <form id="fpBridgeForm" method="post" target="fp-inscripcion-response" hidden aria-hidden="true"></form>
+          <iframe class="submit-target" id="fp-submit-target" name="fp-inscripcion-response" title="Respuesta privada del sistema de inscripción"></iframe>
+        </div>
+      </section>
+
+
+
       <section class="program-section" aria-labelledby="programa-heading">
         <div class="program-intro">
           <p class="program-kicker">Dos dimensiones · Una misma dirección</p>
@@ -961,163 +1108,6 @@
         <div class="outcome-grid">
           <article class="outcome-card"><h3>Como flautista</h3><p>Una comparación de grabaciones inicial y final, criterios para observar tu avance y una ruta de práctica ajustada a tu prioridad técnica y musical.</p></article>
           <article class="outcome-card"><h3>Como artista</h3><p>Una propuesta o programa musical trabajado, materiales de presentación pertinentes, un mapa de oportunidades y un plan de acción de 90 días.</p></article>
-        </div>
-      </section>
-
-      <section class="pricing-section" aria-labelledby="inversion-heading">
-        <div class="private-investment">
-          <p class="program-kicker">Flautistas Protagonistas · Edición 2027</p>
-          <h2 class="program-title" id="inversion-heading">La inversión para tu próximo paso musical.</h2>
-          <p class="program-lead">Consulta el precio de lanzamiento según el país desde el que te inscribes. Los importes son fijos en cada moneda: no se calculan mediante conversiones cambiarias.</p>
-
-          <div class="price-chooser">
-            <label for="precioPais">¿Desde qué país te inscribes?</label>
-            <select id="precioPais" aria-controls="preciosPanel">
-              <option value="" selected>Selecciona tu país</option>
-              <option value="CL">Chile · pesos chilenos (CLP)</option>
-              <option value="AR">Argentina · pesos argentinos (ARS)</option>
-              <option value="INTL">Otro país · dólares (USD)</option>
-            </select>
-          </div>
-
-          <p class="price-context" id="precioContexto" aria-live="polite">Selecciona el país desde el que te inscribes para conocer la inversión.</p>
-
-          <div class="price-panel" id="preciosPanel" hidden>
-            <div class="price-grid" aria-label="Modalidades de pago disponibles">
-              <article class="price-card">
-                <p class="price-card-kicker">Pago único</p>
-                <strong class="price-value" id="precioUnPago">—</strong>
-                <p class="price-card-subtitle">Una sola cuota · Total de la inversión.</p>
-                <button class="price-select-btn" id="precioElegirUno" type="button" aria-pressed="false">Elegir pago único</button>
-              </article>
-
-              <article class="price-card">
-                <p class="price-card-kicker">Pago en tres cuotas</p>
-                <strong class="price-value" id="precioTresCuotas">—</strong>
-                <p class="price-card-subtitle" id="precioTotalCuotas">—</p>
-                <button class="price-select-btn" id="precioElegirTres" type="button" aria-pressed="false">Elegir tres cuotas</button>
-              </article>
-            </div>
-
-            <div class="price-two">
-              <div class="price-two-copy">
-                <strong>¿Prefieres pagar en dos cuotas?</strong>
-                <span>Esta modalidad puede solicitarse. El importe está pendiente de confirmación y no se muestra una cifra estimada.</span>
-              </div>
-              <button id="precioElegirDos" type="button" aria-pressed="false">Consultar dos cuotas</button>
-            </div>
-
-          </div>
-
-          <p class="price-compliance">Los valores indicados corresponden al lanzamiento de 2027. Los medios de pago, las condiciones de las cuotas y los posibles cargos del proveedor se confirmarán antes de realizar el pago.</p>
-          <div class="price-actions">
-            <a class="section-cta" href="#inscripcion-heading">Continuar a la inscripción</a>
-          </div>
-          <p class="private-investment-note">Ocho participantes · Inicio previsto: enero de 2027 · El registro no confirma cupo ni pago.</p>
-        </div>
-      </section>
-
-      <section class="form-section" aria-labelledby="inscripcion-heading">
-        <div class="section-heading">
-          <h2 id="inscripcion-heading">Inscripción · Edición 2027</h2>
-          <span class="section-rule" aria-hidden="true"><span class="star">✦</span></span>
-        </div>
-
-        <div class="form-shell">
-          <p class="form-lead" id="registroLead" hidden>Completa tus datos, escribe dos veces tu número de WhatsApp para evitar errores y selecciona la moneda y cantidad de cuotas que prefieres. Esta etapa registra tu solicitud; la disponibilidad de cupos y el pago se confirman por separado.</p>
-          <!-- Configuración: introducir solo la URL pública /exec del NUEVO Apps Script.
-               No colocar credenciales de Google ni permisos de edición en el código público. -->
-          <form id="fpForm" data-endpoint="https://script.google.com/macros/s/AKfycbwE1gLqw2rEew7G1RauCN00_Q-U7Qi154zT4nYVV9sz4j0snJUTdKDEL1rG68AYm4zJ/exec" action="#" method="post" hidden>
-            <p class="required-note"><span class="required-mark">*</span> Todos los campos son obligatorios.</p>
-
-            <div class="form-grid">
-              <div class="field">
-                <label for="nombre">Nombre <span class="required-mark">*</span></label>
-                <span class="field-hint">Como quieres que te llamemos.</span>
-                <input id="nombre" name="nombre" type="text" maxlength="80" autocomplete="given-name" placeholder="Tu nombre" required>
-              </div>
-
-              <div class="field">
-                <label for="apellido">Apellido <span class="required-mark">*</span></label>
-                <span class="field-hint">Tu apellido.</span>
-                <input id="apellido" name="apellido" type="text" maxlength="80" autocomplete="family-name" placeholder="Tu apellido" required>
-              </div>
-
-              <div class="field">
-                <label for="pais">País de residencia <span class="required-mark">*</span></label>
-                <span class="field-hint">Selecciona de la lista o escribe tu país.</span>
-                <input id="pais" name="pais" type="text" list="fp-paises" maxlength="90" autocomplete="country-name" placeholder="Ej. Chile" required>
-                <datalist id="fp-paises">
-                  <option value="Argentina"><option value="Bolivia"><option value="Brasil">
-                  <option value="Canadá"><option value="Chile"><option value="Colombia">
-                  <option value="Costa Rica"><option value="Cuba"><option value="Ecuador">
-                  <option value="El Salvador"><option value="España"><option value="Estados Unidos">
-                  <option value="Francia"><option value="Guatemala"><option value="Honduras">
-                  <option value="Italia"><option value="México"><option value="Nicaragua">
-                  <option value="Panamá"><option value="Paraguay"><option value="Perú">
-                  <option value="Portugal"><option value="Puerto Rico"><option value="Reino Unido">
-                  <option value="República Dominicana"><option value="Uruguay"><option value="Venezuela">
-                </datalist>
-              </div>
-
-              <div class="field">
-                <label for="whatsapp">WhatsApp <span class="required-mark">*</span></label>
-                <span class="field-hint">Incluye el código de país, por ejemplo +56 9 1234 5678.</span>
-                <input id="whatsapp" name="whatsapp" type="tel" maxlength="22" autocomplete="tel" inputmode="tel" placeholder="+56 9 1234 5678" required aria-describedby="whatsappHelp">
-              </div>
-
-              <div class="field">
-                <label for="confirmarWhatsapp">Confirma tu WhatsApp <span class="required-mark">*</span></label>
-                <span class="field-hint">Escribe nuevamente el mismo número.</span>
-                <input id="confirmarWhatsapp" name="confirmarWhatsapp" type="tel" maxlength="22" autocomplete="off" inputmode="tel" placeholder="+56 9 1234 5678" required aria-describedby="whatsappHelp" aria-invalid="false">
-                <p class="field-help" id="whatsappHelp" aria-live="polite"></p>
-              </div>
-
-              <div class="field">
-                <label for="moneda">Moneda de pago <span class="required-mark">*</span></label>
-                <span class="field-hint">Indica en qué moneda prefieres pagar.</span>
-                <select id="moneda" name="moneda" required>
-                  <option value="" selected disabled>Selecciona una moneda</option>
-                  <option value="USD — dólares">Dólares (USD)</option>
-                  <option value="ARS — pesos argentinos">Pesos argentinos (ARS)</option>
-                  <option value="CLP — pesos chilenos">Pesos chilenos (CLP)</option>
-                </select>
-              </div>
-
-              <div class="field">
-                <label for="cuotas">Cantidad de cuotas <span class="required-mark">*</span></label>
-                <span class="field-hint">Selecciona tu modalidad preferida.</span>
-                <select id="cuotas" name="cuotas" required>
-                  <option value="" selected disabled>Selecciona una opción</option>
-                  <option value="1">1 cuota</option>
-                  <option value="2">2 cuotas (valor por confirmar)</option>
-                  <option value="3">3 cuotas</option>
-                </select>
-              </div>
-
-              <label class="consent-row" for="consentimiento">
-                <input id="consentimiento" name="consentimiento" type="checkbox" required>
-                <span>Autorizo a Escuela de Flautistas a utilizar estos datos para gestionar mi inscripción a Flautistas Protagonistas 2027 y contactarme por WhatsApp sobre este proceso.</span>
-              </label>
-            </div>
-
-            <div class="form-actions">
-              <p class="form-note">La moneda y las cuotas son preferencias de pago sujetas a confirmación. El formulario no procesa pagos ni garantiza una plaza.</p>
-              <button class="submit-btn" id="submitBtn" type="submit" disabled>Registrar mi inscripción</button>
-            </div>
-
-            <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
-          </form>
-
-          <div class="form-fallback" id="formFallback" hidden>
-            <p class="form-fallback-heading">Tu camino como Flautista Protagonista comienza aquí.</p>
-            <p>Déjanos tus datos para recibir la información del programa, las modalidades de pago y los siguientes pasos de inscripción.</p>
-            <a class="section-cta" href="./solicitar-informacion.html">Solicitar información para inscribirme</a>
-            <p class="form-note">Este primer contacto no garantiza una plaza ni genera un pago.</p>
-          </div>
-
-          <form id="fpBridgeForm" method="post" target="fp-inscripcion-response" hidden aria-hidden="true"></form>
-          <iframe class="submit-target" id="fp-submit-target" name="fp-inscripcion-response" title="Respuesta privada del sistema de inscripción"></iframe>
         </div>
       </section>
 
