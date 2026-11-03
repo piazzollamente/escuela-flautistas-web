@@ -16,6 +16,7 @@
   const country = document.getElementById("pais");
   const currency = document.getElementById("moneda");
   const installments = document.getElementById("cuotas");
+  const section = document.getElementById("precioSeccion");
   const panel = document.getElementById("preciosPanel");
   const context = document.getElementById("precioContexto");
   const one = document.getElementById("precioUnPago");
@@ -25,7 +26,7 @@
   const payThree = document.getElementById("precioElegirTres");
   const payTwo = document.getElementById("precioElegirDos");
 
-  if (!country || !currency || !installments || !panel || !context ||
+  if (!country || !currency || !installments || !section || !panel || !context ||
       !one || !three || !threeTotal) return;
 
   function normalize(value) {
@@ -63,6 +64,7 @@
 
   function showMarket(key) {
     const market = markets[key];
+    section.hidden = !market;
     panel.hidden = !market;
     if (!market) {
       context.textContent = "Completa tu país de residencia para ver las modalidades y precios.";
@@ -103,6 +105,7 @@
     } else {
       // No inferir "pago internacional" a partir de una palabra a medio escribir.
       currency.value = "";
+      section.hidden = true;
       panel.hidden = true;
       context.textContent = "Termina de indicar tu país para consultar los precios.";
     }
