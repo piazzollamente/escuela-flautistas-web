@@ -1,6 +1,6 @@
 # Inscripciones — Flautistas Protagonistas 2027
 
-Integración de la página estática \`/flautistas-protagonistas/\` con **Google Sheets + Apps Script + Twilio Verify (WhatsApp)**.
+Integración de la página estática `/flautistas-protagonistas/` con **Google Sheets + Apps Script + Twilio Verify (WhatsApp)**.
 
 > **Estado:** código preparado, sin despliegue ni credenciales conectadas. La página no debe publicarse como formulario operativo hasta completar los pasos y probar el recorrido de extremo a extremo. La URL anterior de preinscripción no sirve para esta nueva hoja.
 
@@ -12,7 +12,7 @@ Hoja nativa, independiente de la preinscripción:
 - Pestaña de escritura: **Inscripciones web**
 - Encabezados A:P: fecha de inscripción, ID, nombre, apellido, país, WhatsApp, verificado, fecha de verificación, moneda, cuotas, estado de inscripción, estado de pago, fecha de pago, origen, consentimiento, observaciones.
 
-Se recogen preferencias, **no se cobran cuotas**. El estado inicial es \`Recibida / Pendiente\`, no \`Confirmada / Pagado\`.
+Se recogen preferencias, **no se cobran cuotas**. El estado inicial es `Recibida / Pendiente`, no `Confirmada / Pagado`.
 
 ## Activación del backend (requiere acceso de administradora)
 
@@ -22,18 +22,18 @@ Se recogen preferencias, **no se cobran cuotas**. El estado inicial es \`Recibid
 
    | Propiedad | Valor |
    |---|---|
-   | \`SPREADSHEET_ID\` | \`19ODt7wTppY6FJsE7ZQsH-lqNTiGJv4Ll9RqOvp7a2dQ\` |
-   | \`ALLOWED_ORIGIN\` | \`https://escueladeflautistas.cl\` |
-   | \`TWILIO_ACCOUNT_SID\` | SID de cuenta Twilio |
-   | \`TWILIO_AUTH_TOKEN\` | Token de autenticación Twilio |
-   | \`TWILIO_VERIFY_SERVICE_SID\` | SID de un servicio Twilio Verify habilitado para WhatsApp |
+   | `SPREADSHEET_ID` | `19ODt7wTppY6FJsE7ZQsH-lqNTiGJv4Ll9RqOvp7a2dQ` |
+   | `ALLOWED_ORIGIN` | `https://escueladeflautistas.cl` |
+   | `TWILIO_ACCOUNT_SID` | SID de cuenta Twilio |
+   | `TWILIO_AUTH_TOKEN` | Token de autenticación Twilio |
+   | `TWILIO_VERIFY_SERVICE_SID` | SID de un servicio Twilio Verify habilitado para WhatsApp |
 
 4. En Twilio, configurar **Verify con canal WhatsApp**, verificar restricciones geográficas, plantillas habilitadas, condiciones de la cuenta y protección antifraude. La API requiere que los teléfonos estén en formato E.164. Esta integración tiene costes asociados al envío de códigos.
-5. En Apps Script, **Implementar → Nueva implementación → Aplicación web**. Ejecutar como la cuenta propietaria, y conceder acceso según el modelo requerido para un formulario público (**Cualquier persona**, si está permitido por la cuenta). Autorizar Sheets y UrlFetchApp. Guardar la URL \`https://script.google.com/macros/s/…/exec\`.
-6. En [index.html](./index.html), sustituir **solo** \`data-endpoint="#"\` en \`<form id="fpForm">\` por la URL real \`/exec\`. **No** guardar secretos ni credenciales en GitHub. El código público solo contiene la URL de invocación.
+5. En Apps Script, **Implementar → Nueva implementación → Aplicación web**. Ejecutar como la cuenta propietaria, y conceder acceso según el modelo requerido para un formulario público (**Cualquier persona**, si está permitido por la cuenta). Autorizar Sheets y UrlFetchApp. Guardar la URL `https://script.google.com/macros/s/…/exec`.
+6. En [index.html](./index.html), sustituir **solo** `data-endpoint="#"` en `<form id="fpForm">` por la URL real `/exec`. **No** guardar secretos ni credenciales en GitHub. El código público solo contiene la URL de invocación.
 7. Probar envío real a un WhatsApp autorizado y verificar que se recibe el código; ingresar un código inválido; luego usar el código válido y confirmar que se añade **una sola fila** en la hoja **Inscripciones web**.
-8. Validar el comportamiento en móvil, también en una ventana privada, y comprobar en Google Sheets que \`WhatsApp verificado = Verificado\`, \`Estado de inscripción = Recibida\`, \`Estado de pago = Pendiente\`. Eliminar los registros de prueba de forma controlada.
-9. Comprobar que los formularios anteriores siguen escribiendo en la **hoja original** y no en esta. Solo después integrar este cambio en \`main\` y publicarlo.
+8. Validar el comportamiento en móvil, también en una ventana privada, y comprobar en Google Sheets que `WhatsApp verificado = Verificado`, `Estado de inscripción = Recibida`, `Estado de pago = Pendiente`. Eliminar los registros de prueba de forma controlada.
+9. Comprobar que los formularios anteriores siguen escribiendo en la **hoja original** y no en esta. Solo después integrar este cambio en `main` y publicarlo.
 
 ## Comportamiento y seguridad
 
