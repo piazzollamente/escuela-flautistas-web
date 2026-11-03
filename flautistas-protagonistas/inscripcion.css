@@ -1,0 +1,70 @@
+/* Campos de inscripción integrados al branding editorial de Flautistas Protagonistas. */
+.field select{
+  width:100%;
+  min-height:62px;
+  padding:16px 46px 16px 18px;
+  border:0;
+  border-top:1px solid #E6DED5;
+  border-radius:0;
+  outline:0;
+  background:#fff;
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:1.02rem;
+  font-weight:500;
+  line-height:1.5;
+  cursor:pointer;
+}
+.field select:focus-visible,
+.field input:focus-visible{
+  outline:2px solid var(--mint-ink);
+  outline-offset:-3px;
+}
+.field .field-help{
+  padding:0 18px 12px;
+  min-height:1.2em;
+}
+.field input[aria-invalid="true"]{
+  border-top-color:var(--red);
+}
+.consent-row{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  grid-column:1/-1;
+  color:var(--ink);
+  font-size:.78rem;
+  line-height:1.65;
+  font-weight:500;
+}
+.consent-row input{
+  flex:none;
+  margin:5px 0 0;
+  width:18px;
+  height:18px;
+  accent-color:var(--red);
+}
+.form-lead{
+  max-width:760px;
+  margin:0 0 28px;
+  color:var(--muted);
+  font-size:.91rem;
+  line-height:1.75;
+}
+@media(max-width:700px){
+  .field select{padding-left:16px;font-size:.96rem}
+  .field .field-help{padding:0 16px 12px}
+  .consent-row{font-size:.74rem}
+}
+
+.form-fallback[hidden]{display:none}
+.form-fallback{
+  margin-top:22px;
+  padding:22px;
+  border:1px solid var(--line);
+  background:#FCFAF7;
+  border-radius:4px;
+}
+.form-fallback p{margin:0 0 15px;font-size:.84rem;line-height:1.65;color:var(--muted)}
+.form-fallback .section-cta{display:inline-flex;max-width:100%;text-align:center;margin:0 0 15px}
+.form-fallback .form-note{margin:0;font-size:.73rem}
