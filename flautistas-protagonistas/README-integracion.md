@@ -14,7 +14,7 @@
 1. Abrir [Flautistas Protagonistas 2027](https://escueladeflautistas.cl/flautistas-protagonistas/) en una ventana de incógnito y recargar para evitar caché.
 2. Confirmar que se ve el formulario de inscripción y que no aparece ningún aviso sobre Google Sheets o configuración técnica.
 3. Introducir un número de WhatsApp diferente en cada campo: el navegador debe bloquear el envío con un mensaje de discordancia.
-4. Ingresar datos de **prueba claramente identificados**, una moneda y 1 o 3 cuotas; aceptar el consentimiento y enviar.
+4. Seleccionar Chile, Argentina u Otro país, elegir 1 pago o 3 cuotas e ingresar datos de **prueba claramente identificados**; aceptar el consentimiento y enviar.
 5. Debe mostrarse un **código de registro** solo después del mensaje positivo del servidor.
 6. Abrir la [hoja de inscripciones](https://docs.google.com/spreadsheets/d/19ODt7wTppY6FJsE7ZQsH-lqNTiGJv4Ll9RqOvp7a2dQ/edit), pestaña `Inscripciones web`. Confirmar que hay **una fila**, con el número normalizado, `Coinciden`, `No realizada`, moneda y cuotas correctas.
 7. Eliminar cuidadosamente **solo el registro de prueba**. No modificar inscripciones reales.
@@ -23,23 +23,22 @@
 
 ## Tarifas públicas de lanzamiento 2027
 
-La página presenta **un bloque de inversión completamente independiente del formulario**, situado debajo del encabezado principal y antes de los campos de inscripción. Los precios de los tres mercados están **siempre visibles** en HTML, sin selector adicional, sin scripts, sin conversiones de divisas y sin requerir que el visitante entregue datos.
+**Flujo visible:** país de residencia (Chile, Argentina u Otro país) → dos tarjetas de precios (**1 pago** o **3 cuotas**) → nombre, apellido, doble WhatsApp y consentimiento → registro.
+
+No existen tablas de precios adicionales, un segundo selector de moneda ni resúmenes duplicados. La tarjeta elegida determina la cantidad de cuotas; el país determina automáticamente la moneda enviada al receptor de Google Sheets. Los importes se muestran solamente después de seleccionar el país. El código que realiza esta correspondencia es [tarifas-pais.js](./tarifas-pais.js).
 
 | País / mercado | 1 pago | 3 cuotas (importe de cada cuota) | Total con 3 cuotas |
 |---|---:|---:|---:|
 | Chile (CLP) | 399.900 | 139.900 | 419.700 |
 | Argentina (ARS) | 399.000 | 139.900 | 419.700 |
-| Otros países (USD) | 419 | 147 | 441 |
+| Otro país (USD) | 419 | 147 | 441 |
 
 **Fuentes cotejadas:**
+- [Documento de trabajo FP2027](https://docs.google.com/document/d/1MqkeEdS9RS9hkMWw0CwAbykkKd7D-l667brhnkOufPw/edit), sección 9.2: CLP y USD.
+- [Dossier público FP2027](https://drive.google.com/file/d/142hHbwOIfBmINAMQIyIB3xh0HgQ4i4Lm/view): CLP y USD.
+- [Dossier Argentina — 3 cuotas](https://drive.google.com/file/d/1GNqTMqkVymMYuYu_tOcVitrLejde9xzL/view): ARS.
 
-- [Flautistas Protagonistas 2027 — documento de trabajo](https://docs.google.com/document/d/1MqkeEdS9RS9hkMWw0CwAbykkKd7D-l667brhnkOufPw/edit), sección 9.2: CLP y USD.
-- [Flautistas Protagonistas 2027 — dossier público](https://drive.google.com/file/d/142hHbwOIfBmINAMQIyIB3xh0HgQ4i4Lm/view): CLP y USD.
-- [Flautistas Protagonistas 2027 — Argentina, 3 cuotas](https://drive.google.com/file/d/1GNqTMqkVymMYuYu_tOcVitrLejde9xzL/view): ARS.
-
-El formulario recoge el país de residencia, una moneda preferida y una de **dos modalidades: 1 o 3 cuotas**. La sección principal de inversión continúa siendo independiente, siempre visible en HTML y sin necesidad de JavaScript. Además, debajo del selector de cuotas hay una **vista previa** con un resumen dinámico del pago elegido y una referencia estática de 3 cuotas para los tres mercados. Esta referencia se ve incluso si el JavaScript no funciona. El resumen dinámico es informativo y no cambia el registro en Sheets. No se registran importes en Sheets ni se procesa ningún pago.
-
-La sección de inversión es contenido HTML del archivo [index.html](./index.html), con estilos en [precios.css](./precios.css). No se necesita JavaScript para visualizarla, por lo que los importes se leen aun cuando un script del formulario no cargue. [vista-cuotas.js](./vista-cuotas.js) solo mejora el resumen al escoger país, moneda y una modalidad de pago; no es responsable de desplegar los precios fijos ni de enviar el formulario.
+**Datos transmitidos:** el formulario envía la opción de país escogida, la moneda determinada para ese mercado y **1** o **3** como cantidad de cuotas. No envía importes monetarios ni procesa pagos. El backend mantiene los mismos nombres de parámetros y la URL `/exec` existente.
 
 ## Hoja de destino
 
@@ -79,5 +78,7 @@ La URL /exec ya fue incorporada al sitio. Si la implementación cambia, actualiz
 - [index.html](./index.html): página y formulario.
 - [inscripcion.js](./inscripcion.js): validación de campos y envío.
 - [inscripcion.css](./inscripcion.css): estilos editoriales del formulario.
+- [precios.css](./precios.css): estilos responsivos de las dos tarjetas de tarifas.
+- [tarifas-pais.js](./tarifas-pais.js): asociación de país, moneda y cantidad de cuotas.
 - [apps-script/Code.gs](./apps-script/Code.gs): receptor para Google Sheets.
 - [solicitar-informacion.html](./solicitar-informacion.html): alternativa de contacto que continúa usando el sistema anterior.
