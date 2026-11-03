@@ -1,36 +1,5 @@
 /* Tarifas por país · Flautistas Protagonistas 2027.
    Continúa el sistema visual editorial de Escuela de Flautistas. */
-.price-chooser{
-  width:min(100%,540px);
-  margin:28px auto 0;
-  text-align:left;
-}
-.price-chooser label{
-  display:block;
-  margin-bottom:9px;
-  font-size:.68rem;
-  font-weight:800;
-  letter-spacing:.15em;
-  line-height:1.4;
-  text-transform:uppercase;
-}
-.price-chooser select{
-  display:block;
-  width:100%;
-  min-height:55px;
-  padding:13px 44px 13px 17px;
-  border:1px solid #CFC5BA;
-  border-radius:3px;
-  background:#fff;
-  color:var(--ink);
-  font:600 .91rem/1.4 var(--sans);
-  cursor:pointer;
-}
-.price-chooser select:focus-visible,
-.price-select-btn:focus-visible{
-  outline:3px solid var(--mint-ink);
-  outline-offset:3px;
-}
 .price-context{
   min-height:1.6em;
   margin:13px 0 0;
@@ -187,4 +156,62 @@
   .price-two{align-items:stretch}
   .price-two button{width:100%}
   .price-select-btn{margin-top:19px}
+}
+/* Los precios aparecen dentro del formulario, justo tras el país. */
+.form-grid .form-pricing{
+  grid-column:1/-1;
+  width:100%;
+  margin:4px 0 8px;
+}
+.form-pricing .private-investment{
+  width:100%;
+  max-width:none;
+  padding:clamp(20px,3.2vw,32px);
+  text-align:left;
+}
+.form-pricing .program-kicker{
+  margin:0 0 12px;
+}
+.form-pricing .program-title{
+  max-width:none;
+  margin:0;
+  font-size:clamp(2.05rem,4vw,3rem);
+  line-height:1.02;
+}
+.form-pricing .program-lead{
+  max-width:650px;
+  margin:14px 0 0;
+  font-size:.84rem;
+  line-height:1.7;
+}
+.form-pricing .price-context{
+  margin:18px 0 0;
+  text-align:left;
+}
+.form-pricing .price-grid{
+  gap:12px;
+}
+.form-pricing .price-card{
+  padding:20px 18px;
+}
+.form-pricing .price-card-kicker{
+  margin-bottom:11px;
+}
+.form-pricing .price-value{
+  font-size:clamp(1.9rem,3.5vw,2.8rem);
+}
+.form-pricing .price-compliance{
+  max-width:none;
+  margin:17px 0 0;
+  text-align:left;
+}
+.form-pricing .private-investment-note{
+  text-align:left;
+  margin-top:16px;
+}
+@media(max-width:700px){
+  .form-grid .form-pricing{grid-column:1; margin:2px 0 6px}
+  .form-pricing .private-investment{padding:21px 16px}
+  .form-pricing .price-card{padding:19px 17px}
+  .form-pricing .price-value{font-size:clamp(2.1rem,8vw,2.7rem)}
 }

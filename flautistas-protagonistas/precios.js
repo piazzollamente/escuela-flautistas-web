@@ -1,164 +1,134 @@
-/* Flautistas Protagonistas 2027 — tarifas comerciales fijas por mercado.
-   Fuentes: documento de trabajo FP2027 (sección 9.2), dossier general
-   FP2027 y dossier Argentina — 3 cuotas. No se aplican tipos de cambio.
-   Los precios de 2 cuotas NO están definidos en las fuentes. */
+/* Flautistas Protagonistas 2027 — precio dentro del formulario tras país.
+   Tarifas comerciales fijas del documento maestro y dossier de Argentina.
+   No usar conversión monetaria automática; 2 cuotas no tiene cifra definida. */
 (function () {
   "use strict";
 
-  const prices = Object.freeze({
-    CL: Object.freeze({
-      code: "CLP",
-      name: "Chile · Pesos chilenos",
-      currencyOption: "CLP — pesos chilenos",
-      one: 399900,
-      threeEach: 139900,
-      threeTotal: 419700
-    }),
-    AR: Object.freeze({
-      code: "ARS",
-      name: "Argentina · Pesos argentinos",
-      currencyOption: "ARS — pesos argentinos",
-      one: 399000,
-      threeEach: 139900,
-      threeTotal: 419700
-    }),
-    INTL: Object.freeze({
-      code: "USD",
-      name: "Pago internacional · Dólares estadounidenses",
-      currencyOption: "USD — dólares",
-      one: 419,
-      threeEach: 147,
-      threeTotal: 441
-    })
+  const markets = Object.freeze({
+    CL: Object.freeze({code:"CLP", name:"Chile · Pesos chilenos",
+      option:"CLP — pesos chilenos", one:399900, threeEach:139900, threeTotal:419700}),
+    AR: Object.freeze({code:"ARS", name:"Argentina · Pesos argentinos",
+      option:"ARS — pesos argentinos", one:399000, threeEach:139900, threeTotal:419700}),
+    INTL: Object.freeze({code:"USD", name:"Pago internacional · Dólares estadounidenses",
+      option:"USD — dólares", one:419, threeEach:147, threeTotal:441})
   });
 
-  const region = document.getElementById("precioPais");
+  const country = document.getElementById("pais");
+  const currency = document.getElementById("moneda");
+  const installments = document.getElementById("cuotas");
   const panel = document.getElementById("preciosPanel");
-  const summary = document.getElementById("precioContexto");
-  const onePrice = document.getElementById("precioUnPago");
-  const threePrice = document.getElementById("precioTresCuotas");
+  const context = document.getElementById("precioContexto");
+  const one = document.getElementById("precioUnPago");
+  const three = document.getElementById("precioTresCuotas");
   const threeTotal = document.getElementById("precioTotalCuotas");
-  const oneChoice = document.getElementById("precioElegirUno");
-  const threeChoice = document.getElementById("precioElegirTres");
-  const twoChoice = document.getElementById("precioElegirDos");
-  const countryField = document.getElementById("pais");
-  const currencyField = document.getElementById("moneda");
-  const installmentsField = document.getElementById("cuotas");
-  const formSection = document.getElementById("inscripcion-heading");
+  const payOne = document.getElementById("precioElegirUno");
+  const payThree = document.getElementById("precioElegirTres");
+  const payTwo = document.getElementById("precioElegirDos");
 
-  if (!region || !panel || !onePrice || !threePrice || !threeTotal) return;
+  if (!country || !currency || !installments || !panel || !context ||
+      !one || !three || !threeTotal) return;
 
-  function formatPrice(amount, code) {
-    const locale = code === "ARS" ? "es-AR" : code === "USD" ? "en-US" : "es-CL";
-    const number = new Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(amount);
-    return code === "USD" ? "USD " + number : code + " $" + number;
+  function normalize(value) {
+    return String(value || "").trim().normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "").toLowerCase();
   }
 
-  function groupForCountry(country) {
-    const normalized = String(country || "").trim().normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "").toLowerCase();
-    if (!normalized) return "";
-    if (normalized === "chile") return "CL";
-    if (normalized === "argentina") return "AR";
+  function countryMarket(value) {
+    const text = normalize(value);
+    if (!text) return "";
+    if (text === "chile") return "CL";
+    if (text === "argentina") return "AR";
     return "INTL";
   }
 
-  function groupForCurrency(value) {
-    if (value === "CLP — pesos chilenos") return "CL";
-    if (value === "ARS — pesos argentinos") return "AR";
-    if (value === "USD — dólares") return "INTL";
+  function currencyMarket(value) {
+    for (const key of Object.keys(markets)) {
+      if (markets[key].option === value) return key;
+    }
     return "";
   }
 
-  function showPrices() {
-    const market = prices[region.value];
+  function format(amount, code) {
+    const locale = code === "ARS" ? "es-AR" : code === "USD" ? "en-US" : "es-CL";
+    const digits = new Intl.NumberFormat(locale, {maximumFractionDigits:0}).format(amount);
+    return code === "USD" ? "USD " + digits : code + " $" + digits;
+  }
+
+  function updateButtons() {
+    const chosen = installments.value;
+    [[payOne, "1"], [payThree, "3"], [payTwo, "2"]].forEach(function (entry) {
+      if (entry[0]) entry[0].setAttribute("aria-pressed", String(chosen === entry[1]));
+    });
+  }
+
+  function showMarket(key) {
+    const market = markets[key];
     panel.hidden = !market;
     if (!market) {
-      summary.textContent = "Selecciona el país desde el que te inscribes para conocer la inversión.";
+      context.textContent = "Completa tu país de residencia para ver las modalidades y precios.";
+      updateButtons();
       return;
     }
-
-    summary.textContent = market.name;
-    onePrice.textContent = formatPrice(market.one, market.code);
-    threePrice.textContent = "3 × " + formatPrice(market.threeEach, market.code);
-    threeTotal.textContent = "Total: " + formatPrice(market.threeTotal, market.code);
-    updateChoice();
+    context.textContent = market.name;
+    one.textContent = format(market.one, market.code);
+    three.textContent = "3 × " + format(market.threeEach, market.code);
+    threeTotal.textContent = "Total: " + format(market.threeTotal, market.code);
+    updateButtons();
   }
 
-  function updateChoice() {
-    const choice = installmentsField ? installmentsField.value : "";
-    [[oneChoice, "1"], [threeChoice, "3"], [twoChoice, "2"]].forEach(function (pair) {
-      if (!pair[0]) return;
-      pair[0].setAttribute("aria-pressed", choice === pair[1] ? "true" : "false");
-    });
-  }
-
-  function chooseInstallments(count) {
-    if (installmentsField) {
-      installmentsField.value = String(count);
-      installmentsField.dispatchEvent(new Event("change", { bubbles: true }));
-    }
-    updateChoice();
-    if (formSection) formSection.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
-  // La consulta de precios adapta la moneda propuesta, sin modificar el estado
-  // de pago. El formulario y Apps Script solo guardan preferencias de pago.
-  region.addEventListener("change", function () {
-    const selected = prices[region.value];
-    if (!selected) {
-      showPrices();
+  function syncCountry() {
+    const marketKey = countryMarket(country.value);
+    if (!marketKey) {
+      currency.value = "";
+      showMarket("");
       return;
     }
+    currency.value = markets[marketKey].option;
+    showMarket(marketKey);
+  }
 
-    if (currencyField) currencyField.value = selected.currencyOption;
-    if (countryField) {
-      const currentGroup = groupForCountry(countryField.value);
-      if (region.value === "CL") countryField.value = "Chile";
-      else if (region.value === "AR") countryField.value = "Argentina";
-      else if (currentGroup === "CL" || currentGroup === "AR") countryField.value = "";
+  // Cuando el país se elige del listado se puede actualizar al instante.
+  // Para países escritos libremente se muestra al terminar el campo (change).
+  const listedCountries = new Set(Array.from(
+    document.querySelectorAll("#fp-paises option"),
+    function (option) { return normalize(option.value); }
+  ));
+
+  country.addEventListener("input", function () {
+    const typed = normalize(country.value);
+    if (!typed) {
+      syncCountry();
+    } else if (listedCountries.has(typed) || typed === "chile" || typed === "argentina") {
+      syncCountry();
+    } else {
+      // No inferir "pago internacional" a partir de una palabra a medio escribir.
+      currency.value = "";
+      panel.hidden = true;
+      context.textContent = "Termina de indicar tu país para consultar los precios.";
     }
-    showPrices();
+  });
+  country.addEventListener("change", syncCountry);
+  country.addEventListener("blur", function () {
+    if (country.value.trim()) syncCountry();
   });
 
-  // Si la persona empieza por el formulario, el módulo de precios también cambia.
-  if (countryField) {
-    countryField.addEventListener("change", function () {
-      const group = groupForCountry(countryField.value);
-      if (!group) return;
-      region.value = group;
-      if (currencyField) currencyField.value = prices[group].currencyOption;
-      showPrices();
-    });
-    countryField.addEventListener("input", function () {
-      const group = groupForCountry(countryField.value);
-      if (!group) return;
-      region.value = group;
-      if (currencyField) currencyField.value = prices[group].currencyOption;
-      showPrices();
-    });
+  // El país preselecciona la moneda. Si se cambia manualmente, el importe
+  // mostrado se ajusta a la nueva moneda para evitar incoherencias de pago.
+  currency.addEventListener("change", function () {
+    const key = currencyMarket(currency.value);
+    if (country.value.trim() && key) showMarket(key);
+  });
+
+  installments.addEventListener("change", updateButtons);
+  function choose(count) {
+    installments.value = String(count);
+    installments.dispatchEvent(new Event("change", {bubbles:true}));
+    updateButtons();
   }
+  if (payOne) payOne.addEventListener("click", function () { choose(1); });
+  if (payThree) payThree.addEventListener("click", function () { choose(3); });
+  if (payTwo) payTwo.addEventListener("click", function () { choose(2); });
 
-  if (currencyField) {
-    currencyField.addEventListener("change", function () {
-      const group = groupForCurrency(currencyField.value);
-      if (!group) return;
-      region.value = group;
-      showPrices();
-    });
-  }
-
-  if (installmentsField) {
-    installmentsField.addEventListener("change", updateChoice);
-  }
-
-  if (oneChoice) oneChoice.addEventListener("click", function () { chooseInstallments(1); });
-  if (threeChoice) threeChoice.addEventListener("click", function () { chooseInstallments(3); });
-  if (twoChoice) twoChoice.addEventListener("click", function () { chooseInstallments(2); });
-
-  // Evitar asumir país de residencia a partir de la geolocalización o del idioma.
-  const initialGroup = groupForCountry(countryField && countryField.value) ||
-    groupForCurrency(currencyField && currencyField.value);
-  if (initialGroup) region.value = initialGroup;
-  showPrices();
+  if (country.value.trim()) syncCountry();
+  else showMarket("");
 })();
