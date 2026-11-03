@@ -1,0 +1,190 @@
+/* Tarifas por país · Flautistas Protagonistas 2027.
+   Continúa el sistema visual editorial de Escuela de Flautistas. */
+.price-chooser{
+  width:min(100%,540px);
+  margin:28px auto 0;
+  text-align:left;
+}
+.price-chooser label{
+  display:block;
+  margin-bottom:9px;
+  font-size:.68rem;
+  font-weight:800;
+  letter-spacing:.15em;
+  line-height:1.4;
+  text-transform:uppercase;
+}
+.price-chooser select{
+  display:block;
+  width:100%;
+  min-height:55px;
+  padding:13px 44px 13px 17px;
+  border:1px solid #CFC5BA;
+  border-radius:3px;
+  background:#fff;
+  color:var(--ink);
+  font:600 .91rem/1.4 var(--sans);
+  cursor:pointer;
+}
+.price-chooser select:focus-visible,
+.price-select-btn:focus-visible{
+  outline:3px solid var(--mint-ink);
+  outline-offset:3px;
+}
+.price-context{
+  min-height:1.6em;
+  margin:13px 0 0;
+  color:var(--muted);
+  font-size:.77rem;
+  font-weight:600;
+  line-height:1.6;
+  text-align:center;
+}
+.price-panel[hidden]{display:none !important}
+.price-panel{margin:24px 0 0}
+.price-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+  text-align:left;
+}
+.price-card{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  padding:25px 24px 22px;
+  border:1px solid var(--line);
+  border-top:3px solid var(--red);
+  border-radius:4px;
+  background:white;
+}
+.price-card:last-child{
+  background:var(--ink);
+  color:#fff;
+  border-color:var(--ink);
+  border-top-color:var(--mint);
+}
+.price-card-kicker{
+  margin:0 0 17px;
+  color:var(--muted);
+  font-size:.65rem;
+  font-weight:800;
+  letter-spacing:.15em;
+  line-height:1.4;
+  text-transform:uppercase;
+}
+.price-card:last-child .price-card-kicker{color:var(--mint)}
+.price-value{
+  display:block;
+  margin:0;
+  font:500 clamp(2.05rem,4.4vw,3.12rem)/1 var(--serif);
+  letter-spacing:-.035em;
+  font-variant-numeric:tabular-nums;
+  overflow-wrap:anywhere;
+}
+.price-card-subtitle{
+  margin:12px 0 0;
+  color:var(--muted);
+  font-size:.72rem;
+  font-weight:600;
+  line-height:1.55;
+}
+.price-card:last-child .price-card-subtitle{color:rgba(255,255,255,.79)}
+.price-card .price-select-btn{margin-top:auto}
+.price-select-btn{
+  display:inline-flex;
+  width:100%;
+  min-height:46px;
+  align-items:center;
+  justify-content:center;
+  margin-top:24px;
+  padding:12px 14px;
+  border:1px solid var(--red);
+  border-radius:3px;
+  background:var(--red);
+  color:white;
+  cursor:pointer;
+  font:800 .64rem/1.4 var(--sans);
+  letter-spacing:.11em;
+  text-align:center;
+  text-transform:uppercase;
+  transition:background .18s ease,border-color .18s ease;
+}
+.price-select-btn:hover{background:#BA151B;border-color:#BA151B}
+.price-card:last-child .price-select-btn{
+  background:var(--mint);
+  border-color:var(--mint);
+  color:var(--ink);
+}
+.price-card:last-child .price-select-btn:hover{
+  background:#c2e9e2;
+  border-color:#c2e9e2;
+}
+.price-select-btn[aria-pressed="true"]{
+  outline:2px solid var(--mint-ink);
+  outline-offset:3px;
+}
+.price-note{
+  margin:18px 0 0;
+  color:var(--muted);
+  font-size:.73rem;
+  font-weight:500;
+  line-height:1.7;
+  text-align:left;
+}
+.price-two{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px 20px;
+  margin-top:24px;
+  padding:17px 0;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  text-align:left;
+}
+.price-two-copy{flex:1 1 240px}
+.price-two-copy strong{
+  display:block;
+  font-size:.78rem;
+  line-height:1.45;
+}
+.price-two-copy span{
+  display:block;
+  margin-top:4px;
+  font-size:.72rem;
+  line-height:1.6;
+  color:var(--muted);
+}
+.price-two button{
+  min-height:42px;
+  padding:10px 16px;
+  border:1px solid var(--line);
+  border-radius:3px;
+  background:transparent;
+  color:var(--ink);
+  cursor:pointer;
+  font:800 .64rem/1.35 var(--sans);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.price-two button:hover{border-color:var(--red);color:var(--red)}
+.price-two button[aria-pressed="true"]{outline:2px solid var(--mint-ink);outline-offset:3px}
+.price-compliance{
+  max-width:670px;
+  margin:20px auto 0;
+  color:var(--muted);
+  font-size:.7rem;
+  line-height:1.7;
+  text-align:center;
+}
+.price-actions{margin-top:24px}
+@media(max-width:700px){
+  .price-grid{grid-template-columns:1fr;gap:12px}
+  .price-card{padding:22px 20px}
+  .price-value{font-size:clamp(2.25rem,8.8vw,3rem)}
+  .price-two{align-items:stretch}
+  .price-two button{width:100%}
+  .price-select-btn{margin-top:19px}
+}
