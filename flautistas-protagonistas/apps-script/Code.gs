@@ -26,7 +26,9 @@ function doGet(e) {
       source: "fp2027-servicio", version: "email-v2", token: token
     }).replace(/</g, "\\u003c");
     const html = '<!doctype html><html><head><meta charset="utf-8"></head><body>' +
-      '<script>window.parent.postMessage(' + payload + ',' +
+      '<script>window.top.postMessage(' + payload + ',' +
+      JSON.stringify(FP_ALLOWED_ORIGIN) + ');' +
+      'if(window.parent!==window.top)window.parent.postMessage(' + payload + ',' +
       JSON.stringify(FP_ALLOWED_ORIGIN) + ');</' + 'script></body></html>';
     return HtmlService.createHtmlOutput(html)
       .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
