@@ -891,6 +891,7 @@
     }
   </style>
   <link rel="stylesheet" href="./inscripcion.css">
+  <link rel="stylesheet" href="./precios.css">
 </head>
 <body>
   <main class="page">
@@ -1000,9 +1001,53 @@
       <section class="pricing-section" aria-labelledby="inversion-heading">
         <div class="private-investment">
           <p class="program-kicker">Flautistas Protagonistas · Edición 2027</p>
-          <h2 class="program-title" id="inversion-heading">Inscripción · Flautistas Protagonistas 2027</h2>
-          <p class="program-lead">Déjanos tus datos para iniciar el proceso. Te orientaremos sobre las modalidades de pago, disponibilidad y próximos pasos para participar.</p>
-          <a class="section-cta" href="#inscripcion-heading">Completar el formulario</a>
+          <h2 class="program-title" id="inversion-heading">La inversión para tu próximo paso musical.</h2>
+          <p class="program-lead">Consulta el precio de lanzamiento según el país desde el que te inscribes. Los importes son fijos en cada moneda: no se calculan mediante conversiones cambiarias.</p>
+
+          <div class="price-chooser">
+            <label for="precioPais">¿Desde qué país te inscribes?</label>
+            <select id="precioPais" aria-controls="preciosPanel">
+              <option value="" selected>Selecciona tu país</option>
+              <option value="CL">Chile · pesos chilenos (CLP)</option>
+              <option value="AR">Argentina · pesos argentinos (ARS)</option>
+              <option value="INTL">Otro país · dólares (USD)</option>
+            </select>
+          </div>
+
+          <p class="price-context" id="precioContexto" aria-live="polite">Selecciona el país desde el que te inscribes para conocer la inversión.</p>
+
+          <div class="price-panel" id="preciosPanel" hidden>
+            <div class="price-grid" aria-label="Modalidades de pago disponibles">
+              <article class="price-card">
+                <p class="price-card-kicker">Pago único</p>
+                <strong class="price-value" id="precioUnPago">—</strong>
+                <p class="price-card-subtitle">Una sola cuota · Total de la inversión.</p>
+                <button class="price-select-btn" id="precioElegirUno" type="button" aria-pressed="false">Elegir pago único</button>
+              </article>
+
+              <article class="price-card">
+                <p class="price-card-kicker">Pago en tres cuotas</p>
+                <strong class="price-value" id="precioTresCuotas">—</strong>
+                <p class="price-card-subtitle" id="precioTotalCuotas">—</p>
+                <button class="price-select-btn" id="precioElegirTres" type="button" aria-pressed="false">Elegir tres cuotas</button>
+              </article>
+            </div>
+
+            <div class="price-two">
+              <div class="price-two-copy">
+                <strong>¿Prefieres pagar en dos cuotas?</strong>
+                <span>Esta modalidad puede solicitarse. El importe está pendiente de confirmación y no se muestra una cifra estimada.</span>
+              </div>
+              <button id="precioElegirDos" type="button" aria-pressed="false">Consultar dos cuotas</button>
+            </div>
+
+            <p class="price-note">Las tarifas especiales de estudiantes activos de clases individuales se informan de manera personalizada, previa comprobación del plan vigente. No son acumulables con otras promociones.</p>
+          </div>
+
+          <p class="price-compliance">Los valores indicados corresponden al lanzamiento de 2027. Los medios de pago, las condiciones de las cuotas y los posibles cargos del proveedor se confirmarán antes de realizar el pago.</p>
+          <div class="price-actions">
+            <a class="section-cta" href="#inscripcion-heading">Continuar a la inscripción</a>
+          </div>
           <p class="private-investment-note">Ocho participantes · Inicio previsto: enero de 2027 · El registro no confirma cupo ni pago.</p>
         </div>
       </section>
@@ -1080,7 +1125,7 @@
                 <select id="cuotas" name="cuotas" required>
                   <option value="" selected disabled>Selecciona una opción</option>
                   <option value="1">1 cuota</option>
-                  <option value="2">2 cuotas</option>
+                  <option value="2">2 cuotas (valor por confirmar)</option>
                   <option value="3">3 cuotas</option>
                 </select>
               </div>
@@ -1166,5 +1211,6 @@
     })();
   </script>
   <script src="./inscripcion.js" defer></script>
+  <script src="./precios.js" defer></script>
 </body>
 </html>
