@@ -71,6 +71,20 @@ La hoja [Inscripciones web](https://docs.google.com/spreadsheets/d/19ODt7wTppY6F
 
 **URL nueva incorporada al sitio:** el enlace `/exec` indicado fue integrado a `index.html`. La compatibilidad real de `email-v2` y la escritura de un correo de prueba en Q deben comprobarse desde la página una vez terminada la publicación; la actualización del enlace no demuestra que el servicio esté autorizado y configurado.
 
+## Automatización de correo transaccional y cuotas
+
+Se ha preparado el código de correo transaccional, con guía completa en [apps-script/README-correos.md](./apps-script/README-correos.md). **El repositorio no instala ni habilita por sí solo la automatización en Google Apps Script**.
+
+Estructura creada en el mismo Google Sheets:
+- `Inscripciones web`: R–T seguimiento del primer correo, U–V seguimiento de confirmación de pago total; Emma Rioseco tiene su correo recuperado de los eventos de mentoría e incorporado a Q2, R2 = Pendiente.
+- `Configuración pagos FP2027`: ruta Chile / Argentina / Otro país (Western Union); instrucciones de pago y habilitación restringida. Los tres mercados comienzan con D = No; en F2 va la fecha oficial de inicio.
+- `Plan pagos FP2027`: tres fechas propuestas, validación de aprobación humana, abonos acreditados y recordatorios.
+- `Historial correo FP2027`: auditoría de cada intento.
+
+**No habrá envíos antes de** completar datos de pago verificados en columna C, cambiar D = Sí para el mercado correspondiente, instalar el disparador y autorizar `MailApp` desde Apps Script. El envío real depende de esos pasos manuales.
+
+Secuencia: aviso inicial de 1 pago / 3 cuotas → respuesta del alumno con tres fechas → revisión humana y aprobación antes del inicio de clases → correo de fechas aceptadas → recordatorios una vez por cuota → confirmación final tras acreditación completa. La autorización de pagos, el examen de comprobantes y la confirmación de fechas no son automáticos.
+
 ## Seguridad y experiencia
 
 - Los datos enviados por el público, incluido el formato del email, se comprueban tanto en el navegador como en Apps Script.
