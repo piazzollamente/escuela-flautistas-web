@@ -23,7 +23,7 @@
 
 ## Tarifas públicas de lanzamiento 2027
 
-El módulo de precios integrado en la página usa importes comerciales **fijos**, sin conversión de divisas ni llamadas a servicios de cotización. Cambia por país o mercado y refleja la selección en la moneda del formulario.
+El formulario de inscripción aparece inmediatamente después del encabezado **INSCRIPCIONES ABIERTAS**, antes de la descripción completa del programa. Al introducir el **país de residencia**, el módulo de inversión aparece **dentro del mismo formulario**, justo después de ese dato y antes del WhatsApp. No existe un segundo selector de país. Los importes son comerciales **fijos**, sin conversión de divisas ni servicios de cotización. La moneda se propone automáticamente según el país y el visitante puede modificarla, actualizándose entonces los precios para mantener coherencia.
 
 | País / mercado | Pago único | 3 cuotas | Total 3 cuotas | 2 cuotas |
 |---|---:|---:|---:|---|
