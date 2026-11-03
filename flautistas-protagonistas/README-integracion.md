@@ -21,6 +21,28 @@
 8. Si aparece error o no se escribe la fila, comprobar la ejecución en Apps Script (**Ejecuciones**) y confirmar que la URL activa sigue siendo la implementación más reciente (`/exec`). Si se edita Code.gs después de implementarlo, se debe actualizar la versión de la implementación.
 
 
+## Tarifas públicas de lanzamiento 2027
+
+El módulo de precios integrado en la página usa importes comerciales **fijos**, sin conversión de divisas ni llamadas a servicios de cotización. Cambia por país o mercado y refleja la selección en la moneda del formulario.
+
+| País / mercado | Pago único | 3 cuotas | Total 3 cuotas | 2 cuotas |
+|---|---:|---:|---:|---|
+| Chile (CLP) | 399.900 | 139.900 cada una | 419.700 | No definido |
+| Argentina (ARS) | 399.000 | 139.900 cada una | 419.700 | No definido |
+| Otros países (USD) | 419 | 147 cada una | 441 | No definido |
+
+**Fuentes cotejadas:**
+
+- [Flautistas Protagonistas 2027 — documento de trabajo](https://docs.google.com/document/d/1MqkeEdS9RS9hkMWw0CwAbykkKd7D-l667brhnkOufPw/edit), sección 9.2: CLP y USD.
+- [Flautistas Protagonistas 2027 — dossier público](https://drive.google.com/file/d/142hHbwOIfBmINAMQIyIB3xh0HgQ4i4Lm/view): CLP y USD.
+- [Flautistas Protagonistas 2027 — Argentina, 3 cuotas](https://drive.google.com/file/d/1GNqTMqkVymMYuYu_tOcVitrLejde9xzL/view): ARS.
+
+La elección de 2 cuotas permanece disponible en el formulario **sin publicar ningún valor no aprobado**. Los importes del módulo no implican que haya un checkout activo, una plaza confirmada ni un pago realizado.
+
+El anuncio principal ya no tiene cuenta regresiva. La página muestra **«INSCRIPCIONES ABIERTAS»** y no presenta condiciones especiales de estudiantes activos.
+
+Código de precios: [precios.js](./precios.js) y [precios.css](./precios.css). Modificar los importes **solo** después de una decisión comercial confirmada, manteniendo actualizados los totales y esta tabla.
+
 ## Hoja de destino
 
 [Inscripciones — Flautistas Protagonistas 2027](https://docs.google.com/spreadsheets/d/19ODt7wTppY6FJsE7ZQsH-lqNTiGJv4Ll9RqOvp7a2dQ/edit)

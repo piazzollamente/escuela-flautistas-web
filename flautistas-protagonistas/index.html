@@ -153,6 +153,34 @@
       background:currentColor;
     }
 
+    .open-enrollment{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:clamp(12px,3vw,24px);
+      width:100%;
+      min-height:112px;
+      margin:0 auto clamp(27px,4vw,40px);
+      padding:22px clamp(16px,5vw,42px);
+      border:1px solid var(--red);
+      border-radius:3px;
+      background:var(--red);
+      color:#fff;
+      box-shadow:0 12px 0 -6px rgba(17,17,17,.1);
+      text-align:center;
+    }
+    .open-enrollment-text{
+      font:800 clamp(1.35rem,4.3vw,2.75rem)/1.13 var(--sans);
+      letter-spacing:.085em;
+      text-transform:uppercase;
+      text-wrap:balance;
+    }
+    .open-enrollment-symbol{
+      flex:none;
+      color:var(--mint);
+      font:500 clamp(1.3rem,3.5vw,2.3rem)/1 var(--serif);
+    }
+
     h1{
       max-width:820px;
       margin:0 auto;
@@ -227,62 +255,6 @@
       font-weight:500;
       line-height:1.5;
     }
-
-    .countdown{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      max-width:760px;
-      margin:clamp(34px,6vw,58px) auto 0;
-      border-top:1px solid var(--line);
-      border-bottom:1px solid var(--line);
-    }
-
-    .countdown-item{
-      position:relative;
-      padding:clamp(22px,4vw,34px) 12px;
-    }
-
-    .countdown-item + .countdown-item::before{
-      content:"";
-      position:absolute;
-      left:0;
-      top:22%;
-      bottom:22%;
-      width:1px;
-      background:var(--line);
-    }
-
-    .countdown-value{
-      display:block;
-      font-family:var(--serif);
-      font-size:clamp(2.9rem,8vw,5.4rem);
-      font-weight:500;
-      letter-spacing:-.045em;
-      line-height:.8;
-      font-variant-numeric:tabular-nums;
-    }
-
-    .countdown-label{
-      display:block;
-      margin-top:12px;
-      color:var(--muted);
-      font-size:.62rem;
-      font-weight:800;
-      letter-spacing:.17em;
-      text-transform:uppercase;
-    }
-
-    .countdown-status{
-      min-height:1.5em;
-      margin:18px 0 0;
-      color:var(--muted);
-      font-size:.78rem;
-      font-weight:700;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-    }
-
-    .countdown-status.is-live{color:var(--mint-ink)}
 
     .program-section{
       margin-top:clamp(64px,10vw,104px);
@@ -836,10 +808,8 @@
       .date-line{margin-top:20px;font-size:.9rem}
       .hero-cta,.section-cta{width:100%;max-width:420px;margin-top:20px}
       .hero-note{font-size:.68rem}
-      .countdown{margin-top:30px}
-      .countdown-item{padding:22px 7px}
-      .countdown-value{font-size:clamp(2.6rem,12vw,4rem)}
-      .countdown-label{font-size:.54rem;letter-spacing:.1em}
+      .open-enrollment{min-height:94px;padding:18px 14px;margin-bottom:28px}
+      .open-enrollment-text{font-size:clamp(1.35rem,5.3vw,2.2rem);letter-spacing:.06em}
       .form-section{margin-top:54px}
       .section-heading{gap:12px;margin-bottom:13px}
       .section-heading h2{font-size:.67rem;letter-spacing:.15em}
@@ -875,8 +845,6 @@
       .brand-ornament .star{display:none}
       .brand{font-size:.61rem;letter-spacing:.14em;white-space:normal}
       h1{font-size:clamp(3rem,16vw,4.4rem)}
-      .countdown-item{padding-inline:4px}
-      .countdown-label{font-size:.48rem;letter-spacing:.07em}
       .section-heading{gap:8px}
       .section-heading h2{font-size:.62rem;letter-spacing:.12em}
       .form-shell{padding:22px 14px}
@@ -891,6 +859,7 @@
     }
   </style>
   <link rel="stylesheet" href="./inscripcion.css">
+  <link rel="stylesheet" href="./precios.css">
 </head>
 <body>
   <main class="page">
@@ -904,18 +873,16 @@
 
         <div class="hero">
           <div class="eyebrow"><span>Programa insignia · Edición 2027</span></div>
+          <div class="open-enrollment" role="status" aria-label="Inscripciones abiertas">
+            <span class="open-enrollment-symbol" aria-hidden="true">✦</span>
+            <span class="open-enrollment-text">INSCRIPCIONES ABIERTAS</span>
+            <span class="open-enrollment-symbol" aria-hidden="true">✦</span>
+          </div>
           <h1>Flautistas<br>Protagonistas<span class="period">.</span></h1>
           <p class="intro-copy"><strong>Seis semanas para profundizar en tu interpretación y dar dirección a tu vida musical.</strong> Trabajarás una obra o fragmento y una dificultad concreta de tu práctica, mientras desarrollas un programa, propuesta o proyecto artístico posible de compartir con otras personas.</p>
-          <p class="date-line"><strong>Inscripciones desde el 1 de noviembre de 2026</strong><br>Inicio previsto: enero de 2027 · Modalidad online</p>
+          <p class="date-line"><strong>Inicio previsto: enero de 2027</strong> · Modalidad online</p>
           <a class="hero-cta" href="#inscripcion-heading">Quiero participar</a>
           <p class="hero-note">Cohorte de 8 participantes · 6 semanas + fase preparatoria. Completar el formulario no reserva una plaza.</p>
-          <div class="countdown" id="countdown" aria-label="Cuenta regresiva hasta la apertura de inscripciones el 1 de noviembre de 2026">
-            <div class="countdown-item"><span class="countdown-value" id="days">00</span><span class="countdown-label">Días</span></div>
-            <div class="countdown-item"><span class="countdown-value" id="hours">00</span><span class="countdown-label">Horas</span></div>
-            <div class="countdown-item"><span class="countdown-value" id="minutes">00</span><span class="countdown-label">Minutos</span></div>
-            <div class="countdown-item"><span class="countdown-value" id="seconds">00</span><span class="countdown-label">Segundos</span></div>
-          </div>
-          <p class="countdown-status" id="countdownStatus" aria-live="polite">Apertura de inscripciones · 1 de noviembre de 2026 · Hora de Chile</p>
         </div>
       </header>
 
@@ -1000,9 +967,52 @@
       <section class="pricing-section" aria-labelledby="inversion-heading">
         <div class="private-investment">
           <p class="program-kicker">Flautistas Protagonistas · Edición 2027</p>
-          <h2 class="program-title" id="inversion-heading">Inscripción · Flautistas Protagonistas 2027</h2>
-          <p class="program-lead">Déjanos tus datos para iniciar el proceso. Te orientaremos sobre las modalidades de pago, disponibilidad y próximos pasos para participar.</p>
-          <a class="section-cta" href="#inscripcion-heading">Completar el formulario</a>
+          <h2 class="program-title" id="inversion-heading">La inversión para tu próximo paso musical.</h2>
+          <p class="program-lead">Consulta el precio de lanzamiento según el país desde el que te inscribes. Los importes son fijos en cada moneda: no se calculan mediante conversiones cambiarias.</p>
+
+          <div class="price-chooser">
+            <label for="precioPais">¿Desde qué país te inscribes?</label>
+            <select id="precioPais" aria-controls="preciosPanel">
+              <option value="" selected>Selecciona tu país</option>
+              <option value="CL">Chile · pesos chilenos (CLP)</option>
+              <option value="AR">Argentina · pesos argentinos (ARS)</option>
+              <option value="INTL">Otro país · dólares (USD)</option>
+            </select>
+          </div>
+
+          <p class="price-context" id="precioContexto" aria-live="polite">Selecciona el país desde el que te inscribes para conocer la inversión.</p>
+
+          <div class="price-panel" id="preciosPanel" hidden>
+            <div class="price-grid" aria-label="Modalidades de pago disponibles">
+              <article class="price-card">
+                <p class="price-card-kicker">Pago único</p>
+                <strong class="price-value" id="precioUnPago">—</strong>
+                <p class="price-card-subtitle">Una sola cuota · Total de la inversión.</p>
+                <button class="price-select-btn" id="precioElegirUno" type="button" aria-pressed="false">Elegir pago único</button>
+              </article>
+
+              <article class="price-card">
+                <p class="price-card-kicker">Pago en tres cuotas</p>
+                <strong class="price-value" id="precioTresCuotas">—</strong>
+                <p class="price-card-subtitle" id="precioTotalCuotas">—</p>
+                <button class="price-select-btn" id="precioElegirTres" type="button" aria-pressed="false">Elegir tres cuotas</button>
+              </article>
+            </div>
+
+            <div class="price-two">
+              <div class="price-two-copy">
+                <strong>¿Prefieres pagar en dos cuotas?</strong>
+                <span>Esta modalidad puede solicitarse. El importe está pendiente de confirmación y no se muestra una cifra estimada.</span>
+              </div>
+              <button id="precioElegirDos" type="button" aria-pressed="false">Consultar dos cuotas</button>
+            </div>
+
+          </div>
+
+          <p class="price-compliance">Los valores indicados corresponden al lanzamiento de 2027. Los medios de pago, las condiciones de las cuotas y los posibles cargos del proveedor se confirmarán antes de realizar el pago.</p>
+          <div class="price-actions">
+            <a class="section-cta" href="#inscripcion-heading">Continuar a la inscripción</a>
+          </div>
           <p class="private-investment-note">Ocho participantes · Inicio previsto: enero de 2027 · El registro no confirma cupo ni pago.</p>
         </div>
       </section>
@@ -1080,7 +1090,7 @@
                 <select id="cuotas" name="cuotas" required>
                   <option value="" selected disabled>Selecciona una opción</option>
                   <option value="1">1 cuota</option>
-                  <option value="2">2 cuotas</option>
+                  <option value="2">2 cuotas (valor por confirmar)</option>
                   <option value="3">3 cuotas</option>
                 </select>
               </div>
@@ -1118,53 +1128,7 @@
     </div>
   </main>
 
-  <script>
-    (function(){
-      const target = new Date('2026-11-01T00:00:00-03:00').getTime();
-      const daysEl = document.getElementById('days');
-      const hoursEl = document.getElementById('hours');
-      const minutesEl = document.getElementById('minutes');
-      const secondsEl = document.getElementById('seconds');
-      const statusEl = document.getElementById('countdownStatus');
-
-      function pad(value){
-        return String(value).padStart(2,'0');
-      }
-
-      function render(){
-        const remaining = target - Date.now();
-
-        if(remaining <= 0){
-          daysEl.textContent = '00';
-          hoursEl.textContent = '00';
-          minutesEl.textContent = '00';
-          secondsEl.textContent = '00';
-          statusEl.textContent = 'Llegó la fecha de apertura · Solicita los pasos de inscripción';
-          statusEl.classList.add('is-live');
-          return false;
-        }
-
-        const totalSeconds = Math.floor(remaining / 1000);
-        const days = Math.floor(totalSeconds / 86400);
-        const hours = Math.floor((totalSeconds % 86400) / 3600);
-        const minutes = Math.floor((totalSeconds % 3600) / 60);
-        const seconds = totalSeconds % 60;
-
-        daysEl.textContent = pad(days);
-        hoursEl.textContent = pad(hours);
-        minutesEl.textContent = pad(minutes);
-        secondsEl.textContent = pad(seconds);
-        return true;
-      }
-
-      if(render()){
-        const interval = window.setInterval(function(){
-          if(!render()) window.clearInterval(interval);
-        },1000);
-      }
-
-    })();
-  </script>
   <script src="./inscripcion.js" defer></script>
+  <script src="./precios.js" defer></script>
 </body>
 </html>
