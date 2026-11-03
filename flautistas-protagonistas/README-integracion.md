@@ -1,12 +1,25 @@
 # Conexión de inscripciones a Google Sheets — Flautistas Protagonistas 2027
 
-## Estado verificado
+## Estado de integración
 
-- La página está diseñada con el branding de Escuela de Flautistas y valida que el WhatsApp se escriba dos veces.
-- El receptor de Google Apps Script ya está programado en [apps-script/Code.gs](./apps-script/Code.gs), vinculado a la hoja de destino sin necesidad de introducir IDs ni propiedades.
-- Se ha comprobado con pruebas simuladas el guardado de las 16 columnas, coincidencia de números, consentimiento, moneda, cuotas y prevención de registros duplicados.
-- **La aplicación de Apps Script todavía no está implementada en la cuenta de Google.** La nueva hoja **no recibe inscripciones** hasta realizar los pasos de activación.
-- Hasta activar la conexión, la página oculta el formulario inoperante y muestra un CTA editorial hacia el formulario de solicitud de información que ya existía. No aparecen avisos técnicos.
+- **Aplicación Google Apps Script:** la administradora ejecutó `probarConexion()` y obtuvo «Conexión correcta con Inscripciones web. No se escribieron datos.»
+- **URL de despliegue suministrada:** `https://script.google.com/macros/s/AKfycbwE1gLqw2rEew7G1RauCN00_Q-U7Qi154zT4nYVV9sz4j0snJUTdKDEL1rG68AYm4zJ/exec`.
+- **Sitio web:** el formulario ahora utiliza esta URL mediante `data-endpoint`; deja de mostrar el mensaje técnico o la alternativa de preinscripción cuando se carga el JavaScript.
+- **Prueba real de envío:** pendiente. La comprobación de acceso a la hoja **no** prueba por sí sola la recepción de una inscripción enviada desde el navegador.
+- **Privacidad:** no se envían códigos a WhatsApp ni se comprueba la titularidad del número; los dos valores se comparan para evitar errores de escritura.
+- **Estados iniciales:** `Recibida` para inscripción y `Pendiente` para pago. Elegir moneda o cuotas no procesa pagos.
+
+### Prueba de extremo a extremo
+
+1. Abrir [Flautistas Protagonistas 2027](https://escueladeflautistas.cl/flautistas-protagonistas/) en una ventana de incógnito y recargar para evitar caché.
+2. Confirmar que se ve el formulario de inscripción y que no aparece ningún aviso sobre Google Sheets o configuración técnica.
+3. Introducir un número de WhatsApp diferente en cada campo: el navegador debe bloquear el envío con un mensaje de discordancia.
+4. Ingresar datos de **prueba claramente identificados**, una moneda y 1, 2 o 3 cuotas; aceptar el consentimiento y enviar.
+5. Debe mostrarse un **código de registro** solo después del mensaje positivo del servidor.
+6. Abrir la [hoja de inscripciones](https://docs.google.com/spreadsheets/d/19ODt7wTppY6FJsE7ZQsH-lqNTiGJv4Ll9RqOvp7a2dQ/edit), pestaña `Inscripciones web`. Confirmar que hay **una fila**, con el número normalizado, `Coinciden`, `No realizada`, moneda y cuotas correctas.
+7. Eliminar cuidadosamente **solo el registro de prueba**. No modificar inscripciones reales.
+8. Si aparece error o no se escribe la fila, comprobar la ejecución en Apps Script (**Ejecuciones**) y confirmar que la URL activa sigue siendo la implementación más reciente (`/exec`). Si se edita Code.gs después de implementarlo, se debe actualizar la versión de la implementación.
+
 
 ## Hoja de destino
 
@@ -25,16 +38,9 @@ El servidor escribe:
 
 El registro **no cobra cuotas ni garantiza cupos**.
 
-## Activación desde la cuenta de Google
+## Actualización del despliegue
 
-El paso de autorización y despliegue debe ejecutarse en una sesión de Google con permisos de edición sobre la hoja. Esta operación no está disponible mediante el conector de Google Drive utilizado para preparar los archivos.
-
-1. Abrir la [hoja de inscripciones](https://docs.google.com/spreadsheets/d/19ODt7wTppY6FJsE7ZQsH-lqNTiGJv4Ll9RqOvp7a2dQ/edit) desde una computadora y seleccionar **Extensiones → Apps Script**.
-2. En el archivo `Código.gs`, eliminar el código de ejemplo y pegar **todo** el contenido del archivo [apps-script/Code.gs](./apps-script/Code.gs) de este repositorio. Guardar el proyecto con el nombre **Inscripciones Flautistas Protagonistas 2027**.
-3. En el selector de funciones, elegir **`probarConexion`** y pulsar **Ejecutar**. Autorizar la lectura/escritura de Google Sheets si Google lo solicita. El registro de ejecución debe indicar: **«Conexión correcta con Inscripciones web. No se escribieron datos.»** Si falla, detenerse aquí.
-4. Seleccionar **Implementar → Nueva implementación → Aplicación web**. Configurar **Ejecutar como: Yo** y **Quién tiene acceso: Cualquier persona** (incluidas personas sin sesión de Google; si la cuenta no ofrece esa opción, no estará disponible un registro público). Confirmar la implementación y copiar su URL que termina en `/exec`. <https://developers.google.com/apps-script/guides/web>
-5. Enviar **únicamente la URL `/exec`** para actualizar el atributo `data-endpoint` de `flautistas-protagonistas/index.html` en GitHub. Esa URL no es una credencial privada; jamás compartir contraseñas ni tokens.
-6. Tras incorporar la URL al sitio, probar una inscripción con datos de ensayo y comprobar que aparece **una sola fila nueva** en la pestaña **Inscripciones web**, que los dos números se comparan correctamente y que la página solo muestra éxito después del acuse del servidor. Borrar cualquier registro de ensayo en la hoja al finalizar.
+La URL /exec ya fue incorporada al sitio. Si la implementación cambia, actualizar el atributo `data-endpoint` en `index.html`, publicar el cambio y repetir la prueba anterior.
 
 ## Seguridad y experiencia
 
