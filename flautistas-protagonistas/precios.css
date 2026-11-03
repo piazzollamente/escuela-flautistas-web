@@ -1,193 +1,115 @@
-/* Tarifas por país · Flautistas Protagonistas 2027.
-   Continúa el sistema visual editorial de Escuela de Flautistas. */
-.price-context{
-  min-height:1.6em;
-  margin:13px 0 0;
-  color:var(--muted);
-  font-size:.77rem;
-  font-weight:600;
-  line-height:1.6;
+/* Flautistas Protagonistas 2027 · Inversión pública, independiente del formulario.
+   Diseño editorial responsivo · Escuela de Flautistas. */
+.independent-pricing{
+  margin-top:clamp(52px,8vw,76px);
+  scroll-margin-top:24px;
+}
+.pricing-editorial{
+  border:1px solid var(--line);
+  border-top:4px solid var(--red);
+  border-radius:4px;
+  background:var(--cream);
+  padding:clamp(24px,5vw,46px);
   text-align:center;
 }
-.price-panel[hidden]{display:none !important}
-.price-panel{margin:24px 0 0}
-.price-grid{
+.pricing-editorial > .program-title{
+  margin:0 auto;
+  max-width:780px;
+}
+.pricing-editorial > .program-lead{
+  max-width:650px;
+  margin:16px auto 0;
+  font-size:.9rem;
+  line-height:1.68;
+}
+.pricing-markets{
   display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:16px;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+  margin-top:30px;
   text-align:left;
 }
-.price-card{
+.market-price{
   display:flex;
   flex-direction:column;
   min-width:0;
-  padding:25px 24px 22px;
-  border:1px solid var(--line);
-  border-top:3px solid var(--red);
+  overflow:hidden;
+  border:1px solid #D8D0C6;
   border-radius:4px;
-  background:white;
+  background:#fff;
 }
-.price-card:last-child{
+.market-price-head{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-height:99px;
+  gap:5px;
+  padding:22px 19px 17px;
   background:var(--ink);
   color:#fff;
-  border-color:var(--ink);
-  border-top-color:var(--mint);
 }
-.price-card-kicker{
-  margin:0 0 17px;
-  color:var(--muted);
-  font-size:.65rem;
-  font-weight:800;
-  letter-spacing:.15em;
-  line-height:1.4;
+.market-price-region{
+  font:500 clamp(2rem,3.2vw,2.6rem)/1 var(--serif);
+  letter-spacing:-.04em;
+}
+.market-price-currency{
+  color:var(--mint);
+  font:700 .62rem/1.55 var(--sans);
+  letter-spacing:.075em;
   text-transform:uppercase;
 }
-.price-card:last-child .price-card-kicker{color:var(--mint)}
-.price-value{
-  display:block;
-  margin:0;
-  font:500 clamp(2.05rem,4.4vw,3.12rem)/1 var(--serif);
-  letter-spacing:-.035em;
-  font-variant-numeric:tabular-nums;
-  overflow-wrap:anywhere;
+.market-option{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+  flex:1;
+  padding:22px 19px;
 }
-.price-card-subtitle{
-  margin:12px 0 0;
-  color:var(--muted);
-  font-size:.72rem;
-  font-weight:600;
-  line-height:1.55;
+.market-option + .market-option{
+  border-top:1px solid var(--line);
+  background:#F7F5F2;
 }
-.price-card:last-child .price-card-subtitle{color:rgba(255,255,255,.79)}
-.price-card .price-select-btn{margin-top:auto}
-.price-select-btn{
-  display:inline-flex;
-  width:100%;
-  min-height:46px;
-  align-items:center;
-  justify-content:center;
-  margin-top:24px;
-  padding:12px 14px;
-  border:1px solid var(--red);
-  border-radius:3px;
-  background:var(--red);
-  color:white;
-  cursor:pointer;
-  font:800 .64rem/1.4 var(--sans);
-  letter-spacing:.11em;
-  text-align:center;
+.market-option-label{
+  color:var(--red);
+  font:800 .66rem/1.4 var(--sans);
+  letter-spacing:.13em;
   text-transform:uppercase;
-  transition:background .18s ease,border-color .18s ease;
 }
-.price-select-btn:hover{background:#BA151B;border-color:#BA151B}
-.price-card:last-child .price-select-btn{
-  background:var(--mint);
-  border-color:var(--mint);
+.market-option-amount{
   color:var(--ink);
+  font:500 clamp(1.66rem,2.6vw,2.3rem)/1.07 var(--serif);
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-.035em;
+  overflow-wrap:normal;
+  word-break:normal;
 }
-.price-card:last-child .price-select-btn:hover{
-  background:#c2e9e2;
-  border-color:#c2e9e2;
-}
-.price-select-btn[aria-pressed="true"]{
-  outline:2px solid var(--mint-ink);
-  outline-offset:3px;
-}
-.price-note{
-  margin:18px 0 0;
+.market-option-foot{
   color:var(--muted);
-  font-size:.73rem;
-  font-weight:500;
-  line-height:1.7;
-  text-align:left;
+  font:600 .72rem/1.55 var(--sans);
 }
-.price-compliance{
-  max-width:670px;
+.pricing-caption{
+  max-width:740px;
   margin:20px auto 0;
   color:var(--muted);
-  font-size:.7rem;
-  line-height:1.7;
-  text-align:center;
+  font:500 .73rem/1.7 var(--sans);
 }
-.price-actions{margin-top:24px}
-@media(max-width:700px){
-  .price-grid{grid-template-columns:1fr;gap:12px}
-  .price-card{padding:22px 20px}
-  .price-value{font-size:clamp(2.25rem,8.8vw,3rem)}
-  .price-select-btn{margin-top:19px}
+.pricing-editorial .section-cta{margin-top:24px}
+@media(max-width:820px){
+  .pricing-markets{grid-template-columns:1fr;gap:12px}
+  .market-price{display:grid;grid-template-columns:minmax(155px,.8fr) repeat(2,minmax(0,1fr))}
+  .market-price-head{min-height:155px;padding:20px}
+  .market-option{padding:20px 16px;justify-content:center}
+  .market-option + .market-option{border-top:0;border-left:1px solid var(--line)}
+  .market-option-amount{font-size:clamp(1.8rem,3.1vw,2.4rem)}
 }
-/* Los precios aparecen dentro del formulario, justo tras el país. */
-.form-grid .form-pricing{
-  grid-column:1/-1;
-  width:100%;
-  margin:4px 0 8px;
-}
-.form-pricing .private-investment{
-  width:100%;
-  max-width:none;
-  padding:clamp(20px,3.2vw,32px);
-  text-align:left;
-}
-.form-pricing .program-kicker{
-  margin:0 0 12px;
-}
-.form-pricing .program-title{
-  max-width:none;
-  margin:0;
-  font-size:clamp(2.05rem,4vw,3rem);
-  line-height:1.02;
-}
-.form-pricing .program-lead{
-  max-width:650px;
-  margin:14px 0 0;
-  font-size:.84rem;
-  line-height:1.7;
-}
-.form-pricing .price-context{
-  margin:18px 0 0;
-  text-align:left;
-}
-.form-pricing .price-grid{
-  gap:12px;
-}
-.form-pricing .price-card{
-  padding:20px 18px;
-}
-.form-pricing .price-card-kicker{
-  margin-bottom:11px;
-}
-.form-pricing .price-value{
-  font-size:clamp(1.9rem,3.5vw,2.8rem);
-}
-.form-pricing .price-compliance{
-  max-width:none;
-  margin:17px 0 0;
-  text-align:left;
-}
-.form-pricing .private-investment-note{
-  text-align:left;
-  margin-top:16px;
-}
-@media(max-width:700px){
-  .form-grid .form-pricing{grid-column:1; margin:2px 0 6px}
-  .form-pricing .private-investment{padding:21px 16px}
-  .form-pricing .price-card{padding:19px 17px}
-  .form-pricing .price-value{font-size:clamp(2.1rem,8vw,2.7rem)}
-}
-
-/* Monto visible también bajo el selector de cuotas del formulario. */
-.field .payment-selection-note{
-  min-height:2.4em;
-  padding:11px 18px 15px;
-  margin:0;
-  border-top:1px solid #E6DED5;
-  background:#F7F5F2;
-  color:var(--ink);
-  font-family:var(--sans);
-  font-size:.77rem;
-  font-weight:700;
-  line-height:1.55;
-}
-@media(max-width:700px){
-  .field .payment-selection-note{padding:10px 16px 14px}
+@media(max-width:600px){
+  .pricing-editorial{padding:24px 14px}
+  .pricing-markets{margin-top:23px;gap:14px}
+  .market-price{display:block}
+  .market-price-head{min-height:0;padding:16px 17px;gap:4px}
+  .market-price-region{font-size:2rem}
+  .market-option{padding:17px}
+  .market-option + .market-option{border-top:1px solid var(--line);border-left:0}
+  .market-option-amount{font-size:clamp(2rem,7vw,2.6rem)}
+  .pricing-editorial .section-cta{width:100%;margin-top:21px}
 }
