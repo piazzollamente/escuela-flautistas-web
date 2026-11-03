@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Flautistas Protagonistas 2027 · Escuela de Flautistas</title>
-  <meta name="description" content="Flautistas Protagonistas 2027: seis semanas de formación online, fase preparatoria, interpretación y proyección artística. Inscripción con verificación de WhatsApp y preferencias de pago.">
+  <meta name="description" content="Flautistas Protagonistas 2027: seis semanas de formación online, fase preparatoria, interpretación y proyección artística. Inscripciones abiertas.">
   <link rel="canonical" href="https://escueladeflautistas.cl/flautistas-protagonistas/">
   <link rel="icon" type="image/png" href="/assets/favicon.png">
 
@@ -537,24 +537,13 @@
       gap:22px;
     }
 
-    /* El país y la inversión siempre ocupan una fila completa del formulario.
-       Se deja junto al grid principal para que el diseño no dependa de cachés de CSS externos. */
     #fpForm .form-grid{align-items:start}
     #fpForm .form-grid > .country-field,
-    #fpForm .form-grid > .form-pricing{
+    #fpForm .form-grid > .country-pricing{
       grid-column:1/-1;
-      min-width:0;
       width:100%;
+      min-width:0;
       align-self:start;
-    }
-    #fpForm .form-grid > .form-pricing{
-      margin:0;
-    }
-    #fpForm .form-grid > .form-pricing[hidden]{
-      display:none !important;
-    }
-    #fpForm .form-grid > .country-field input{
-      min-height:62px;
     }
 
     .field{
@@ -879,7 +868,7 @@
     }
   </style>
   <link rel="stylesheet" href="./inscripcion.css">
-  <link rel="stylesheet" href="./precios.css?v=20261103-vista-cuotas">
+  <link rel="stylesheet" href="./precios.css?v=20261103-pais-primero">
 </head>
 <body>
   <main class="page">
@@ -907,70 +896,6 @@
       </header>
 
 
-      <section class="pricing-section independent-pricing" aria-labelledby="inversion-heading">
-        <div class="pricing-editorial">
-          <p class="program-kicker">Flautistas Protagonistas · Edición 2027</p>
-          <h2 class="program-title" id="inversion-heading">Inversión de lanzamiento.</h2>
-          <p class="program-lead">Elige la tarifa correspondiente a tu país de residencia. Los valores son fijos en cada moneda, sin conversiones automáticas.</p>
-
-          <div class="pricing-markets">
-            <article class="market-price" aria-label="Precios para Chile">
-              <div class="market-price-head">
-                <span class="market-price-region">Chile</span>
-                <span class="market-price-currency">CLP · Pesos chilenos</span>
-              </div>
-              <div class="market-option">
-                <span class="market-option-label">1 pago</span>
-                <strong class="market-option-amount">CLP $399.900</strong>
-                <span class="market-option-foot">Pago único · Total</span>
-              </div>
-              <div class="market-option market-option-installments">
-                <span class="market-option-label">3 cuotas</span>
-                <strong class="market-option-amount">3 × CLP $139.900</strong>
-                <span class="market-option-foot">Total: CLP $419.700</span>
-              </div>
-            </article>
-
-            <article class="market-price" aria-label="Precios para Argentina">
-              <div class="market-price-head">
-                <span class="market-price-region">Argentina</span>
-                <span class="market-price-currency">ARS · Pesos argentinos</span>
-              </div>
-              <div class="market-option">
-                <span class="market-option-label">1 pago</span>
-                <strong class="market-option-amount">ARS $399.000</strong>
-                <span class="market-option-foot">Pago único · Total</span>
-              </div>
-              <div class="market-option market-option-installments">
-                <span class="market-option-label">3 cuotas</span>
-                <strong class="market-option-amount">3 × ARS $139.900</strong>
-                <span class="market-option-foot">Total: ARS $419.700</span>
-              </div>
-            </article>
-
-            <article class="market-price" aria-label="Precios para otros países">
-              <div class="market-price-head">
-                <span class="market-price-region">Otros países</span>
-                <span class="market-price-currency">USD · Dólares</span>
-              </div>
-              <div class="market-option">
-                <span class="market-option-label">1 pago</span>
-                <strong class="market-option-amount">USD 419</strong>
-                <span class="market-option-foot">Pago único · Total</span>
-              </div>
-              <div class="market-option market-option-installments">
-                <span class="market-option-label">3 cuotas</span>
-                <strong class="market-option-amount">3 × USD 147</strong>
-                <span class="market-option-foot">Total: USD 441</span>
-              </div>
-            </article>
-          </div>
-
-          <p class="pricing-caption">Los medios de pago y las condiciones de las cuotas se confirman antes de realizar el pago. La inscripción no reserva automáticamente un cupo.</p>
-          <a class="section-cta" href="#inscripcion-heading">Completar inscripción</a>
-        </div>
-      </section>
-
       <section class="form-section" aria-labelledby="inscripcion-heading">
         <div class="section-heading">
           <h2 id="inscripcion-heading">Inscripción · Edición 2027</h2>
@@ -978,40 +903,53 @@
         </div>
 
         <div class="form-shell">
-          <p class="form-lead" id="registroLead" hidden>Completa tus datos y selecciona si prefieres pagar en 1 o en 3 cuotas. Los precios de cada país se muestran arriba, por separado. El registro no confirma una plaza.</p>
+          <p class="form-lead" id="registroLead" hidden>Selecciona tu país, elige cómo pagar y completa tus datos.</p>
           <!-- Configuración: introducir solo la URL pública /exec del NUEVO Apps Script.
                No colocar credenciales de Google ni permisos de edición en el código público. -->
           <form id="fpForm" data-endpoint="https://script.google.com/macros/s/AKfycbwE1gLqw2rEew7G1RauCN00_Q-U7Qi154zT4nYVV9sz4j0snJUTdKDEL1rG68AYm4zJ/exec" action="#" method="post" hidden>
-            <p class="required-note"><span class="required-mark">*</span> Todos los campos son obligatorios.</p>
+            <p class="required-note"><span class="required-mark">*</span> Campos obligatorios</p>
 
             <div class="form-grid">
+              <div class="field field-full country-field">
+                <label for="pais">País de residencia <span class="required-mark">*</span></label>
+                <select id="pais" name="pais" required aria-controls="tarifasPorPais">
+                  <option value="" selected disabled>Selecciona tu país</option>
+                  <option value="Chile">Chile</option>
+                  <option value="Argentina">Argentina</option>
+                  <option value="Otro país">Otro país</option>
+                </select>
+              </div>
+
+              <section class="country-pricing field-full" id="tarifasPorPais" aria-label="Valores y modalidad de pago" hidden>
+                <p class="country-pricing-kicker" id="precioMercado">Inversión de lanzamiento</p>
+                <div class="country-pricing-choices" role="group" aria-label="Elige 1 pago o 3 cuotas">
+                  <label class="country-pricing-card" for="modalidad1">
+                    <input type="radio" name="modalidad" id="modalidad1" value="1" required>
+                    <span class="country-pricing-body">
+                      <span class="country-pricing-name">1 pago</span>
+                      <strong class="country-pricing-value" id="precioUnPago">—</strong>
+                      <span class="country-pricing-detail">Pago único</span>
+                    </span>
+                  </label>
+                  <label class="country-pricing-card" for="modalidad3">
+                    <input type="radio" name="modalidad" id="modalidad3" value="3" required>
+                    <span class="country-pricing-body">
+                      <span class="country-pricing-name">3 cuotas</span>
+                      <strong class="country-pricing-value" id="precioTresCuotas">—</strong>
+                      <span class="country-pricing-detail" id="precioTotalCuotas">—</span>
+                    </span>
+                  </label>
+                </div>
+              </section>
+
               <div class="field">
                 <label for="nombre">Nombre <span class="required-mark">*</span></label>
-                <span class="field-hint">Como quieres que te llamemos.</span>
                 <input id="nombre" name="nombre" type="text" maxlength="80" autocomplete="given-name" placeholder="Tu nombre" required>
               </div>
 
               <div class="field">
                 <label for="apellido">Apellido <span class="required-mark">*</span></label>
-                <span class="field-hint">Tu apellido.</span>
                 <input id="apellido" name="apellido" type="text" maxlength="80" autocomplete="family-name" placeholder="Tu apellido" required>
-              </div>
-
-              <div class="field field-full country-field">
-                <label for="pais">País de residencia <span class="required-mark">*</span></label>
-                <span class="field-hint">Selecciona de la lista o escribe tu país.</span>
-                <input id="pais" name="pais" type="text" list="fp-paises" maxlength="90" autocomplete="country-name" placeholder="Ej. Chile" required>
-                <datalist id="fp-paises">
-                  <option value="Argentina"><option value="Bolivia"><option value="Brasil">
-                  <option value="Canadá"><option value="Chile"><option value="Colombia">
-                  <option value="Costa Rica"><option value="Cuba"><option value="Ecuador">
-                  <option value="El Salvador"><option value="España"><option value="Estados Unidos">
-                  <option value="Francia"><option value="Guatemala"><option value="Honduras">
-                  <option value="Italia"><option value="México"><option value="Nicaragua">
-                  <option value="Panamá"><option value="Paraguay"><option value="Perú">
-                  <option value="Portugal"><option value="Puerto Rico"><option value="Reino Unido">
-                  <option value="República Dominicana"><option value="Uruguay"><option value="Venezuela">
-                </datalist>
               </div>
 
               <div class="field">
@@ -1027,59 +965,8 @@
                 <p class="field-help" id="whatsappHelp" aria-live="polite"></p>
               </div>
 
-              <div class="field">
-                <label for="moneda">Moneda de pago <span class="required-mark">*</span></label>
-                <span class="field-hint">Indica en qué moneda prefieres pagar.</span>
-                <select id="moneda" name="moneda" required>
-                  <option value="" selected disabled>Selecciona una moneda</option>
-                  <option value="USD — dólares">Dólares (USD)</option>
-                  <option value="ARS — pesos argentinos">Pesos argentinos (ARS)</option>
-                  <option value="CLP — pesos chilenos">Pesos chilenos (CLP)</option>
-                </select>
-              </div>
-
-              <div class="field">
-                <label for="cuotas">Cantidad de cuotas <span class="required-mark">*</span></label>
-                <span class="field-hint">Elige una de las dos modalidades indicadas en la sección de inversión.</span>
-                <select id="cuotas" name="cuotas" required aria-describedby="vistaPagoActual">
-                  <option value="" selected disabled>Selecciona una opción</option>
-                  <option value="1">1 pago</option>
-                  <option value="3">3 cuotas</option>
-                </select>
-              </div>
-
-              <aside class="payment-preview field-full" id="vistaPago" aria-labelledby="vistaPagoTitulo">
-                <div class="payment-preview-top">
-                  <div>
-                    <span class="payment-preview-kicker">Referencia de inversión · 2027</span>
-                    <h3 id="vistaPagoTitulo">Vista previa de tu pago</h3>
-                  </div>
-                  <a class="payment-preview-link" href="#inversion-heading">Ver precios completos</a>
-                </div>
-                <p class="payment-preview-current" id="vistaPagoActual" aria-live="polite">Selecciona tu país de residencia y elige 1 pago o 3 cuotas para consultar el importe correspondiente.</p>
-
-                <div class="payment-preview-reference">
-                  <p class="payment-preview-subheading">Valor de cada cuota al pagar en tres cuotas</p>
-                  <div class="payment-preview-list">
-                    <div class="payment-preview-market">
-                      <strong>Chile</strong>
-                      <span>3 × CLP $139.900</span>
-                      <small>Total: CLP $419.700</small>
-                    </div>
-                    <div class="payment-preview-market">
-                      <strong>Argentina</strong>
-                      <span>3 × ARS $139.900</span>
-                      <small>Total: ARS $419.700</small>
-                    </div>
-                    <div class="payment-preview-market">
-                      <strong>Otros países</strong>
-                      <span>3 × USD 147</span>
-                      <small>Total: USD 441</small>
-                    </div>
-                  </div>
-                </div>
-                <p class="payment-preview-disclaimer">Esta referencia no realiza cobros. La modalidad se registra como preferencia y los medios de pago se confirman por separado.</p>
-              </aside>
+              <input type="hidden" id="moneda" name="moneda" value="">
+              <input type="hidden" id="cuotas" name="cuotas" value="">
 
               <label class="consent-row" for="consentimiento">
                 <input id="consentimiento" name="consentimiento" type="checkbox" required>
@@ -1088,7 +975,7 @@
             </div>
 
             <div class="form-actions">
-              <p class="form-note">Puedes inscribirte en un pago o en tres cuotas. El formulario no procesa pagos ni garantiza una plaza; confirmaremos los medios de pago antes de cobrar.</p>
+              <p class="form-note">La inscripción no realiza cobros ni garantiza un cupo.</p>
               <button class="submit-btn" id="submitBtn" type="submit" disabled>Registrar mi inscripción</button>
             </div>
 
@@ -1195,6 +1082,6 @@
   </main>
 
   <script src="./inscripcion.js" defer></script>
-  <script src="./vista-cuotas.js?v=20261103-v1" defer></script>
+  <script src="./tarifas-pais.js?v=20261103-pais-primero" defer></script>
 </body>
 </html>
