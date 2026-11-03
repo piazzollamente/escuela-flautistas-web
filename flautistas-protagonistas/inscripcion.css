@@ -68,3 +68,6 @@
 .form-fallback p{margin:0 0 15px;font-size:.84rem;line-height:1.65;color:var(--muted)}
 .form-fallback .section-cta{display:inline-flex;max-width:100%;text-align:center;margin:0 0 15px}
 .form-fallback .form-note{margin:0;font-size:.73rem}
+
+#fpForm[hidden], .form-lead[hidden] { display:none !important; }
+.form-fallback .form-fallback-heading { color:var(--ink);font-family:var(--serif);font-size:clamp(1.65rem,3vw,2.3rem);font-weight:600;line-height:1.15;margin:0 0 14px; }

@@ -2,13 +2,16 @@
  * Registro de inscripciones — Flautistas Protagonistas 2027.
  * Google Apps Script independiente de la preinscripción anterior.
  *
- * Script Properties privadas: SPREADSHEET_ID, ALLOWED_ORIGIN.
+ * Vinculado a la hoja de inscripciones, no a la preinscripción.
  * No utiliza Twilio, OTP ni otros servicios de verificación telefónica.
+ * Para activarlo: ejecutar probarConexion(), autorizar y desplegar como aplicación web.
  *
  * Se solicita escribir el WhatsApp dos veces; los valores deben coincidir.
  * Esto NO verifica que la persona sea titular del número ni que exista una cuenta de WhatsApp.
  */
 
+const FP_SPREADSHEET_ID = "19ODt7wTppY6FJsE7ZQsH-lqNTiGJv4Ll9RqOvp7a2dQ";
+const FP_ALLOWED_ORIGIN = "https://escueladeflautistas.cl";
 const FP_SHEET_NAME = "Inscripciones web";
 const FP_ORIGIN = "Landing inscripción Flautistas Protagonistas 2027";
 const FP_CURRENCIES = ["USD — dólares", "ARS — pesos argentinos", "CLP — pesos chilenos"];
@@ -32,10 +35,19 @@ function doPost(e) {
   return fpReply_(result, requestId);
 }
 
-function fpRequired_(key) {
-  const value = PropertiesService.getScriptProperties().getProperty(key);
-  if (!value) throw new Error("CONFIG_ERROR");
-  return value;
+/** Ejecutar una sola vez desde el editor para verificar acceso y autorizar Sheets. */
+function probarConexion() {
+  const libro = SpreadsheetApp.openById(FP_SPREADSHEET_ID);
+  const hoja = libro.getSheetByName(FP_SHEET_NAME);
+  if (!hoja) throw new Error("No se encontró la pestaña de inscripciones.");
+  const encabezados = hoja.getRange(1, 1, 1, 16).getDisplayValues()[0];
+  const camposEsperados = ["Fecha de inscripción", "ID de inscripción", "Nombre", "Apellido", "País de residencia"];
+  if (camposEsperados.some(function (campo, i) { return encabezados[i] !== campo; })) {
+    throw new Error("Los encabezados de la hoja no coinciden con el formulario.");
+  }
+  const resultado = "Conexión correcta con " + FP_SHEET_NAME + ". No se escribieron datos.";
+  Logger.log(resultado);
+  return resultado;
 }
 
 function fpNormalizePhone_(value) {
@@ -77,7 +89,7 @@ function fpRegister_(p) {
   const lock = LockService.getScriptLock();
   lock.waitLock(15000);
   try {
-    const sheet = SpreadsheetApp.openById(fpRequired_("SPREADSHEET_ID"))
+    const sheet = SpreadsheetApp.openById(FP_SPREADSHEET_ID)
       .getSheetByName(FP_SHEET_NAME);
     if (!sheet) throw new Error("CONFIG_ERROR");
 
@@ -129,7 +141,7 @@ function fpPublicError_(err) {
 }
 
 function fpReply_(result, requestId) {
-  const origin = fpRequired_("ALLOWED_ORIGIN");
+  const origin = FP_ALLOWED_ORIGIN;
   if (!/^https:\/\/[a-z0-9.-]+$/.test(origin)) throw new Error("ALLOWED_ORIGIN inválido.");
   const payload = Object.assign(
     { source: "fp2027-inscripcion", solicitudId: requestId },

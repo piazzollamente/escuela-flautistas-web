@@ -907,7 +907,7 @@
           <h1>Flautistas<br>Protagonistas<span class="period">.</span></h1>
           <p class="intro-copy"><strong>Seis semanas para profundizar en tu interpretación y dar dirección a tu vida musical.</strong> Trabajarás una obra o fragmento y una dificultad concreta de tu práctica, mientras desarrollas un programa, propuesta o proyecto artístico posible de compartir con otras personas.</p>
           <p class="date-line"><strong>Inscripciones desde el 1 de noviembre de 2026</strong><br>Inicio previsto: enero de 2027 · Modalidad online</p>
-          <a class="hero-cta" href="#inscripcion-heading">Inscribirme al programa</a>
+          <a class="hero-cta" href="#inscripcion-heading">Quiero participar</a>
           <p class="hero-note">Cohorte de 8 participantes · 6 semanas + fase preparatoria. Completar el formulario no reserva una plaza.</p>
           <div class="countdown" id="countdown" aria-label="Cuenta regresiva hasta la apertura de inscripciones el 1 de noviembre de 2026">
             <div class="countdown-item"><span class="countdown-value" id="days">00</span><span class="countdown-label">Días</span></div>
@@ -1001,7 +1001,7 @@
         <div class="private-investment">
           <p class="program-kicker">Flautistas Protagonistas · Edición 2027</p>
           <h2 class="program-title" id="inversion-heading">Inscripción · Flautistas Protagonistas 2027</h2>
-          <p class="program-lead">Indica tus datos de contacto y cómo prefieres pagar. Verificaremos tu WhatsApp y te contactaremos para continuar con el proceso de inscripción.</p>
+          <p class="program-lead">Déjanos tus datos para iniciar el proceso. Te orientaremos sobre las modalidades de pago, disponibilidad y próximos pasos para participar.</p>
           <a class="section-cta" href="#inscripcion-heading">Completar el formulario</a>
           <p class="private-investment-note">Ocho participantes · Inicio previsto: enero de 2027 · El registro no confirma cupo ni pago.</p>
         </div>
@@ -1014,10 +1014,10 @@
         </div>
 
         <div class="form-shell">
-          <p class="form-lead">Completa tus datos, escribe dos veces tu número de WhatsApp para evitar errores y selecciona la moneda y cantidad de cuotas que prefieres. Esta etapa registra tu solicitud; la disponibilidad de cupos y el pago se confirman por separado.</p>
+          <p class="form-lead" id="registroLead" hidden>Completa tus datos, escribe dos veces tu número de WhatsApp para evitar errores y selecciona la moneda y cantidad de cuotas que prefieres. Esta etapa registra tu solicitud; la disponibilidad de cupos y el pago se confirman por separado.</p>
           <!-- Configuración: introducir solo la URL pública /exec del NUEVO Apps Script.
                No colocar credenciales de Google ni permisos de edición en el código público. -->
-          <form id="fpForm" data-endpoint="#" action="#" method="post">
+          <form id="fpForm" data-endpoint="#" action="#" method="post" hidden>
             <p class="required-note"><span class="required-mark">*</span> Todos los campos son obligatorios.</p>
 
             <div class="form-grid">
@@ -1097,12 +1097,14 @@
             </div>
 
             <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
-            <div class="form-fallback" id="formFallback" hidden>
-              <p>Mientras habilitamos el registro de inscripciones, puedes seguir dejando tus datos en el formulario de solicitud de información.</p>
-              <a class="section-cta" href="./solicitar-informacion.html">Solicitar información del programa</a>
-              <p class="form-note">Esta alternativa es una preinscripción: no procesa pagos ni reserva plazas.</p>
-            </div>
           </form>
+
+          <div class="form-fallback" id="formFallback">
+            <p class="form-fallback-heading">Tu camino como Flautista Protagonista comienza aquí.</p>
+            <p>Déjanos tus datos para recibir la información del programa, las modalidades de pago y los siguientes pasos de inscripción.</p>
+            <a class="section-cta" href="./solicitar-informacion.html">Solicitar información para inscribirme</a>
+            <p class="form-note">Este primer contacto no garantiza una plaza ni genera un pago.</p>
+          </div>
 
           <form id="fpBridgeForm" method="post" target="fp-inscripcion-response" hidden aria-hidden="true"></form>
           <iframe class="submit-target" id="fp-submit-target" name="fp-inscripcion-response" title="Respuesta privada del sistema de inscripción"></iframe>
