@@ -183,6 +183,8 @@
   if (!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(endpoint)) {
     registerButton.disabled = true;
     showStatus("La inscripción en línea estará disponible cuando finalice la conexión segura con Google Sheets.", "error");
+    const fallback = document.getElementById("formFallback");
+    if (fallback) fallback.hidden = false;
   } else {
     registerButton.disabled = false;
   }
