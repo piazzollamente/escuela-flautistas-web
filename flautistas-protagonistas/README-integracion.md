@@ -3,7 +3,7 @@
 ## Estado de integración
 
 - **Aplicación Google Apps Script:** la administradora ejecutó `probarConexion()` y obtuvo «Conexión correcta con Inscripciones web. No se escribieron datos.»
-- **URL de despliegue suministrada:** `https://script.google.com/macros/s/AKfycbwE1gLqw2rEew7G1RauCN00_Q-U7Qi154zT4nYVV9sz4j0snJUTdKDEL1rG68AYm4zJ/exec`.
+- **URL de despliegue actualizada (versión email-v2, indicada por la administradora):** `https://script.google.com/macros/s/AKfycbz5FhrX5Ezxt1vGb9v12ZZYImt7ZnUxh0lPzxJgx6eGx3_7_lopg2gW-qlrTtAwk4Bl/exec`.
 - **Sitio web:** el formulario apunta a esta URL mediante `data-endpoint`; ahora solo se habilita cuando el servidor confirma que puede conservar el correo electrónico (`email-v2`). Si el despliegue está desactualizado, la página muestra temporalmente la alternativa de contacto.
 - **Prueba real de envío:** pendiente. La comprobación de acceso a la hoja **no** prueba por sí sola la recepción de una inscripción enviada desde el navegador.
 - **Privacidad:** no se envían códigos a WhatsApp ni se comprueba la titularidad del número; los dos valores se comparan para evitar errores de escritura.
@@ -62,11 +62,14 @@ El registro **no cobra cuotas ni garantiza cupos**.
 
 La hoja [Inscripciones web](https://docs.google.com/spreadsheets/d/19ODt7wTppY6FJsE7ZQsH-lqNTiGJv4Ll9RqOvp7a2dQ/edit) ya tiene creada la columna **Q · Correo electrónico**. El código actualizado de este repositorio valida y escribe el campo `correo` como valor 17, sin alterar A:P.
 
-**Paso manual obligatorio:** la propietaria debe abrir el proyecto **Inscripciones Flautistas Protagonistas 2027** en Google Apps Script, reemplazar el contenido de `Code.gs` por el archivo [apps-script/Code.gs](./apps-script/Code.gs), guardar, ejecutar `probarConexion()` y actualizar la implementación de aplicación web mediante **Implementar → Gestionar implementaciones → Editar → Versión: Nueva versión → Implementar**. Se mantiene la misma URL `/exec` si se edita la implementación existente.
+**Código entregado para implementación:** la propietaria debe abrir el proyecto **Inscripciones Flautistas Protagonistas 2027** en Google Apps Script, reemplazar el contenido de `Code.gs` por el archivo [apps-script/Code.gs](./apps-script/Code.gs), guardar, ejecutar `probarConexion()` y actualizar la implementación de aplicación web mediante **Implementar → Gestionar implementaciones → Editar → Versión: Nueva versión → Implementar**. Se mantiene la misma URL `/exec` si se edita la implementación existente.
 
 **Control contra pérdida de datos:** la web pide al servidor una confirmación `email-v2` mediante `doGet(?accion=comprobar_correo&token=...)`. Hasta que responda la nueva versión, el formulario permanece oculto y se ofrece la alternativa de solicitud de información. No se debe aceptar como válida una inscripción cuyo correo no esté almacenado. La respuesta de `doPost` ahora incluye `emailCaptured: true`.
 
 **Prueba final:** abrir la página desde navegador privado, comprobar que aparece correo electrónico obligatorio, enviar una inscripción de prueba, verificar email en la misma fila Q, y retirar únicamente la fila de prueba. **Ningún correo automático se envía todavía**; esta actualización solo incorpora la captura y el almacenamiento del email.
+
+
+**URL nueva incorporada al sitio:** el enlace `/exec` indicado fue integrado a `index.html`. La compatibilidad real de `email-v2` y la escritura de un correo de prueba en Q deben comprobarse desde la página una vez terminada la publicación; la actualización del enlace no demuestra que el servicio esté autorizado y configurado.
 
 ## Seguridad y experiencia
 
