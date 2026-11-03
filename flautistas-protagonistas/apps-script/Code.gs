@@ -605,7 +605,8 @@ function fpProcesarRespuestasFechas_(book, quota) {
   });
 
   const rows = plans.getRange(2, 1, plans.getLastRow() - 1, 20).getValues();
-  for (let i = 0; i < rows.length && quota > 0; i++) {
+  // La validación y el registro de fechas no consumen cupo de email.
+  for (let i = 0; i < rows.length; i++) {
     const p = rows[i];
     const id = String(p[0] || "").trim();
     const email = String(p[1] || "").trim().toLowerCase();
@@ -685,6 +686,7 @@ function fpProcesarRespuestasFechas_(book, quota) {
           "para organizar el calendario.</p>")
       };
       try {
+        if (quota < 1) throw new Error("Sin cuota disponible para solicitar corrección.");
         fpEnviarMail_(email, mail);
         fpCorreoLog_(book, id, email, "Corrección de fechas",
           "Enviado", latest.getId());
@@ -934,7 +936,12 @@ function procesarCorreosFP2027() {
     const quota = Math.min(FP_MAIL_MAX_PER_RUN,
       MailApp.getRemainingDailyQuota());
     let left = fpEnviarCorreosIniciales_(book, configs, quota);
-    left = fpProcesarRespuestasFechas_(book, left);
+    try {
+      left = fpProcesarRespuestasFechas_(book, left);
+    } catch (error) {
+      // Una autorización pendiente de Gmail no debe detener los demás procesos.
+      console.error("No se pudieron leer respuestas de cuotas: " + String(error));
+    }
     left = fpConfirmarCalendarios_(book, left);
     left = fpRecordatoriosCuotas_(book, configs, left);
     left = fpConfirmacionesPagoCompleto_(book, left);
