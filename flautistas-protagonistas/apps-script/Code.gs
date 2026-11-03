@@ -207,6 +207,8 @@ const FP_MAIL_HISTORY_SHEET = "Historial correo FP2027";
 const FP_MAIL_PLAN_SHEET = "Plan pagos FP2027";
 const FP_MAIL_REPLY_TO = "valentina@escueladeflautistas.cl";
 const FP_MAIL_TIMEZONE = "America/Santiago";
+const FP_PAYMENT_DEADLINE_ISO = "2027-01-15";
+const FP_PAYMENT_DEADLINE_LABEL = "antes del 15 de enero de 2027 (último día: 14 de enero)";
 const FP_MAIL_MAX_PER_RUN = 10;
 
 const FP_MAIL_PRICES = {
@@ -303,9 +305,10 @@ function fpCorreoPago_(person, settings) {
   const commitment = triple ?
     "\nResponde este correo con las tres fechas en que te comprometes " +
     "a pagar (DD/MM/AAAA):\nPrimera cuota:\nSegunda cuota:\nTercera cuota:\n" +
+    "Las tres fechas deben ser anteriores al 15/01/2027.\n" +
     "Revisaré las fechas y te confirmaré el calendario.\n" : "";
   const conditions = "\nEl programa debe estar completamente abonado " +
-    "antes del comienzo de las clases.\n" +
+    FP_PAYMENT_DEADLINE_LABEL + ".\n" +
     "Datos de pago (" + person.market + " — " + settings.method + "):\n" +
     paymentText + "\n\nCuando realices un pago, responde a este correo " +
     "con el comprobante para verificarlo. La recepción de la inscripción " +
@@ -319,7 +322,8 @@ function fpCorreoPago_(person, settings) {
     '<p style="padding:15px;background:#F7F5F2;border-left:3px solid #E31C23;">' +
     'Primera cuota: DD/MM/AAAA<br>Segunda cuota: DD/MM/AAAA<br>' +
     'Tercera cuota: DD/MM/AAAA</p>' +
-    '<p>Revisaré las fechas y te confirmaré el calendario.</p>' : "";
+    '<p>Las tres fechas deben ser anteriores al <strong>15/01/2027</strong>. ' +
+    'Revisaré las fechas y te confirmaré el calendario.</p>' : "";
 
   const instructions = fpEscaparHtml_(paymentText).replace(/\r?\n/g, "<br>");
   const inside = '<p>Hola, ' + fpEscaparHtml_(person.firstName) + ':</p>' +
@@ -329,8 +333,8 @@ function fpCorreoPago_(person, settings) {
     'letter-spacing:1px;">MODALIDAD ELEGIDA</div>' +
     '<div style="font:500 21px/1.4 Georgia,serif;margin-top:9px;">' +
     safeMode + '</div></div>' + datesHtml +
-    '<p><strong>El programa debe estar completamente abonado antes del ' +
-    'comienzo de las clases.</strong></p>' +
+    '<p><strong>El programa debe estar completamente abonado ' +
+    'antes del 15 de enero de 2027 (último día: 14 de enero).</strong></p>' +
     '<p><strong>Datos de pago · ' + fpEscaparHtml_(person.market) +
     ' · ' + fpEscaparHtml_(settings.method) + '</strong></p>' +
     '<p style="padding:15px;border:1px solid #D8D0C6;background:#FFFFFF;">' +
@@ -401,6 +405,9 @@ function fpSincronizarPlanesCorreo_(book) {
 }
 
 function fpEnviarCorreosIniciales_(book, configs, quota) {
+  // No solicitar pagos nuevos cuando el plazo ya ha vencido.
+  if (Utilities.formatDate(new Date(), FP_MAIL_TIMEZONE, "yyyy-MM-dd") >=
+      FP_PAYMENT_DEADLINE_ISO) return quota;
   const sheet = book.getSheetByName(FP_SHEET_NAME);
   const last = sheet.getLastRow();
   if (last <= 1) return quota;
@@ -464,28 +471,34 @@ function fpFechaPagoDias_(value, today) {
   );
 }
 
-function fpInicioClases_(book) {
+/** Fecha exclusiva: el 15/01/2027 NO está permitido como día de pago. */
+function fpFechaLimitePago_(book) {
   const config = book.getSheetByName(FP_MAIL_CONFIG_SHEET);
   if (!config) return null;
   const date = config.getRange(2, 6).getValue();
-  return date instanceof Date && !isNaN(date.getTime()) ? date : null;
+  if (!(date instanceof Date) || isNaN(date.getTime())) return null;
+  return Utilities.formatDate(date, FP_MAIL_TIMEZONE, "yyyy-MM-dd") ===
+    FP_PAYMENT_DEADLINE_ISO ? date : null;
 }
 
-function fpCalendarioValido_(plan, startDate) {
-  if (!startDate || !(startDate instanceof Date)) return false;
+function fpCalendarioValido_(plan, deadline) {
+  if (!deadline) return false;
   const dates = [plan[4], plan[5], plan[6]];
-  return dates.every(function (date) {
+  if (!dates.every(function (date) {
     return date instanceof Date && !isNaN(date.getTime());
-  }) && dates[0].getTime() < dates[1].getTime() &&
-    dates[1].getTime() < dates[2].getTime() &&
-    dates[2].getTime() < startDate.getTime();
+  })) return false;
+  const iso = dates.map(function (date) {
+    return Utilities.formatDate(date, FP_MAIL_TIMEZONE, "yyyy-MM-dd");
+  });
+  return iso[0] < iso[1] && iso[1] < iso[2] &&
+    iso[2] < FP_PAYMENT_DEADLINE_ISO;
 }
 
 function fpConfirmarCalendarios_(book, quota) {
   const plans = book.getSheetByName(FP_MAIL_PLAN_SHEET);
   const enrollments = book.getSheetByName(FP_SHEET_NAME);
-  const kickoff = fpInicioClases_(book);
-  if (!plans || !enrollments || !kickoff ||
+  const deadline = fpFechaLimitePago_(book);
+  if (!plans || !enrollments || !deadline ||
       plans.getLastRow() <= 1 || enrollments.getLastRow() <= 1) return quota;
 
   const paidRows = enrollments.getRange(2, 1,
@@ -504,7 +517,7 @@ function fpConfirmarCalendarios_(book, quota) {
       String(row[7] || "").trim().toLowerCase());
     if (!id || !eligible.has(id) || !fpEmailValido_(email) ||
         !FP_MAIL_PRICES[market] || String(row[3]) !== "3" ||
-        !approved || row[16] || !fpCalendarioValido_(row, kickoff)) continue;
+        !approved || row[16] || !fpCalendarioValido_(row, deadline)) continue;
 
     const dates = [row[4], row[5], row[6]].map(function (date) {
       return Utilities.formatDate(date, FP_MAIL_TIMEZONE, "dd/MM/yyyy");
@@ -515,8 +528,8 @@ function fpConfirmarCalendarios_(book, quota) {
     const body = "Hola:\n\nConfirmamos tu calendario de tres pagos " +
       "para Flautistas Protagonistas 2027:\n\n" + textDates +
       "\n\nCada cuota: " + price.three + " (total: " + price.total + ")." +
-      "\n\nTodos los pagos deben estar acreditados antes del inicio " +
-      "de las clases. Conserva tus comprobantes y respóndenos " +
+      "\n\nLos tres pagos deben estar acreditados antes del 15 de enero " +
+      "de 2027 (último día: 14 de enero). Conserva tus comprobantes y respóndenos " +
       "en este hilo después de cada transferencia.\n\n" +
       "Valentina Galaz\nEscuela de Flautistas";
     const html = "<p>Confirmamos las fechas de tus tres pagos:</p>" +
@@ -528,8 +541,8 @@ function fpConfirmarCalendarios_(book, quota) {
       "<p>Valor de cada cuota: <strong>" +
       fpEscaparHtml_(price.three) + "</strong>. Total: " +
       fpEscaparHtml_(price.total) + ".</p>" +
-      "<p><strong>El total debe estar abonado antes del comienzo " +
-      "de las clases.</strong></p>" +
+      "<p><strong>El total debe estar abonado antes del 15 de enero " +
+      "de 2027 (último día: 14 de enero).</strong></p>" +
       "<p>Responde con el comprobante de cada pago para verificarlo.</p>";
 
     const cell = plans.getRange(i + 2, 17);
@@ -558,8 +571,8 @@ function fpRecordatoriosCuotas_(book, configs, quota) {
   const plans = book.getSheetByName(FP_MAIL_PLAN_SHEET);
   if (!plans || plans.getLastRow() <= 1) return quota;
   const rows = plans.getRange(2, 1, plans.getLastRow() - 1, 18).getValues();
-  const kickoff = fpInicioClases_(book);
-  if (!kickoff) return quota;
+  const deadline = fpFechaLimitePago_(book);
+  if (!deadline) return quota;
   const today = new Date();
   const enrollmentSheet = book.getSheetByName(FP_SHEET_NAME);
   const settled = new Set(enrollmentSheet && enrollmentSheet.getLastRow() > 1 ?
@@ -578,7 +591,7 @@ function fpRecordatoriosCuotas_(book, configs, quota) {
           String(row[7] || "").trim().toLowerCase()) ||
         !fpCorreoDisponible_(market, configs) ||
         String(row[16] || "") !== "Enviado" ||
-        !fpCalendarioValido_(row, kickoff)) continue;
+        !fpCalendarioValido_(row, deadline)) continue;
 
     // Los vencimientos y pagos son revisados por la directora de la escuela.
     for (let j = 0; j < 3 && quota > 0; j++) {
@@ -733,8 +746,9 @@ function probarConfiguracionCorreosFP2027() {
     result[market] = fpCorreoDisponible_(market, configs) ?
       "Listo para enviar" : "Pendiente: revisar instrucciones y habilitar";
   });
-  result["Inicio de clases"] = fpInicioClases_(book) ?
-    "Fecha configurada" : "Pendiente: definir la fecha para validar cuotas";
+  result["Límite de pago"] = fpFechaLimitePago_(book) ?
+    "Antes del 15/01/2027 (último día: 14/01/2027)" :
+    "Pendiente: F2 debe contener la fecha 15/01/2027";
   Logger.log(JSON.stringify(result));
   return result;
 }
