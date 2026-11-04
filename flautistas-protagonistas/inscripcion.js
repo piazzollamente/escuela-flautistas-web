@@ -117,7 +117,7 @@
     const data = event.data;
     // No mostrar el formulario hasta confirmar que Apps Script almacena email.
     if (data && data.source === "fp2027-servicio" &&
-        data.version === "email-v2" && readinessToken &&
+        data.version === "cuotas-2-v1" && readinessToken &&
         data.token === readinessToken) {
       form.hidden = false;
       if (lead) lead.hidden = false;
@@ -171,9 +171,9 @@
       form.reportValidity();
       return;
     }
-    // Las opciones visuales son radios; Apps Script sigue recibiendo cuotas=1|3.
+    // Las opciones visuales son radios; Apps Script recibe cuotas=1|2|3.
     const selectedPlan = form.querySelector('input[name="modalidad"]:checked');
-    if (!selectedPlan || !["1", "3"].includes(selectedPlan.value) || !currency.value) {
+    if (!selectedPlan || !["1", "2", "3"].includes(selectedPlan.value) || !currency.value) {
       showStatus("Selecciona tu país y la modalidad de pago.", "error");
       return;
     }
@@ -211,6 +211,6 @@
   if (endpointReady) {
     readinessToken = createRequestId();
     iframe.src = endpoint + "?accion=comprobar_correo&token=" +
-      encodeURIComponent(readinessToken);
+      encodeURIComponent(readinessToken) + "&capacidad=2";
   }
 })();
