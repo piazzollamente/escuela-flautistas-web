@@ -77,6 +77,9 @@ La hoja [Inscripciones web](https://docs.google.com/spreadsheets/d/19ODt7wTppY6F
 
 Se ha preparado el código de correo transaccional, con guía completa en [apps-script/README-correos.md](./apps-script/README-correos.md). **El repositorio no instala ni habilita por sí solo la automatización en Google Apps Script**.
 
+**Nueva implementación indicada por Valentina (04/11/2026):** `https://script.google.com/macros/s/AKfycbzAoTW2si582RyzX_tynEuH2hQzfZTgH3zskm_GlUDTFBN4fTWJqzh3gkrWXR5pyBEs/exec`. La rama `feat/fp2027-dos-cuotas` ya apunta a esa dirección. **La URL no pudo comprobarse desde el entorno de integración**; se requiere verificar que la versión publicada del receptor acepte `cuotas=2` antes de fusionar el PR y activar la nueva opción.
+
+
 Estructura creada en el mismo Google Sheets:
 - `Inscripciones web`: R–T seguimiento del primer correo, U–V seguimiento de confirmación de pago total; Emma Rioseco tiene su correo recuperado de los eventos de mentoría e incorporado a Q2, R2 = Pendiente.
 - `Configuración pagos FP2027`: ruta Chile / Argentina / Otro país (Western Union); instrucciones de pago y habilitación restringida. Los tres mercados comienzan con D = No; en F2 va el límite exclusivo de pago (15/01/2027).
