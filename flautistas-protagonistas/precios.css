@@ -22,7 +22,7 @@
 }
 .country-pricing-choices{
   display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-template-columns:repeat(3,minmax(0,1fr));
   gap:12px;
 }
 .country-pricing-card{
@@ -76,7 +76,7 @@
 .country-pricing-value{
   display:block;
   color:var(--ink);
-  font:600 clamp(1.9rem,3.9vw,3rem)/1 var(--serif);
+  font:600 clamp(1.45rem,2.9vw,2.5rem)/1.05 var(--serif);
   letter-spacing:-.03em;
   font-variant-numeric:tabular-nums;
   overflow-wrap:normal;
@@ -94,6 +94,11 @@
 #fpForm .country-field select{
   font-size:1.04rem;
   font-weight:600;
+}
+@media(min-width:701px) and (max-width:1000px){
+  .country-pricing-choices{gap:9px}
+  .country-pricing-card{padding:16px 12px;gap:8px}
+  .country-pricing-value{font-size:clamp(1.45rem,2.6vw,2rem)}
 }
 @media(max-width:700px){
   .country-pricing{padding:15px}
