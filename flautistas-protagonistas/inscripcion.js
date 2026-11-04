@@ -117,7 +117,7 @@
     const data = event.data;
     // No mostrar el formulario hasta confirmar que Apps Script almacena email.
     if (data && data.source === "fp2027-servicio" &&
-        data.version === "email-v2" && readinessToken &&
+        data.version === "cuotas-2-v1" && readinessToken &&
         data.token === readinessToken) {
       form.hidden = false;
       if (lead) lead.hidden = false;
@@ -211,6 +211,6 @@
   if (endpointReady) {
     readinessToken = createRequestId();
     iframe.src = endpoint + "?accion=comprobar_correo&token=" +
-      encodeURIComponent(readinessToken);
+      encodeURIComponent(readinessToken) + "&capacidad=2";
   }
 })();
