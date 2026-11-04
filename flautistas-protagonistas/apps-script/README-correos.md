@@ -91,6 +91,16 @@ El remitente visible será «Escuela de Flautistas». La cuenta de envío real s
 - F2 debe contener 15/01/2027 (fecha límite exclusiva), no una fecha de inicio de clases.
 - Configurar y autorizar el disparador desde el Apps Script real; ejecutar prueba controlada.
 
+## Verificación segura de la nueva implementación
+
+Tras pegar el `Code.gs` completo, guardarlo y desplegar una **nueva versión**, abre esta URL en el navegador:
+
+`https://script.google.com/macros/s/AKfycbzAoTW2si582RyzX_tynEuH2hQzfZTgH3zskm_GlUDTFBN4fTWJqzh3gkrWXR5pyBEs/exec?accion=comprobar_dos_cuotas`
+
+Si devuelve `FP2027 - OK: esta version acepta 1, 2 y 3 cuotas.`, el endpoint publicado contiene la versión compatible con el nuevo formulario. Este diagnóstico **no registra inscripciones, no modifica Sheets y no envía correos**. No sustituye una prueba posterior de extremo a extremo, pero evita publicar la interfaz contra una versión anterior del receptor.
+
+El formulario actualizado solicita también la capacidad `capacidad=2` y solo se habilita si el Apps Script confirma la versión `cuotas-2-v1`; el formulario viejo sigue pudiendo comprobar `email-v2`.
+
 ## Despliegue de la modalidad de 2 cuotas
 
 El código publicado en GitHub **no actualiza automáticamente** la implementación `/exec` de Apps Script. Para activar 2 cuotas sin rechazos, primero copiar `Code.gs` al proyecto real y desplegar una **nueva versión** en la implementación existente. Después publicar la interfaz de las tres modalidades. Probar una inscripción de prueba con `cuotas=2` y confirmar que se guarda `2` en la columna J, sin enviar mensajes a personas reales. La plantilla solicita dos fechas y el plan de pagos utiliza solo las cuotas 1 y 2. No activar el disparador de correos sin verificar que utiliza `valentina@escueladeflautistas.cl` como remitente real.
