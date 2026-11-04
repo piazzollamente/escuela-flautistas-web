@@ -15,15 +15,29 @@ const FP_ALLOWED_ORIGIN = "https://escueladeflautistas.cl";
 const FP_SHEET_NAME = "Inscripciones web";
 const FP_ORIGIN = "Landing inscripción Flautistas Protagonistas 2027";
 const FP_CURRENCIES = ["USD — dólares", "ARS — pesos argentinos", "CLP — pesos chilenos"];
+const FP_ALLOWED_INSTALLMENTS = ["1", "2", "3"];
 
 function doGet(e) {
   const p = (e && e.parameter) || {};
   const token = String(p.token || "");
+  // Diagnóstico de solo lectura: no registra personas ni envía correos.
+  if (p.accion === "comprobar_dos_cuotas") {
+    const compatible = FP_ALLOWED_INSTALLMENTS.includes("2") &&
+      ["Chile", "Argentina", "Otro país"].every(function (market) {
+        const price = FP_MAIL_PRICES[market];
+        return price && price.two && price.three && price.total;
+      });
+    return HtmlService.createHtmlOutput(compatible ?
+      "FP2027 - OK: esta version acepta 1, 2 y 3 cuotas." :
+      "FP2027 - ERROR: dos cuotas no disponibles.");
+  }
   // Permite a la web confirmar que esta versión ya guarda la columna de email.
   // La versión anterior no responde; así evitamos perder direcciones de correo.
   if (p.accion === "comprobar_correo" && /^[a-zA-Z0-9-]{8,80}$/.test(token)) {
     const payload = JSON.stringify({
-      source: "fp2027-servicio", version: "email-v2", token: token
+      source: "fp2027-servicio",
+      version: p.capacidad === "2" && FP_ALLOWED_INSTALLMENTS.includes("2") ?
+        "cuotas-2-v1" : "email-v2", token: token
     }).replace(/</g, "\\u003c");
     const html = '<!doctype html><html><head><meta charset="utf-8"></head><body>' +
       '<script>window.top.postMessage(' + payload + ',' +
@@ -112,7 +126,7 @@ function fpRegister_(p) {
   const currency = String(p.moneda || "");
   const installments = String(p.cuotas || "");
   if (!FP_CURRENCIES.includes(currency) ||
-      !["1", "2", "3"].includes(installments)) throw new Error("FORM_INVALID");
+      !FP_ALLOWED_INSTALLMENTS.includes(installments)) throw new Error("FORM_INVALID");
   if (p.consentimiento !== "si") throw new Error("CONSENT_REQUIRED");
 
   const lock = LockService.getScriptLock();
@@ -678,7 +692,7 @@ function fpConfirmacionesPagoCompleto_(book, quota) {
     if (!fpEmailValido_(email)) continue;
     const installments = String(row[9] || "");
     const plan = planById[id];
-    if (!["1", "2", "3"].includes(installments)) continue;
+    if (!FP_ALLOWED_INSTALLMENTS.includes(installments)) continue;
     const quantity = Number(installments);
     if (quantity > 1 && (!plan ||
         !Array.from({length: quantity}, function (_, j) {
