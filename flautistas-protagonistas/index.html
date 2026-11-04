@@ -868,7 +868,7 @@
     }
   </style>
   <link rel="stylesheet" href="./inscripcion.css">
-  <link rel="stylesheet" href="./precios.css?v=20261103-pais-primero">
+  <link rel="stylesheet" href="./precios.css?v=20261104-dos-cuotas">
 </head>
 <body>
   <main class="page">
@@ -922,13 +922,21 @@
 
               <section class="country-pricing field-full" id="tarifasPorPais" aria-label="Valores y modalidad de pago" hidden>
                 <p class="country-pricing-kicker" id="precioMercado">Inversión de lanzamiento</p>
-                <div class="country-pricing-choices" role="group" aria-label="Elige 1 pago o 3 cuotas">
+                <div class="country-pricing-choices" role="group" aria-label="Elige 1 pago, 2 cuotas o 3 cuotas">
                   <label class="country-pricing-card" for="modalidad1">
                     <input type="radio" name="modalidad" id="modalidad1" value="1" required>
                     <span class="country-pricing-body">
                       <span class="country-pricing-name">1 pago</span>
                       <strong class="country-pricing-value" id="precioUnPago">—</strong>
                       <span class="country-pricing-detail">Pago único</span>
+                    </span>
+                  </label>
+                  <label class="country-pricing-card" for="modalidad2">
+                    <input type="radio" name="modalidad" id="modalidad2" value="2" required>
+                    <span class="country-pricing-body">
+                      <span class="country-pricing-name">2 cuotas</span>
+                      <strong class="country-pricing-value" id="precioDosCuotas">—</strong>
+                      <span class="country-pricing-detail" id="precioTotalDosCuotas">—</span>
                     </span>
                   </label>
                   <label class="country-pricing-card" for="modalidad3">
@@ -1086,7 +1094,7 @@
     </div>
   </main>
 
-  <script src="./inscripcion.js?v=20261103-email-v2" defer></script>
-  <script src="./tarifas-pais.js?v=20261103-pais-primero" defer></script>
+  <script src="./inscripcion.js?v=20261104-dos-cuotas" defer></script>
+  <script src="./tarifas-pais.js?v=20261104-dos-cuotas" defer></script>
 </body>
 </html>
