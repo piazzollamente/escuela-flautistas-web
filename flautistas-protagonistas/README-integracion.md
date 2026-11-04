@@ -14,7 +14,7 @@
 1. Abrir [Flautistas Protagonistas 2027](https://escueladeflautistas.cl/flautistas-protagonistas/) en una ventana de incógnito y recargar para evitar caché.
 2. Confirmar que se ve el formulario de inscripción y que no aparece ningún aviso sobre Google Sheets o configuración técnica.
 3. Introducir un número de WhatsApp diferente en cada campo: el navegador debe bloquear el envío con un mensaje de discordancia.
-4. Seleccionar Chile, Argentina u Otro país, elegir 1 pago o 3 cuotas e ingresar datos de **prueba claramente identificados**, incluido un **correo electrónico de prueba**; aceptar el consentimiento y enviar.
+4. Seleccionar Chile, Argentina u Otro país, elegir 1 pago, 2 cuotas o 3 cuotas e ingresar datos de **prueba claramente identificados**, incluido un **correo electrónico de prueba**; aceptar el consentimiento y enviar.
 5. Debe mostrarse un **código de registro** solo después del mensaje positivo del servidor.
 6. Abrir la [hoja de inscripciones](https://docs.google.com/spreadsheets/d/19ODt7wTppY6FJsE7ZQsH-lqNTiGJv4Ll9RqOvp7a2dQ/edit), pestaña `Inscripciones web`. Confirmar que hay **una fila**, con el número normalizado, `Coinciden`, `No realizada`, moneda y cuotas correctas y el email en la columna **Q**.
 7. Eliminar cuidadosamente **solo el registro de prueba**. No modificar inscripciones reales.
@@ -23,22 +23,24 @@
 
 ## Tarifas públicas de lanzamiento 2027
 
-**Flujo visible:** país de residencia (Chile, Argentina u Otro país) → dos tarjetas de precios (**1 pago** o **3 cuotas**) → nombre, apellido, correo electrónico, doble WhatsApp y consentimiento → registro.
+**Flujo visible:** país de residencia (Chile, Argentina u Otro país) → tres tarjetas de precios (**1 pago**, **2 cuotas** o **3 cuotas**) → nombre, apellido, correo electrónico, doble WhatsApp y consentimiento → registro.
 
 No existen tablas de precios adicionales, un segundo selector de moneda ni resúmenes duplicados. La tarjeta elegida determina la cantidad de cuotas; el país determina automáticamente la moneda enviada al receptor de Google Sheets. Los importes se muestran solamente después de seleccionar el país. El código que realiza esta correspondencia es [tarifas-pais.js](./tarifas-pais.js).
 
-| País / mercado | 1 pago | 3 cuotas (importe de cada cuota) | Total con 3 cuotas |
-|---|---:|---:|---:|
-| Chile (CLP) | 399.900 | 139.900 | 419.700 |
-| Argentina (ARS) | 399.000 | 139.900 | 419.700 |
-| Otro país (USD) | 419 | 147 | 441 |
+| País / mercado | 1 pago | 2 cuotas (cada una) | 3 cuotas (cada una) | Total financiado |
+|---|---:|---:|---:|---:|
+| Chile (CLP) | 399.900 | 209.850 | 139.900 | 419.700 |
+| Argentina (ARS) | 399.000 | 209.850 | 139.900 | 419.700 |
+| Otro país (USD) | 419 | 220,50 | 147 | 441 |
+
+**Criterio:** para 2 cuotas se conserva el recargo porcentual que ya tiene 3 cuotas en cada mercado. Por eso ambos planes financiados tienen exactamente el mismo total. Los recargos respecto del pago único son, respectivamente, 4,95 %, 5,19 % y 5,25 %.
 
 **Fuentes cotejadas:**
 - [Documento de trabajo FP2027](https://docs.google.com/document/d/1MqkeEdS9RS9hkMWw0CwAbykkKd7D-l667brhnkOufPw/edit), sección 9.2: CLP y USD.
 - [Dossier público FP2027](https://drive.google.com/file/d/142hHbwOIfBmINAMQIyIB3xh0HgQ4i4Lm/view): CLP y USD.
 - [Dossier Argentina — 3 cuotas](https://drive.google.com/file/d/1GNqTMqkVymMYuYu_tOcVitrLejde9xzL/view): ARS.
 
-**Datos transmitidos:** el formulario envía la opción de país escogida, nombre, apellido, **correo electrónico**, WhatsApp, la moneda determinada para ese mercado y **1** o **3** como cantidad de cuotas. No envía importes monetarios ni procesa pagos. El backend mantiene los mismos nombres de parámetros y la URL `/exec` existente.
+**Datos transmitidos:** el formulario envía la opción de país escogida, nombre, apellido, **correo electrónico**, WhatsApp, la moneda determinada para ese mercado y **1**, **2** o **3** como cantidad de cuotas. No envía importes monetarios ni procesa pagos. El backend mantiene los mismos nombres de parámetros y la URL `/exec` existente.
 
 ## Hoja de destino
 
@@ -52,7 +54,7 @@ El servidor escribe:
 - correo electrónico (columna **Q**, tras las 16 columnas originales, sin reordenarlas);
 - el WhatsApp normalizado en formato `+código número` (solo una copia);
 - **Confirmación WhatsApp = Coinciden** y **Verificación externa = No realizada**;
-- moneda USD, ARS o CLP y 1 o 3 cuotas;
+- moneda USD, ARS o CLP y 1, 2 o 3 cuotas;
 - **Estado inscripción = Recibida**, **Estado pago = Pendiente**;
 - origen y consentimiento.
 
@@ -77,13 +79,13 @@ Se ha preparado el código de correo transaccional, con guía completa en [apps-
 
 Estructura creada en el mismo Google Sheets:
 - `Inscripciones web`: R–T seguimiento del primer correo, U–V seguimiento de confirmación de pago total; Emma Rioseco tiene su correo recuperado de los eventos de mentoría e incorporado a Q2, R2 = Pendiente.
-- `Configuración pagos FP2027`: ruta Chile / Argentina / Otro país (Western Union); instrucciones de pago y habilitación restringida. Los tres mercados comienzan con D = No; en F2 va la fecha oficial de inicio.
-- `Plan pagos FP2027`: tres fechas propuestas, validación de aprobación humana, abonos acreditados y recordatorios.
+- `Configuración pagos FP2027`: ruta Chile / Argentina / Otro país (Western Union); instrucciones de pago y habilitación restringida. Los tres mercados comienzan con D = No; en F2 va el límite exclusivo de pago (15/01/2027).
+- `Plan pagos FP2027`: dos o tres fechas propuestas, validación de aprobación humana, abonos acreditados y recordatorios.
 - `Historial correo FP2027`: auditoría de cada intento.
 
 **No habrá envíos antes de** completar datos de pago verificados en columna C, cambiar D = Sí para el mercado correspondiente, instalar el disparador y autorizar `MailApp` desde Apps Script. El envío real depende de esos pasos manuales.
 
-Secuencia: aviso inicial de 1 pago / 3 cuotas → respuesta del alumno con tres fechas → revisión humana y aprobación antes del inicio de clases → correo de fechas aceptadas → recordatorios una vez por cuota → confirmación final tras acreditación completa. La autorización de pagos, el examen de comprobantes y la confirmación de fechas no son automáticos.
+Secuencia: aviso inicial de 1 pago / 2 cuotas / 3 cuotas → respuesta con dos o tres fechas según modalidad → revisión humana y aprobación con fecha límite exclusiva 15/01/2027 → correo de fechas aceptadas → recordatorios por cuota → confirmación final tras acreditación completa. El backend necesita desplegarse en Apps Script para aceptar la modalidad 2; publicar únicamente la interfaz antes de actualizarlo no es suficiente.
 
 ## Seguridad y experiencia
 
@@ -100,7 +102,7 @@ Secuencia: aviso inicial de 1 pago / 3 cuotas → respuesta del alumno con tres 
 - [index.html](./index.html): página y formulario.
 - [inscripcion.js](./inscripcion.js): validación de campos y envío.
 - [inscripcion.css](./inscripcion.css): estilos editoriales del formulario.
-- [precios.css](./precios.css): estilos responsivos de las dos tarjetas de tarifas.
+- [precios.css](./precios.css): estilos responsivos de las tres tarjetas de tarifas.
 - [tarifas-pais.js](./tarifas-pais.js): asociación de país, moneda y cantidad de cuotas.
 - [apps-script/Code.gs](./apps-script/Code.gs): receptor para Google Sheets.
 - [solicitar-informacion.html](./solicitar-informacion.html): alternativa de contacto que continúa usando el sistema anterior.
