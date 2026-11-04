@@ -112,7 +112,7 @@ function fpRegister_(p) {
   const currency = String(p.moneda || "");
   const installments = String(p.cuotas || "");
   if (!FP_CURRENCIES.includes(currency) ||
-      !["1", "3"].includes(installments)) throw new Error("FORM_INVALID");
+      !["1", "2", "3"].includes(installments)) throw new Error("FORM_INVALID");
   if (p.consentimiento !== "si") throw new Error("CONSENT_REQUIRED");
 
   const lock = LockService.getScriptLock();
@@ -207,20 +207,22 @@ const FP_MAIL_HISTORY_SHEET = "Historial correo FP2027";
 const FP_MAIL_PLAN_SHEET = "Plan pagos FP2027";
 const FP_MAIL_REPLY_TO = "valentina@escueladeflautistas.cl";
 const FP_MAIL_TIMEZONE = "America/Santiago";
+// Plazo exclusivo: el último día para abonar es el 14/01/2027.
+const FP_PAYMENT_DEADLINE_ISO = "2027-01-15";
 const FP_MAIL_MAX_PER_RUN = 10;
 
 const FP_MAIL_PRICES = {
   "Chile": {
     currency: "CLP — pesos chilenos", one: "CLP $399.900",
-    three: "CLP $139.900", total: "CLP $419.700"
+    two: "CLP $209.850", three: "CLP $139.900", total: "CLP $419.700"
   },
   "Argentina": {
     currency: "ARS — pesos argentinos", one: "ARS $399.000",
-    three: "ARS $139.900", total: "ARS $419.700"
+    two: "ARS $209.850", three: "ARS $139.900", total: "ARS $419.700"
   },
   "Otro país": {
     currency: "USD — dólares", one: "USD 419",
-    three: "USD 147", total: "USD 441"
+    two: "USD 220,50", three: "USD 147", total: "USD 441"
   }
 };
 
@@ -288,24 +290,29 @@ function fpCorreoPlantilla_(title, innerHtml) {
 
 function fpCorreoPago_(person, settings) {
   const price = FP_MAIL_PRICES[person.market];
-  const triple = person.installments === "3";
+  const quantity = Number(person.installments);
+  const split = quantity > 1;
+  const amount = quantity === 2 ? price.two : price.three;
   const subject = "Flautistas Protagonistas 2027 · " +
-    (triple ? "Tu calendario de tres pagos" : "Datos para tu pago") +
+    (split ? "Tu calendario de " + quantity + " pagos" : "Datos para tu pago") +
     " · " + person.id;
 
-  const modeText = triple ?
-    "3 cuotas de " + price.three + " cada una (total " + price.total + ")" :
+  const modeText = split ?
+    quantity + " cuotas de " + amount + " cada una (total " + price.total + ")" :
     "1 pago de " + price.one;
   const paymentText = settings.instructions;
   const intro = "Hola, " + person.firstName + ":\n\n" +
     "Recibimos tu inscripción a Flautistas Protagonistas 2027.\n\n" +
     "Modalidad elegida: " + modeText + ".\n";
-  const commitment = triple ?
-    "\nResponde este correo con las tres fechas en que te comprometes " +
-    "a pagar (DD/MM/AAAA):\nPrimera cuota:\nSegunda cuota:\nTercera cuota:\n" +
+  const requestDates = "Primera cuota: DD/MM/AAAA\nSegunda cuota: DD/MM/AAAA\n" +
+    (quantity === 3 ? "Tercera cuota: DD/MM/AAAA\n" : "");
+  const commitment = split ?
+    "\nResponde este correo con las " + quantity + " fechas en que te comprometes " +
+    "a pagar (DD/MM/AAAA):\n" + requestDates +
+    "Puedes proponer las fechas antes de realizar la primera transferencia.\n" +
     "Revisaré las fechas y te confirmaré el calendario.\n" : "";
-  const conditions = "\nEl programa debe estar completamente abonado " +
-    "antes del comienzo de las clases.\n" +
+  const conditions = "\nEl programa debe estar completamente abonado antes " +
+    "del 15 de enero de 2027 (último día: 14 de enero).\n" +
     "Datos de pago (" + person.market + " — " + settings.method + "):\n" +
     paymentText + "\n\nCuando realices un pago, responde a este correo " +
     "con el comprobante para verificarlo. La recepción de la inscripción " +
@@ -313,13 +320,16 @@ function fpCorreoPago_(person, settings) {
     "\nEscuela de Flautistas";
   const body = intro + commitment + conditions;
 
-  const safeMode = fpEscaparHtml_(modeText);
-  const datesHtml = triple ?
-    '<p><strong>Responde este correo con las tres fechas de pago:</strong></p>' +
+  const dateRows = [
+    "Primera cuota: DD/MM/AAAA", "Segunda cuota: DD/MM/AAAA"
+  ].concat(quantity === 3 ? ["Tercera cuota: DD/MM/AAAA"] : []);
+  const datesHtml = split ?
+    '<p><strong>Responde con las ' + quantity +
+    ' fechas de pago:</strong></p>' +
     '<p style="padding:15px;background:#F7F5F2;border-left:3px solid #E31C23;">' +
-    'Primera cuota: DD/MM/AAAA<br>Segunda cuota: DD/MM/AAAA<br>' +
-    'Tercera cuota: DD/MM/AAAA</p>' +
-    '<p>Revisaré las fechas y te confirmaré el calendario.</p>' : "";
+    dateRows.join("<br>") + '</p>' +
+    '<p>Puedes indicarme las fechas antes de la primera transferencia. ' +
+    'Las revisaré y te confirmaré el calendario.</p>' : "";
 
   const instructions = fpEscaparHtml_(paymentText).replace(/\r?\n/g, "<br>");
   const inside = '<p>Hola, ' + fpEscaparHtml_(person.firstName) + ':</p>' +
@@ -328,9 +338,9 @@ function fpCorreoPago_(person, settings) {
     '<div style="color:#E31C23;font:bold 11px Arial,sans-serif;' +
     'letter-spacing:1px;">MODALIDAD ELEGIDA</div>' +
     '<div style="font:500 21px/1.4 Georgia,serif;margin-top:9px;">' +
-    safeMode + '</div></div>' + datesHtml +
+    fpEscaparHtml_(modeText) + '</div></div>' + datesHtml +
     '<p><strong>El programa debe estar completamente abonado antes del ' +
-    'comienzo de las clases.</strong></p>' +
+    '15 de enero de 2027 (último día: 14 de enero).</strong></p>' +
     '<p><strong>Datos de pago · ' + fpEscaparHtml_(person.market) +
     ' · ' + fpEscaparHtml_(settings.method) + '</strong></p>' +
     '<p style="padding:15px;border:1px solid #D8D0C6;background:#FFFFFF;">' +
@@ -389,10 +399,10 @@ function fpSincronizarPlanesCorreo_(book) {
       const email = String(row[16] || "").trim();
       if (!id || existing.has(id) || !fpEmailValido_(email)) return;
       const cuotas = String(row[9] || "").trim();
-      if (cuotas !== "1" && cuotas !== "3") return;
+      if (!["1", "2", "3"].includes(cuotas)) return;
       plans.appendRow([
         id, email, String(row[4] || ""), cuotas, "", "", "", "No",
-        "Pendiente", cuotas === "3" ? "Pendiente" : "No aplica",
+        "Pendiente", cuotas !== "1" ? "Pendiente" : "No aplica",
         cuotas === "3" ? "Pendiente" : "No aplica",
         "", "", "", "", ""
       ]);
@@ -421,7 +431,7 @@ function fpEnviarCorreosIniciales_(book, configs, quota) {
     if (!person.id || !person.firstName ||
         !fpEmailValido_(person.email) ||
         !FP_MAIL_PRICES[person.market] ||
-        (person.installments !== "1" && person.installments !== "3") ||
+        !["1", "2", "3"].includes(person.installments) ||
         String(row[14] || "") !== "Sí" ||
         String(row[8] || "") !== FP_MAIL_PRICES[person.market].currency) {
       fpCorreoRevisar_(sheet, rowIndex,
