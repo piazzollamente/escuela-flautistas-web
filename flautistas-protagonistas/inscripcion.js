@@ -26,7 +26,6 @@
   const fallback = document.getElementById("formFallback");
   const lead = document.getElementById("registroLead");
   const endpointReady = /^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(endpoint);
-  let readinessToken = "";
 
   // Se normalizan espacios y separadores para que +56 9 ... y +569... coincidan.
   function normalizePhone(value) {
@@ -115,16 +114,6 @@
   window.addEventListener("message", function (event) {
     if (!eventIsTrusted(event)) return;
     const data = event.data;
-    // No mostrar el formulario hasta confirmar que Apps Script almacena email.
-    if (data && data.source === "fp2027-servicio" &&
-        data.version === "cuotas-2-v1" && readinessToken &&
-        data.token === readinessToken) {
-      form.hidden = false;
-      if (lead) lead.hidden = false;
-      if (fallback) fallback.hidden = true;
-      registerButton.disabled = false;
-      return;
-    }
     if (!pending || !data || data.source !== "fp2027-inscripcion" ||
         data.solicitudId !== pending.id) return;
 
@@ -201,16 +190,12 @@
     });
   });
 
-  // Hasta que la propietaria despliegue Apps Script con soporte de email,
-  // mantener la alternativa de contacto para no aceptar datos que se perderían.
-  form.hidden = true;
-  if (lead) lead.hidden = true;
-  if (fallback) fallback.hidden = false;
-  registerButton.disabled = true;
-
-  if (endpointReady) {
-    readinessToken = createRequestId();
-    iframe.src = endpoint + "?accion=comprobar_correo&token=" +
-      encodeURIComponent(readinessToken) + "&capacidad=2";
-  }
+  // Mostrar el formulario cuando exista una URL /exec configurada.
+  // No depender de un iframe externo para la visibilidad: Safari puede bloquearlo.
+  // La recepción real sigue requiriendo una respuesta confirmada de Apps Script
+  // con registrationId y emailCaptured=true; el servidor valida los datos.
+  form.hidden = !endpointReady;
+  if (lead) lead.hidden = !endpointReady;
+  if (fallback) fallback.hidden = endpointReady;
+  registerButton.disabled = !endpointReady;
 })();
